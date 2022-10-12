@@ -76,12 +76,14 @@ We define $g_{i}\left(\cdot, \cdot\right)$ as the system inclusion function, whe
 
 We now suppose that an individual $j$ included in system $i$ has an observed statistics $Y_{i,j}$. We suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$ where $F_{Y_i}$ will be continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
 
-The key to the Full House Model is connecting talent values $X$ with observed statistics $Y$. To do this we assume that we can form pairs $(Y_{i,(j)}, X_{i,(N_i-n_i+j))})$, $j = 1,\ldots,n_i$. \textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
+The key to the Full House Model is connecting talent values $X$ with observed statistics $Y$. To do this we assume that we can form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, $j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that corresponds to the selected components.  %\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
 
 \bigskip
-We now demonstrate how the Full House Model works in a parametric setting. Consider the pair $(Y_{i,(j)}, X_{i,(N_i-n_i+j)})$ (\textcolor{red}{Needs to be more general, this currently corresponds to the case where all the highest latent aptitudes are in the system.}) and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous parametric family indexed by unknown parameter $\theta_{i},$ and let $F_{Y_i}(\cdot \mid \theta_i)$ be a parametric CDF with parameter $\theta_i \in \mathbb{R}^{p_{Y_i}}$. We can estimate $\theta_i$ with $\hat{\theta_i}$ and plug the estimator into the CDF $F_{Y}(\cdot \mid \hat{\theta_i})$.
+We now demonstrate how the Full House Model works in a parametric setting. Consider the pair $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ 
+%(\textcolor{red}{Needs to be more general, this currently corresponds to the case where all the highest latent aptitudes are in the system.})
+and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous parametric family indexed by unknown parameter $\theta_{i},$ and let $F_{Y_i}(\cdot \mid \theta_i)$ be a parametric CDF with parameter $\theta_i \in \mathbb{R}^{p_{Y_i}}$. We can estimate $\theta_i$ with $\hat{\theta_i}$ and plug the estimator into the CDF $F_{Y}(\cdot \mid \hat{\theta_i})$.
 
-In order to connect the  $Y_{i,(j)}$ and $X_{i,(N_i-n_i+j)}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
+In order to connect the  $Y_{i,(j)}$ and $X_{i,(r(N_i, n_i, j))}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
 $$
 \begin{aligned}
 F_{Y_i}\left(Y_{i,(j)} \mid \theta_i\right) & \sim U_{i,(j)}, & & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
@@ -92,7 +94,7 @@ where $\approx$ means approximately distributed, $\sim$ means distributed as, $U
 
 We now connect the order statistics to the underlying talent distribution that comes from a population with $N_i \geq n_i$ observations when $F_{X}$ is known. This connection is established with 
 \begin{equation} \label{eq:trueparX}
-F_{X_{i, (N_i-n_i+j)}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \theta_i\right)\right)\right) \sim F_{X_{i, (N_i-n_i+j)}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = X_{i, (N_i-n_i+j)}.
+F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \theta_i\right)\right)\right) \sim F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = X_{i, (r(N_i, n_i, j))}.
 \end{equation}
 We estimate the above with
 %$$
@@ -100,37 +102,37 @@ We estimate the above with
 %$$
 %When $r(N_i, n_i, j) = N_i - n_i + j$, $j = 1, \dots, n_i$, as in our application where the most talented baseball players are assumed to be in the MLB, then this relation becomes
 \begin{equation} \label{eq:parestX}
-	F_{X_{i, (N_i - n_i + j)}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \hat{\theta}_i\right)\right)\right) \approx F_{X_{i, (N_i - n_i + j)}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = \widehat{X}_{i, (N_i - n_i + j)}.
+	F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \hat{\theta}_i\right)\right)\right) \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = \widehat{X}_{i, (r(N_i, n_i, j))}.
 \end{equation}
-Similarly, we can obtain $Y$ from $X$. First note that $F_X\left(X_{i, (N_i-n_i+j)}\right) \sim \text{Beta}(N_i-n_i+j, n_i-j+1)$ for $j = 1,\ldots,n_i$ where, for simplicity, we we denote $V(i,j) \overset{d}{=} \text{Beta}(N_i-n_i+j, n_i-j+1)$. Now, 
+Similarly, we can obtain $Y$ from $X$. First note that $F_X\left(X_{i, (r(N_i, n_i, j))}\right) \sim \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$ for $j = 1,\ldots,n_i$ where, for simplicity, we we denote $V(i,j) \overset{d}{=} \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$. Now, 
 \begin{equation} \label{eq:trueparY}
- F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(X_{i, (N_i-n_i+j)}\right)\right) | \theta_i\right) = Y_{i, (j)},
+ F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(X_{i, (r(N_i, n_i, j))}\right)\right) | \theta_i\right) = Y_{i, (j)},
 \end{equation}
-where we estimate the above with $F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(\widehat{X}_{i, (N_i-n_i+j)}\right)\right) | \hat{\theta}_i\right) = \widehat{Y}_{i, (j)}$ for $j = 1,\ldots,n_i$.
+where we estimate the above with $F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(\widehat{X}_{i, (r(N_i, n_i, j))}\right)\right) | \hat{\theta}_i\right) = \widehat{Y}_{i, (j)}$ for $j = 1,\ldots,n_i$.
 
 
 \bigskip\bigskip
 \textcolor{red}{Not sure where cross-contextual comparisons are needed.} We can now reverse engineer the process above to obtain estimated statistics in another context.
-Consider the the pair $(Y_{i,(j)}, X_{i,(N_i-n_i+j)})$ in the $i$th population. We first put the aptitude value $X_{i,(N_i-n_i+1)}$ obtained by \eqref{eq:parestX} in a new population $m$ and reverse the process to obtain the hypothetical statistics in system $m$, which we will denote as $Y_{i,j,m}$. %The distribution $F_X$ is known. 
+Consider the the pair $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ in the $i$th population. We first put the aptitude value $X_{i,(r(N_i, n_i, j))}$ obtained by \eqref{eq:parestX} in a new population $m$ and reverse the process to obtain the hypothetical statistics in system $m$, which we will denote as $Y_{i,j,m}$. %The distribution $F_X$ is known. 
 More formally, $Y_{i,j,m}$ are computed as follows when baseball statistics are estimated parametrically,
 \begin{equation} \label{eq:parrev}
 	\widehat{Y}_{i,j,m} = F_{Y_{m}}^{-1} \left( F^{-1}_{U_{m, (l_{i,j,m})}}
-\left(F_{X_{m, (N_m - n_m + l_{i,j,m}))}}\left(\widehat{X}_{i, (N_i-n_i+j)}  \right) \right)| \hat{\theta}_m\right),
+\left(F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(\widehat{X}_{i, (r(N_i, n_i, j))}  \right) \right)| \hat{\theta}_m\right),
 \end{equation}
-where $l_{i,j,m}$ is the rank of $\widehat{X}_{i,(N_i-n_i+j)}$ among the values
+where $l_{i,j,m}$ is the rank of $\widehat{X}_{i,(r(N_i, n_i, j))}$ among the values
 $$
-\left\{\widehat{X}_{i,(N_i-n_i+j)}, \widehat{X}_{m,\left(N_m-n_m+t)\right)}: t=1, \ldots, n_{m}\right\}.
+\left\{\widehat{X}_{i,(r(N_i, n_i, j))}, \widehat{X}_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\}.
 $$
 The estimates \eqref{eq:parrev} correspond to 
 \begin{equation} \label{eq:truparY}
 	Y_{i,j,m} = F_{Y_{m}}^{-1} \left( F^{-1}_{U_{m, (l_{i,j,m})}}
-\left(F_{X_{m, (N_m - n_m + l_{i,j,m})}}\left(X_{i, (N_i - n_i + j)} \right) \right)\right),
+\left(F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(X_{i, (r(N_i, n_i, j))} \right) \right)\right),
 \end{equation}
-where $l_{i,j,m}$ is the rank of $X_{i,(N_i-n_i+j)}$ among the values
-$
-\left\{X_{i,(N_i-n_i+j)}, X_{m,\left(N_m-n_m+t)\right)}: t=1, \ldots, n_{m}\right\},
-$
-and $X_{i,(N_i-n_i+j)}$ is computed via \eqref{eq:trueparX}.
+where $l_{i,j,m}$ is the rank of $X_{i,(r(N_i, n_i, j))}$ among the values
+$$
+\left\{X_{i,(r(N_i, n_i, j))}, X_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\},
+$$
+and $X_{i,(r(N_i, n_i, j))}$ is computed via \eqref{eq:trueparX}.
 
 
 
