@@ -83,7 +83,7 @@ we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_
 
 The key to the Full House Model is connecting latent aptitudes $X$ with observed statistics $Y$. 
 To achieve this we assume that we can form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
-$j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system i. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then the highest observed statistics $Y_{i,j}$ in system i will be assumed to have the highest latent aptitudes in population i. 
+$j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system i. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then the highest observed statistics $Y_{i,j}$ in system i will be assumed to have the highest latent aptitudes in population $i$. 
 
 %\textcolor{red}{I am not sure what r() is, this needs to be stated more clearly.} 
 %\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
@@ -209,33 +209,36 @@ If we assume
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-
-Then 
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}
+  = \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
 \end{align*}
 \end{lemma}
 
 \begin{proof}
 	\begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(F_X(x)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(F_X(x)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
 	&= \int_{-\infty}^{+\infty} (F_X(x)^{N_2\frac{n_1}{n_2}} - F_X(x)^{N_1}) \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
 	&= \int_0^1 t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
-	&= \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}
+	&= \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2},
 \end{align*}
-
 where 
 \begin{align*}
 	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
 	&= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-	&= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x)
+	&= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
 \end{align*}
 
 \end{proof}
+
+It is interesting to note that the probability of paradox $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$.
+
+
+
 
 In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 1000 Monte Carlo iterations of our simulation are performed and we compute the mean of the frequency. 
 
@@ -255,6 +258,15 @@ Prob from simulation & 0.10084 & 0.200309  \\
 \label{Tab:simulation}
 \end{table}
 
+
+
+
+
+
+
+
+
+
 \subsection*{Example: Uniform distributions}
 
 We will assume
@@ -273,8 +285,11 @@ Based on the results above, we have
 	&= \int_{0}^{1}\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy \ N_2 x^{N_2-1}\ dx \\
 	&= \int_{0}^{1}\int_{x}^{((1+\delta) x^{\frac{N_2}{n_2}})^\frac{n_1}{N_1}} N_1 y^{N_1-1}\ dy \ N_2 x^{N_2-1} \ dx \\
 	&= \int_{0}^{1} (((1+\delta)x^{\frac{N_2}{n_2}})^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
-	& = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}
+	& = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
 	\end{align*}
+Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
+
+
 
 \end{document}
 
