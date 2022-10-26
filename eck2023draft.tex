@@ -45,6 +45,7 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{defn}[theorem]{Definition}
 
 
 \title{Foundations of Full House Methodology}
@@ -203,7 +204,7 @@ Let $h_{i,k}(\fatterdot) = (g_i \circ f_k)(\fatterdot)$ when such an operation i
 
 
 
-\begin{lemma}
+\begin{lemma} \label{lem:samedist}
 If we assume 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
@@ -290,6 +291,54 @@ Based on the results above, we have
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
 
 
+
+\subsection*{Stochastic dominance}
+
+
+\begin{defn}
+We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\epsilon > 0$, 
+$$
+  \Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon
+$$
+for all $y$ and 
+$$
+  \Prob(Y_2 \leq y) < \Prob(Y_1 \leq y) \geq \Prob(Y_2 \leq y) + \varepsilon
+$$
+for some $y$.
+\end{defn}
+
+
+\begin{lemma}
+Suppose that the system inclusion mechanism is $g(X_{i,j}) = 1(X_{i,j} > X_{i, N_i - n_i + 1})$ where 
+\begin{align*}
+  Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+and $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\epsilon > 0$. Then,
+\begin{equation} \label{eq:paradox2}
+  \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant implies that 
+$$
+  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} \leq \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
+$$
+so that 
+$$
+   F_X^{-1}\left(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}}(X_{2,(N_2)})\right) \leq 
+   h_{1,2}(X_{2,(N_2)}) \leq 
+   F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
+$$
+\end{proof}
+In combination with Lemma~\ref{lem:samedist} and the proof of Lemma~\ref{lem:samedist}, the first inequality implies that 
+$$
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+  \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
+$$
+This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}.
 
 \end{document}
 
