@@ -338,23 +338,23 @@ Thus,
 Putting it all together yields the second inequality of \eqref{eq:paradox2}.
 \end{proof}
 
-\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and we will assume that
+\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
 \begin{align*}
   Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
   Y_{2,j} &\sim U(\varepsilon,1+\varepsilon), \qquad j = 1,\ldots,n_2, \\
   X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-for some $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability directly. We have,
-% Needs fixing
+where $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability. The setup of this Full House Model gives $h_{1,2}(x) = (x^{N_2/n_2} + \varepsilon)^{n_1/N_1}$. This then gives,
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
   &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
   &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
-  &= \int_{0}^{1}\left[\int_{x}^{((1+\delta) x^{\frac{N_2}{n_2}})^\frac{n_1}{N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
-  &= \int_{0}^{1} (((1+\delta)x^{\frac{N_2}{n_2}})^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
-  & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
+  &= \int_{0}^{1}\left[\int_{x}^{(x^{N_2/n_2} + \varepsilon)^{n_1/N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
+  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
+  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} \ N_2 x^{N_2-1}\ dx  - \frac{N_2}{N_1 + N_2} \\ 
   \end{align*}
-Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
+\textbf{Not sure if this will work out, and if it does we may be able to avoid the Taylor expansion in the previous Lemma}  
+%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
 
 
 
