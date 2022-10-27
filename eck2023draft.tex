@@ -205,12 +205,12 @@ Let $h_{i,k}(\fatterdot) = (g_i \circ f_k)(\fatterdot)$ when such an operation i
 
 
 \begin{lemma} \label{lem:samedist}
-If we assume 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
+and that $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
@@ -236,7 +236,7 @@ where
 
 \end{proof}
 
-It is interesting to note that the probability of paradox $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$.
+It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$.
 
 
 
@@ -268,77 +268,96 @@ Prob from simulation & 0.10084 & 0.200309  \\
 
 
 
-\subsection*{Example: Uniform distributions}
-
-We will assume
-\begin{align*}
-  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
-  Y_{2,j} &\sim U(0,1+\delta), \qquad j = 1,\ldots,n_2, \\
-  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $\delta > 0$.
-
-Based on the results above, we have
-
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-	&= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
-	&= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
-	&= \int_{0}^{1}\left[\int_{x}^{((1+\delta) x^{\frac{N_2}{n_2}})^\frac{n_1}{N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
-	&= \int_{0}^{1} (((1+\delta)x^{\frac{N_2}{n_2}})^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
-	& = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
-	\end{align*}
-Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
-
 
 
 \subsection*{Stochastic dominance}
 
 
 \begin{defn}
-We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\epsilon > 0$, 
+We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
 $
   \Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon
 $
 for all $y$ and 
 $
-  \Prob(Y_2 \leq y) < \Prob(Y_1 \leq y) \geq \Prob(Y_2 \leq y) + \varepsilon
+  \Prob(Y_2 \leq y) < \Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon
 $
 for some $y$.
 \end{defn}
 
 
-\begin{lemma}
-Suppose that the system inclusion mechanism is $g(X_{i,j}) = 1(X_{i,j} > X_{i, N_i - n_i + 1})$ where 
+\begin{lemma} \label{lem:weakstodom}
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, 
 \begin{align*}
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-and $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\epsilon > 0$. Then,
+and that $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$. Then,
 \begin{equation} \label{eq:paradox2}
-  \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
+\begin{split}
+  &\frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &\qquad\leq \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} - \frac{N_2}{N_1 + N_2}  + o(\varepsilon).
+\end{split}
 \end{equation}
 \end{lemma}
 
 \begin{proof}
-First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant implies that 
+First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
 $$
   \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} \leq \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
 $$
-so that 
+and this implies that 
 $$
    F_X^{-1}\left(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}}(X_{2,(N_2)})\right) \leq 
    h_{1,2}(X_{2,(N_2)}) \leq 
    F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
 $$
-\end{proof}
-In combination with Lemma~\ref{lem:samedist} and the proof of Lemma~\ref{lem:samedist}, the first inequality implies that 
+In combination with Lemma~\ref{lem:samedist} and the proof of Lemma~\ref{lem:samedist}, the first inequality yields  
 $$
   \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
 $$
-This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}.
+This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}. Now,
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &\qquad \leq \int_{-\infty}^{\infty}\left[\int_{x}^{F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(x)\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right)} f_{X_{1,(N_1)}}(y) dy\right] f_{X_{2,(N_2)}}(x) dx \\
+  &\qquad = \int_{-\infty}^{\infty}\left[\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} - F_{X}(x)^{N_1}\right] N_2F_{X}(x)^{N_2-1} f_X(x) dx \\
+  &\qquad = N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2}. \\
+\end{align*}
+A first-order Taylor expansion of $\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}$ gives, 
+$$
+  \left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} = \left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1} + o(\varepsilon).
+$$
+Thus, 
+\begin{align*}
+  &N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx \\
+    &\qquad = N_2\int_{-\infty}^{\infty}\left[\left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1}\right]F_{X}(x)^{N_2-1} f_X(x) dx + o(\varepsilon) \\
+    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon n_1N_2\int_{-\infty}^{\infty} F_X(x)^{N_2((n_1-1)/n_2 + 1) - 1}f_X(x) dx + o(\varepsilon) \\
+    &=\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
+\end{align*}
+Putting it all together yields the second inequality of \eqref{eq:paradox2}.
+\end{proof}
+
+\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and we will assume that
+\begin{align*}
+  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
+  Y_{2,j} &\sim U(\varepsilon,1+\varepsilon), \qquad j = 1,\ldots,n_2, \\
+  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+for some $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability directly. We have,
+% Needs fixing
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
+  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
+  &= \int_{0}^{1}\left[\int_{x}^{((1+\delta) x^{\frac{N_2}{n_2}})^\frac{n_1}{N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
+  &= \int_{0}^{1} (((1+\delta)x^{\frac{N_2}{n_2}})^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
+  & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
+  \end{align*}
+Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
+
+
+
 
 \end{document}
 
