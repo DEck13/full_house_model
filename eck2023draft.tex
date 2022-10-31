@@ -44,7 +44,7 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{prop}[theorem]{Proposition}
 \newtheorem{defn}[theorem]{Definition}
 
 
@@ -175,42 +175,67 @@ both occur. A central interest is evaluating the probability of such a paradox,
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
 \end{equation}
-As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$.
+As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following proposition.
 
 
-
-
-
-Consider the setting where $g_{i}\left(X_{i, j}, \mathbf{X}_{i,-j}\right) = 1\left(X_{i,j} \geq X_{i,(N_i-n_i + 1)}\right)$. Then \eqref{eq:trueparY} gives 
-$$
-  F_{Y_{i, (n_i)}}^{-1}\left(F_X\left(X_{i, (N_i)}\right) | \theta_i\right) = Y_{i, (n_i)} \quad \text{for} \; i = 1,2.
-$$
-Let $f_i(\fatterdot) = F_{Y_{i, (n_i)}}^{-1}\left(F_X\left(\fatterdot\right) | \theta_i\right)$ and let $g_i(\fatterdot) = f_i^{-1}(\fatterdot)$.
-%\begin{align*}
-%  f_i(\fatterdot) &= F_{Y_{i, (n_i)}}^{-1}\left( F_{V(i,n_i)}\left(F_X\left(\fatterdot\right)\right) | \theta_i\right),	\\
-%  g_i(\fatterdot) &= F_X^{-1}\left(F_{V(i,n_i)}^{-1}\left(F_{Y_{i,(n_i)}}\left(\fatterdot|\theta_i\right) \right) \right),
+%Consider the setting where system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$. Then \eqref{eq:trueparY} gives 
+%$$
+%  F_{Y_{i, (n_i)}}^{-1}\left(F_X\left(X_{i, (N_i)}\right) | \theta_i\right) = Y_{i, (n_i)} \quad \text{for} \; i = 1,2.
+%$$
+%Let $f_i(\fatterdot) = F_{Y_{i, (n_i)}}^{-1}\left(F_X\left(\fatterdot\right) | \theta_i\right)$ and let $g_i(\fatterdot) = f_i^{-1}(\fatterdot)$.
+%%%\begin{align*}
+%%%  f_i(\fatterdot) &= F_{Y_{i, (n_i)}}^{-1}\left( F_{V(i,n_i)}\left(F_X\left(\fatterdot\right)\right) | \theta_i\right),	\\
+%%%  g_i(\fatterdot) &= F_X^{-1}\left(F_{V(i,n_i)}^{-1}\left(F_{Y_{i,(n_i)}}\left(\fatterdot|\theta_i\right) \right) \right),
+%%%\end{align*}
+%This construction yields,
+%\begin{align*} 
+%  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+%  = \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_1\left(X_{1,(N_1)}\right) < f_2\left(X_{2,(N_2)}\right)\right).
 %\end{align*}
-This construction yields,
-\begin{align*} 
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_1\left(X_{1,(N_1)}\right) < f_2\left(X_{2,(N_2)}\right)\right).
-\end{align*}
-Let $h_{i,k}(\fatterdot) = (g_i \circ f_k)(\fatterdot)$ when such an operation is defined. Then, 
-\begin{align*} 
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, X_{1,(N_1)} < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-  &\qquad= \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right).
-\end{align*}
+%Let $h_{i,j}(\fatterdot) = (g_i \circ f_j)(\fatterdot)$ when such an operation is defined. Then, 
+%\begin{align*} 
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+%  = \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, X_{1,(N_1)} < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+%  &\qquad= \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right).
+%\end{align*}
 
 
-
-\begin{lemma} \label{lem:samedist}
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, 
+\begin{prop} \label{prop:rep}
+Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-and that $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+\begin{equation} \label{eq:pararep}
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+  = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right),
+\end{equation}
+where $h_{i,j}(\fatterdot) = (f_i^{-1} \circ f_j)(\fatterdot)$, 
+$f_i(\fatterdot) = F_{Y_{i, (n_i)}}^{-1}\left(F_{X_{i,(N_i)}}\left(\fatterdot\right)\right)$, 
+and both $f$ and $h$ exist.
+\end{prop}
+
+\begin{proof}
+If $f$ and $h$ exist, then we have
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &\qquad= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_{1}(X_{1,(N_1)}) < f_{2}(X_{2,(N_2)})\right) \\
+  &\qquad= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_{1}(X_{1,(N_1)}) < f_{2}(X_{2,(N_2)})\right) \\
+  &\qquad= \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right).
+\end{align*}
+Existance of $f_i$ follows directly from the existance of $F_Y^{-1}(y)$, and existance of $h_{i,j}$ follows directly from the existance of $f_i$ and the existance of $F_X^{-1}(x)$.
+\end{proof}
+
+
+\begin{lemma} \label{lem:samedist}
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
@@ -218,6 +243,7 @@ and that $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \end{lemma}
 
 \begin{proof}
+We can use the convenient representation of \eqref{eq:pararep} since the conditions of Proposition~\ref{prop:rep} hold. Thus, we have 
 	\begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
@@ -229,19 +255,17 @@ and that $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \end{align*}
 where 
 \begin{align*}
-	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-	&= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
+	h_{1,2}(x) 
+	= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
+	= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
 \end{align*}
-
 \end{proof}
 
-It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$.
+It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$ under the setup of Lemma~\ref{lem:samedist}. \\
 
 
 
-
-In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 1000 Monte Carlo iterations of our simulation are performed and we compute the mean of the frequency. 
+We verify Lemma~\ref{lem:samedist} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 1000 Monte Carlo iterations of our simulation are performed and we compute the mean of the frequency. 
 
 \begin{table}[htb!]
 \centering
@@ -264,15 +288,6 @@ Prob from simulation & 0.10084 & 0.200309  \\
 
 
 
-
-
-
-
-
-
-\subsection*{Stochastic dominance}
-
-
 \begin{defn}
 We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
 $
@@ -287,12 +302,12 @@ for some $y$.
 
 
 \begin{lemma} \label{lem:weakstodom}
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-and that $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$. Then,
+where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$. Then,
 \begin{equation} \label{eq:paradox2}
 \begin{split}
   &\frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -333,28 +348,28 @@ Thus,
   &N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx \\
     &\qquad = N_2\int_{-\infty}^{\infty}\left[\left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1}\right]F_{X}(x)^{N_2-1} f_X(x) dx + o(\varepsilon) \\
     &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon n_1N_2\int_{-\infty}^{\infty} F_X(x)^{N_2((n_1-1)/n_2 + 1) - 1}f_X(x) dx + o(\varepsilon) \\
-    &=\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
+    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
 \end{align*}
 Putting it all together yields the second inequality of \eqref{eq:paradox2}.
 \end{proof}
 
-\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
-\begin{align*}
-  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
-  Y_{2,j} &\sim U(\varepsilon,1+\varepsilon), \qquad j = 1,\ldots,n_2, \\
-  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability. The setup of this Full House Model gives $h_{1,2}(x) = (x^{N_2/n_2} + \varepsilon)^{n_1/N_1}$. This then gives,
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
-  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
-  &= \int_{0}^{1}\left[\int_{x}^{(x^{N_2/n_2} + \varepsilon)^{n_1/N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
-  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
-  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} \ N_2 x^{N_2-1}\ dx  - \frac{N_2}{N_1 + N_2} \\ 
-  \end{align*}
-\textbf{Not sure if this will work out, and if it does we may be able to avoid the Taylor expansion in the previous Lemma}  
-%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
+%\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
+%\begin{align*}
+%  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
+%  Y_{2,j} &\sim U(\varepsilon,1+\varepsilon), \qquad j = 1,\ldots,n_2, \\
+%  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
+%\end{align*}
+%where $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability. The setup of this Full House Model gives $h_{1,2}(x) = (x^{N_2/n_2} + \varepsilon)^{n_1/N_1}$. This then gives,
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+%  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
+%  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
+%  &= \int_{0}^{1}\left[\int_{x}^{(x^{N_2/n_2} + \varepsilon)^{n_1/N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
+%  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
+%  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} \ N_2 x^{N_2-1}\ dx  - \frac{N_2}{N_1 + N_2} \\ 
+%  \end{align*}
+%\textbf{Not sure if this will work out, and if it does we may be able to avoid the Taylor expansion in the previous Lemma}  
+%%%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
 
 
 
