@@ -393,7 +393,11 @@ Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n
 \subsection*{Note}
 
 
-Let $Y_1 \sim N(0, \sigma)$ and $Y_2 \sim N(2\sigma, \sigma)$. Let $a(y) = F_{Y_1}(y) - F_{Y_2}(y)$. Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)/2\sigma \right)$. \emph{This needs to be verified}.
+Let $Y_1 \sim N(0, \sigma)$ and $Y_2 \sim N(2\sigma, \sigma)$. Let 
+$$
+  a(y) = \frac{F_{Y_1}(y) - F_{Y_2}(y)}{2\sigma}.
+$$ 
+Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
 
 
 
