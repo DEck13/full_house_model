@@ -283,6 +283,67 @@ Prob from simulation & 0.10084 & 0.200309  \\
 \label{Tab:simulation}
 \end{table}
 
+\begin{lemma} \label{lem:samedistmin}
+Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+\begin{align*}
+	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
+  = \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2}.
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+We can use the convenient representation of \eqref{eq:pararep} since the conditions of Proposition~\ref{prop:rep} hold. Thus, we have 
+	\begin{align*}
+	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) = \Prob\left( X_{2,(1)} < X_{1,(1)}  < h_{1,2}\left(X_{2,(1)}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(1)}}(y)\ dy\right] \ f_{X_{2,(1)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (1-F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1-F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(1 - (1 - F_X(x))^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (1 - F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+	&= \int_{-\infty}^{+\infty} -((1 - F_X(x))^{N_2\frac{n_1}{n_2}} + (1-F_X(x))^{N_1}) \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+	&= \int_0^1 -(1 - t)^{\frac{n_1}{n_2}} + (1-t)^{\frac{N_1}{N_2}} \ dt \\
+	&= \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2},
+\end{align*}
+where 
+\begin{align*}
+	h_{1,2}(x) 
+	= F_X^{-1}(1-(F_Y(F_Y^{-1}((1 - F_X)^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
+	= F_X^{-1}(1 - (1 - F_X)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
+\end{align*}
+\end{proof}
+
+
+\begin{lemma}
+If we assume 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
+\begin{align*}
+	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) 
+  = .
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+	\begin{align*}
+	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} \frac{N_1 !}{(N_1 - k - 1)! \ k!} (F_X(y))^{N_1 -k-1}(1 - F_X(y))^{k}\ f_X(y)dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty} \sum_{t = N_1 - k}^{N_1} {{N_1} \choose j} \left((F_X(h_{1,2}(x)))^{j}(1 - F_X(h_{1,2}(x)))^{N_1 - j} -(F_X(x))^{j}(1 - F_X(x))^{N_1 - j} \right) dy \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+\end{align*}
+where 
+\begin{align*}
+	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
+	&= F^{-1}\left(I^{-1}(N_1 - k, k+1)I(n_1 - k, k+1)I^{-1}(n_2 - j, j+1)I_{F_X(X_2, (N_2-j))}(N_2 - j, j+1)\right)
+\end{align*}
+
+and $I_x(\alpha, \beta)$ is the regularized incompleted beta function. 
+\end{proof}
 
 
 
@@ -304,14 +365,15 @@ for some $y$.
 \begin{lemma} \label{lem:weakstodom}
 Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
-  Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
 where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$. Then,
 \begin{equation} \label{eq:paradox2}
 \begin{split}
   &\frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &\qquad\leq \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} - \frac{N_2}{N_1 + N_2}  + o(\varepsilon).
+  &\qquad\leq n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
+  %\frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} - \frac{N_2}{N_1 + N_2}  + o(\varepsilon).
 \end{split}
 \end{equation}
 \end{lemma}
@@ -319,7 +381,7 @@ where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is f
 \begin{proof}
 First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
 $$
-  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} \leq \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
+  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} = \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
 $$
 and this implies that 
 $$
@@ -337,20 +399,23 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
   &\qquad \leq \int_{-\infty}^{\infty}\left[\int_{x}^{F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(x)\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right)} f_{X_{1,(N_1)}}(y) dy\right] f_{X_{2,(N_2)}}(x) dx \\
   &\qquad = \int_{-\infty}^{\infty}\left[\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} - F_{X}(x)^{N_1}\right] N_2F_{X}(x)^{N_2-1} f_X(x) dx \\
-  &\qquad = N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2}. \\
+  &\qquad = \int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}N_2F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2} \\
+  &\qquad = \int_{0}^{1}\left(t^{1/n_2} + \varepsilon\right)^{n_1} dt - \frac{N_2}{N_1 + N_2} \\
+  &\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
 \end{align*}
-A first-order Taylor expansion of $\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}$ gives, 
-$$
-  \left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} = \left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1} + o(\varepsilon).
-$$
-Thus, 
-\begin{align*}
-  &N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx \\
-    &\qquad = N_2\int_{-\infty}^{\infty}\left[\left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1}\right]F_{X}(x)^{N_2-1} f_X(x) dx + o(\varepsilon) \\
-    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon n_1N_2\int_{-\infty}^{\infty} F_X(x)^{N_2((n_1-1)/n_2 + 1) - 1}f_X(x) dx + o(\varepsilon) \\
-    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
-\end{align*}
-Putting it all together yields the second inequality of \eqref{eq:paradox2}.
+
+%A first-order Taylor expansion of $\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}$ gives, 
+%$$
+%  \left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} = \left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1} + o(\varepsilon).
+%$$
+%Thus, 
+%\begin{align*}
+%  &N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx \\
+%    &\qquad = N_2\int_{-\infty}^{\infty}\left[\left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1}\right]F_{X}(x)^{N_2-1} f_X(x) dx + o(\varepsilon) \\
+%    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon n_1N_2\int_{-\infty}^{\infty} F_X(x)^{N_2((n_1-1)/n_2 + 1) - 1}f_X(x) dx + o(\varepsilon) \\
+%    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
+%\end{align*}
+%Putting it all together yields the second inequality of \eqref{eq:paradox2}.
 \end{proof}
 
 
@@ -390,14 +455,77 @@ Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n
 %%%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
 
 
-\subsection*{Note}
 
 
-Let $Y_1 \sim N(0, \sigma)$ and $Y_2 \sim N(2\sigma, \sigma)$. Let 
-$$
-  a(y) = \frac{F_{Y_1}(y) - F_{Y_2}(y)}{2\sigma}.
-$$ 
-Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
+
+
+\noindent\textbf{Example: Normal distributions}
+
+In this example, we demonstrate a case where Lemma~\ref{lem:weakstodom} applies. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
+\begin{align*}
+  Y_{1,j} &\sim N(\mu\sigma,\sigma^2), \qquad j = 1,\ldots,n_1, \\
+  Y_{2,j} &\sim N(0,\sigma^2), \qquad j = 1,\ldots,n_2, \\
+  X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
+\end{align*} 
+where $\mu \geq 0, \sigma > 0$. 
+
+It is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
+
+\begin{align*}
+	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-2\sigma)^2}{2\sigma^2}}dx\\
+	&= \int_{y-\sigma}^{y+\sigma} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\sigma)^2}{2\sigma^2}}dx
+\end{align*}
+
+Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\sigma)^2}{2\sigma^2}}$ is the density function for $N(\sigma, \sigma^2)$, then the maximam value of the difference between these two cumulative distribution function of normal distribution is achieved when $y = \sigma$.
+
+We can pick $\varepsilon = \varepsilon = \int_{0}^{2\sigma} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\sigma)^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Lemma~\ref{lem:weakstodom} are satisfied.
+
+% However, our setup allows for direct calculation of the paradox probability. 
+
+
+%Let $Y_1 \sim N(0, \sigma)$ and $Y_2 \sim N(2\sigma, \sigma)$. Let 
+%$$
+%  a(y) = \frac{F_{Y_1}(y) - F_{Y_2}(y)}{2\sigma}.
+%$$ 
+%Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
+
+From Proposition~\ref{prop:rep} and a bit of manipulation we have that 
+
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-c))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
+  &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})-c))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+  & = \int_{0}^{1}((\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})-c))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
+  &= \int_{0}^{1}((\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})-c))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+  &= \int_{-\infty}^{+\infty} \Phi(x-c)^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+  \end{align*}
+
+The first term can be integrated when $n_1 = n_2 = 1$: 
+
+We assume X and Y are independent random variables with $X \sim N(c,1)$ and Y a standard normal random variable. Then, 
+
+$$P\{X \leq Y \mid Y=w\}=P\{X \leq w\}=\Phi\left(w-c\right)$$
+
+So, using the law of total probability, we get that
+
+$$P\{X \leq Y\}=\int_{-\infty}^{\infty} P\{X \leq Y \mid Y=w\} \phi(w) \mathrm{d} w=\int_{-\infty}^{\infty} \Phi\left(w-c\right) \phi(w) \mathrm{d} w .$$
+
+Now, $P\{X \leq Y\}=P\{X-Y \leq 0\}$ can be expressed in terms of $\Phi(\cdot)$ by noting that $X-Y \sim N\left(c, 1+1\right)$ and thus we get:
+
+$$\int_{-\infty}^{\infty} \Phi\left(w-c\right) \phi(w) \mathrm{d} w=\Phi\left(\frac{-c}{\sqrt{2}}\right)$$
+
+where
+
+\begin{align*}
+	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
+	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
+	&= F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-c))^{\frac{n_1}{N_1}})(x)
+	\end{align*}
+
+
+
 
 
 
