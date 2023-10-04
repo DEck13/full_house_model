@@ -49,7 +49,7 @@
 
 
 \title{Foundations of Full House Methodology}
-\author{}
+\author{Daniel J. Eck$^1$, Shen Yan$^1$\thanks{Daniel J. Eck (\url{dje13@illinois.edu}); email addresses: Shen Yan (\url{shenyan3@illinois.edu})}}
 
 \date{}
 
@@ -57,6 +57,28 @@
 
 \maketitle
 
+{\centering
+1. Department of Statistics, University of Illinois Urbana-Champaign \\}
+
+
+\begin{abstract}
+The Full House Methodology is an approach for computing era-adjusted or system-adjusted statistics that balances the size of the eligible population in each system with the component's performance via "versus their peers" in a specific system. We assume that each component has a latent aptitude that can be calculated from this balancing act provided the system inclusion mechanism for components of the system is known. Without making any assumptions about the distribution of the system's components, the components' distribution is well-established from the nonparametric probability distribution.
+
+\end{abstract}
+
+\section{Introduction}
+Several academics have attempted to develop methods that can correct for era or system biases. The starting place for the answer to the problem of comparing players across eras can be found in the work of Stephen Jay Gould. \cite{Gould96} suggested that the entire distribution of achievement, or ``full house of variation,'' is relevant when considering the achievements of baseball players across eras. This idea was also recognized as the starting plac	e for an answer by \cite{SM13} and \cite{SM16}. 
+
+\cite{BRL99, PPE11, SM13, SM16, PP20} provide several techniques to compare baseball players across eras, but they have fallen short in their objective and their results remain biased, as discussed in \cite{DE20} and \cite{DE20b}. In short, these previous attempts do not incorporate the evolving talent pool in calculations, which is necessary for understanding the changing distributions of achievement over time. The result is that existing methodologies produce a disproportionate number of players who began their career before baseball was integrated players in the rankings of baseball's greatest of all time. This era of baseball did not include a crucial population of eligible players. \cite{YZ16, meyer2021talents, campbell1990modeling} also develop methods for comparing components in historical popularity, educational attainment, and evaluation of employees. But they have similar problems as stated before and fail to account for the evolving talent pool.
+
+In some circumstances, such as test equating, it is not required to take into account an evolving talent pool. \cite{andersson2013performing} offers a collaborative framework for test equating and builds the cumulative density function using the kernel method. Nevertheless, they are unable to resolve the extrapolation issue in non-parametric estimation, and the distribution's tail is not given special consideration.
+
+Our Full House methodology directly incorporates the quality of the talent pool as a central modeling component. It offers metrics for assessing the performance of components in various eras or systems. With the application of educational attainment simulation, our Full House methodology reveals that the most talented students could perform worse than the other students who attend schools with lower mean scores. 
+
+The next section establishes the model setting and specifies the assumptions in our Full House methodology. Section 3 considers an intriguing paradox that the component with more talent underperforms the component with less talent. We compute the probability of this paradox under different scenarios. Section 4 discusses the application of Full House methodology for the educational attainment simulation. 
+
+
+\section{Model Setting}
 
 We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent aptitude 
 $X_{i,1}, \ldots, X_{i,N_i} \stackrel{\text { iid }}{\sim} F_{X}$. 
@@ -84,8 +106,7 @@ we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_
 
 The key to the Full House Model is connecting latent aptitudes $X$ with observed statistics $Y$. 
 To achieve this we assume that we can form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
-$j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then the highest observed statistics $Y_{i,j}$ in system i will be assumed to have the highest latent aptitudes in population $i$. 
-
+$j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then 
 %\textcolor{red}{I am not sure what r() is, this needs to be stated more clearly.} 
 %\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
 
@@ -164,7 +185,7 @@ $$
 $$
 and $X_{i,(r(N_i, n_i, j))}$ is computed via \eqref{eq:trueparX}.
 
-\section*{Paradoxes}
+\section{Paradoxes}
 
 
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. We define a paradox (or a Gould paradox) when 
@@ -334,7 +355,7 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
 	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} \frac{N_1 !}{(N_1 - k - 1)! \ k!} (F_X(y))^{N_1 -k-1}(1 - F_X(y))^{k}\ f_X(y)dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty} \sum_{t = N_1 - k}^{N_1} {{N_1} \choose j} \left((F_X(h_{1,2}(x)))^{j}(1 - F_X(h_{1,2}(x)))^{N_1 - j} -(F_X(x))^{j}(1 - F_X(x))^{N_1 - j} \right) dy \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty} \sum_{t = N_1 - k}^{N_1} {{N_1} \choose j} \left((F_X(h_{1,2}(x)))^{j}(1 - F_X(h_{1,2}(x)))^{N_1 - j} -(F_X(x))^{j}(1 - F_X(x))^{N_1 - j} \right) dy \\ &f_{X_{2,(N_2 - j)}}(x) \ dx \\
 \end{align*}
 where 
 \begin{align*}
@@ -424,15 +445,16 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
 \begin{align*}
   Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
   Y_{2,j} &\sim U(0,1+\delta), \qquad j = 1,\ldots,n_2, \\
-  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
+  X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
 \end{align*} 
 where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Lemma~\ref{lem:weakstodom} are satisfied. However, our setup allows for direct calculation of the paradox probability. From Proposition~\ref{prop:rep} and a bit of manipulation we have that 
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-  &= \int_{0}^{1}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-  &= \int_{0}^{1}\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy \ N_2 x^{N_2-1}\ dx \\
-  &= \int_{0}^{1}\int_{x}^{((1+\delta) x^{\frac{N_2}{n_2}})^\frac{n_1}{N_1}} N_1 y^{N_1-1}\ dy \ N_2 x^{N_2-1} \ dx \\
-  &= \int_{0}^{1} (((1+\delta)x^{\frac{N_2}{n_2}})^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
+  &= \int_{-\infty}^{+\infty} (((1+\delta)F_X(x)^{\frac{N_2}{n_2}})^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+  &= \int_{0}^{1} (1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
   & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
   \end{align*}
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
@@ -463,22 +485,22 @@ Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n
 
 In this example, we demonstrate a case where Lemma~\ref{lem:weakstodom} applies. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
 \begin{align*}
-  Y_{1,j} &\sim N(\mu,\sigma^2), \qquad j = 1,\ldots,n_1, \\
-  Y_{2,j} &\sim N(0,\sigma^2), \qquad j = 1,\ldots,n_2, \\
+  Y_{1,j} &\sim N(\mu_1,\sigma_1^2), \qquad j = 1,\ldots,n_1, \\
+  Y_{2,j} &\sim N(\mu_2,\sigma_2^2), \qquad j = 1,\ldots,n_2, \\
   X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
 \end{align*} 
-where $\mu \geq 0, \sigma > 0$. 
+where $\mu_1 \leq \mu_2, \sigma_1 > 0$ and $\sigma_2 >0$. 
 
-It is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
+Supposed $\sigma_1 = \sigma_2 = \sigma$, it is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
 
 \begin{align*}
-	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}dx\\
-	&= \int_{y-\frac{\mu}{2}}^{y+\frac{\mu}{2}} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu}{2})^2}{2\sigma^2}}dx
+	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu_1)^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu_2)^2}{2\sigma^2}}dx\\
+	&= \int_{y-\frac{\mu_2 - \mu_1}{2}}^{y+\frac{\mu_2 -\mu_1}{2}} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx
 \end{align*}
 
-Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu}{2})^2}{2\sigma^2}}$ is the density function for $N(\frac{\mu}{2}, \sigma^2)$, then the maximum value of the difference between these two cumulative distribution function of normal distribution is achieved when $y = \frac{\mu}{2}$.
+Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}$ is the density function for $N(\frac{\mu_2 +\mu_1}{2}, \sigma^2)$, then the maximum value of the difference between these two cumulative distribution function of the normal distribution is achieved when $y = \frac{\mu_2 + \mu_1}{2}$.
 
-We can pick $\varepsilon = \int_{0}^{\mu} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu}{2})^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Lemma~\ref{lem:weakstodom} are satisfied.
+We can pick $\varepsilon = \int_{\mu_1}^{\mu_2} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Lemma~\ref{lem:weakstodom} are satisfied.
 
 % However, our setup allows for direct calculation of the paradox probability. 
 
@@ -489,27 +511,22 @@ We can pick $\varepsilon = \int_{0}^{\mu} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac
 %$$ 
 %Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
 
-From Proposition~\ref{prop:rep} and a bit of manipulation we have that 
+From Proposition~\ref{prop:rep} and a bit of manipulation, we have that 
 
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
   &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
   &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
-  &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
-  & = \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})-\frac{\mu}{\sigma}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
-  &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})-\frac{\mu}{\sigma}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
-  &= \int_{-\infty}^{+\infty} \Phi(x-\frac{\mu}{\sigma})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
-  &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -X \leq - \frac{\mu}{\sigma}, \dots, Z_{1,n_1} -X \leq - \frac{\mu}{\sigma}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
+ &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+ & = \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
+  &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+  &= \int_{-\infty}^{+\infty} \Phi(x+\frac{\mu_2 - \mu_1}{\sigma})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+  &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx \\
   &- \frac{N_2}{N_1 + N_2}\\
-  &= n_2\mathbb{P}(Z_{1,1} -X \leq - \frac{\mu}{\sigma}, \dots, Z_{1,n_1}-X \leq - \frac{\mu}{\sigma}, Z_{2,1} -X\leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
-  &= n_2\mathbb{MVN}\left(x = \{- \frac{\mu}{\sigma}, \dots, - \frac{\mu}{\sigma}, 0, \dots, 0\}, \mu = \{0, \dots, 0\}, \Sigma =\begin{bmatrix}
-2 & 1 & \dots & 1\\
-1 & 2 & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & 1\\
-1 & \dots & 1 & 2\\
-\end{bmatrix}\right) - \frac{N_2}{N_1 + N_2}\\
-  \end{align*}
+  &= n_2\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1}-X \leq \frac{\mu_2 - \mu_1}{\sigma}, Z_{2,1} -X\leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
+  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
+ \end{align*}
   
 where
 
@@ -519,110 +536,170 @@ where
 	&= F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{\frac{n_1}{N_1}})(x)
 	\end{align*}
 
-and x and $\mu$ are $(n_1 + n_2 -1)$ dimensional vector. $\Sigma$ is $(n_1 + n_2 -1) * (n_1 + n_2 -1)$ dimensional matrix. The first $n_1$ elements of x is $-\frac{\mu}{\sigma}$ and the last $n_2-1$ elements are 0. 
+$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
+2 & 1 & \dots & 1\\
+1 & 2 & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & 1\\
+1 & \dots & 1 & 2\\
+\end{bmatrix}$$
 
-The following table shows the transformation from the integral to the cumulative density function of the multivariate normal distribution is valid. I think this table may not be put in the paper. I apply different $n_1, n_2, \frac{\mu}{\sigma}$ to the integral and the CDF of multivariate normal distribution. 
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
 
-\begin{table}[ht]
+Then when $\sigma_1 \neq \sigma_2$, we do not have a closed form for $\epsilon$ but we can calculate the probability of the paradox.
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
+  &= \int_{-\infty}^{+\infty} ((\Phi(\frac{(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+  & = \int_{0}^{1}(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
+  &= \int_{0}^{1}(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+  &= \int_{-\infty}^{+\infty} \Phi(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+  &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, \\
+  &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
+  &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
+  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
+%  &= n_2\mathbb{MVN}(x = \{\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0\}, \mu = \{0, \dots, 0\}, \\
+%  &\Sigma = \begin{bmatrix}
+%\frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
+%\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots & \vdots & \ddots &  & \vdots\\
+%\vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} & \vdots &  & \ddots & \vdots\\
+%\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
+%\frac{\sigma_2}{\sigma_1} & \hdots &  \hdots & \frac{\sigma_2}{\sigma_1} & 2 & 1 & \hdots & 1\\
+%\vdots & \ddots & & \vdots & 1 & \ddots & \ddots & \vdots\\
+%\vdots &  & \ddots & \vdots & \vdots & \ddots & \ddots & 1\\
+%\frac{\sigma_2}{\sigma_1} & \hdots &  \hdots & \frac{\sigma_2}{\sigma_1} & 1 & \hdots & 1 & 2\\
+%\end{bmatrix}) - \frac{N_2}{N_1 + N_2}\\
+\end{align*}
+  
+where
+
+\begin{align*}
+	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
+	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
+	&= F_X^{-1}((\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{\frac{n_1}{N_1}})(x)
+	\end{align*}
+
+
+$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
+	\Sigma_{11} & \Sigma_{12}\\
+	\Sigma_{21} & \Sigma_{22}\\
+\end{bmatrix}$$
+
+$\Sigma_{11} = \begin{bmatrix}
+\frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
+\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
+\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
+\end{bmatrix}, \Sigma_{12} = \Sigma_{21} = \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+\frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix}, \Sigma_{22} = \begin{bmatrix}
+2 & 1 & \hdots & 1\\
+1 & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & 1\\
+1 & \hdots & 1 & 2\\
+\end{bmatrix}$
+
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
+
+\section{Educational Attainment Simulation}
+
+Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which correspond to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to order scores from a normal distribution. The score distribution for each school is represented by the normal distribution. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is 10, which indicates the different levels of schools. Better schools have higher mean scores. When compared to other students, we wonder if the most talented primary student has lower scores with a larger mean of normal distribution. In other words, we wonder if the most talented primary student, who attends a better school, still underperforms the students who attend schools with lower mean scores. 
+
+100 Monte Carlo iterations of our simulation are performed. The results are depicted in Table \ref{Tab:compare}. Based on the results in Table \ref{Tab:compare}, the most talented students could perform worse than the other students who attend schools with lower mean scores. 
+
+\begin{table}[H]
 \centering
-\begin{tabular}{rrrrrrr}
-  \hline
- & n1 & n2 & u\_sigma & Integral & CDF  & diff \\ 
-  \hline
-1 & 1 & 1 & -2 & 0.921350 & 0.921350 & 0.000000 \\ 
-  2 & 1 & 1 & -1 & 0.760250 & 0.760250 & 0.000000 \\ 
-  3 & 1 & 1 & 0 & 0.500000 & 0.500000 & 0.000000 \\ 
-  4 & 1 & 1 & 1 & 0.239750 & 0.239750 & 0.000000 \\ 
-  5 & 1 & 1 & 2 & 0.078650 & 0.078650 & 0.000000 \\ 
-  6 & 2 & 2 & -2 & 0.956619 & 0.956619 & 0.000000 \\ 
-  7 & 2 & 2 & -1 & 0.804859 & 0.804859 & 0.000000 \\ 
-  8 & 2 & 2 & 0 & 0.500000 & 0.500000 & 0.000000 \\ 
-  9 & 2 & 2 & 1 & 0.195141 & 0.195141 & 0.000000 \\ 
-  10 & 2 & 2 & 2 & 0.043381 & 0.043381 & 0.000000 \\ 
-  11 & 3 & 3 & -2 & 0.970450 & 0.970447 & 0.000003 \\ 
-  12 & 3 & 3 & -1 & 0.829060 & 0.829057 & 0.000003 \\ 
-  13 & 3 & 3 & 0 & 0.500000 & 0.499992 & 0.000008 \\ 
-  14 & 3 & 3 & 1 & 0.170940 & 0.170938 & 0.000002 \\ 
-  15 & 3 & 3 & 2 & 0.029550 & 0.029549 & 0.000001 \\ 
-  16 & 4 & 4 & -2 & 0.977716 & 0.977706 & 0.000010 \\ 
-  17 & 4 & 4 & -1 & 0.845046 & 0.845025 & 0.000021 \\ 
-  18 & 4 & 4 & 0 & 0.500000 & 0.499920 & 0.000080 \\ 
-  19 & 4 & 4 & 1 & 0.154954 & 0.154939 & 0.000015 \\ 
-  20 & 4 & 4 & 2 & 0.022284 & 0.022279 & 0.000005 \\ 
-  21 & 5 & 5 & -2 & 0.982150 & 0.982127 & 0.000023 \\ 
-  22 & 5 & 5 & -1 & 0.856685 & 0.856647 & 0.000038 \\ 
-  23 & 5 & 5 & 0 & 0.500000 & 0.499711 & 0.000289 \\ 
-  24 & 5 & 5 & 1 & 0.143315 & 0.143257 & 0.000058 \\ 
-  25 & 5 & 5 & 2 & 0.017850 & 0.017835 & 0.000015 \\ 
-   \hline
-\end{tabular}
+		\begin{tabular}{cc}
+		\hline
+		 num of talent paradox happen & average of $\mu$ of dist that generate top 10 scores \\ 
+		 \hline
+		 3435 & 79.38269 \\
+		 2477 & 79.62781 \\
+		 3386 & 78.96648 \\
+		 37 & 78.26713 \\ 
+		 1995 & 79.67984 \\
+		 3498 & 79.59680 \\
+		 74852 & 78.81841 \\
+		 5272 & 79.00650 \\
+		 970 & 79.41571 \\
+		 302 & 79.58979 \\
+		 \hline
+		 \end{tabular}
+		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
+\label{Tab:compare}
 \end{table}
 
+%Now we consider the upper bound and lower bound of the integration term. 
+
+%First, we focus on the complementary cumulative distribution function of the normal distribution:
+%$$
+%\Phi^c(t)=P(Z>t)=\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} e^{-x^2 / 2} d x
+%$$
+
+%For the upper bound:
+%$$
+%\begin{aligned}
+%\Phi^c(t) & =\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} e^{-x^2 / 2} d x \\
+%& <\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} \frac{x}{t} e^{-x^2 / 2} d x \\
+%& =\frac{1}{\sqrt{2 \pi}} \frac{1}{t} e^{-t^2 / 2}
+%\end{aligned}
+%$$
+
+%For the lower bound:
+
+%Suppose
+
+%$$
+%g(t)=\Phi^c(t)-\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2}
+%$$
+
+%It is easy to show $g(t)$ is always positive. Then 
+
+%$$
+%\Phi^c(t)>\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2}
+%$$
+
+%Then 
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\ 
+%  &\geq \int_{-\infty}^{+\infty} (1-\frac{1}{\sqrt{2 \pi}} \frac{1}{t-\frac{\mu}{\sigma}} e^{-(t-\frac{\mu}{\sigma})^2 / 2})^{n_1} (n_2(1-\frac{1}{\sqrt{2 \pi}} \frac{1}{t} e^{-t^2 / 2})^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+%  \end{align*}
+
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\ 
+%  &\leq \int_{-\infty}^{+\infty} (1-\frac{1}{\sqrt{2 \pi}} \frac{t-\frac{\mu}{\sigma}}{(t-\frac{\mu}{\sigma})^2+1} e^{-(t-\frac{\mu}{\sigma})^2 / 2})^{n_1} (n_2(1-\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2})^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+%  \end{align*}
+
+%The integration term can be integrated when $n_1 = n_2 = 1$: 
+
+%We assume X and Y are independent random variables with $X \sim N(\mu,\sigma^2)$ and $Y \sim N(0,\sigma^2)$. Then, 
+
+%$$P\{X \leq Y \mid Y=w\}=P\{X \leq w\}=\Phi\left(\frac{w-\mu}{\sigma}\right)$$
+
+%So, using the law of total probability, we get that
+
+%$$P\{X \leq Y\}=\int_{-\infty}^{\infty} P\{X \leq Y \mid Y=w\} \phi(w) \mathrm{d} w=\int_{-\infty}^{\infty} \Phi\left(\frac{w-\mu}{\sigma}\right) \phi(w) \mathrm{d} w .$$
+
+%Now, $P\{X \leq Y\}=P\{X-Y \leq 0\}$ can be expressed in terms of $\Phi(\cdot)$ by noting that $X-Y \sim N\left(\mu, 2\sigma^2\right)$ and thus we get:
+
+%$$\int_{-\infty}^{\infty} \Phi\left(\frac{w-\mu}{\sigma}\right) \phi(w) \mathrm{d} w=\Phi\left(\frac{-\mu}{\sqrt{2}\sigma}\right)$$
 
 
-Now we consider the upper bound and lower bound of the integration term. 
+%$$
+%\int_{-\infty}^{\infty} \Phi(\frac{w-\mu}{\sigma})^2 \phi(w) d w=\Phi\left(\frac{-\mu}{\sqrt{1+\sigma^2}}\right)-2 T\left(\frac{-\mu}{\sqrt{1+\sigma^2}}, \frac{\sigma}{\sqrt{2+\sigma^2}}\right)
+%$$
 
-First, we focus on the complementary cumulative distribution function of the normal distribution:
-$$
-\Phi^c(t)=P(Z>t)=\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} e^{-x^2 / 2} d x
-$$
+%where $$
+%T(h, a)=\phi(h) \int_0^a \frac{\phi(h x)}{1+x^2} d x
+%$$
 
-For the upper bound:
-$$
-\begin{aligned}
-\Phi^c(t) & =\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} e^{-x^2 / 2} d x \\
-& <\frac{1}{\sqrt{2 \pi}} \int_t^{\infty} \frac{x}{t} e^{-x^2 / 2} d x \\
-& =\frac{1}{\sqrt{2 \pi}} \frac{1}{t} e^{-t^2 / 2}
-\end{aligned}
-$$
+\bibliography{Gould96.bib}
+\bibliographystyle{plainnat}
 
-For the lower bound:
-
-Suppose
-
-$$
-g(t)=\Phi^c(t)-\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2}
-$$
-
-It is easy to show $g(t)$ is always positive. Then 
-
-$$
-\Phi^c(t)>\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2}
-$$
-
-Then 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\ 
-  &\geq \int_{-\infty}^{+\infty} (1-\frac{1}{\sqrt{2 \pi}} \frac{1}{t-\frac{\mu}{\sigma}} e^{-(t-\frac{\mu}{\sigma})^2 / 2})^{n_1} (n_2(1-\frac{1}{\sqrt{2 \pi}} \frac{1}{t} e^{-t^2 / 2})^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
-  \end{align*}
-
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\ 
-  &\leq \int_{-\infty}^{+\infty} (1-\frac{1}{\sqrt{2 \pi}} \frac{t-\frac{\mu}{\sigma}}{(t-\frac{\mu}{\sigma})^2+1} e^{-(t-\frac{\mu}{\sigma})^2 / 2})^{n_1} (n_2(1-\frac{1}{\sqrt{2 \pi}} \frac{t}{t^2+1} e^{-t^2 / 2})^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
-  \end{align*}
-
-The integration term can be integrated when $n_1 = n_2 = 1$: 
-
-We assume X and Y are independent random variables with $X \sim N(\mu,\sigma^2)$ and $Y \sim N(0,\sigma^2)$. Then, 
-
-$$P\{X \leq Y \mid Y=w\}=P\{X \leq w\}=\Phi\left(\frac{w-\mu}{\sigma}\right)$$
-
-So, using the law of total probability, we get that
-
-$$P\{X \leq Y\}=\int_{-\infty}^{\infty} P\{X \leq Y \mid Y=w\} \phi(w) \mathrm{d} w=\int_{-\infty}^{\infty} \Phi\left(\frac{w-\mu}{\sigma}\right) \phi(w) \mathrm{d} w .$$
-
-Now, $P\{X \leq Y\}=P\{X-Y \leq 0\}$ can be expressed in terms of $\Phi(\cdot)$ by noting that $X-Y \sim N\left(\mu, 2\sigma^2\right)$ and thus we get:
-
-$$\int_{-\infty}^{\infty} \Phi\left(\frac{w-\mu}{\sigma}\right) \phi(w) \mathrm{d} w=\Phi\left(\frac{-\mu}{\sqrt{2}\sigma}\right)$$
-
-
-$$
-\int_{-\infty}^{\infty} \Phi(\frac{w-\mu}{\sigma})^2 \phi(w) d w=\Phi\left(\frac{-\mu}{\sqrt{1+\sigma^2}}\right)-2 T\left(\frac{-\mu}{\sqrt{1+\sigma^2}}, \frac{\sigma}{\sqrt{2+\sigma^2}}\right)
-$$
-
-where $$
-T(h, a)=\phi(h) \int_0^a \frac{\phi(h x)}{1+x^2} d x
-$$
 
 \end{document}
 
