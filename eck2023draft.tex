@@ -114,33 +114,34 @@ $j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects t
 We now demonstrate how the Full House Model works in a parametric setting. Consider the pair 
 $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ 
 %(\textcolor{red}{Needs to be more general, this currently corresponds to the case where all the highest latent aptitudes are in the system.})
-and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous parametric family indexed by unknown parameter $\theta_{i}$, and let $F_{Y_i}(\cdot \mid \theta_i)$ be a parametric CDF with parameter $\theta_i \in \mathbb{R}^{p_{Y_i}}$. We can estimate $\theta_i$ with $\hat{\theta_i}$ and plug the estimator into the CDF $F_{Y}(\cdot \mid \hat{\theta_i})$.
+and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous distribution family.  %parametric family indexed by unknown parameter $\theta_{i}$, and let $F_{Y_i}(\cdot \mid \theta_i)$ be a parametric CDF with parameter $\theta_i \in \mathbb{R}^{p_{Y_i}}$. We can estimate $\theta_i$ with $\hat{\theta_i}$ and plug the estimator into the CDF $F_{Y}(\cdot \mid \hat{\theta_i})$.
 
 In order to connect the  $Y_{i,(j)}$ and $X_{i,(r(N_i, n_i, j))}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
 $$
 \begin{aligned}
-F_{Y_i}\left(Y_{i,(j)} \mid \theta_i\right) & \sim U_{i,(j)}, & & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
-F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \theta_i\right) & \sim U_{i,j}, & & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
+F_{Y_i}\left(Y_{i,(j)} \right) & \sim U_{i,(j)}, %& & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
+F_{Y_{i,(j)}}\left(Y_{i,(j)} \right) & \sim U_{i,j}, %& & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
 \end{aligned}
 $$
-where $\approx$ means approximately distributed, $\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$ and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
+where %$\approx$ means approximately distributed, 
+$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. %and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
 
 We now connect the order statistics to the underlying talent distribution that comes from a population with $N_i \geq n_i$ observations when $F_{X}$ is known. This connection is established with 
 \begin{equation} \label{eq:trueparX}
-F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \theta_i\right)\right) 
+F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right) 
   \sim F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
   = X_{i, (r(N_i, n_i, j))}.
 \end{equation}
-We estimate the above with
+%We estimate the above with
 %$$
 %F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right)\right)\right) \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = X_{i, (r(N_i, n_i, j))}.
 %$$
 %When $r(N_i, n_i, j) = N_i - n_i + j$, $j = 1, \dots, n_i$, as in our application where the most talented baseball players are assumed to be in the MLB, then this relation becomes
-\begin{equation} \label{eq:parestX}
-	F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta}_i\right)\right) 
-  \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
-  = \widehat{X}_{i, (r(N_i, n_i, j))}.
-\end{equation}
+%\begin{equation} \label{eq:parestX}
+%	F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta}_i\right)\right) 
+%  \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
+%  = \widehat{X}_{i, (r(N_i, n_i, j))}.
+%\end{equation}
 %Similarly, we can obtain $Y$ from $X$. First note that 
 %$F_X\left(X_{i, (r(N_i, n_i, j))}\right) \sim \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$ 
 %for $j = 1,\ldots,n_i$ where, for simplicity, we we denote $V(i,j) \overset{d}{=} \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$. Now, 
@@ -151,48 +152,24 @@ We estimate the above with
 
 Similarly, we can obtain $Y$ from $X$,
 \begin{equation} \label{eq:trueparY}
- F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) | \theta_i\right) 
+ F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right) 
  = Y_{i, (j)},
 \end{equation}
-where we estimate the above with 
-$$
-  F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) | \hat{\theta}_i\right) 
- = \widehat{Y}_{i, (j)}.
-$$
-
-
-\bigskip\bigskip
-\textcolor{red}{Not sure where cross-contextual comparisons are needed.} We can use the Full House Model to obtain estimated statistics in another context.
-Consider the the pair $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ in the $i$th population. 
-We first put the aptitude value $X_{i,(r(N_i, n_i, j))}$ obtained by \eqref{eq:parestX} in a new population $m$ and reverse the process to obtain the hypothetical statistics in system $m$, which we will denote as $Y_{i,j,m}$. 
-%The distribution $F_X$ is known. 
-More formally, $Y_{i,j,m}$ are estimated as follows in the parametric context,
-\begin{equation} \label{eq:parrev}
-	\widehat{Y}_{i,j,m} = F_{Y_{m}}^{-1} 
-\left(F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(\widehat{X}_{i, (r(N_i, n_i, j))}  \right)| \hat{\theta}_m\right),
-\end{equation}
-where $l_{i,j,m}$ is the rank of $\widehat{X}_{i,(r(N_i, n_i, j))}$ among the values
-$$
-\left\{\widehat{X}_{i,(r(N_i, n_i, j))}, \widehat{X}_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\}.
-$$
-The estimates \eqref{eq:parrev} correspond to 
-\begin{equation} \label{eq:truparY}
-	Y_{i,j,m} = F_{Y_{m}}^{-1} \left( F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(X_{i, (r(N_i, n_i, j))} \right) \mid \theta_m\right),
-\end{equation}
-where $l_{i,j,m}$ is the rank of $X_{i,(r(N_i, n_i, j))}$ among the values
-$$
-\left\{X_{i,(r(N_i, n_i, j))}, X_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\},
-$$
-and $X_{i,(r(N_i, n_i, j))}$ is computed via \eqref{eq:trueparX}.
+%where we estimate the above with 
+%$$
+%  F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) | \hat{\theta}_i\right) 
+% = \widehat{Y}_{i, (j)}.
+%$$
 
 \section{Paradoxes}
 
 
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. We define a paradox (or a Gould paradox) when 
 $$
-  X_{1,(N_1)} > X_{2,(N_2)} \quad \text{and} \quad Y_{1,(n_1)} < Y_{2,(n_2)}
+  X_{1,(N_1 - k)} > X_{2,(N_2 - j)} \quad \text{and} \quad Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}
 $$
-both occur. A central interest is evaluating the probability of such a paradox, 
+both occur, where k, j $\in \mathbb{Z}$,. A central interest is evaluating the probability of such a paradox, 
+
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
 \end{equation}
@@ -280,6 +257,9 @@ where
 	= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
 	= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
 \end{align*}
+
+In order to ensure a positive probability,  we assume $h_{1,2}(x) > x$, which indicates $\frac{n_1}{N_1} < \frac{n_2}{N_2}$
+
 \end{proof}
 
 It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$ under the setup of Lemma~\ref{lem:samedist}. \\
@@ -353,20 +333,50 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
 \begin{proof}
 	\begin{align*}
 	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} \frac{N_1 !}{(N_1 - k - 1)! \ k!} (F_X(y))^{N_1 -k-1}(1 - F_X(y))^{k}\ f_X(y)dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty} \sum_{t = N_1 - k}^{N_1} {{N_1} \choose j} \left((F_X(h_{1,2}(x)))^{j}(1 - F_X(h_{1,2}(x)))^{N_1 - j} -(F_X(x))^{j}(1 - F_X(x))^{N_1 - j} \right) dy \\ &f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \  d \ g_{N_2, j}(F_X(x))\\
+	&= \int_0^1 g_{n_1, k}g_{n_2, j}^{-1}(t) - g_{N_1, k}g_{N_2, j}^{-1}(t) \ dt
 \end{align*}
 where 
 \begin{align*}
-	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-	&= F^{-1}\left(I^{-1}(N_1 - k, k+1)I(n_1 - k, k+1)I^{-1}(n_2 - j, j+1)I_{F_X(X_2, (N_2-j))}(N_2 - j, j+1)\right)
+	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
+	&= F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x) \\
+	g_{n,i}(x) &= I_x(n-i, i+1)
 \end{align*}
 
 and $I_x(\alpha, \beta)$ is the regularized incompleted beta function. 
 \end{proof}
 
 
+\begin{lemma}
+If we assume 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) 
+  = 
+\end{align*}
+\end{lemma}
+
+\begin{proof}
+	\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2 - k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) = \Prob\left( X_{2,(N_2 - k)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2 - k)}\right)\right) \\
+	& = \int_0^1 g_{n_1, k}g_{n_2, 0}^{-1}(t) - g_{N_1, k}g_{N_2, 0}^{-1}(t) \ dt \\
+	& = \int_0^1 g_{n_1, k}(t^{\frac{1}{n_2}}) - g_{N_1, k}(t^{\frac{1}{N_2}}) \ dt \\
+	& = \int_0^1 \int_0^{t^{\frac{1}{n_2}}} \frac{n_1!}{(n_1 - k-1)!}x^{n_1 - k - 1}(1-x)^{k} dx -  \int_0^{t^{\frac{1}{N_2}}} \frac{N_1!}{(N_1 - k-1)!}x^{N_1 - k - 1}(1-x)^{k} dx\ dt \\
+	& = \int_0^1 \frac{n_1!}{(n_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{n_1 - k + i}t^{\frac{n_1 - k + i}{n_2}} - \frac{N_1!}{(N_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{N_1 - k + i}t^{\frac{N_1 - k + i}{N_2}} dt \\
+	& = \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
+	\end{align*}
+
+
+
+
+\end{proof}
 
 
 
@@ -632,6 +642,35 @@ Our Gould paradox is validated by simulating the process of students moving on t
 		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
 \label{Tab:compare}
 \end{table}
+
+
+\section{Notes}
+
+
+\bigskip\bigskip
+\textcolor{red}{Not sure where cross-contextual comparisons are needed.} We can use the Full House Model to obtain estimated statistics in another context.
+Consider the the pair $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ in the $i$th population. 
+We first put the aptitude value $X_{i,(r(N_i, n_i, j))}$ obtained by \eqref{eq:parestX} in a new population $m$ and reverse the process to obtain the hypothetical statistics in system $m$, which we will denote as $Y_{i,j,m}$. 
+%The distribution $F_X$ is known. 
+More formally, $Y_{i,j,m}$ are estimated as follows in the parametric context,
+\begin{equation} \label{eq:parrev}
+	\widehat{Y}_{i,j,m} = F_{Y_{m}}^{-1} 
+\left(F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(\widehat{X}_{i, (r(N_i, n_i, j))}  \right)| \hat{\theta}_m\right),
+\end{equation}
+where $l_{i,j,m}$ is the rank of $\widehat{X}_{i,(r(N_i, n_i, j))}$ among the values
+$$
+\left\{\widehat{X}_{i,(r(N_i, n_i, j))}, \widehat{X}_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\}.
+$$
+The estimates \eqref{eq:parrev} correspond to 
+\begin{equation} \label{eq:truparY}
+	Y_{i,j,m} = F_{Y_{m}}^{-1} \left( F_{X_{m, (r(N_m, n_m, l_{i,j,m}))}}\left(X_{i, (r(N_i, n_i, j))} \right) \mid \theta_m\right),
+\end{equation}
+where $l_{i,j,m}$ is the rank of $X_{i,(r(N_i, n_i, j))}$ among the values
+$$
+\left\{X_{i,(r(N_i, n_i, j))}, X_{m,(r(N_m, n_m, t))}: t=1, \ldots, n_{m}\right\},
+$$
+and $X_{i,(r(N_i, n_i, j))}$ is computed via \eqref{eq:trueparX}.
+
 
 %Now we consider the upper bound and lower bound of the integration term. 
 
