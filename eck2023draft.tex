@@ -101,11 +101,18 @@ and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $
 
 %We can choose any index functions we need to select the desirable components. For example, suppose $r(N_i, n_i, k) = N_i - n_i + k$, $k = 1, 2, \dots, n_i$, then the inclusion function $g_i$ will select the top $n_i$ components from the population $N_i$ into the $i$th system. 
 
-We now suppose that an individual $j$ included in system $i$ has an observed statistic $Y_{i,j}$ where  
-we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
+We now suppose that an individual $j$ included in system $i$ has an observed statistic $Y_{i,j}$, $j = 1,\ldots,n_i$ and we suppose that $Y_{i,j}$ is a function of $X_{i,j}$ given the $X_{i,j}$ is included in the ith system, which is 
+
+$$Y_{i,j} = p_i(X_{i,j} | g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1)$$
+
+where $p_{i}\left(\cdot\right)$ is an unknown continuous function. 
+
+Apparently $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
+
+%where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
 
 The key to the Full House Model is connecting latent aptitudes $X$ with observed statistics $Y$. 
-To achieve this we assume that we can form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
+To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
 $j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then 
 %\textcolor{red}{I am not sure what r() is, this needs to be stated more clearly.} 
 %\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
@@ -236,7 +243,10 @@ Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
+  = \begin{cases}
+      \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}, & \text{if}\ \frac{n_1}{N_1} \leq \frac{n_2}{N_2} \\
+      0, & \text{otherwise}
+    \end{cases}.
 \end{align*}
 \end{lemma}
 
@@ -273,10 +283,12 @@ We verify Lemma~\ref{lem:samedist} with a Monte Carlo simulation. In each simula
 \scalebox{0.7}{
 \begin{tabular}{c|c|c}
   \hline
- & $n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & $n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ \\ 
+ & Prob from Lemma~\ref{lem:samedist} & Prob from simulation \\ 
   \hline
-Prob from Lemma~\ref{lem:samedist} & 0.1 & 0.2  \\
-Prob from simulation & 0.10084 & 0.200309  \\
+$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.10084 \\
+$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.200309  \\
+$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0 & 0  \\
    \hline
 \end{tabular}
 }
@@ -293,7 +305,10 @@ Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
-  = \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2}.
+  = \begin{cases}
+      \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2}, & \text{if}\ \frac{n_1}{N_1} \geq \frac{n_2}{N_2} \\
+      0, & \text{otherwise}
+    \end{cases}.
 \end{align*}
 \end{lemma}
 
@@ -315,6 +330,27 @@ where
 	= F_X^{-1}(1 - (1 - F_X)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
 \end{align*}
 \end{proof}
+
+We verify Lemma~\ref{lem:samedistmin} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 1000 Monte Carlo iterations of our simulation are performed and we compute the mean of the frequency. 
+
+\begin{table}[htb!]
+\centering
+\scalebox{0.7}{
+\begin{tabular}{c|c|c}
+  \hline
+ & Prob from Lemma~\ref{lem:samedistmin} & Prob from simulation \\ 
+  \hline
+$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1012 \\
+$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2  \\
+   \hline
+\end{tabular}
+}
+\caption{Simulation result to validate the lemma about the probability of paradox}
+\label{Tab:simulation_min}
+\end{table}
+
 
 
 \begin{lemma}
@@ -468,6 +504,28 @@ where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2
   & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
   \end{align*}
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
+
+We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
+
+\begin{table}[htb!]
+\centering
+\scalebox{0.7}{
+\begin{tabular}{c|c|c}
+  \hline
+ & Prob from the result & Prob from simulation \\ 
+  \hline
+$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 1e5$ & 0.124 & 0.122 \\
+$n_1 = 30, n_2 = 70, N_1 = 1e5, N_2 = 1e5$ & 0.221 & 0.221  \\
+$n_1 = 60, n_2 = 40, N_1 = 1e5, N_2 = 1e5$ & 0 & 0 \\
+$n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0 & 0.002  \\
+   \hline
+\end{tabular}
+}
+\caption{Simulation result to validate the lemma about the probability of paradox}
+\label{Tab:simulation_uniform}
+\end{table}
+
+
 %\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
 %\begin{align*}
 %  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
@@ -567,7 +625,8 @@ Then when $\sigma_1 \neq \sigma_2$, we do not have a closed form for $\epsilon$ 
   &= \int_{-\infty}^{+\infty} \Phi(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
   &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, \\
   &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
-  &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
+  &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
+  &- \frac{N_2}{N_1 + N_2}\\
   &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
 %  &= n_2\mathbb{MVN}(x = \{\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0\}, \mu = \{0, \dots, 0\}, \\
 %  &\Sigma = \begin{bmatrix}
@@ -601,47 +660,74 @@ $\Sigma_{11} = \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
 \vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
-\end{bmatrix}, \Sigma_{12} = \Sigma_{21} = \begin{bmatrix}
+\end{bmatrix}_{n_1*n_1}, 
+\Sigma_{12} = \Sigma_{21}^{T} = \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}, \Sigma_{22} = \begin{bmatrix}
+\end{bmatrix}_{(n_2-1)*n_1}$
+$$
+\Sigma_{22} = \begin{bmatrix}
 2 & 1 & \hdots & 1\\
 1 & \ddots & \ddots & \vdots\\
 \vdots & \ddots & \ddots & 1\\
 1 & \hdots & 1 & 2\\
-\end{bmatrix}$
+\end{bmatrix}_{(n_2-1)*(n_2-1)}$$
 
 The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 
-\section{Educational Attainment Simulation}
-
-Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which correspond to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to order scores from a normal distribution. The score distribution for each school is represented by the normal distribution. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is 10, which indicates the different levels of schools. Better schools have higher mean scores. When compared to other students, we wonder if the most talented primary student has lower scores with a larger mean of normal distribution. In other words, we wonder if the most talented primary student, who attends a better school, still underperforms the students who attend schools with lower mean scores. 
-
-100 Monte Carlo iterations of our simulation are performed. The results are depicted in Table \ref{Tab:compare}. Based on the results in Table \ref{Tab:compare}, the most talented students could perform worse than the other students who attend schools with lower mean scores. 
+We verify this example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the normal distribution with $\mu_1 = -1, \sigma = 2$ and $\mu_2 = 1, \sigma = 4$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. Next, using the procedure in \cite{mi2009mvtnorm}, we calculate the probability of our outcome, which is the probability of a multivariate normal distribution. 
 
 \begin{table}[H]
 \centering
-		\begin{tabular}{cc}
-		\hline
-		 num of talent paradox happen & average of $\mu$ of dist that generate top 10 scores \\ 
-		 \hline
-		 3435 & 79.38269 \\
-		 2477 & 79.62781 \\
-		 3386 & 78.96648 \\
-		 37 & 78.26713 \\ 
-		 1995 & 79.67984 \\
-		 3498 & 79.59680 \\
-		 74852 & 78.81841 \\
-		 5272 & 79.00650 \\
-		 970 & 79.41571 \\
-		 302 & 79.58979 \\
-		 \hline
-		 \end{tabular}
-		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
-\label{Tab:compare}
+\scalebox{0.7}{
+\begin{tabular}{c|c|c}
+  \hline
+ & Prob from simulation & Prob from multivariate normal distribution \\ 
+  \hline
+$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 2e5$ & 0.331 & 0.333 \\
+$n_1 = 30, n_2 = 70, N_1 = 1e6, N_2 = 2e6$ & 0.334 & 0.333 \\
+$n_1 = 10, n_2 = 100, N_1 = 1e5, N_2 = 2e5$ & 0.332 & 0.333 \\
+$n_1 = 100, n_2 = 100, N_1 = 1e6, N_2 = 2e6$ & 0.241 & 0.238 \\
+   \hline
+\end{tabular}
+}
+\caption{Simulation result to validate the lemma about the probability of paradox}
+\label{Tab:simulation_normal}
 \end{table}
+
+\section{Application}
+
+\subsection{Educational Attainment Simulation}
+
+Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to order scores from a normal distribution. The score distribution for each school is followed by the normal distribution. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is 10, which indicates the different levels of schools. Better schools have higher mean scores. 
+
+%When compared to other students, we wonder if the most talented primary student has lower scores with a larger mean of normal distribution. In other words, we wonder if the most talented primary student, who attends a better school, still underperforms the students who attend schools with lower mean scores. 
+
+100 Monte Carlo iterations of our simulation are performed. The results are depicted in Table \ref{Tab:compare}. Based on the results in Table \ref{Tab:compare}, the most talented students could perform worse than the other students who attend schools with lower mean scores. 
+
+%\begin{table}[H]
+%\centering
+%		\begin{tabular}{cc}
+%		\hline
+%		 num of talent paradox happen & average of $\mu$ of dist that generate top 10 scores \\ 
+%		 \hline
+%		 3435 & 79.38269 \\
+%		 2477 & 79.62781 \\
+%		 3386 & 78.96648 \\
+%		 37 & 78.26713 \\ 
+%		 1995 & 79.67984 \\
+%		 3498 & 79.59680 \\
+%		 74852 & 78.81841 \\
+%		 5272 & 79.00650 \\
+%		 970 & 79.41571 \\
+%		 302 & 79.58979 \\
+%		 \hline
+%		 \end{tabular}
+%		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
+%\label{Tab:compare}
+%\end{table}
 
 
 \section{Notes}
