@@ -660,24 +660,24 @@ $\Sigma_{11} = \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
 \vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
-\end{bmatrix}_{n_1*n_1}, 
-\Sigma_{12} = \Sigma_{21}^{T} = \begin{bmatrix}
+\end{bmatrix}_{n_1 \times n_1}, 
+\Sigma_{12}^{T} = \Sigma_{21} = \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(n_2-1)*n_1}$
+\end{bmatrix}_{(n_2-1) \times n_1}$
 $$
 \Sigma_{22} = \begin{bmatrix}
 2 & 1 & \hdots & 1\\
 1 & \ddots & \ddots & \vdots\\
 \vdots & \ddots & \ddots & 1\\
 1 & \hdots & 1 & 2\\
-\end{bmatrix}_{(n_2-1)*(n_2-1)}$$
+\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
 The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 
-We verify this example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the normal distribution with $\mu_1 = -1, \sigma = 2$ and $\mu_2 = 1, \sigma = 4$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. Next, using the procedure in \cite{mi2009mvtnorm}, we calculate the probability of our outcome, which is the probability of a multivariate normal distribution. 
+We verify this example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the normal distribution with $\mu_1 = -1$ and $\mu_2 = 1$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$, $N_1 = 1e5$ and $N_2 = 2e5$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. Next, using the procedure in \cite{mi2009mvtnorm}, we calculate the probability of our outcome, which is the probability of a multivariate normal distribution. 
 
 \begin{table}[H]
 \centering
@@ -686,10 +686,15 @@ We verify this example with a Monte Carlo simulation. In each simulation, we fir
   \hline
  & Prob from simulation & Prob from multivariate normal distribution \\ 
   \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 2e5$ & 0.331 & 0.333 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e6, N_2 = 2e6$ & 0.334 & 0.333 \\
-$n_1 = 10, n_2 = 100, N_1 = 1e5, N_2 = 2e5$ & 0.332 & 0.333 \\
-$n_1 = 100, n_2 = 100, N_1 = 1e6, N_2 = 2e6$ & 0.241 & 0.238 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 40, n_2 = 60$ & 0.331 & 0.333 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 30, n_2 = 70$ & 0.334 & 0.333 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 10, n_2 = 100$ & 0.332 & 0.333 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 100, n_2 = 10$ & 0.240 & 0.238 \\
+   \hline
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 40, n_2 = 60$ & 0.332 & 0.331  \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 30, n_2 = 70$ & 0.332 & 0.332 \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 10, n_2 = 100$ & 0.334 & 0.333 \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 100, n_2 = 10$ & 0.259 & 0.259 \\
    \hline
 \end{tabular}
 }
@@ -701,11 +706,22 @@ $n_1 = 100, n_2 = 100, N_1 = 1e6, N_2 = 2e6$ & 0.241 & 0.238 \\
 
 \subsection{Educational Attainment Simulation}
 
-Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to order scores from a normal distribution. The score distribution for each school is followed by the normal distribution. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is 10, which indicates the different levels of schools. Better schools have higher mean scores. 
+Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to ordered scores from a normal distribution. The normal distribution with different parameters follows the score distribution for each school. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is set to 10, which indicates the different levels of schools. Better schools have higher mean scores. 
 
 %When compared to other students, we wonder if the most talented primary student has lower scores with a larger mean of normal distribution. In other words, we wonder if the most talented primary student, who attends a better school, still underperforms the students who attend schools with lower mean scores. 
 
-100 Monte Carlo iterations of our simulation are performed. The results are depicted in Table \ref{Tab:compare}. Based on the results in Table \ref{Tab:compare}, the most talented students could perform worse than the other students who attend schools with lower mean scores. 
+50 Monte Carlo iterations of our simulation are performed. The results are depicted in Figure \ref{Fig:education}. 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale = 0.38]{education}
+\end{center}	
+\caption{The tendencies of the most talented students in each of the 50 simulations are displayed in the figure. The initial schools for the students with the highest talent are indicated by the primary\_index0 in the x-axis. The levels of schools are represented by the index on the y-axis, which goes from 1 to 2000. High-achieving schools are a sign of superiority. The following are the schools that students will attend: primary\_index1 through primary\_index5. It is evident that even if gifted children begin their education at a lesser school, they may advance to a top institution within three or four stages. }
+\label{Fig:education}
+\end{figure}
+
+
+
 
 %\begin{table}[H]
 %\centering
@@ -728,6 +744,10 @@ Our Gould paradox is validated by simulating the process of students moving on t
 %		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
 %\label{Tab:compare}
 %\end{table}
+
+\subsection{Major League Baseball Example}
+
+
 
 
 \section{Notes}
