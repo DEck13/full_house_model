@@ -706,49 +706,57 @@ $\sigma_1 = 1, \sigma_2 = 1, n_1 = 100, n_2 = 10$ & 0.259 & 0.259 \\
 
 \subsection{Educational Attainment Simulation}
 
-Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to ordered scores from a normal distribution. The normal distribution with different parameters follows the score distribution for each school. The mean of the Normal distribution ranges from 60 to 80 and the standard deviation is set to 10, which indicates the different levels of schools. Better schools have higher mean scores. 
+Our Gould paradox is validated by simulating the process of students moving on to the next level of education. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices for these 1 million talents, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to ordered scores from a normal distribution. The score distribution for each school follows the normal distribution with different parameters. The mean of the Normal distribution ranges from 60 to 80, which indicates the different levels of schools. Better schools have higher mean scores. The standard deviation for Figure \ref{Fig:education1} is 2 and for Figure \ref{Fig:education2} is 5. 
 
 %When compared to other students, we wonder if the most talented primary student has lower scores with a larger mean of normal distribution. In other words, we wonder if the most talented primary student, who attends a better school, still underperforms the students who attend schools with lower mean scores. 
 
-50 Monte Carlo iterations of our simulation are performed. The results are depicted in Figure \ref{Fig:education}. 
-
+50 Monte Carlo iterations of our simulation are performed. The tendencies of the most talented students in each of the 50 simulations are displayed in Figure \ref{Fig:education1} and Figure \ref{Fig:education2}. The primary\_index0 in the x-axis indicates the initial schools for the students with the highest talent. The levels of schools are represented by the index on the y-axis, which goes from 1 to 2000. High-achieving schools are a sign of superiority. The following are the schools that students will attend: primary\_index1 through primary\_index3. It is evident that even if gifted children begin their education at a lesser school, they may advance to a top institution within two to three stages. 
 \begin{figure}[H]
-\begin{center}
-\includegraphics[scale = 0.38]{education}
-\end{center}	
-\caption{The tendencies of the most talented students in each of the 50 simulations are displayed in the figure. The initial schools for the students with the highest talent are indicated by the primary\_index0 in the x-axis. The levels of schools are represented by the index on the y-axis, which goes from 1 to 2000. High-achieving schools are a sign of superiority. The following are the schools that students will attend: primary\_index1 through primary\_index5. It is evident that even if gifted children begin their education at a lesser school, they may advance to a top institution within three or four stages. }
-\label{Fig:education}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{education1}
+     \caption{The tendencies of the most talented students when sd = 2}\label{Fig:education1}
+   \end{minipage}\hfill
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{education2}
+     \caption{The tendencies of the most talented students when sd = 5}\label{Fig:education2}
+   \end{minipage}
+
 \end{figure}
 
 
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[scale = 0.38]{education}
+%\end{center}	
+%\caption{The tendencies of the most talented students in each of the 50 simulations are displayed in the figure. The initial schools for the students with the highest talent are indicated by the primary\_index0 in the x-axis. The levels of schools are represented by the index on the y-axis, which goes from 1 to 2000. High-achieving schools are a sign of superiority. The following are the schools that students will attend: primary\_index1 through primary\_index5. It is evident that even if gifted children begin their education at a lesser school, they may advance to a top institution within three or four stages. }
+%\label{Fig:education}
+%\end{figure}
 
 
-%\begin{table}[H]
-%\centering
-%		\begin{tabular}{cc}
-%		\hline
-%		 num of talent paradox happen & average of $\mu$ of dist that generate top 10 scores \\ 
-%		 \hline
-%		 3435 & 79.38269 \\
-%		 2477 & 79.62781 \\
-%		 3386 & 78.96648 \\
-%		 37 & 78.26713 \\ 
-%		 1995 & 79.67984 \\
-%		 3498 & 79.59680 \\
-%		 74852 & 78.81841 \\
-%		 5272 & 79.00650 \\
-%		 970 & 79.41571 \\
-%		 302 & 79.58979 \\
-%		 \hline
-%		 \end{tabular}
-%		 \caption{The first column shows the number of primary students who have higher scores than the most talented primary students with a lower mean of the normal distribution. The second column displays the average means of normal distributions that generate top 10 scores. }
-%\label{Tab:compare}
-%\end{table}
+
+
+
 
 \subsection{Major League Baseball Example}
 
+Ted Williams and Bob Feller were two of the many great baseball players who fought in the Army during World War II(WWII) \footnote{https://www.baseballinwartime.com/timeline/timeline\char`_1942.htm}. As a result, in the absence of these talented players, the players who continued in the league produced high-standard performances, such as Hal Newhouser. Now we are interested in the performance of those who played in the league during WWII when the players who served in the war would still be playing if World War II hadn't occurred. 
 
-
+Table \ref{Tab:baseball} displays the performance of Hal Newhouser when the top talented players served in the Army or not. We assume only two pitchers would outperform Hal Newhouser. Additionally, we exclude the WWII correction for the MLB-eligible population when the top talented players did not serve in the Army.
+\begin{table}[H]
+\centering
+		\begin{tabular}{ccc}
+		\hline
+		 Player & Top talented players served in the Army & Estimated bWAR \\ 
+		 \hline
+		 Hal Newhouser & Yes & 10.35 \\
+		 Hal Newhouser & No & 8.10 \\
+		 \hline
+		 \end{tabular}
+		 \caption{the performance of Hal Newhouser when the top talented players served in the Army or not}
+\label{Tab:baseball}
+\end{table}
 
 \section{Notes}
 
