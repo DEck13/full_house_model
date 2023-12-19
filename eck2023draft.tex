@@ -67,6 +67,7 @@ The Full House Methodology is an approach for computing era-adjusted or system-a
 \end{abstract}
 
 \section{Introduction}
+
 Several academics have attempted to develop methods that can correct for era or system biases. The starting place for the answer to the problem of comparing players across eras can be found in the work of Stephen Jay Gould. \cite{Gould96} suggested that the entire distribution of achievement, or ``full house of variation,'' is relevant when considering the achievements of baseball players across eras. This idea was also recognized as the starting plac	e for an answer by \cite{SM13} and \cite{SM16}. 
 
 \cite{BRL99, PPE11, SM13, SM16, PP20} provide several techniques to compare baseball players across eras, but they have fallen short in their objective and their results remain biased, as discussed in \cite{DE20} and \cite{DE20b}. In short, these previous attempts do not incorporate the evolving talent pool in calculations, which is necessary for understanding the changing distributions of achievement over time. The result is that existing methodologies produce a disproportionate number of players who began their career before baseball was integrated players in the rankings of baseball's greatest of all time. This era of baseball did not include a crucial population of eligible players. \cite{YZ16, meyer2021talents, campbell1990modeling} also develop methods for comparing components in historical popularity, educational attainment, and evaluation of employees. But they have similar problems as stated before and fail to account for the evolving talent pool.
@@ -285,8 +286,8 @@ We verify Lemma~\ref{lem:samedist} with a Monte Carlo simulation. In each simula
   \hline
  & Prob from Lemma~\ref{lem:samedist} & Prob from simulation \\ 
   \hline
-$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.10084 \\
-$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.200309  \\
+$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1004 \\
+$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2011  \\
 $n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
 $n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0 & 0  \\
    \hline
@@ -342,8 +343,8 @@ We verify Lemma~\ref{lem:samedistmin} with a Monte Carlo simulation. In each sim
   \hline
 $n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
 $n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1012 \\
-$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2  \\
+$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.0937 \\
+$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2006  \\
    \hline
 \end{tabular}
 }
@@ -353,7 +354,7 @@ $n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2  \\
 
 
 
-\begin{lemma}
+\begin{lemma} \label{lem:samedistgeneral}
 If we assume 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
@@ -393,10 +394,10 @@ p
 &= \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(n_1-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(N_1-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
+\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
 \end{align*}
 where 
 \begin{align*}
@@ -409,6 +410,28 @@ where
 and $I_x(\alpha, \beta)$ is the regularized incompleted beta function. 
 \end{proof}
 
+We verify Lemma~\ref{lem:samedistgeneral} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 1000 Monte Carlo iterations of our simulation are performed and we compute the mean of the frequency. 
+
+\begin{table}[htb!]
+\centering
+\scalebox{0.7}{
+\begin{tabular}{c|c|c}
+  \hline
+ & Prob from Lemma~\ref{lem:samedistmin} & Prob from simulation \\ 
+  \hline
+$n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0.1495 & 0.1515 \\
+$n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0.2866 & 0.2843 \\
+$n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
+$n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
+   \hline
+\end{tabular}
+}
+\caption{Simulation result to validate the lemma about the probability of paradox}
+\label{Tab:simulation_min}
+\end{table}
+
+
+
 
 \begin{lemma}
 If we assume 
@@ -418,8 +441,8 @@ If we assume
 \end{align*}
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
 \begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) 
-  = 
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) \\
+  &= \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
 \end{align*}
 \end{lemma}
 
@@ -531,17 +554,17 @@ Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n
 
 We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
 
-\begin{table}[htb!]
+\begin{table}[H]
 \centering
 \scalebox{0.7}{
 \begin{tabular}{c|c|c}
   \hline
  & Prob from the result & Prob from simulation \\ 
   \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 1e5$ & 0.124 & 0.122 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e5, N_2 = 1e5$ & 0.221 & 0.221  \\
-$n_1 = 60, n_2 = 40, N_1 = 1e5, N_2 = 1e5$ & 0 & 0 \\
-$n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0 & 0.002  \\
+$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 1e5$ & 0.1245 & 0.1223 \\
+$n_1 = 30, n_2 = 70, N_1 = 1e5, N_2 = 1e5$ & 0.2213 & 0.2193 \\
+$n_1 = 60, n_2 = 40, N_1 = 1e5, N_2 = 1e5$ & 0 & 0.002 \\
+$n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0 & 0.001  \\
    \hline
 \end{tabular}
 }
@@ -708,17 +731,17 @@ We verify this example with a Monte Carlo simulation. In each simulation, we fir
 \scalebox{0.7}{
 \begin{tabular}{c|c|c}
   \hline
- & Prob from simulation & Prob from multivariate normal distribution \\ 
+ & Prob from multivariate normal distribution & Prob from simulation \\ 
   \hline
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 40, n_2 = 60$ & 0.331 & 0.333 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 30, n_2 = 70$ & 0.334 & 0.333 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 10, n_2 = 100$ & 0.332 & 0.333 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 100, n_2 = 10$ & 0.240 & 0.238 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 40, n_2 = 60$ & 0.3338 & 0.3356 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 30, n_2 = 70$ & 0.3336 & 0.3343 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 10, n_2 = 100$ & 0.3331 & 0.3345 \\
+$\sigma_1 = 2, \sigma_2 = 4, n_1 = 100, n_2 = 10$ & 0.2378 & 0.2406 \\
    \hline
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 40, n_2 = 60$ & 0.332 & 0.331  \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 30, n_2 = 70$ & 0.332 & 0.332 \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 10, n_2 = 100$ & 0.334 & 0.333 \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 100, n_2 = 10$ & 0.259 & 0.259 \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 40, n_2 = 60$ & 0.3321 & 0.3326  \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 30, n_2 = 70$ & 0.3313 & 0.3325 \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 10, n_2 = 100$ & 0.3334 & 0.3346 \\
+$\sigma_1 = 1, \sigma_2 = 1, n_1 = 100, n_2 = 10$ & 0.2593 & 0.2592 \\
    \hline
 \end{tabular}
 }
@@ -765,17 +788,24 @@ Our Gould paradox is validated by simulating the process of students moving on t
 
 \subsection{Major League Baseball Example}
 
-Ted Williams and Bob Feller were two of the many great baseball players who fought in the Army during World War II(WWII) \footnote{https://www.baseballinwartime.com/timeline/timeline\char`_1942.htm}. As a result, in the absence of these talented players, the players who continued in the league produced high-standard performances, such as Hal Newhouser. Now we are interested in the performance of those who played in the league during WWII when the players who served in the war would still be playing if World War II hadn't occurred. 
+Ted Williams and Bob Feller were two of the many great baseball players who fought in the Army during World War II(WWII) \footnote{https://www.baseballinwartime.com/timeline/timeline\char`_1942.htm}. As a result, in the absence of these talented players, the players who continued in the league produced high-standard performances, such as Hal Newhouser. Now we are interested in the performance of those who played in the league during WWII when the players served in the war would still be playing if World War II hadn't occurred. 
 
-Table \ref{Tab:baseball} displays the performance of Hal Newhouser when the top talented players served in the Army or not. We assume only two pitchers would outperform Hal Newhouser. Additionally, we exclude the WWII correction for the MLB-eligible population when the top talented players did not serve in the Army.
+Table \ref{Tab:baseball} displays the performance of Spud Chandler, Dizzy Trout, and Hal Newhouser when the top talented players served in the Army or not. We assume only two pitchers would outperform Spud Chandler in the 1943 season, Dizzy Trout in the 1944 season, and Hal Newhouser in the 1945 season. Additionally, we exclude the WWII correction for the MLB-eligible population when the top talented players did not serve in the Army.
 \begin{table}[H]
 \centering
 		\begin{tabular}{ccc}
 		\hline
 		 Player & Top talented players served in the Army & Estimated bWAR \\ 
 		 \hline
-		 Hal Newhouser & Yes & 10.35 \\
+		 Spud Chandler & Yes & 7.85 \\
+		 Spud Chandler & No & 6.19 \\
+		 \hline
+		 Dizzy Trout & Yes & 8.53 \\
+		 Dizzy Trout & No & 7.48 \\
+		 \hline
+		 Hal Newhouser & Yes & 11.38 \\
 		 Hal Newhouser & No & 8.10 \\
+
 		 \hline
 		 \end{tabular}
 		 \caption{the performance of Hal Newhouser when the top talented players served in the Army or not}
@@ -873,6 +903,9 @@ and $X_{i,(r(N_i, n_i, j))}$ is computed via \eqref{eq:trueparX}.
 %where $$
 %T(h, a)=\phi(h) \int_0^a \frac{\phi(h x)}{1+x^2} d x
 %$$
+
+
+
 
 \bibliography{Gould96.bib}
 \bibliographystyle{plainnat}

@@ -1,0 +1,1008 @@
+---
+title: "tech_report"
+author: "Shen Yan"
+date: "2023-12-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+## Set up
+
+```{r}
+library(tidyverse)
+library(orderstats)
+library(Pareto)
+library(parallel)
+library(doParallel)
+library(xtable)
+library(retrosheet)
+library(mvtnorm)
+source('source.R')
+load("baseball_simu.RData")
+```
+
+## Simulation for Lemma 3.2
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+  
+  Y1 <- sort(rnorm(n1))
+  Y2 <- sort(rnorm(n2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1)
+  u2 <- order_pnorm_vec(Y2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(10, simu(n1 = 400, n2 = 600, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
+result_2 <- replicate(10, simu(n1 = 300, n2 = 700, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
+result_3 <- replicate(10, simu(n1 = 600, n2 = 400, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
+result_4 <- replicate(10, simu(n1 = 700, n2 = 300, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
+
+res <- data.frame(case = c('n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6', 
+                           'n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6',
+                           'n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6',
+                           'n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6'), 
+                  prob1 = c(0.1, 0.2, 0, 0), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000))
+colnames(res) <- c('', 'Prob from Lemma 3.2', 'Prob from simulation')
+knitr::kable(res)
+```
+
+## Simulation for Lemma 3.3
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+  
+  Y1 <- sort(rnorm(n1))
+  Y2 <- sort(rnorm(n2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+  
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1)
+  u2 <- order_pnorm_vec(Y2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j, npop[j] - j + 1), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(10, simu(n1 = 400, n2 = 600, N1 = 1e6, N2 = 1e6, n1j = 399, n2k = 599, size = 1000))
+result_2 <- replicate(10, simu(n1 = 300, n2 = 700, N1 = 1e6, N2 = 1e6, n1j = 299, n2k = 699, size = 1000))
+result_3 <- replicate(10, simu(n1 = 600, n2 = 400, N1 = 1e6, N2 = 1e6, n1j = 599, n2k = 399, size = 1000))
+result_4 <- replicate(10, simu(n1 = 700, n2 = 300, N1 = 1e6, N2 = 1e6, n1j = 699, n2k = 299, size = 1000))
+
+res <- data.frame(case = c('n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6', 
+                           'n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6',
+                           'n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6',
+                           'n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6'), 
+                  prob1 = c(0, 0, 0.1, 0.2), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000))
+colnames(res) <- c('', 'Prob from Lemma 3.3', 'Prob from simulation')
+knitr::kable(res)
+```
+
+## Simulation for Lemma 3.4
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+  
+  Y1 <- sort(rnorm(n1))
+  Y2 <- sort(rnorm(n2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1)
+  u2 <- order_pnorm_vec(Y2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(10, simu(n1 = 40, n2 = 60, N1 = 1e3, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+result_2 <- replicate(10, simu(n1 = 30, n2 = 70, N1 = 1e3, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+result_3 <- replicate(10, simu(n1 = 60, n2 = 40, N1 = 1e3, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+result_4 <- replicate(10, simu(n1 = 70, n2 = 30, N1 = 1e3, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+
+num_1 <- sum(choose(40,39:40)*beta(60-1+39:40, 40-(39:40)+1+1)/beta(60-1,2)) - sum(choose(1000,999:1000)*beta(1000-1+999:1000, 1000-(999:1000)+1+1)/beta(1000-1,2))
+
+num_2 <- sum(choose(30,29:30)*beta(70-1+29:30, 30-(29:30)+1+1)/beta(70-1,2)) - sum(choose(1000,999:1000)*beta(1000-1+999:1000, 1000-(999:1000)+1+1)/beta(1000-1,2))
+
+num_3 <- sum(choose(60,59:60)*beta(40-1+59:60, 60-(59:60)+1+1)/beta(40-1,2)) - sum(choose(1000,999:1000)*beta(1000-1+999:1000, 1000-(999:1000)+1+1)/beta(1000-1,2))
+
+num_4 <- sum(choose(70,69:70)*beta(30-1+69:70, 70-(69:70)+1+1)/beta(30-1,2)) - sum(choose(1000,999:1000)*beta(1000-1+999:1000, 1000-(999:1000)+1+1)/beta(1000-1,2))
+
+res <- data.frame(case = c('n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3', 
+                           'n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3',
+                           'n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3',
+                           'n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3'), 
+                  prob1 = c(round(ifelse(num_1 > 0, num_1, 0), 4), 
+                            round(ifelse(num_2 > 0, num_2, 0), 4), 
+                            round(ifelse(num_3 > 0, num_3, 0), 4), 
+                            round(ifelse(num_4 > 0, num_4, 0), 4)), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000))
+colnames(res) <- c('', 'Prob from Lemma 3.2', 'Prob from simulation')
+knitr::kable(res)
+
+```
+
+## Simulation for Lemma 3.7 in Uniform Distribution Example
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, delta){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k, delta){
+  
+  Y1 <- sort(runif(n1, min = 0, max = 1))
+  Y2 <- sort(runif(n2, min = 0, max = (1+delta)))
+  
+  order_punif <- function(q = 0, min = 0, max = 1, k = 1, n = 1e4){
+    p <- q/(max - min)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+  
+  order_punif_vec <- function(q, min = 0, max = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_punif(q[j], k = j, n = n, min = min, max = max)
+    }))
+  }
+  
+  u1 <- order_punif_vec(Y1, min = 0, max = 1)
+  u2 <- order_punif_vec(Y2, min = 0, max = (1+delta))
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+  res <- do.call(rbind, mclapply(1:1000, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2, n1j = n1j, n2k = n2k, delta = delta)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(100, simu(n1 = 40, n2 = 60, N1 = 1e5, N2 = 1e5, n1j = 0, n2k = 0, delta = 0.001))
+result_2 <- replicate(100, simu(n1 = 30, n2 = 70, N1 = 1e5, N2 = 1e5, n1j = 0, n2k = 0, delta = 0.001))
+result_3 <- replicate(100, simu(n1 = 60, n2 = 40, N1 = 1e5, N2 = 1e5, n1j = 0, n2k = 0, delta = 0.001))
+result_4 <- replicate(100, simu(n1 = 70, n2 = 30, N1 = 1e5, N2 = 1e5, n1j = 0, n2k = 0, delta = 0.001))
+
+num_1 <- round(60/(40+60)*(1+0.001)^40 - 1e5/(1e5+1e5), 4)
+num_2 <- round(70/(30+70)*(1+0.001)^30 - 1e5/(1e5+1e5), 4)
+num_3 <- round(40/(60+40)*(1+0.001)^60 - 1e5/(1e5+1e5), 4)
+num_4 <- round(30/(70+30)*(1+0.001)^70 - 1e5/(1e5+1e5), 4)
+res <- data.frame(case = c('n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 1e5', 
+                           'n_1 = 30, n_2 = 70, N_1 = 1e5, N_2 = 1e5',
+                           'n_1 = 60, n_2 = 40, N_1 = 1e5, N_2 = 1e5',
+                           'n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5'), 
+                  prob1 = c(round(ifelse(num_1 > 0, num_1, 0), 4), 
+                            round(ifelse(num_2 > 0, num_2, 0), 4), 
+                            round(ifelse(num_3 > 0, num_3, 0), 4), 
+                            round(ifelse(num_4 > 0, num_4, 0), 4)), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000))
+colnames(res) <- c('', 'Prob from Lemma 3.7 in Uniform', 'Prob from simulation')
+knitr::kable(res)
+```
+
+## Simulation for Lemma 3.7 in Normal Distribution Example
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, mu1, mu2, sigma1, sigma2){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k, mu1, mu2, sigma1, sigma2){
+  
+  Y1 <- sort(rnorm(n1, mu1, sigma1))
+  Y2 <- sort(rnorm(n2, mu2, sigma2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+  
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1, mean = mu1, sd = sigma1)
+  u2 <- order_pnorm_vec(Y2, mean = mu2, sd = sigma2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+
+  res <- do.call(rbind, mclapply(1:1000, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2, n1j = n1j, n2k = n2k, 
+                 mu1 = mu1, mu2 = mu2, sigma1 = sigma1, sigma2 = sigma2)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(100, simu(n1 = 40, n2 = 60, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4))
+result_2 <- replicate(100, simu(n1 = 30, n2 = 70, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4))
+result_3 <- replicate(100, simu(n1 = 10, n2 = 100, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4))
+result_4 <- replicate(100, simu(n1 = 100, n2 = 10, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4))
+result_5 <- replicate(100, simu(n1 = 40, n2 = 60, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1))
+result_6 <- replicate(100, simu(n1 = 30, n2 = 70, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1))
+result_7 <- replicate(100, simu(n1 = 10, n2 = 100, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1))
+result_8 <- replicate(100, simu(n1 = 100, n2 = 10, N1 = 1e5, N2 = 2e5, n1j = 0, n2k = 0, 
+                                mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1))
+
+prob_paradox <- function(n1, n2, N1, N2, mu1, mu2, sigma1, sigma2){
+  x <- c(rep((mu2-mu1)/sigma1, n1), rep(0, (n2-1)))
+  mu <- rep(0, (n1+n2-1))
+  sigma <- diag((n1+n2-1))
+  sigma[1:n1, 1:n1] <- sigma[1:n1, 1:n1] + (sigma2^2/sigma1^2)
+  sigma[(n1+1):(n1+n2-1), 1:n1] <- 
+    sigma[(n1+1):(n1+n2-1), 1:n1] + (sigma2/sigma1)
+  sigma[1:n1, (n1+1):(n1+n2-1)] <- 
+    sigma[1:n1, (n1+1):(n1+n2-1)] + (sigma2/sigma1)
+  sigma[(n1+1):(n1+n2-1), (n1+1):(n1+n2-1)] <- 
+    sigma[(n1+1):(n1+n2-1), (n1+1):(n1+n2-1)] + 1
+  
+  return(n2*pmvnorm(lower = -Inf, upper = x, mean = mu, sigma = sigma) - 
+           (N2/(N1+N2)))
+}
+
+num_1 <- mean(replicate(100, prob_paradox(n1 = 40, n2 = 60, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4)))
+num_2 <- mean(replicate(100, prob_paradox(n1 = 30, n2 = 70, N1 = 1e5, N2 = 2e5,
+                                     mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4)))
+num_3 <- mean(replicate(100, prob_paradox(n1 = 10, n2 = 100, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4)))
+num_4 <- mean(replicate(100, prob_paradox(n1 = 100, n2 = 10, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 2, sigma2 = 4)))
+num_5 <- mean(replicate(100, prob_paradox(n1 = 40, n2 = 60, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1)))
+num_6 <- mean(replicate(100, prob_paradox(n1 = 30, n2 = 70, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1)))
+num_7 <- mean(replicate(100, prob_paradox(n1 = 10, n2 = 100, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1)))
+num_8 <- mean(replicate(100, prob_paradox(n1 = 100, n2 = 10, N1 = 1e5, N2 = 2e5, 
+                                     mu1 = -1, mu2 = 1, sigma1 = 1, sigma2 = 1)))
+res <- data.frame(case = c('sigma1 = 2, sigma2 = 4, n_1 = 40, n_2 = 60', 
+                           'sigma1 = 2, sigma2 = 4, n_1 = 30, n_2 = 70',
+                           'sigma1 = 2, sigma2 = 4, n_1 = 10, n_2 = 100',
+                           'sigma1 = 2, sigma2 = 4, n_1 = 100, n_2 = 10',
+                           'sigma1 = 1, sigma2 = 1, n_1 = 40, n_2 = 60', 
+                           'sigma1 = 1, sigma2 = 1, n_1 = 30, n_2 = 70',
+                           'sigma1 = 1, sigma2 = 1, n_1 = 10, n_2 = 100',
+                           'sigma1 = 1, sigma2 = 1, n_1 = 100, n_2 = 10'), 
+                  prob1 = c(round(num_1, 4), round(num_2, 4), round(num_3, 4), round(num_4, 4), 
+                            round(num_5, 4), round(num_6, 4), round(num_7, 4), round(num_8, 4)), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000, 
+                            mean(result_5)/1000, mean(result_6)/1000, 
+                            mean(result_7)/1000, mean(result_8)/1000))
+colnames(res) <- c('', 'Prob from Lemma 3.7 in Normal', 'Prob from simulation')
+knitr::kable(res)
+```
+
+## Simulation for Educational Attainment Example
+
+```{r cache=TRUE, cache.lazy = FALSE}
+set.seed(13)
+simu_primary <- do.call(rbind, mclapply(1:50, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                      primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 2
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent)
+}))
+
+t <- simu_primary %>% group_by(simu) %>% top_n(1, talent)
+
+talent_max <- pivot_longer(
+  data = t,
+  cols = starts_with("primary"),
+  names_to = "round",
+  values_to = "index"
+)
+
+ggplot(talent_max, aes(x = round, y = index, group = simu)) +
+  geom_line(aes(color=simu))+
+  geom_point(aes(color=simu))
+
+set.seed(13)
+simu_primary <- do.call(rbind, mclapply(1:50, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                      primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 5
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent)
+}))
+
+t <- simu_primary %>% group_by(simu) %>% top_n(1, talent)
+
+talent_max <- pivot_longer(
+  data = t,
+  cols = starts_with("primary"),
+  names_to = "round",
+  values_to = "index"
+)
+
+ggplot(talent_max, aes(x = round, y = index, group = simu)) +
+  geom_line(aes(color=simu))+
+  geom_point(aes(color=simu))
+
+```
+
+## Simulation for Major League Baseball Example
+
+```{r cache=TRUE}
+ncores <- detectCores() - 1
+years <- 1871:2023
+
+
+## Assumed top two pitchers got removed
+talent_computing_nonpara_3rd <- function(dataset, component_name, year, ystar, alpha){
+  
+  Ftilde <- function(y, t, ystar, component_name){
+    y <- sort(y)
+    n <- length(y)
+    ytilde <- rep(0, n + 1)
+    
+    if (component_name == 'bWAR' | component_name == 'fWAR' | component_name == 'ERA') {
+      ytilde[1] <- y[1] - (y[2] - y[1])
+    }
+    if (component_name == 'HR'| component_name == 'BB') {
+      # since the minimal HR is greater or equal to 0.
+      ytilde[1] <- 0
+    }
+    if (component_name == 'bWAR_p' | component_name == 'fWAR_p') {
+      ytilde[1] <- y[1] - (y[2] - y[1])/10
+    }
+    if (component_name == 'SO' | component_name == 'AVG') {
+      ytilde[1] <- ifelse(y[1] - (y[2] - y[1]) < 0, 0, y[1] - (y[2] - y[1]) )
+    }
+    
+    ytilde[n+1] <- y[n] + ystar
+    ytilde[2:n] <- unlist(lapply(2:n, function(j){
+      (y[j]+y[j-1])/2
+    }))
+    
+    if (t >= ytilde[n+1]) {
+      1 - 0.1^7
+    } else if (t <= ytilde[1]) {
+      0
+    } else {
+      j <- length(which(ytilde < t))
+      (j - 1) / n + (t - ytilde[j]) / (n*(ytilde[j+1] - ytilde[j]))
+    }
+    
+  }
+  
+  Aptitude_nonpara <- function(p, alpha, npop){
+    
+    # converts order stats to their percentiles
+    order_pbino <- function(p = 0, k = 1, n = 1e4){
+      pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+    }
+    
+    # converts a vector of order stats 
+    # to their percentiles. This vector should be the entire 
+    # sample sorted in increasing order
+    p <- sort(p) # just in case
+    n <- length(p)
+    u = unlist(lapply(1:n, function(j){
+      #order_pbino(p[j], k = 251-n+j, n = 251)
+      order_pbino(p[j], k = j, n = n)
+    }))
+    
+    # transforms percentiles from order stats (in increasing order)
+    # to Pareto values corresponding to the general population 
+    # of a greater than or equal to size
+    # default alpha is that of the Pareto principle 80-20
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j] -n -2 , n + 1 - j +2), t = 1, alpha = alpha)
+      #qPareto(qbeta(u[j], j + npop[j] -n + 251-n , n + 1 - j), t = 1, alpha = alpha)
+    }))
+  }
+  
+  foo <- dataset %>% filter(yearID == year) %>% 
+    arrange(comp) 
+  bar <- foo %>% filter(full_time == 'Y')
+  full_comp <- bar$comp
+  ## batter WAR talent
+  bar <- bar %>% 
+    mutate(WAR_talent = 
+             Aptitude_nonpara(p = unlist(lapply(comp, function(xx) 
+               Ftilde(y = comp, t = xx, ystar = ystar, component_name = component_name))), alpha = alpha, npop = pops))
+  
+  max_WAR_talent <- max(bar$WAR_talent) - 1
+  range <- which(!(foo$playerID %in% bar$playerID))
+  
+  ## using the distribution from full time players
+  bar <- rbind(bar, do.call(rbind, lapply(range, function(j){
+    rbind(bar %>% dplyr::select(-WAR_talent), foo[j, ]) %>% arrange(comp) %>%
+      mutate(WAR_talent = Aptitude_nonpara(p = unlist(lapply(comp, function(xx) 
+        Ftilde(y = full_comp, t = xx, ystar = ystar, component_name = component_name))), alpha = alpha, npop = pops)) %>%
+      filter(full_time == 'N') %>% 
+      mutate(WAR_talent = ifelse(WAR_talent > max_WAR_talent+1, max_WAR_talent, WAR_talent))
+  })))
+  bar %>% mutate(ystar = ystar)
+}
+
+## Load MLB eligible population without WWII correction
+
+datMLBeligible <- rbind(datMLBeligible, 
+                        data.frame(year = c(2021, 2022, 2023), 
+                                   pop = c(15400894*2 - 15451640, 
+                                           15400894*3 - 15451640*2,
+                                           15400894*4 - 15451640*3), 
+                                   ALpop = c(15400894*2 - 15451640, 
+                                             15400894*3 - 15451640*2,
+                                             15400894*4 - 15451640*3)))
+
+pit_dat <- pit_dat %>% 
+  select(-pops) %>% 
+  left_join(datMLBeligible %>% 
+              select(year,pop, ALpop), by = c('yearID' = 'year')) %>% 
+  mutate(pops = ifelse(lgID == "NL",pop,ALpop))
+
+foo <- getRetrosheet(type = "game", year = 2023)
+rotation_bound <- as.data.frame(cbind(years, unlist(mclapply(years, mc.cores = ncores, function(yr){
+  foo <- getRetrosheet(type = "game", year = yr)
+  Tms <- unique(foo$HmTm)
+  
+  starter <- lapply(Tms, function(tm){
+    bar <- foo %>% filter(VisTm == tm | HmTm == tm) %>% 
+      select(VisTm, HmTm, VisStPchID, HmStPchID, VisTmGNum, HmTmGNum)
+    t(apply(bar, 1, function(xx){
+      y <- NULL
+      if(xx[2] == tm){
+        y <- xx[4]
+      }
+      else{
+        y <- xx[3]
+      }
+    })) 
+  })
+  
+  y <- unlist(lapply(starter, function(xx){
+    unlist(lapply(1:length(xx), function(j){
+      flag <- TRUE
+      k <- 1
+      if(j > 1){
+        while(flag){
+          flag <- length(xx[(j-k):j]) == length(unique(xx[(j-k):j]))
+          if(!flag){
+            break
+          }
+          else{
+            k <- k + 1
+          }
+          if(k == j){
+            break
+          }
+        }
+      }
+      k
+    }))
+  }))
+  mean(y)
+  
+}))))
+
+pitchers <- pit_dat %>% 
+  select(playerID, yearID, name, age, lgID, teamID, IP, pops, bWAR)
+pitchers <- pitchers %>% mutate(comp = bWAR / IP)
+pitchers$comp[is.na(pitchers$comp)] = 0
+
+rotation_bound <- as.data.frame(cbind(years, unlist(mclapply(years, mc.cores = ncores, function(yr){
+  foo <- getRetrosheet(type = "game", year = yr)
+  Tms <- unique(foo$HmTm)
+  
+  starter <- lapply(Tms, function(tm){
+    bar <- foo %>% filter(VisTm == tm | HmTm == tm) %>% 
+      select(VisTm, HmTm, VisStPchID, HmStPchID, VisTmGNum, HmTmGNum)
+    t(apply(bar, 1, function(xx){
+      y <- NULL
+      if(xx[2] == tm){
+        y <- xx[4]
+      }
+      else{
+        y <- xx[3]
+      }
+    })) 
+  })
+  
+  y <- unlist(lapply(starter, function(xx){
+    unlist(lapply(1:length(xx), function(j){
+      flag <- TRUE
+      k <- 1
+      if(j > 1){
+        while(flag){
+          flag <- length(xx[(j-k):j]) == length(unique(xx[(j-k):j]))
+          if(!flag){
+            break
+          }
+          else{
+            k <- k + 1
+          }
+          if(k == j){
+            break
+          }
+        }
+      }
+      k
+    }))
+  }))
+  mean(y)
+  
+}))))
+
+unique_team <- do.call(rbind, mclapply(years, mc.cores = ncores, FUN = function(xx){
+  c(xx, nrow(unique(pitchers %>% filter(yearID == xx) %>% select(teamID))))
+}))
+
+rotation_player <- data.frame(yearID = years, rotation = ceiling(rotation_bound[,2] * unique_team[,2]))
+
+cutoff <- do.call(rbind, mclapply(years, mc.cores = ncores, FUN = function(xx){
+  m <- pitchers %>% filter(yearID == xx) %>% arrange(-IP)
+  index <- rotation_player$rotation[rotation_player$yearID == xx]
+  data.frame(thres = (m$IP[index]), yearID = xx)
+}))
+
+pitchers <- merge(pitchers, cutoff, by = 'yearID')
+
+pitchers <- pitchers %>% mutate(full_time = ifelse(IP >= thres, 'Y', 'N'))
+
+pitchers_schell <- do.call(rbind, mclapply(years, mc.cores = ncores, FUN = function(xx){
+  int<- pitchers %>% filter(yearID == xx)
+  lg_avg <- sum(int$bWAR)/sum(int$IP)
+  int %>% mutate(comp = (bWAR + lg_avg * 14)/(IP + 14))
+}))
+
+pitchers_talent_spud <- talent_computing_nonpara_3rd(dataset = pitchers_schell, 
+                                                    component_name = "bWAR_p", 
+                                                    year = 1943, 
+                                                    ystar = thresh_fun(component = pitchers_schell %>% filter(full_time =='Y', yearID == 1943) %>% select(comp), component_name = 'bWAR_p'), alpha = 1.16)
+
+
+pitchers_talent_dizzy <- talent_computing_nonpara_3rd(dataset = pitchers_schell, 
+                                                    component_name = "bWAR_p", 
+                                                    year = 1944, 
+                                                    ystar = thresh_fun(component = pitchers_schell %>% filter(full_time =='Y', yearID == 1944) %>% select(comp), component_name = 'bWAR_p'), alpha = 1.16)
+
+
+pitchers_talent_hal <- talent_computing_nonpara_3rd(dataset = pitchers_schell, 
+                                                    component_name = "bWAR_p", 
+                                                    year = 1945, 
+                                                    ystar = thresh_fun(component = pitchers_schell %>% filter(full_time =='Y', yearID == 1945) %>% select(comp), component_name = 'bWAR_p'), alpha = 1.16)
+
+pitchers_talent_bWAR <- do.call(rbind, mclapply(years, mc.cores = ncores, function(yy){
+  talent_computing_nonpara(dataset = pitchers_schell, component_name = "bWAR_p", year = yy, 
+                           ystar = thresh_fun(component = pitchers_schell %>% 
+                                                filter(full_time =='Y', yearID == yy) %>%
+                                                select(comp), component_name = 'bWAR_p'), alpha = 1.16)
+})) %>% arrange(-WAR_talent)
+
+no_strike <- pitchers_talent_bWAR %>% 
+  filter(yearID < 1990, yearID >= 1977, yearID != 1981, 
+         full_time == 'Y', lgID == 'NL') %>%
+  arrange(WAR_talent)
+
+min_refbWAR <- -2
+
+t <- isoreg(no_strike$WAR_talent, no_strike$comp)
+
+talent_new <- quantile(no_strike$WAR_talent, probs = seq(0,154)/154)
+comp_new <- as.stepfun(t)(talent_new)
+
+ystar <- thresh_fun(comp_new, component_name = 'bWAR_p')
+pop_new <- round(mean(no_strike$pops))
+component_name = 'bWAR_p'
+yy <- sort(comp_new)
+n <- length(yy)
+ytilde <- rep(0, n + 1)
+if (component_name == 'ERA') {
+  ytilde[1] <- yy[1] - (yy[2] - yy[1])
+}
+if (component_name == 'bWAR_p'| component_name == 'fWAR_p') {
+  ytilde[1] <- yy[1] - (yy[2] - yy[1])/10
+}
+if (component_name == 'SO') {
+  ytilde[1] <- ifelse(yy[1] - (yy[2] - yy[1]) < 0, 0, yy[1] - (yy[2] - yy[1]) )
+}
+ytilde[n+1] <- yy[n] + ystar
+ytilde[2:n] <- unlist(lapply(2:n, function(j){
+  (yy[j]+yy[j-1])/2 
+}))
+
+career_kAB_spud <- do.call(rbind, mclapply(1:nrow(pitchers_talent_spud), function(xx){
+  int <- career_talent_nonpara(dataset = pitchers_talent_bWAR, component_name = 'bWAR_p', 
+                               snippet = pitchers_talent_spud[xx,], alpha = 1.16)
+  int
+}, mc.cores = ncores)) 
+
+career_kAB_dizzy <- do.call(rbind, mclapply(1:nrow(pitchers_talent_dizzy), function(xx){
+  int <- career_talent_nonpara(dataset = pitchers_talent_bWAR, component_name = 'bWAR_p', 
+                               snippet = pitchers_talent_dizzy[xx,], alpha = 1.16)
+  int
+}, mc.cores = ncores)) 
+
+career_kAB_hal <- do.call(rbind, mclapply(1:nrow(pitchers_talent_hal), function(xx){
+  int <- career_talent_nonpara(dataset = pitchers_talent_bWAR, component_name = 'bWAR_p', 
+                               snippet = pitchers_talent_hal[xx,], alpha = 1.16)
+  int
+}, mc.cores = ncores)) 
+
+mapped_quan_p <- do.call(rbind, mclapply(years, function(xx){
+  pitchers_full <- pitchers %>% filter(yearID == xx) %>% 
+    filter(full_time == 'Y') %>% arrange(-IP)
+  pitchers_less <- pitchers %>% filter(yearID == xx) %>% 
+    filter(full_time == 'N') %>% arrange(-IP)
+  
+  n1 <- nrow(pitchers_full)
+  n2 <- nrow(pitchers_less)
+  
+  mapped_IP_full <- c()
+  mapped_IP_less <- c()
+  for (yy in c(1977:1980, 1982:1989)) {
+    pitchers_ref_full <- pitchers %>% 
+      filter(yearID == yy, full_time == 'Y') %>% arrange(-IP)
+    pitchers_ref_less <- pitchers %>% 
+      filter(yearID == yy, full_time == 'N') %>% arrange(-IP)
+    n1r <- nrow(pitchers_ref_full)
+    n2r <- nrow(pitchers_ref_less)
+    
+    mapped_IP_full <- cbind(mapped_IP_full, approx(x = seq((n1r-1),0)/(n1r-1), 
+                                                   y = pitchers_ref_full$IP,
+                                                   xout = seq((n1-1),0)/(n1-1))$y)
+    mapped_IP_less <- cbind(mapped_IP_less, approx(x = seq((n2r-1),0)/(n2r-1), 
+                                                   y = pitchers_ref_less$IP, 
+                                                   xout = seq((n2-1),0)/(n2-1))$y)
+  }
+  
+  pitchers_full$mapped_IP <- rowMeans(mapped_IP_full)
+  pitchers_less$mapped_IP <- rowMeans(mapped_IP_less)
+  
+  m <- rbind(pitchers_full, pitchers_less)
+  data.frame(playerID = m$playerID, yearID = m$yearID, 
+             mapped_IP_raw = round(m$mapped_IP))
+  
+}, mc.cores = ncores))
+
+mapped_pitchers_spud <- merge(career_kAB_spud, mapped_quan_p, 
+                           by = c('playerID', 'yearID'))
+mapped_pitchers_spud <- mapped_pitchers_spud %>% 
+  mutate(adj_bWAR = adj_comp * mapped_IP_raw) %>%
+  mutate(adj_bWAR = ifelse(adj_bWAR < min_refbWAR, min_refbWAR, adj_bWAR)) %>%
+  mutate(mapped_IP_bWAR = round(adj_bWAR / adj_comp))
+
+mapped_pitchers_dizzy <- merge(career_kAB_dizzy, mapped_quan_p, 
+                           by = c('playerID', 'yearID'))
+mapped_pitchers_dizzy <- mapped_pitchers_dizzy %>% 
+  mutate(adj_bWAR = adj_comp * mapped_IP_raw) %>%
+  mutate(adj_bWAR = ifelse(adj_bWAR < min_refbWAR, min_refbWAR, adj_bWAR)) %>%
+  mutate(mapped_IP_bWAR = round(adj_bWAR / adj_comp))
+
+mapped_pitchers_hal <- merge(career_kAB_hal, mapped_quan_p, 
+                           by = c('playerID', 'yearID'))
+mapped_pitchers_hal <- mapped_pitchers_hal %>% 
+  mutate(adj_bWAR = adj_comp * mapped_IP_raw) %>%
+  mutate(adj_bWAR = ifelse(adj_bWAR < min_refbWAR, min_refbWAR, adj_bWAR)) %>%
+  mutate(mapped_IP_bWAR = round(adj_bWAR / adj_comp))
+
+career_kAB <- do.call(rbind, mclapply(1:nrow(pitchers_talent_bWAR), function(xx){
+  int <- career_talent_nonpara(dataset = pitchers_talent_bWAR, component_name = 'bWAR_p', 
+                               snippet = pitchers_talent_bWAR[xx,], alpha = 1.16)
+  int
+}, mc.cores = ncores)) 
+
+mapped_pitchers_1 <- merge(career_kAB, mapped_quan_p, 
+                           by = c('playerID', 'yearID'))
+
+mapped_pitchers_bWAR <- mapped_pitchers_1 %>% 
+  mutate(adj_bWAR = adj_comp * mapped_IP_raw) %>%
+  mutate(adj_bWAR = ifelse(adj_bWAR < min_refbWAR, min_refbWAR, adj_bWAR)) %>%
+  mutate(mapped_IP_bWAR = round(adj_bWAR / adj_comp))
+
+Spud_Yes <- mapped_pitchers_bWAR %>% filter(yearID == 1943, playerID == 'chandsp01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+Spud_No <- mapped_pitchers_spud %>% filter(yearID == 1943, playerID == 'chandsp01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+Dizzy_Yes <- mapped_pitchers_bWAR %>% filter(yearID == 1944, playerID == 'troutdi01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+Dizzy_No <- mapped_pitchers_dizzy %>% filter(yearID == 1944, playerID == 'troutdi01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+Hal_Yes <- mapped_pitchers_bWAR %>% filter(yearID == 1945, playerID == 'newhoha01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+Hal_No <- mapped_pitchers_hal %>% filter(yearID == 1945, playerID == 'newhoha01') %>%
+  select(adj_bWAR) %>% as.numeric() %>% round(2)
+res <- data.frame(player = c('Spud Chandler', 'Spud Chandler', 'Dizzy Trout', 
+                             'Dizzy Trout', 'Hal Newhouser', 'Hal Newhouser'), 
+                  served = c('Yes', 'No','Yes', 'No','Yes', 'No'), 
+                  estimated_bWAR = c(Spud_Yes, Spud_No, Dizzy_Yes, Dizzy_No, Hal_Yes, Hal_No))
+knitr::kable(res)
+```
+
