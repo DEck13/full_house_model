@@ -437,18 +437,8 @@ In this simulation, we simulate the process of students moving on to the next le
 The final step can be described in the following formula: 
 
 \begin{equation} \label{eq:estiY}
-	Y_{i,(j)} = F_{Y_{i}}^{-1} \left( F_{X_{i}}\left(X_{i, (500*(i-1) + j))} \right) \right)
+	Y_{i,(j)} = F_{Y_{i}}^{-1} \left( F_{X_{i}}\left(X_{i, (j))} \right) \right)
 \end{equation}
-
-$$
-\begin{aligned}
-F_{X_i}\left(X_{i,(j)} \right) & \sim U_{i,(j)}, 
-F_{X_{i,(j)}}\left(X_{i,(j)} \right) & \sim U_{i,j}
-\end{aligned}
-$$
-where 
-$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. 
-
 
 $X_{i, (j)}$ is the jth ordered talent in the ith school. $F_{X_{i}}$ is the cumulative distribution function of talents in the ith school. $Y_{i, (j)}$ is the jth ordered score in the ith school. $F_{Y_{i}}$ is the cumulative distribution function of scores in the ith school. 
 
@@ -549,7 +539,7 @@ talent_max <- pivot_longer(
   values_to = "index"
 )
 
-ggplot(talent_max, aes(x = round, y = index, group = simu)) +
+ggplot(talent_max, aes(x = round, y = index/2000, group = simu)) +
   geom_line(aes(color=simu))+
   geom_point(aes(color=simu))
 
@@ -645,7 +635,7 @@ talent_max <- pivot_longer(
   values_to = "index"
 )
 
-ggplot(talent_max, aes(x = round, y = index, group = simu)) +
+ggplot(talent_max, aes(x = round, y = index/2000, group = simu)) +
   geom_line(aes(color=simu))+
   geom_point(aes(color=simu))
 
@@ -1168,7 +1158,8 @@ knitr::kable(para_AVG)
 ```
 
 ```{r}
-ggplot(data = para_AVG, aes(x = yearID, y = norm_prob)) + geom_line()
+ggplot(data = para_AVG, aes(x = yearID, y = norm_prob)) + geom_line() +
+  geom_smooth()
 ```
 
 
