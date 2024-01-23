@@ -27,141 +27,11 @@ ncores = detectCores() - 1
 load("baseball_simu.RData")
 ```
 
-## Simulation for Lemma 3.2
+## Simulation for Theorem 3.2
 
-In this simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox occurs. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+### System Inclusion Function Selects the Top Components From the Population
 
-```{r cache=TRUE}
-set.seed(13)
-
-simu <- function(n1, n2, N1, N2, n1j, n2k, size){
-  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
-  
-  Y1 <- sort(rnorm(n1))
-  Y2 <- sort(rnorm(n2))
-  
-  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
-    p <- pnorm(q, mean = mean, sd = sd)
-    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
-  }
-
-  order_pnorm_vec <- function(q, mean = 0, sd = 1){
-    q <- sort(q) 
-    n <- length(q)
-    unlist(lapply(1:n, function(j){
-      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
-    }))
-  }
-  
-  u1 <- order_pnorm_vec(Y1)
-  u2 <- order_pnorm_vec(Y2)
-  
-  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
-    n <- length(u)
-    if(length(npop) == 1) npop <- rep(npop, n)
-    unlist(lapply(1:n, function(j){
-      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
-    }))
-  }
-  
-  # try it out on the percentiles obtained from order_norm_vec
-  X1 <- order_Pareto_vec(u1, npop = N1)
-  X2 <- order_Pareto_vec(u2, npop = N2)
-  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
-}
-  res <- do.call(rbind, mclapply(1:size, function(xx){
-    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
-  }, mc.cores = 7)) 
-  res <- as.data.frame(res)
-  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
-  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
-}
-
-result_1 <- replicate(10, simu(n1 = 400, n2 = 600, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
-result_2 <- replicate(10, simu(n1 = 300, n2 = 700, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
-result_3 <- replicate(10, simu(n1 = 600, n2 = 400, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
-result_4 <- replicate(10, simu(n1 = 700, n2 = 300, N1 = 1e6, N2 = 1e6, n1j = 0, n2k = 0, size = 1000))
-
-res <- data.frame(case = c('n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6', 
-                           'n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6',
-                           'n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6',
-                           'n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6'), 
-                  prob1 = c(0.1, 0.2, 0, 0), 
-                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
-                            mean(result_3)/1000, mean(result_4)/1000))
-colnames(res) <- c('', 'Prob from Lemma 3.2', 'Prob from simulation')
-knitr::kable(res)
-```
-
-## Simulation for Lemma 3.3
-
-In this simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
-
-```{r cache=TRUE}
-set.seed(13)
-
-simu <- function(n1, n2, N1, N2, n1j, n2k, size){
-  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
-  
-  Y1 <- sort(rnorm(n1))
-  Y2 <- sort(rnorm(n2))
-  
-  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
-    p <- pnorm(q, mean = mean, sd = sd)
-    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
-  }
-  
-  order_pnorm_vec <- function(q, mean = 0, sd = 1){
-    q <- sort(q) 
-    n <- length(q)
-    unlist(lapply(1:n, function(j){
-      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
-    }))
-  }
-  
-  u1 <- order_pnorm_vec(Y1)
-  u2 <- order_pnorm_vec(Y2)
-  
-  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
-    n <- length(u)
-    if(length(npop) == 1) npop <- rep(npop, n)
-    unlist(lapply(1:n, function(j){
-      qPareto(qbeta(u[j], j, npop[j] - j + 1), t = t, alpha = alpha)
-    }))
-  }
-  
-  # try it out on the percentiles obtained from order_norm_vec
-  X1 <- order_Pareto_vec(u1, npop = N1)
-  X2 <- order_Pareto_vec(u2, npop = N2)
-  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
-}
-  res <- do.call(rbind, mclapply(1:size, function(xx){
-    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
-  }, mc.cores = 7)) 
-  res <- as.data.frame(res)
-  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
-  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
-}
-
-result_1 <- replicate(10, simu(n1 = 400, n2 = 600, N1 = 1e6, N2 = 1e6, n1j = 399, n2k = 599, size = 1000))
-result_2 <- replicate(10, simu(n1 = 300, n2 = 700, N1 = 1e6, N2 = 1e6, n1j = 299, n2k = 699, size = 1000))
-result_3 <- replicate(10, simu(n1 = 600, n2 = 400, N1 = 1e6, N2 = 1e6, n1j = 599, n2k = 399, size = 1000))
-result_4 <- replicate(10, simu(n1 = 700, n2 = 300, N1 = 1e6, N2 = 1e6, n1j = 699, n2k = 299, size = 1000))
-
-res <- data.frame(case = c('n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6', 
-                           'n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6',
-                           'n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6',
-                           'n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6'), 
-                  prob1 = c(0, 0, 0.1, 0.2), 
-                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
-                            mean(result_3)/1000, mean(result_4)/1000))
-colnames(res) <- c('', 'Prob from Lemma 3.3', 'Prob from simulation')
-knitr::kable(res)
-```
-
-## Simulation for Lemma 3.4
-
-In this simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+In this simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We assume the $j = k = 1$. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
 
 ```{r cache=TRUE}
 set.seed(13)
@@ -232,7 +102,85 @@ res <- data.frame(case = c('n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3',
                             round(ifelse(num_4 > 0, num_4, 0), 4)), 
                   prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
                             mean(result_3)/1000, mean(result_4)/1000))
-colnames(res) <- c('', 'Prob from Lemma 3.2', 'Prob from simulation')
+colnames(res) <- c('', 'Prob from Theorem 3.2', 'Prob from simulation')
+knitr::kable(res)
+
+```
+
+### System Inclusion Function Selects the Bottom Components From the Population
+
+In this simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We assume the $j = k = 1$. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+
+```{r cache=TRUE}
+set.seed(13)
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+  
+  Y1 <- sort(rnorm(n1))
+  Y2 <- sort(rnorm(n2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1)
+  u2 <- order_pnorm_vec(Y2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j, npop[j] - j + 1), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+result_1 <- replicate(10, simu(n1 = 40, n2 = 60, N1 = 1e3, N2 = 1e3, n1j = 38, n2k = 58, size = 1000))
+result_2 <- replicate(10, simu(n1 = 30, n2 = 70, N1 = 1e3, N2 = 1e3, n1j = 28, n2k = 68, size = 1000))
+result_3 <- replicate(10, simu(n1 = 60, n2 = 40, N1 = 1e3, N2 = 1e3, n1j = 58, n2k = 38, size = 1000))
+result_4 <- replicate(10, simu(n1 = 70, n2 = 30, N1 = 1e3, N2 = 1e3, n1j = 68, n2k = 28, size = 1000))
+
+num_1 <- sum(choose(40,2:40)*beta(2+2:40, 100-2-(2:40)+1)/beta(2,60-2+1)) - sum(choose(1000,2:1000)*beta(2+2:1000, 1000+1000-(2:1000)+1)/beta(2, 1000-2+1))
+
+num_2 <- sum(choose(30,2:30)*beta(2+2:30, 100-2-(2:30)+1)/beta(2,70-2+1)) - sum(choose(1000,2:1000)*beta(2+2:1000, 1000+1000-(2:1000)+1)/beta(2, 1000-2+1))
+
+num_3 <- sum(choose(60,2:60)*beta(2+2:60, 100-2-(2:60)+1)/beta(2,40-2+1)) - sum(choose(1000,2:1000)*beta(2+2:1000, 1000+1000-(2:1000)+1)/beta(2, 1000-2+1))
+
+num_4 <- sum(choose(70,2:70)*beta(2+2:70, 100-2-(2:70)+1)/beta(2,30-2+1)) - sum(choose(1000,2:1000)*beta(2+2:1000, 1000+1000-(2:1000)+1)/beta(2, 1000-2+1))
+
+res <- data.frame(case = c('n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3', 
+                           'n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3',
+                           'n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3',
+                           'n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3'), 
+                  prob1 = c(round(ifelse(num_1 > 0, num_1, 0), 4), 
+                            round(ifelse(num_2 > 0, num_2, 0), 4), 
+                            round(ifelse(num_3 > 0, num_3, 0), 4), 
+                            round(ifelse(num_4 > 0, num_4, 0), 4)), 
+                  prob2 = c(mean(result_1)/1000, mean(result_2)/1000, 
+                            mean(result_3)/1000, mean(result_4)/1000))
+colnames(res) <- c('', 'Prob from Theorem 3.2', 'Prob from simulation')
 knitr::kable(res)
 
 ```
@@ -640,6 +588,287 @@ ggplot(talent_max, aes(x = round, y = index/2000, group = simu)) +
   geom_point(aes(color=simu))
 
 ```
+
+We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 for every school.
+
+```{r cache=TRUE, cache.lazy = FALSE}
+set.seed(13)
+simu_primary_50 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 1000][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 1000
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 2
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+set.seed(13)
+simu_primary_25 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 500][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 500
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 2
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+set.seed(13)
+simu_primary_0 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 1][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 1
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 2
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+simu_primary <- rbind(cbind(type = '50', simu_primary_50 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)), 
+                      cbind(type = '25', simu_primary_25 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)),
+                      cbind(type = '0', simu_primary_0 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)))
+talent_max <- pivot_longer(
+  data = simu_primary,
+  cols = starts_with("primary"),
+  names_to = "round",
+  values_to = "index"
+)
+
+ggplot(talent_max, aes(x = round, y = index/2000, group = type)) +
+  geom_point(aes(color=type)) + 
+  geom_smooth(method = "lm", formula = y ~ x, aes(color=type))
+
+```
+
 
 ## Simulation for Major League Baseball Example 1
 

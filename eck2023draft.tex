@@ -175,12 +175,20 @@ Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of si
 $$
   X_{1,(N_1 - k)} > X_{2,(N_2 - j)} \quad \text{and} \quad Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}
 $$
-both occur, where k, j $\in \mathbb{Z}$,. A central interest is evaluating the probability of such a paradox, 
+both occur, where k, j $\in \mathbb{Z}$, $r(N_i, n_i, t) = N_i - n_i + t$, $i = 1,2$, $t = 1, \dots, n_i$. 
+
+Or when 
+$$
+  X_{1,(k)} > X_{2,(j)} \quad \text{and} \quad Y_{1,(k)} < Y_{2,(j)}
+$$
+both occur, where k, j $\in \mathbb{Z}$, $r(N_i, n_i, t) = t$, $i = 1,2$, $t = 1, \dots, n_i$. 
+
+A central interest is evaluating the probability of such a paradox, 
 
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
 \end{equation}
-As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following lemma.
+As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following theorem.
 
 
 \begin{lemma} \label{lemma:rep}
@@ -217,7 +225,7 @@ If we assume
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion function selects the top components from the population, then
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion function selects the top components from the population, where $r(N_i, n_i, t) = N_i - n_i + t$, $i = 1,2$, $t = 1, \dots, n_i$, then
 \begin{align*}
 	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) \\
   &= \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
@@ -229,7 +237,7 @@ p
 \end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}.
 \end{align*}
 
-If the system inclusion function selects the bottom components from the population, then
+If the system inclusion function selects the bottom components from the population, where $r(N_i, n_i, t) = t$, $i = 1,2$, $t = 1, \dots, n_i$, then
 \begin{align*}
 	&\Prob\left(X_{1,(k)} > X_{2,(j)}, Y_{1,(k)} < Y_{2,(j)}\right) \\
   &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
@@ -238,7 +246,7 @@ p
 \end{array}\right)\frac{B(j+p, n_1 + n_2-p-j+1)}{B(j, n_2 -j+1)} - \sum_{p=k}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(j+p, N_1+N_2-p-j+1)}{B(N_2-j, j+1)}.
+\end{array}\right)\frac{B(j+p, N_1+N_2-p-j+1)}{B(j, N_2 - j+1)}.
 \end{align*}
 where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
 
@@ -316,14 +324,14 @@ and $I_x(\alpha, \beta)$ is the regularized incompleted beta function.
 
 \end{proof}
 
-We verify Theorem~\ref{theorem:samedistgeneral} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+We verify Theorem~\ref{theorem:samedistgeneral} when the system inclusion function selects the top components from the population with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We assume the $j = k = 1$. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
 
 \begin{table}[htb!]
 \centering
 \scalebox{0.7}{
 \begin{tabular}{c|c|c}
   \hline
- & Prob from Lemma~\ref{lem:samedistmin} & Prob from simulation \\ 
+ & Prob from Theorem~\ref{theorem:samedistgeneral} & Prob from simulation \\ 
   \hline
 $n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0.1495 & 0.1515 \\
 $n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0.2866 & 0.2843 \\
@@ -333,7 +341,7 @@ $n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
 \end{tabular}
 }
 \caption{Simulation result to validate the lemma about the probability of paradox}
-\label{Tab:simulation_min}
+\label{Tab:simulationtop}
 \end{table}
 
 
@@ -353,51 +361,51 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \end{align*}
 \end{corollary}
 
-\begin{proof}
-We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
-	\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(F_X(x)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_{-\infty}^{+\infty} (F_X(x)^{N_2\frac{n_1}{n_2}} - F_X(x)^{N_1}) \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_0^1 t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
-	&= \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2},
-\end{align*}
-where 
-\begin{align*}
-	h_{1,2}(x) 
-	= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
-	= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
-\end{align*}
+%\begin{proof}
+%We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
+%	\begin{align*}
+%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(F_X(x)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty} (F_X(x)^{N_2\frac{n_1}{n_2}} - F_X(x)^{N_1}) \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_0^1 t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
+%	&= \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2},
+%\end{align*}
+%where 
+%\begin{align*}
+%	h_{1,2}(x) 
+%	= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
+%	= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
+%\end{align*}
 
-In order to ensure a positive probability,  we assume $h_{1,2}(x) > x$, which indicates $\frac{n_1}{N_1} < \frac{n_2}{N_2}$
+%In order to ensure a positive probability,  we assume $h_{1,2}(x) > x$, which indicates $\frac{n_1}{N_1} < \frac{n_2}{N_2}$
 
-\end{proof}
+%\end{proof}
 
-It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$ under the setup of Corollary~\ref{corollary:samedisttop}. \\
+%It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$ under the setup of Corollary~\ref{corollary:samedisttop}. \\
 
 
 
-We verify Corollary~\ref{corollary:samedisttop} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox occurs. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+%We verify Corollary~\ref{corollary:samedisttop} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox occurs. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
 
-\begin{table}[htb!]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c}
-  \hline
- & Prob from Corollary~\ref{corollary:samedisttop} & Prob from simulation \\ 
-  \hline
-$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1004 \\
-$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2011  \\
-$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0 & 0  \\
-   \hline
-\end{tabular}
-}
-\caption{Simulation result to validate the Corollary~\ref{corollary:samedisttop} about the probability of paradox}
-\label{Tab:simulation}
-\end{table}
+%\begin{table}[htb!]
+%\centering
+%\scalebox{0.7}{
+%\begin{tabular}{c|c|c}
+%  \hline
+% & Prob from Corollary~\ref{corollary:samedisttop} & Prob from simulation \\ 
+%  \hline
+%$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1004 \\
+%$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2011  \\
+%$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+%$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0 & 0  \\
+%   \hline
+%\end{tabular}
+%}
+%\caption{Simulation result to validate the Corollary~\ref{corollary:samedisttop} about the probability of paradox}
+%\label{Tab:simulation}
+%\end{table}
 
 \begin{corollary} \label{corollary:samedistbottom}
 Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
@@ -415,73 +423,70 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \end{align*}
 \end{corollary}
 
-\begin{proof}
-We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
-	\begin{align*}
-	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) = \Prob\left( X_{2,(1)} < X_{1,(1)}  < h_{1,2}\left(X_{2,(1)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(1)}}(y)\ dy\right] \ f_{X_{2,(1)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (1-F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1-F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(1 - (1 - F_X(x))^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (1 - F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_{-\infty}^{+\infty} -((1 - F_X(x))^{N_2\frac{n_1}{n_2}} + (1-F_X(x))^{N_1}) \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-	&= \int_0^1 -(1 - t)^{\frac{n_1}{n_2}} + (1-t)^{\frac{N_1}{N_2}} \ dt \\
-	&= \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2},
-\end{align*}
-where 
-\begin{align*}
-	h_{1,2}(x) 
-	= F_X^{-1}(1-(F_Y(F_Y^{-1}((1 - F_X)^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
-	= F_X^{-1}(1 - (1 - F_X)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
-\end{align*}
-\end{proof}
+%\begin{proof}
+%We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
+%	\begin{align*}
+%	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) = \Prob\left( X_{2,(1)} < X_{1,(1)}  < h_{1,2}\left(X_{2,(1)}\right)\right) \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(1)}}(y)\ dy\right] \ f_{X_{2,(1)}}(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (1-F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1-F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(1 - (1 - F_X(x))^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (1 - F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_{-\infty}^{+\infty} -((1 - F_X(x))^{N_2\frac{n_1}{n_2}} + (1-F_X(x))^{N_1}) \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
+%	&= \int_0^1 -(1 - t)^{\frac{n_1}{n_2}} + (1-t)^{\frac{N_1}{N_2}} \ dt \\
+%	&= \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2},
+%\end{align*}
+%where 
+%\begin{align*}
+%	h_{1,2}(x) 
+%	= F_X^{-1}(1-(F_Y(F_Y^{-1}((1 - F_X)^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
+%	= F_X^{-1}(1 - (1 - F_X)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
+%\end{align*}
+%\end{proof}
 
-We verify Corollary~\ref{corollary:samedistbottom} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+%We verify Corollary~\ref{corollary:samedistbottom} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
 
-\begin{table}[htb!]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c}
-  \hline
- & Prob from Corollary~\ref{corollary:samedistbottom} & Prob from simulation \\ 
-  \hline
-$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.0937 \\
-$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2006  \\
-   \hline
-\end{tabular}
-}
-\caption{Simulation result to validate the Corollary~\ref{corollary:samedistbottom} about the probability of paradox}
-\label{Tab:simulation_min}
-\end{table}
-
-
-\begin{corollary}
-If we assume 
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) \\
-  &= \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
-\end{align*}
-\end{corollary}
-
-\begin{proof}
-	\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2 - k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) = \Prob\left( X_{2,(N_2 - k)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2 - k)}\right)\right) \\
-	& = \int_0^1 g_{n_1, k}g_{n_2, 0}^{-1}(t) - g_{N_1, k}g_{N_2, 0}^{-1}(t) \ dt \\
-	& = \int_0^1 g_{n_1, k}(t^{\frac{1}{n_2}}) - g_{N_1, k}(t^{\frac{1}{N_2}}) \ dt \\
-	& = \int_0^1 \int_0^{t^{\frac{1}{n_2}}} \frac{n_1!}{(n_1 - k-1)!}x^{n_1 - k - 1}(1-x)^{k} dx -  \int_0^{t^{\frac{1}{N_2}}} \frac{N_1!}{(N_1 - k-1)!}x^{N_1 - k - 1}(1-x)^{k} dx\ dt \\
-	& = \int_0^1 \frac{n_1!}{(n_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{n_1 - k + i}t^{\frac{n_1 - k + i}{n_2}} - \frac{N_1!}{(N_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{N_1 - k + i}t^{\frac{N_1 - k + i}{N_2}} dt \\
-	& = \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
-	\end{align*}
+%\begin{table}[htb!]
+%\centering
+%\scalebox{0.7}{
+%\begin{tabular}{c|c|c}
+%  \hline
+% & Prob from Corollary~\ref{corollary:samedistbottom} & Prob from simulation \\ 
+ % \hline
+%$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+%$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
+%$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.0937 \\
+%$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2006  \\
+%   \hline
+%\end{tabular}
+%}
+%\caption{Simulation result to validate the Corollary~\ref{corollary:samedistbottom} about the probability of paradox}
+%\label{Tab:simulation_min}
+%\end{table}
 
 
+%\begin{corollary}
+%If we assume 
+%\begin{align*}
+%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+%\end{align*}
+%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
+%\begin{align*}
+%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) \\
+%  &= \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
+%\end{align*}
+%\end{corollary}
 
+%\begin{proof}
+%	\begin{align*}
+%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2 - k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) = \Prob\left( X_{2,(N_2 - k)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2 - k)}\right)\right) \\
+%	& = \int_0^1 g_{n_1, k}g_{n_2, 0}^{-1}(t) - g_{N_1, k}g_{N_2, 0}^{-1}(t) \ dt \\
+%	& = \int_0^1 g_{n_1, k}(t^{\frac{1}{n_2}}) - g_{N_1, k}(t^{\frac{1}{N_2}}) \ dt \\
+%	& = \int_0^1 \int_0^{t^{\frac{1}{n_2}}} \frac{n_1!}{(n_1 - k-1)!}x^{n_1 - k - 1}(1-x)^{k} dx -  \int_0^{t^{\frac{1}{N_2}}} \frac{N_1!}{(N_1 - k-1)!}x^{N_1 - k - 1}(1-x)^{k} dx\ dt \\
+%	& = \int_0^1 \frac{n_1!}{(n_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{n_1 - k + i}t^{\frac{n_1 - k + i}{n_2}} - \frac{N_1!}{(N_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{N_1 - k + i}t^{\frac{N_1 - k + i}{N_2}} dt \\
+%	& = \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
+%	\end{align*}
 
-\end{proof}
+%\end{proof}
 
 \section{Paradox Under Different Distribution}
 
@@ -498,7 +503,7 @@ for some $y$.
 \end{defn}
 
 
-\begin{lemma} \label{lem:weakstodom}
+\begin{prop} \label{prop:weakstodom}
 Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
@@ -512,7 +517,7 @@ where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is f
   %\frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} - \frac{N_2}{N_1 + N_2}  + o(\varepsilon).
 \end{split}
 \end{equation}
-\end{lemma}
+\end{prop}
 
 \begin{proof}
 First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
@@ -525,7 +530,7 @@ $$
    h_{1,2}(X_{2,(N_2)}) \leq 
    F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
 $$
-In combination with Lemma~\ref{lem:samedist} and the proof of Lemma~\ref{lem:samedist}, the first inequality yields  
+In combination with Lemma~\ref{corollary:samedisttop} and the proof of Lemma~\ref{corollary:samedisttop}, the first inequality yields  
 $$
   \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
@@ -628,6 +633,61 @@ In this example, we demonstrate a case where Lemma~\ref{lem:weakstodom} applies.
 \end{align*} 
 where $\mu_1 \leq \mu_2, \sigma_1 > 0$ and $\sigma_2 >0$. 
 
+\begin{theorem} \label{theorem:normalgeneral}
+
+When $\sigma_1 = \sigma_2 = \sigma$,
+	\begin{align*}
+	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) \\
+  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
+\end{align*}
+
+$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
+2 & 1 & \dots & 1\\
+1 & 2 & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & 1\\
+1 & \dots & 1 & 2\\
+\end{bmatrix}$$
+
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
+
+When $\sigma_1 \neq \sigma_2$, 
+
+\begin{align*}
+	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) \\
+  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
+\end{align*}
+
+$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
+	\Sigma_{11} & \Sigma_{12}\\
+	\Sigma_{21} & \Sigma_{22}\\
+\end{bmatrix}$$
+
+$\Sigma_{11} = \begin{bmatrix}
+\frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
+\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
+\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
+\end{bmatrix}_{n_1 \times n_1}, 
+\Sigma_{12}^{T} = \Sigma_{21} = \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+\frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix}_{(n_2-1) \times n_1}$
+$$
+\Sigma_{22} = \begin{bmatrix}
+2 & 1 & \hdots & 1\\
+1 & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & 1\\
+1 & \hdots & 1 & 2\\
+\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
+
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
+
+\end{theorem}
+
+\begin{proof}
+	
 Supposed $\sigma_1 = \sigma_2 = \sigma$, it is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
 
 \begin{align*}
@@ -746,6 +806,8 @@ $$
 
 The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 
+\end{proof}
+
 We verify the normal example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the normal distribution with $\mu_1 = -1$ and $\mu_2 = 1$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$, $N_1 = 1e5$ and $N_2 = 2e5$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average frequency divided by 1000 as the probability of the Gould paradox happening. Next, using the procedure in \cite{mi2009mvtnorm}, we calculate the probability of our outcome, which involves the probability of a multivariate normal distribution.
 
 \begin{table}[H]
@@ -802,22 +864,8 @@ $\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operato
 We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 for every school.
 
 \begin{figure}[H]
-   \begin{minipage}{0.32\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{50index}
-     \caption{The tendencies of the most talented students start at 50\% percentile}\label{Fig:50index}
-   \end{minipage}\hfill
-   \begin{minipage}{0.32\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{25index}
-     \caption{The tendencies of the most talented students start at 25\% percentile}\label{Fig:25index}
-     \end{minipage}\hfill
-   \begin{minipage}{0.32\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{0index}
-     \caption{The tendencies of the most talented students start at 0\% percentile}\label{Fig:0index}
-   \end{minipage}
-
+\centering
+   \includegraphics[scale = 0.3]{index_variation}
 \end{figure}
 
 
