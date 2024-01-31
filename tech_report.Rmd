@@ -602,7 +602,7 @@ ggplot(talent_max, aes(x = round, y = index/2000, group = simu)) +
 
 ```
 
-We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 for every school.
+We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 and 5 for every school.
 
 ```{r cache=TRUE, cache.lazy = FALSE}
 set.seed(13)
@@ -878,10 +878,287 @@ talent_max <- pivot_longer(
 
 ggplot(talent_max, aes(x = round, y = index/2000, group = type)) +
   geom_point(aes(color=type)) + 
-  geom_smooth(method = "lm", formula = y ~ x, aes(color=type))
+  geom_smooth(aes(color=type))
 
 ```
 
+```{r cache=TRUE, cache.lazy = FALSE}
+set.seed(13)
+simu_primary_50 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 1000][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 1000
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 5
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+set.seed(13)
+simu_primary_25 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 500][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 500
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 5
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+set.seed(13)
+simu_primary_0 <- do.call(rbind, mclapply(1:200, mc.cores = 7, FUN = function(xx){
+  
+  ## 1 million students eligible for school
+  
+  ## 2e3 primary school
+  talent_index = data.frame(talent = rPareto(n = 1e6, t = 1, alpha = 1.16), 
+                            primary_index0 = rep(c(1:2e3), 500)) %>% 
+    arrange(talent)
+  replace_num <- talent_index$primary_index0[which.max(talent_index$talent)]
+  talent_index$primary_index0[talent_index$primary_index0 == 1][sample(1:500, 1)] <- replace_num
+  talent_index$primary_index0[which.max(talent_index$talent)] <- 1
+  
+  ## average scores range from 60 to 80
+  ## no information on sd
+  primary_mean <- seq(60, 80, length.out = 2e3)
+  primary_sd <- 5
+  
+  ## percentiles are order statistics from Pareto distribution
+  u = unlist(lapply(1:1e6, function(j){
+    pbeta(pPareto(talent_index$talent[j], t = 1, alpha = 1.16), j, 1e6-j+1)
+  }))
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[talent_index$primary_index0 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score1 <- c()
+  for (i in 1:2e3) {
+    score1[talent_index$primary_index0 == i] <- m[,i]
+  }
+  all_talent <- talent_index %>% 
+    mutate(u = u, score1 = score1) %>% 
+    arrange(score1) %>% 
+    mutate(primary_index1 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index1 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score2 <- c()
+  for (i in 1:2e3) {
+    score2[all_talent$primary_index1 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score2 = score2) %>% 
+    arrange(score2) %>% 
+    mutate(primary_index2 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  
+  ## map the percentiles to different primary schools
+  m <- sapply(1:2e3, function(x){
+    #n <- length(order_talent[[x]])
+    n <- 500
+    qnorm(qbeta(u[all_talent$primary_index2 == x], 
+                shape1 = 1:n, shape2 = n:1), 
+          mean = primary_mean[x], sd = primary_sd)
+  })
+  
+  score3 <- c()
+  for (i in 1:2e3) {
+    score3[all_talent$primary_index2 == i] <- m[,i]
+  }
+  
+  all_talent <- all_talent %>% 
+    mutate(u = u, score3 = score3) %>% 
+    arrange(score3) %>% 
+    mutate(primary_index3 = sort(rep(c(1:2e3), 500))) %>% 
+    arrange(talent)
+  
+  cbind(simu = xx, all_talent %>% top_n(1, talent))
+}))
+
+simu_primary <- rbind(cbind(type = '50', simu_primary_50 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)), 
+                      cbind(type = '25', simu_primary_25 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)),
+                      cbind(type = '0', simu_primary_0 %>% 
+                              select(primary_index0, primary_index1, primary_index2, primary_index3)))
+talent_max <- pivot_longer(
+  data = simu_primary,
+  cols = starts_with("primary"),
+  names_to = "round",
+  values_to = "index"
+)
+
+ggplot(talent_max, aes(x = round, y = index/2000, group = type)) +
+  geom_point(aes(color=type)) + 
+  geom_smooth(aes(color=type))
+
+```
 
 ## System Inclusion Function Example in Major League Baseball
 

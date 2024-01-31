@@ -195,28 +195,29 @@ As a simple illustrative example of some mechanics concerning paradoxes, suppose
 
 \begin{lemma} \label{lemma:rep}
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{1,(p)}) = 1$ and $g(X_{2,(q)}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+
 \begin{equation} \label{eq:pararep}
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right),
+  \Prob\left(X_{1,(r(N_1, n_1, p))} > X_{2,(r(N_2, n_2, q)}, Y_{1,(p)} < Y_{2,(q)}\right) 
+  = \Prob\left( X_{2,(r(N_2, n_2, q)} < X_{1,(r(N_1, n_1, p))}  < h_{1,2}\left(X_{2,(r(N_2, n_2, q)}\right)\right)
 \end{equation}
-where $h_{i,j}(\fatterdot) = (f_i^{-1} \circ f_j)(\fatterdot)$, 
-$f_i(\fatterdot) = F_{Y_{i, (n_i)}}^{-1}\left(F_{X_{i,(N_i)}}\left(\fatterdot\right)\right)$, 
+
+where $h_{1,2}(\fatterdot) = (f_1^{-1} \circ f_2)(\fatterdot)$, 
+$f_1(\fatterdot) = F_{Y_{1, (p)}}^{-1}\left(F_{X_{1,(r(N_1, n_1, p))}}\left(\fatterdot\right)\right)$, $f_2(\fatterdot) = F_{Y_{2, (q)}}^{-1}\left(F_{X_{2,(r(N_2, n_2, 1))}}\left(\fatterdot\right)\right)$,
 and both $f$ and $h$ exist.
 \end{lemma}
 
 \begin{proof}
 If $f$ and $h$ exist, then we have
 \begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &\qquad= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_{1}(X_{1,(N_1)}) < f_{2}(X_{2,(N_2)})\right) \\
-  &\qquad= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, f_{1}(X_{1,(N_1)}) < f_{2}(X_{2,(N_2)})\right) \\
-  &\qquad= \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right).
+  &\Prob\left(X_{1,(N_1, n_1, p)} > X_{2,(r(N_2, n_2, q))}, Y_{1,(p)} < Y_{2,(q)}\right) \\
+  &\qquad= \Prob\left(X_{1,(N_1, n_1, p)} > X_{2,(r(N_2, n_2, q))}, f_{1}(X_{1,(N_1, n_1, p)}) < f_{2}(X_{2,(r(N_2, n_2, q))})\right) \\
+  &\qquad= \Prob\left( X_{2,(r(N_2, n_2, q))} < X_{1,(N_1, n_1, p)}  < h_{1,2}\left(X_{2,(r(N_2, n_2, q))}\right)\right).
 \end{align*}
 Existance of $f_i$ follows directly from the existance of $F_Y^{-1}(y)$, and existance of $h_{i,j}$ follows directly from the existance of $f_i$ and the existance of $F_X^{-1}(x)$.
 \end{proof}
@@ -593,15 +594,25 @@ where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
   &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
-  &= \int_{-\infty}^{+\infty} (((1+\delta)F_X(x)^{\frac{N_2}{n_2}})^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 F_X(y)^{N_1-1}f_X(y)\ dy \ N_2 F_X(x)^{N_2-1}f_X(x)\ dx \\
+  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x)} N_1 F_X(y)^{N_1-1}f_X(y)\ dy \ N_2 F_X(x)^{N_2-1} f_X(x)\ dx \\
+  &= \int_{-\infty}^{+\infty} (((1+\delta)F_X(x)^{\frac{N_2}{n_2}})^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}f_X(y)\ dx \\
   &= \int_{0}^{1} (1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
   & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
   \end{align*}
+
+where 
+
+\begin{align*}
+	h_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
+	= F_X^{-1}((F_{Y_1}(F_{Y_2}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
+	= F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x).
+\end{align*}
+
+  
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
 
-We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard uniform distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 100 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
+We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ the standard uniform distribution, and $Y_2$ from a uniform distribution within $(0, 1 + \delta)$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 100 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
 
 \begin{table}[H]
 \centering
@@ -883,13 +894,21 @@ $\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operato
 
 \end{figure}
 
-We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 for every school.
+We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 and 5 for every school.
 
 \begin{figure}[H]
-\centering
-   \includegraphics[scale = 0.3]{index_variation}
-\end{figure}
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{index_variation_1}
+     \caption{The tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools and sd = 2}\label{Fig:education1}
+   \end{minipage}\hfill
+   \begin{minipage}{0.48\textwidth}
+     \centering
+     \includegraphics[width=.7\linewidth]{index_variation_2}
+     \caption{The tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools and sd = 5}\label{Fig:education2}
+   \end{minipage}
 
+\end{figure}
 
 
 
