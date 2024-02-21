@@ -705,7 +705,48 @@ where
 	= (\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}.
 \end{align*}
 
+3rd transformation
+
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
+  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
+  &= \Prob\left(X_{2,(N_2)} < X_{1,(N_1)} < f_{1,2}(X_{2,(N_2)}), F_X(X_2)^{\frac{N_2}{n_2}}(1+\delta) \in (0,1) \right)  \\
+  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, F_X(X_2)^{\frac{N_2}{n_2}}(1+\delta) \in (1,1 + \delta) \right) \\
+  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
+  &+ \int_{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}^{+\infty}\int_{x}^{+\infty} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
+  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  \end{align*}
+
+The support for the outer integration above is $\{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}}) > x\} \cup \{ x <  F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2}) \}$.
+
+Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
+
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}(F_X(x)^\frac{N_2}{n_2}(1+\delta))^{n_1} -  F_X(x)^{N_1}\  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \int_{0}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}}\  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
+  \end{align*}
   
+Therefore, when $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, and let $d = (1+\delta)^\frac{1}{\frac{N_1}{n_1} - \frac{N_2}{n_2}}$
+
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &= \int_{F_X^{-1}(d)}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \int_{F_X^{-1}(d)}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}(F_X(x)^\frac{N_2}{n_2}(1+\delta))^{n_1} -  F_X(x)^{N_1}\  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \int_{d^{N_2}}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}}\  d(F_X(x)^{N_2}) \\
+  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
+  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - \frac{n_2}{n_1+n_2}(1+\delta)^{n_1}d^\frac{(n_1 + n_2)N_2}{n_2} + \frac{N_2}{N_1+N_2}d^{(N_1 + N_2)}
+    \end{align*}
+
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
 
 We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ the standard uniform distribution, and $Y_2$ from a uniform distribution within $(0, 1 + \delta)$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 100 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
