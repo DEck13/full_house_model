@@ -260,11 +260,11 @@ where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
 When the system inclusion function selects the top components from the population, 
 	\begin{align*} \qedhere
 	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \  d \ g_{N_2, j}(F_X(x))\\
-	&= \int_0^1 g_{n_1, k}g_{n_2, j}^{-1}(t) - g_{N_1, k}g_{N_2, j}^{-1}(t) \ dt\\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \  d \ g_{N_2, j}(F_X(x))\\
+	&= \int_0^1 [g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)]^+	 \ dt\\
 	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
 	&= \int_0^1 I_x(n_1-k, k+1) \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx - \int_0^1 I_x(N_1-k, k+1) \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
 	&= \int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
@@ -286,18 +286,27 @@ p
 where 
 \begin{align*}
 	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x) \\
+	&= F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x) \\
 	g_{n,i}(x) &= I_x(n-i, i+1) \\
 \end{align*}
+
+
+$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(x)$$
+
+\begin{align*}
+	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
+	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}
+\end{align*}
+
 
 When the system inclusion function selects the bottom components from the population, 
 	\begin{align*}
 	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k}g_{n_2, j}^{-1}g_{N_2, j}F_X(x) - g_{N_1, k}F_X(x)\right] \  d \ g_{N_2, j}(F_X(x))\\
-	&= \int_0^1 g_{n_1, k}g_{n_2, j}^{-1}(t) - g_{N_1, k}g_{N_2, j}^{-1}(t) \ dt\\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1}  \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right] \  d \ g_{N_2, j}(F_X(x))\\
+	&= \int_0^1 g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) \ dt\\
 	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
 	&= \int_0^1 I_x(k, n_1 - k+1) \frac{x^{j-1}(1-x)^{n_2 - j}}{B(j, n_2 - j+1)} \ dx - \int_0^1 I_x(k, N_1 - k+1) \frac{x^{j-1}(1-x)^{N_2 - j}}{B(j, N_2 - j+1)} \ dx\\
 	&= \int_0^1 \sum_{p=k}^{n_1}\left(\begin{array}{l}
@@ -319,7 +328,7 @@ p
 where 
 \begin{align*}
 	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}g_{N_1,k}^{-1}g_{n_1, k}g_{n_2,j}^{-1}g_{N_2,j}F_X(x) \\
+	&= F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x) \\
 	g_{n,i}(x) &= I_x(i, n-i+1) \\
 \end{align*}
 
@@ -591,6 +600,18 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
   X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
 \end{align*} 
 where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Prop~\ref{prop:weakstodom} are satisfied. However, our setup allows for direct calculation of the paradox probability. From Lemma~\ref{lemma:rep} and a bit of manipulation, we have that 
+
+\begin{theorem} \label{theorem:uniformgeneral}
+
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+  = \begin{cases}
+      \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}, & \text{if}\ \frac{n_1}{N_1} \geq \frac{n_2}{N_2} \\
+      \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - \\\frac{n_2}{n_1+n_2}(1+\delta)^{n_1}d^\frac{(n_1 + n_2)N_2}{n_2} + \frac{N_2}{N_1+N_2}d^{(N_1 + N_2)}, & \text{otherwise}
+    \end{cases}.
+\end{align*}
+
+\end{theorem}
 %\begin{align*}
 %  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
 %  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
@@ -609,104 +630,104 @@ where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2
 %	= F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x).
 %\end{align*}
 
-1st transformation:
+%1st transformation:
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( Y_{1,(n_1)} < Y_{2,(n_2)}  < t_{1,2}\left(Y_{1,(n_1)}\right)\right) \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} f_{Y_{2,(n_2)}}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} n_2 F_{Y_2}(y)^{n_2-1}f_{Y_2}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx  \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta)} d(\frac{y}{1+\delta})^{n_2} \ f_{Y_{1,(n_1)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-  \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( Y_{1,(n_1)} < Y_{2,(n_2)}  < t_{1,2}\left(Y_{1,(n_1)}\right)\right) \\
+%  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} f_{Y_{2,(n_2)}}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx \\
+%  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} n_2 F_{Y_2}(y)^{n_2-1}f_{Y_2}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx  \\
+%  &= \int_{-\infty}^{+\infty}\int_{x}^{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta)} d(\frac{y}{1+\delta})^{n_2} \ f_{Y_{1,(n_1)}}(x) \ dx \\
+%  &= \int_{-\infty}^{+\infty} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
+%  \end{align*}
 
-The support for the integral above is $\{x \in (0,1)\} \cup \{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta) > x\}$, which implies the support is $$\begin{cases}
-      (0,1), & \text{if}\ \frac{n_1}{N_1} \leq \frac{n_2}{N_2} \\
-      ((1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}, 1), & \text{otherwise}
-    \end{cases}.$$
+%The support for the integral above is $\{x \in (0,1)\} \cup \{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta) > x\}$, which implies the support is $$\begin{cases}
+%      (0,1), & \text{if}\ \frac{n_1}{N_1} \leq \frac{n_2}{N_2} \\
+%%      ((1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}, 1), & \text{otherwise}
+%    \end{cases}.$$
 
-Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
+%Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-  & = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
-  & = \int_{0}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
-  & = \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
-  \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
+%  & = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
+%  & = \int_{0}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
+%  & = \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
+%  \end{align*}
 
-Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
+%Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-  & = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
-  & = \int_{c^{n_1}}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
-  & = \frac{N_1}{N_1 + N_2} (1 - c^{\frac{(N_1 + N_2)n_1}{N_1}})- (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}(1 - c^{n_1 + n_2})\\
-  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2} - \frac{N_1}{N_1 + N_2} c^{\frac{(N_1 + N_2)n_1}{N_1}} + (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}c^{n_1 + n_2}
-  \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
+%  & = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
+%  & = \int_{c^{n_1}}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
+%  & = \frac{N_1}{N_1 + N_2} (1 - c^{\frac{(N_1 + N_2)n_1}{N_1}})- (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}(1 - c^{n_1 + n_2})\\
+%  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2} - \frac{N_1}{N_1 + N_2} c^{\frac{(N_1 + N_2)n_1}{N_1}} + (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}c^{n_1 + n_2}
+%  \end{align*}
 
-where 
+%where 
 
-\begin{align*}
-	t_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
-	= F_{Y_2}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_1}^{\frac{n_1}{N_1}})))^{\frac{N_2}{n_2}})(x)
-	= x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta).
-\end{align*}
+%\begin{align*}
+%	t_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
+%	= F_{Y_2}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_1}^{\frac{n_1}{N_1}})))^{\frac{N_2}{n_2}})(x)
+%	= x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta).
+%\end{align*}
 
-2nd transformation
+%2nd transformation
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( h_{1,2}(Y_{2,(n_2)}) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
-  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} f_{Y_{1,(n_1)}}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} n_1 F_{Y_1}(y)^{n_1-1}f_{Y_1}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx  \\
-  &= \int_{-\infty}^{+\infty}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx \\
-\end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( h_{1,2}(Y_{2,(n_2)}) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+%  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} f_{Y_{1,(n_1)}}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx \\
+%  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} n_1 F_{Y_1}(y)^{n_1-1}f_{Y_1}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx  \\
+%  &= \int_{-\infty}^{+\infty}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx \\
+%\end{align*}
 
-The support for the outer integration above is $\{x \in (0,1+\delta)\} \cup \{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}} < x\}$, and the support of inner integration is $(0,1)$. 
+%The support for the outer integration above is $\{x \in (0,1+\delta)\} \cup \{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}} < x\}$, and the support of inner integration is $(0,1)$. 
 
-Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
+%Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
-  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
-  &= \int_{0}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-  &= \int_{0}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-  &= \int_{0}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{0}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
-  &= \int_{0}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{0}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
-  &= \frac{n_2}{n_1 + n_2}(\frac{1}{1+\delta})^{n_2} + 1 - (\frac{1}{1+\delta})^{n_2} - \frac{N_2}{N_1 + N_2}\\
-  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
-  \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+%  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
+%  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
+%  &= \int_{0}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
+%  &= \int_{0}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
+%  &= \int_{0}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{0}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
+%  &= \int_{0}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{0}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
+%  &= \frac{n_2}{n_1 + n_2}(\frac{1}{1+\delta})^{n_2} + 1 - (\frac{1}{1+\delta})^{n_2} - \frac{N_2}{N_1 + N_2}\\
+%  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
+%  \end{align*}
 
-Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
+%Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
-  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
-  &= \int_{c}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-  &= \int_{c}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-  &= \int_{c}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{c}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
-  &= \int_{(\frac{c}{1+\delta})^{n_2}}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{(\frac{c}{1+\delta})^{n_2}}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
-  &= \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1}((\frac{1}{1+\delta})^{n_1+n_2} - (\frac{c}{1+\delta})^{n_1+n_2}) + 1 - (\frac{1}{1+\delta})^{n_2} \\
-  &- \frac{N_2}{N_1 + N_2}(1-(\frac{c}{1+\delta})^{\frac{n_2(N_1 + N_2)}{N_2}})\\
-  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} -  \frac{n_2}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
-  &+ \frac{N_2}{N_1+N_2}(\frac{c}{(1+\delta)})^{c}\\
-  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - (1 - \frac{n_1}{n_1+n_2})(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
-  &+ (1 - \frac{N_1}{N_1+N_2})((1+\delta)^{\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}-1})^{\frac{n_2(N_1 + N_2)}{N_2}}\\
-  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - (\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2}\\
-  &- \frac{N_1}{N_1+N_2}(1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1} + (1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1}\\
-  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - \frac{N_1}{N_1+N_2}c^\frac{n_1(N_1 + N_2)}{N_1}
-    \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+%  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
+%  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
+%  &= \int_{c}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
+%  &= \int_{c}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
+%  &= \int_{c}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{c}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
+%  &= \int_{(\frac{c}{1+\delta})^{n_2}}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{(\frac{c}{1+\delta})^{n_2}}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
+%  &= \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1}((\frac{1}{1+\delta})^{n_1+n_2} - (\frac{c}{1+\delta})^{n_1+n_2}) + 1 - (\frac{1}{1+\delta})^{n_2} \\
+%  &- \frac{N_2}{N_1 + N_2}(1-(\frac{c}{1+\delta})^{\frac{n_2(N_1 + N_2)}{N_2}})\\
+%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} -  \frac{n_2}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
+%  &+ \frac{N_2}{N_1+N_2}(\frac{c}{(1+\delta)})^{c}\\
+%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - (1 - \frac{n_1}{n_1+n_2})(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
+%  &+ (1 - \frac{N_1}{N_1+N_2})((1+\delta)^{\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}-1})^{\frac{n_2(N_1 + N_2)}{N_2}}\\
+%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - (\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2}\\
+%  &- \frac{N_1}{N_1+N_2}(1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1} + (1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1}\\
+%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - \frac{N_1}{N_1+N_2}c^\frac{n_1(N_1 + N_2)}{N_1}
+%    \end{align*}
 
-where 
+%where 
 
-\begin{align*}
-	h_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
-	= F_{Y_1}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_2}^{\frac{n_2}{N_2}})))^{\frac{N_1}{n_1}})(x)
-	= (\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}.
-\end{align*}
+%\begin{align*}
+%	h_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
+%	= F_{Y_1}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_2}^{\frac{n_2}{N_2}})))^{\frac{N_1}{n_1}})(x)
+%	= (\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}.
+%\end{align*}
 
-3rd transformation
-
+\begin{proof}
+	
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
   &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
@@ -746,6 +767,7 @@ Therefore, when $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, and let $d = (1+\delta)^
   &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
   &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - \frac{n_2}{n_1+n_2}(1+\delta)^{n_1}d^\frac{(n_1 + n_2)N_2}{n_2} + \frac{N_2}{N_1+N_2}d^{(N_1 + N_2)}
     \end{align*}
+\end{proof}
 
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
 
@@ -768,6 +790,40 @@ $n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0.0008 & 0.0007  \\
 \caption{Simulation result to validate the Uniform Example}
 \label{Tab:simulation_uniform}
 \end{table}
+
+\begin{align*} \qedhere
+	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \  d \ g_{N_2, j}(F_X(x))\\
+	&= \int_0^1 [g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)]^+	 \ dt\\
+	&= \int_0^1 g_{n_1, k}((1+\delta)x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
+	&= \int_0^1 I_{(1+\delta)x}(n_1-k, k+1) \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx - \int_0^1 I_x(N_1-k, k+1) \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
+	&= \int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right) ((1+\delta)x)^p(1-(1+\delta)x)^{n_1-p} \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx \\
+&- \int_0^1 \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
+&\leq (1+\delta)^p\int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx \\
+&- \int_0^1 \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
+&= (1+\delta)^p\sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
+\end{align*}
 
 
 %\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
@@ -823,7 +879,7 @@ The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and t
 When $\sigma_1 \neq \sigma_2$, 
 
 \begin{align*}
-	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) \\
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
   &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
 \end{align*}
 
