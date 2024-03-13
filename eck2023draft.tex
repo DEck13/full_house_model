@@ -116,7 +116,7 @@ Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is
 
 The key to the Full House Model is connecting latent aptitudes $X$ with observed statistics $Y$. 
 To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
-$j = 1,\ldots,n_i$, where $r(N_i, n_i, k)$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, $r(N_i, n_i, k) = N_i - n_i + k$, then 
+$j = 1,\ldots,n_i$, where $r(N_i, n_i, k): = r_{i,k}$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, when $r(N_i, n_i, k) = N_i - n_i + k$, then the $k$th components in the system i is paired with the $(N_i - n_i + k)$th latent aptitude. 
 %\textcolor{red}{I am not sure what r() is, this needs to be stated more clearly.} 
 %\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
 
@@ -175,27 +175,24 @@ Similarly, we can obtain $Y$ from $X$,
 
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. We define a paradox (or a Gould paradox) when 
 $$
-  X_{1,(N_1 - k)} > X_{2,(N_2 - j)} \quad \text{and} \quad Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}
+  X_{1,(r_{1,k})} > X_{2,(r_{2,j})} \quad \text{and} \quad Y_{1,(k)} < Y_{2,(j)}
 $$
-both occur, where k, j $\in \mathbb{Z}$, $r(N_i, n_i, t) = N_i - n_i + t$, $i = 1,2$, $t = 1, \dots, n_i$. 
-
-Or when 
-$$
-  X_{1,(k)} > X_{2,(j)} \quad \text{and} \quad Y_{1,(k)} < Y_{2,(j)}
-$$
-both occur, where k, j $\in \mathbb{Z}$, $r(N_i, n_i, t) = t$, $i = 1,2$, $t = 1, \dots, n_i$. 
+both occur, where k, j $\in \mathbb{Z}$, $i = 1,2$. 
 
 A central interest is evaluating the probability of such a paradox, 
 
 \begin{equation} \label{eq:simpleparadox}
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right).
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right),
 \end{equation}
+
+where $r_{i,t} = N_i - n_i + t, k = n_1, j = n_2$.
+
 As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following theorem.
 
 
 \begin{lemma} \label{lemma:rep}
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that $g(X_{1,(p)}) = 1$ and $g(X_{2,(q)}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
@@ -203,21 +200,21 @@ Suppose that the system inclusion mechanism has the property that $g(X_{1,(p)}) 
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 
 \begin{equation} \label{eq:pararep}
-  \Prob\left(X_{1,(r(N_1, n_1, p))} > X_{2,(r(N_2, n_2, q)}, Y_{1,(p)} < Y_{2,(q)}\right) 
-  = \Prob\left( X_{2,(r(N_2, n_2, q)} < X_{1,(r(N_1, n_1, p))}  < h_{1,2}\left(X_{2,(r(N_2, n_2, q)}\right)\right)
+  \Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) 
+  = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right)
 \end{equation}
 
 where $h_{1,2}(\fatterdot) = (f_1^{-1} \circ f_2)(\fatterdot)$, 
-$f_1(\fatterdot) = F_{Y_{1, (p)}}^{-1}\left(F_{X_{1,(r(N_1, n_1, p))}}\left(\fatterdot\right)\right)$, $f_2(\fatterdot) = F_{Y_{2, (q)}}^{-1}\left(F_{X_{2,(r(N_2, n_2, 1))}}\left(\fatterdot\right)\right)$,
+$f_1(\fatterdot) = F_{Y_{1, (j)}}^{-1}\left(F_{X_{1,(r_{1,k})}}\left(\fatterdot\right)\right)$, $f_2(\fatterdot) = F_{Y_{2, (j)}}^{-1}\left(F_{X_{2,(r_{2,j})}}\left(\fatterdot\right)\right)$,
 and both $f$ and $h$ exist.
 \end{lemma}
 
 \begin{proof}
 If $f$ and $h$ exist, then we have
 \begin{align*}
-  &\Prob\left(X_{1,(N_1, n_1, p)} > X_{2,(r(N_2, n_2, q))}, Y_{1,(p)} < Y_{2,(q)}\right) \\
-  &\qquad= \Prob\left(X_{1,(N_1, n_1, p)} > X_{2,(r(N_2, n_2, q))}, f_{1}(X_{1,(N_1, n_1, p)}) < f_{2}(X_{2,(r(N_2, n_2, q))})\right) \\
-  &\qquad= \Prob\left( X_{2,(r(N_2, n_2, q))} < X_{1,(N_1, n_1, p)}  < h_{1,2}\left(X_{2,(r(N_2, n_2, q))}\right)\right).
+  &\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j}))}, f_{1}(X_{1,(r_{1,k})}) < f_{2}(X_{2,(r_{2,j})})\right) \\
+  &\qquad= \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right).
 \end{align*}
 Existance of $f_i$ follows directly from the existance of $F_Y^{-1}(y)$, and existance of $h_{i,j}$ follows directly from the existance of $f_i$ and the existance of $F_X^{-1}(x)$.
 \end{proof}
@@ -228,9 +225,9 @@ If we assume
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion function selects the top components from the population, where $r(N_i, n_i, t) = N_i - n_i + t$, $i = 1,2$, $t = 1, \dots, n_i$, then
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$ and $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ then
 \begin{align*}
-	&\Prob\left(X_{1,(N_1-k)} > X_{2,(N_2-j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) \\
+	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
   &= \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
@@ -240,54 +237,42 @@ p
 \end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}.
 \end{align*}
 
-If the system inclusion function selects the bottom components from the population, where $r(N_i, n_i, t) = t$, $i = 1,2$, $t = 1, \dots, n_i$, then
-\begin{align*}
-	&\Prob\left(X_{1,(k)} > X_{2,(j)}, Y_{1,(k)} < Y_{2,(j)}\right) \\
-  &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(j+p, n_1 + n_2-p-j+1)}{B(j, n_2 -j+1)} - \sum_{p=k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(j+p, N_1+N_2-p-j+1)}{B(j, N_2 - j+1)}.
-\end{align*}
-where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
+where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) &= I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
 
 \end{theorem}
 
 \begin{proof}
-
-When the system inclusion function selects the top components from the population, 
+ 
 	\begin{align*} \qedhere
-	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \  d \ g_{N_2, j}(F_X(x))\\
-	&= \int_0^1 [g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)]^+	 \ dt\\
-	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
-	&= \int_0^1 I_x(n_1-k, k+1) \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx - \int_0^1 I_x(N_1-k, k+1) \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
-	&= \int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} f_{X_{1,(r_{1,k})}}(y)\ dy\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} d \ g_{N_1, r_{1,k}}(F_X(y))\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, r_{2,j}} \circ F_X(x) - g_{N_1, r_{1,k}} \circ F_X(x)\right]^+ \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, r_{2,j}} \circ F_X(x) - g_{N_1, r_{1,k}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,j}}(F_X(x))\\
+	&= \int_0^1 [g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)]^+	 \ dt\\
+	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, r_{1,k}}(x) \ dg_{N_2, r_{2,j}}(x)\\
+	&= \int_0^1 I_x(k, n_1 -k+1) \frac{x^{j-1}(1-x)^{n_2-j}}{B(j, n_2-j+1)} \ dx - \int_0^1 I_x(r_{1,k}, N_1-r_{1,k}+1) \frac{x^{r_{2,j}-1}(1-x)^{N_2-r_{2,j}}}{B(j, N_2-j+1)} \ dx\\
+	&= \int_0^1 \sum_{p=k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx \\
-&- \int_0^1 \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{j-1}(1-x)^{n_2-j}}{B(j, n_2-j+1)} \ dx \\
+&- \int_0^1 \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\ 
-&= \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,j}-1}(1-x)^{N_2-r_{2,j}}}{B(r_{2,j}, N_2-r_{2,j}+1)} \ dx\\ 
+&= \sum_{p=k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(j+p, n_2-n_1-p+j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
+\end{array}\right)\frac{B(r_{2,j}+p, N_2-N_1-p+r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}
 \end{align*}
 where 
 \begin{align*}
 	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
-	&= F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x) \\
-	g_{n,i}(x) &= I_x(n-i, i+1) \\
+	&= F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x) \\
+	g_{n,i}(x) &= I_x(i, n-i+1) \\
 \end{align*}
 
 
@@ -297,42 +282,6 @@ $$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(
 	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
 	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}
 \end{align*}
-
-
-When the system inclusion function selects the bottom components from the population, 
-	\begin{align*}
-	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1}  \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right] \  d \ g_{N_2, j}(F_X(x))\\
-	&= \int_0^1 g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) \ dt\\
-	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
-	&= \int_0^1 I_x(k, n_1 - k+1) \frac{x^{j-1}(1-x)^{n_2 - j}}{B(j, n_2 - j+1)} \ dx - \int_0^1 I_x(k, N_1 - k+1) \frac{x^{j-1}(1-x)^{N_2 - j}}{B(j, N_2 - j+1)} \ dx\\
-	&= \int_0^1 \sum_{p=k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{j-1}(1-x)^{n_2 - j}}{B(j, n_2 - j+1)} \ dx \\
-&- \int_0^1 \sum_{p=k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{j-1}(1-x)^{N_2 -j}}{B(j, N_2-j+1)} \ dx\\ 
-&= \sum_{p=k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(j+p, n_1 + n_2-p-j+1)}{B(j, n_2-j+1)} - \sum_{p=k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(j+p, N_1+N_2-p-j+1)}{B(j, N_2-j+1)}
-\end{align*}
-where 
-\begin{align*}
-	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
-	&= F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x) \\
-	g_{n,i}(x) &= I_x(i, n-i+1) \\
-\end{align*}
-
-and $I_x(\alpha, \beta)$ is the regularized incompleted beta function. 
 
 \end{proof}
 
