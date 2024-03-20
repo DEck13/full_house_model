@@ -228,16 +228,16 @@ If we assume
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$ and $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ then
 \begin{align*}
 	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
-  &= \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+  &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(j+p, n_2-n_1-p+j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}.
+\end{array}\right)\frac{B(r_{2,j}+p, N_2-N_1-p+r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}.
 \end{align*}
 
-where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) &= I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
+where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
 
 \end{theorem}
 
@@ -285,7 +285,7 @@ $$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(
 
 \end{proof}
 
-We verify Theorem~\ref{theorem:samedistgeneral} when the system inclusion function selects the top components from the population with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We assume the $j = k = 1$. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
+We verify Theorem~\ref{theorem:samedistgeneral} in the numerical simulation. We first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$, $k = n_1 - 1$, $j = n_2 - 1$, and $r(N_i, n_i, t) = N_i - n_i + t$. Under these assumptions, we select the top $n_i$ talents from the talent pools $X_i$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 100 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency.  
 
 \begin{table}[htb!]
 \centering
@@ -294,8 +294,8 @@ We verify Theorem~\ref{theorem:samedistgeneral} when the system inclusion functi
   \hline
  & Prob from Theorem~\ref{theorem:samedistgeneral} & Prob from simulation \\ 
   \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0.1495 & 0.1515 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0.2866 & 0.2843 \\
+$n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0.1495 & 0.1472 \\
+$n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0.2866 & 0.2875 \\
 $n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
 $n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
    \hline
@@ -305,29 +305,8 @@ $n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
 \label{Tab:simulationtop}
 \end{table}
 
-We verify Theorem~\ref{theorem:samedistgeneral} when the system inclusion function selects the bottom components from the population with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We assume the $j = k = 1$. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
-
-\begin{table}[htb!]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c}
-  \hline
- & Prob from Theorem~\ref{theorem:samedistgeneral} & Prob from simulation \\ 
-  \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
-$n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
-$n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
-   \hline
-\end{tabular}
-}
-\caption{Simulation result to validate the Theorem \ref{theorem:samedistgeneral}}
-\label{Tab:simulationbottom}
-\end{table}
-
-
 \begin{corollary} \label{corollary:samedisttop}
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
@@ -389,7 +368,7 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 %\end{table}
 
 \begin{corollary} \label{corollary:samedistbottom}
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
@@ -485,7 +464,7 @@ for some $y$.
 
 
 \begin{prop} \label{prop:weakstodom}
-Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
@@ -740,7 +719,27 @@ $n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0.0008 & 0.0007  \\
 \label{Tab:simulation_uniform}
 \end{table}
 
-\begin{align*} \qedhere
+\newpage
+
+\begin{theorem}
+	Assume $g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1)$. Then 
+	
+\begin{align*}
+	\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) &\leq (1+\delta)^p\sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} \\
+&- 
+\sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
+\end{align*}
+
+\end{theorem}
+
+\begin{proof}
+	\begin{align*} \qedhere
 	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
@@ -773,7 +772,7 @@ N_1 \\
 p
 \end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
 \end{align*}
-
+\end{proof}
 
 %\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
 %\begin{align*}
@@ -794,10 +793,6 @@ p
 %%%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
 
 
-
-
-
-
 \noindent\textbf{Example: Normal distributions}
 
 In this example, we demonstrate a case where Prop~\ref{prop:weakstodom} applies. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
@@ -809,6 +804,8 @@ In this example, we demonstrate a case where Prop~\ref{prop:weakstodom} applies.
 where $\mu_1 \leq \mu_2, \sigma_1 > 0$ and $\sigma_2 >0$. 
 
 \begin{theorem} \label{theorem:normalgeneral}
+
+Assume $\Phi(\frac{\Phi^{-1}(t^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}} > t$ for all $t \in (0,1)$,
 
 When $\sigma_1 = \sigma_2 = \sigma$,
 	\begin{align*}
