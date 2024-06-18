@@ -68,7 +68,7 @@ The Full House Methodology is an approach for computing era-adjusted or system-a
 
 \section{Introduction}
 
-Several academics have attempted to develop methods that can correct for era or system biases. The starting place for the answer to the problem of comparing players across eras can be found in the work of Stephen Jay Gould. \cite{Gould96} suggested that the entire distribution of achievement, or ``full house of variation,'' is relevant when considering the achievements of baseball players across eras. This idea was also recognized as the starting plac	e for an answer by \cite{SM13} and \cite{SM16}. 
+Several academics have attempted to develop methods that can correct for era or system biases. The starting place for the answer to the problem of comparing players across eras can be found in the work of Stephen Jay Gould. \cite{Gould96} suggested that the entire distribution of achievement, or ``full house of variation,'' is relevant when considering the achievements of baseball players across eras. This idea was also recognized as the starting place for an answer by \cite{SM13} and \cite{SM16}. 
 
 \cite{BRL99, PPE11, SM13, SM16, PP20} provide several techniques to compare baseball players across eras, but they have fallen short in their objective and their results remain biased, as discussed in \cite{DE20} and \cite{DE20b}. In short, these previous attempts do not incorporate the evolving talent pool in calculations, which is necessary for understanding the changing distributions of achievement over time. The result is that existing methodologies produce a disproportionate number of players who began their career before baseball was integrated players in the rankings of baseball's greatest of all time. This era of baseball did not include a crucial population of eligible players. \cite{YZ16, meyer2021talents, campbell1990modeling} also develop methods for comparing components in historical popularity, educational attainment, and evaluation of employees. But they have similar problems as stated before and fail to account for the evolving talent pool.
 
@@ -76,7 +76,7 @@ In some circumstances, such as test equating, it is not required to take into ac
 
 Our Full House methodology directly incorporates the quality of the talent pool as a central modeling component. It offers metrics for assessing the performance of components in various eras or systems. With the application of educational attainment simulation, our Full House methodology reveals that the most talented students could perform worse than the other students who attend schools with lower mean scores. 
 
-The next section establishes the model setting and specifies the assumptions in our Full House methodology. Section 3 considers an intriguing paradox that the component with more talent underperforms the component with less talent. We compute the probability of this paradox under different scenarios. Section 4 discusses the application of Full House methodology for the educational attainment simulation. 
+The next section establishes the model setting and specifies the assumptions in our Full House methodology. Section 3 considers an intriguing paradox that the component with more talent underperforms the component with less talent. We compute the probability of this paradox under different scenarios. Section 4 discusses the application of the Full House methodology for the educational attainment simulation. 
 
 
 \section{Model Setting}
@@ -285,25 +285,6 @@ $$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(
 
 \end{proof}
 
-We verify Theorem~\ref{theorem:samedistgeneral} in the numerical simulation. We first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$, $k = n_1 - 1$, $j = n_2 - 1$, and $r(N_i, n_i, t) = N_i - n_i + t$. Under these assumptions, we select the top $n_i$ talents from the talent pools $X_i$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 100 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency.  
-
-\begin{table}[htb!]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c}
-  \hline
- & Prob from Theorem~\ref{theorem:samedistgeneral} & Prob from simulation \\ 
-  \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e3, N_2 = 1e3$ & 0.1495 & 0.1472 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e3, N_2 = 1e3$ & 0.2866 & 0.2875 \\
-$n_1 = 60, n_2 = 40, N_1 = 1e3, N_2 = 1e3$ & 0 & 0 \\
-$n_1 = 70, n_2 = 30, N_1 = 1e3, N_2 = 1e3$ & 0 & 0  \\
-   \hline
-\end{tabular}
-}
-\caption{Simulation result to validate the Theorem \ref{theorem:samedistgeneral}}
-\label{Tab:simulationtop}
-\end{table}
 
 \begin{corollary} \label{corollary:samedisttop}
 Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
@@ -315,7 +296,7 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \begin{cases}
-      \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}, & \text{if}\ \frac{n_1}{N_1} \geq \frac{n_2}{N_2} \\
+      \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}, & \text{if}\ \frac{n_1}{N_1} \leq \frac{n_2}{N_2} \\
       0, & \text{otherwise}
     \end{cases}.
 \end{align*}
@@ -699,28 +680,6 @@ Therefore, when $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, and let $d = (1+\delta)^
 
 Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
 
-We verify the uniform example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ the standard uniform distribution, and $Y_2$ from a uniform distribution within $(0, 1 + \delta)$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$ and the $\delta = 0.001$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 100 Monte Carlo iterations of our simulation are performed and we calculate the average of the frequency divided by 1000 as the probability of the Gould paradox happening. 
-
-\begin{table}[H]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c}
-  \hline
- & Prob from the result & Prob from simulation \\ 
-  \hline
-$n_1 = 40, n_2 = 60, N_1 = 1e5, N_2 = 1e5$ & 0.1233 & 0.1224 \\
-$n_1 = 30, n_2 = 70, N_1 = 1e5, N_2 = 1e5$ & 0.2203 & 0.2210 \\
-$n_1 = 60, n_2 = 40, N_1 = 1e5, N_2 = 1e5$ & 0.0022 & 0.0021 \\
-$n_1 = 70, n_2 = 30, N_1 = 1e5, N_2 = 1e5$ & 0.0008 & 0.0007  \\
-   \hline
-\end{tabular}
-}
-\caption{Simulation result to validate the Uniform Example}
-\label{Tab:simulation_uniform}
-\end{table}
-
-\newpage
-
 \begin{theorem}
 	Assume $g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1)$. Then 
 	
@@ -982,108 +941,46 @@ The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and
 
 \end{proof}
 
-We verify the normal example with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the normal distribution with $\mu_1 = -1$ and $\mu_2 = 1$, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$, $N_1 = 1e5$ and $N_2 = 2e5$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the Gould paradox happening. 1000 Monte Carlo iterations of our simulation are performed and we calculate the average frequency divided by 1000 as the probability of the Gould paradox happening. Next, using the procedure in \cite{mi2009mvtnorm}, we calculate the probability of our outcome, which involves the probability of a multivariate normal distribution.
+\section{Simulation}
 
-\begin{table}[H]
+In this section, We verify Theorem~\ref{theorem:samedistgeneral}, Theorem \ref{theorem:uniformgeneral}, and ~\ref{theorem:normalgeneral} in the numerical simulation. We first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the distributions below, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$,  and $r(N_i, n_i, t) = N_i - n_i + t$. Under these assumptions, we select the top $n_i$ talents from the talent pools $X_i$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 100 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency.  
+ 
+\begin{table}[htb!]
 \centering
 \scalebox{0.7}{
-\begin{tabular}{c|c|c}
+\begin{tabular}{c|c|c|c|c}
   \hline
- & Prob from multivariate normal distribution & Prob from simulation \\ 
+Setting & Distribution for $Y_1$  & Distribution for $Y_2$ & Prob from Theorem & Prob from simulation\\ 
   \hline
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 40, n_2 = 60$ & 0.3338 & 0.3356 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 30, n_2 = 70$ & 0.3336 & 0.3343 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 10, n_2 = 100$ & 0.3331 & 0.3345 \\
-$\sigma_1 = 2, \sigma_2 = 4, n_1 = 100, n_2 = 10$ & 0.2378 & 0.2406 \\
-   \hline
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 40, n_2 = 60$ & 0.3321 & 0.3326  \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 30, n_2 = 70$ & 0.3313 & 0.3325 \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 10, n_2 = 100$ & 0.3334 & 0.3346 \\
-$\sigma_1 = 1, \sigma_2 = 1, n_1 = 100, n_2 = 10$ & 0.2593 & 0.2592 \\
-   \hline
+$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 40$ & $N(0,1), n_2 = 60$ & 0.1495 & 0.1472 \\
+$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 30$ & $N(0,1), n_2 = 70$ & 0.2866 & 0.2875 \\
+$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 60$ & $N(0,1), n_2 = 40$ & 0 & 0 \\
+$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 70$ & $N(0,1), n_2 = 30$ & 0 & 0 \\
+\hline
+$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 40$ & $U(0,1+\delta), n_2 = 60$ & 0.1233 & 0.1224 \\
+$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 30$ & $U(0,1+\delta), n_2 = 70$ & 0.2203 & 0.2210 \\
+$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 60$ & $U(0,1+\delta), n_2 = 40$ & 0.0022 & 0.0021 \\
+$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 70$ & $U(0,1+\delta), n_2 = 30$ & 0.0008 & 0.0007 \\
+\hline
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 40$ & $N(1,4), n_2 = 60$ & 0.3338 & 0.3356 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 30$ & $N(1,4), n_2 = 70$ & 0.3336 & 0.3343 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 10$ & $N(1,4), n_2 = 100$ & 0.3331 & 0.3345 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 100$ & $N(1,4), n_2 = 10$ & 0.2378 & 0.2406 \\
+\hline
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 40$ & $N(1,1), n_2 = 60$ & 0.3321 & 0.3326 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 30$ & $N(1,1), n_2 = 70$ & 0.3313 & 0.3325 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 10$ & $N(1,1), n_2 = 100$ & 0.3334 & 0.3346 \\
+$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 100$ & $N(1,1), n_2 = 10$ & 0.2593 & 0.2592 \\
+\hline
 \end{tabular}
 }
-\caption{Simulation result to validate the Theorem \ref{theorem:normalgeneral}}
-\label{Tab:simulation_normal}
+\caption{Simulation result to validate the Theorem \ref{theorem:samedistgeneral}}
+\label{Tab:simulationtop}
 \end{table}
+
 
 \section{Application}
 
-\subsection{Simulation of Students in Different Educational Stages}
-
-In this simulation, we simulate the process of students moving on to the next level of education from primary school to the university in an ideal setting. We consider the student's achievement as the only criterion for school admission. First, we randomly generate 1 million talents from Pareto distribution, which corresponds to the 1 million talents of primary school students. Then we randomly generate 2 thousand school indices from 1 to 2000 and assign them to the students we generated before, which represent the schools that the students will attend. Finally, we transform ordered talents corresponding to the eligible population to percentiles from the ordered statistics and convert percentiles to ordered scores from a normal distribution, which could represent the scores the students achieve in the schools.  The final step can be described in the following formula: \begin{equation} \label{eq:estiY}	Y_{i,(j)} = F_{Y_{i}}^{-1} \left( F_{X_{i}}\left(X_{i, (500*(i-1) + j))} \right) \right)\end{equation}
-
-$$
-\begin{aligned}
-F_{X_i}\left(X_{i,(j)} \right) & \sim U_{i,(j)}, 
-F_{X_{i,(j)}}\left(X_{i,(j)} \right) & \sim U_{i,j}
-\end{aligned}
-$$
-where 
-$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n+1-j)$, n is the sample size. $X_{i, (j)}$ is the jth ordered talent in the ith school. $F_{X_{i}}$ is the cumulative distribution function of talents in the ith school. $Y_{i, (j)}$ is the jth ordered score in the ith school. $F_{Y_{i}}$ is the cumulative distribution function of scores in the ith school. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, which indicates the different levels of schools. Better schools have higher mean scores. The standard deviation for Figure \ref{Fig:education1} is 2 and Figure \ref{Fig:education2} is 5. Students who achieve in the top 500 will advance to the next level of the best school, then students who achieve in the top 501 to 1000 will advance to the next level of the 2nd best school, and the same with the rest.50 Monte Carlo iterations of our simulation are performed. The tendencies of the most talented students in each of the 50 simulations are displayed in the following figures. The primary\_index0 in the x-axis indicates the initial schools for the students with the highest talent. The levels of schools are represented by the index on the y-axis, which goes from 1 to 2000. High-achieving schools are a sign of superiority. The following are the schools that students will attend: primary\_index1 through primary\_index3. It is evident that even if gifted children begin their education at a lesser school, they may advance to a top institution within two to three stages. 
-\begin{figure}[H]
-   \begin{minipage}{0.48\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{education1}
-     \caption{The tendencies of the most talented students when sd = 2}\label{Fig:education1}
-   \end{minipage}\hfill
-   \begin{minipage}{0.48\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{education2}
-     \caption{The tendencies of the most talented students when sd = 5}\label{Fig:education2}
-   \end{minipage}
-
-\end{figure}
-
-We also run 200 Monte Carlo iterations of our simulation to show the tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools. The score distribution for each school follows the Normal distribution with different parameters. We assume the mean of the Normal distribution ranges from 60 to 80 with equal space, and the standard deviation is set to be 2 and 5 for every school.
-
-\begin{figure}[H]
-   \begin{minipage}{0.48\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{index_variation_1}
-     \caption{The tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools and sd = 2}\label{Fig:education1}
-   \end{minipage}\hfill
-   \begin{minipage}{0.48\textwidth}
-     \centering
-     \includegraphics[width=.7\linewidth]{index_variation_2}
-     \caption{The tendencies of the most talented students when they start their education career at 50\%, 25\%, and 0\% of the schools and sd = 5}\label{Fig:education2}
-   \end{minipage}
-
-\end{figure}
-
-
-
-
-
-
-\subsection{System Inclusion Function Example in Major League Baseball}
-
-Ted Williams and Bob Feller were two of the many great baseball players who fought in the Army during World War II(WWII) \footnote{https://www.baseballinwartime.com/timeline/timeline\char`_1942.htm}. As a result, in the absence of these talented players, the players who continued in the league produced high-standard performances, such as Hal Newhouser. Now we are interested in the performance of those who played in the league during WWII (World War II) if WWII hadn't occurred the players who served in the war would still be playing. For example, we are interested in the bWAR (Baseball-Reference Win Above Replacement) of Dizzy Trout if Bob Feller were playing in the 1944 season. In fact, Bob Feller served in the Army during WWII and he was a superior pitcher compared to Dizzy Trout.  
-
-Table \ref{Tab:baseball} displays the performance of Spud Chandler, Dizzy Trout, and Hal Newhouser when the top talented players served in the Army or not. We assume only two pitchers would outperform Spud Chandler in the 1943 season, Dizzy Trout in the 1944 season, and Hal Newhouser in the 1945 season, which indicates the system inclusion function will not select the top $n_i$ players. Instead, under this scenario, the system inclusion function selects the 3rd best pitcher to the $(n_i + 2)$th pitchers. Then we can compute the bWAR talent using the Equation (\ref{eq:trueparX}) and compute the estimated bWAR using the Equation (\ref{eq:trueparY}). The details about computing the talents and estimated bWAR can be found in \citep{DE20b}. 
-
-Additionally, we exclude the WWII correction for the MLB-eligible population when the top talented players did not serve in the Army. The details about applying WWII correction for the MLB-eligible population can be found in \citep{DE20b}. 
-
-\begin{table}[H]
-\centering
-		\begin{tabular}{cccc}
-		\hline
-		 Player & Top players served in the Army & MLB eligible pop & Estimated bWAR \\ 
-		 \hline
-		 Spud Chandler & Yes & 4420602 & 7.85 \\
-		 Spud Chandler & No & 5704002 & 6.19 \\
-		 \hline
-		 Dizzy Trout & Yes & 3402511 & 8.53 \\
-		 Dizzy Trout & No & 5816258 & 7.48 \\
-		 \hline
-		 Hal Newhouser & Yes & 3842868 & 11.38 \\
-		 Hal Newhouser & No & 5950248 & 8.10 \\
-
-		 \hline
-		 \end{tabular}
-		 \caption{The performance of Spud Chandler, Dizzy Trout, and Hal Newhouser when the top talented players served in the Army or not}
-\label{Tab:baseball}
-\end{table}
 
 \subsection{Gould Paradox in Major League Baseball}
 
@@ -1195,6 +1092,10 @@ We compute the talent scores for the batting average in each season using the (\
 %where $$
 %T(h, a)=\phi(h) \int_0^a \frac{\phi(h x)}{1+x^2} d x
 %$$
+
+When $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$ and $k = j$, then 
+
+$g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ where $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the CDF of Beta$(\alpha, \beta)$ distribution. 
 
 
 
