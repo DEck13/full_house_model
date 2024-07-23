@@ -280,7 +280,8 @@ $$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(
 
 \begin{align*}
 	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
-	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}
+	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
+	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{k - j}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{k - j}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2}
 \end{align*}
 
 \end{proof}
@@ -401,6 +402,54 @@ Based on \ref{eq:inequa1} and \ref{eq:inequa2}, we have
 Therefore, when $\frac{n_1}{N_1} \geq 1 \geq \frac{n_2}{N_2}$ and $k = j$, $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1).$
 
 \end{proof}
+
+\begin{prop} \label{prop:condition}
+	Suppose $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, $N_1 - N_2 > n_1 - n_2$, $k = j$, then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1).$
+\end{prop}
+
+Supposed
+
+$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(x)$$
+
+\begin{align*}
+	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
+	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
+	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{k - j}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{k - j}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2} \\
+	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2}
+\end{align*}
+
+When $x = 0$, 
+
+\begin{align*}
+	f^{`}(x) &= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}\\
+	&= \frac{(n_2 - j - 1)!(j)!/n_2!}{(n_1 - k - 1)!(k)!/n_1!} - \frac{(N_2 - j - 1)!(j)!/N_2!}{(N_1 - k - 1)!(k)!/N_1!}\\
+	&= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}
+\end{align*}
+
+Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
+
+$$h(x) = \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)}$$ 
+
+We define $l(x) = (n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)$, it is easy to prove $l^{`}(x) > 0$ when $N_1 - N_2 > n_1 - n_2$. 
+
+Then $l(x) > l(0)$ for all $0 < x < min(n_1, n_2, N_1, N_2)$, which is $l(x) > n_1N_2 - n_2N_1$ for all $0 < x < min(n_1, n_2, N_1, N_2)$
+
+Now we have
+
+$$h(x) = \frac{l(x)}{(n_2 - x)(N_2 - x)} > \frac{n_1N_2 - n_2N_1}{(n_2 - x)(N_2 - x)}$$
+
+We know $$\frac{n_1N_2 - n_2N_1}{(n_2 - x)(N_2 - x)} > \frac{n_1N_2 - n_2N_1}{n_2N_2} = \frac{n_1}{n_2} - \frac{N_1}{N_2} > 0$$ for $0 < x < min(n_1, n_2, N_1, N_2)$. 
+
+Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) > 0$. 
+
+Finally, we show 
+
+\begin{align*}
+	f^{`}(x) &= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}\\
+	&= \frac{n_2 - j}{n_1 - j}\times\frac{n_2 - j+1}{n_1 - j+1}\times\dots\times\frac{n_2}{n_1} - \frac{N_2 - j}{N_1 - j}\times\frac{N_2 - j+1}{N_1 - j+1}\times\dots\times\frac{N_2}{N_1} > 0
+\end{align*}
+
+When x = 1, then $f^{`}(x) = 0$. And we know when x = 0, $f(x) = 0$, and when $x = 1$, $f(x) = 0$. Therefore, $f(x) \geq 0$ for all $x \in (0,1)$.
 
 %\begin{proof}
 %We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
