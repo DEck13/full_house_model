@@ -372,7 +372,7 @@ Notes:
 
 \begin{lemma} \label{lem:recursion}
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that $g(X_{i,j},\textbf{X}_{i,j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$ for $i = 1,2$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$ for $i = 1,2$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
@@ -385,13 +385,13 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Suppose that $n_2 \geq n_1 > 1$, $N
 	$$
 	g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) = 0.
 	$$
-	Now suppose that $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1)$ where $n_2 \geq n_1$ and $N_1 \geq N_2$. Since $g_{n, k}$ is the cumulative distribution function for a Beta$(n-k,k+1)$ random variable we can write
+	For the induction step, choose some $m \leq n_1 - 1$, and suppose that $g_{n_1 -m, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative for $t \in (0,1)$ where $n_2 \geq n_1$ and $N_1 \geq N_2$. Since $g_{n, k}$ is the cumulative distribution function for a Beta$(n-k,k+1)$ random variable we can write
 	\begin{align*}
-		&g_{n_1-1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) \\
-		  &\qquad= g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) + \frac{\left[g_{n_2, j}^{-1}(t)\right]^{n_1-1}\left[1 - g_{n_2, j}^{-1}(t)\right]^{k+1}}{(n_1-1)B(n_1-1,k+1)} \\
+		&g_{n_1-m-1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) \\
+		  &\qquad= g_{n_1-m, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t) + \frac{\left[g_{n_2, j}^{-1}(t)\right]^{n_1-1}\left[1 - g_{n_2, j}^{-1}(t)\right]^{k+1}}{(n_1-1)B(n_1-1,k+1)} \\
 		  &\geq 0,
 	\end{align*}
-	where the right hand sign of the equality is a property of regularized incomplete beta functions \url{https://dlmf.nist.gov/8.17}. Thus the induction step is satisfied with $n_1$ iteratively decreasing.  A similar argument holds for $N_1$ iteratively increasing.
+	where the right hand sign of the equality is a property of regularized incomplete beta functions \url{https://dlmf.nist.gov/8.17}. Thus the induction step is satisfied. A similar argument holds for iterative increases to $N_1$.
 \end{proof}
 
 
