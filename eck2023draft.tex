@@ -242,6 +242,7 @@ where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n
 \end{theorem}
 
 \begin{proof}
+
 \begin{align*} \qedhere
 	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} f_{X_{1,(r_{1,k})}}(y)\ dy\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
@@ -415,7 +416,7 @@ $$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_
 \begin{align*}
 	f^{'}(x) &= g_{n_1, n_1-j}^{'} ( g_{n_2, n_2-j}^{-1}(x)) *\frac{1}{g_{n_2, n_2-j}^{'} ( g_{n_2, n_2-j}^{-1}(x))} - g_{N_1, N_1-j}^{'} ( g_{N_2, N_2-j}^{-1}(x)) *\frac{1}{g_{N_2, N_2-j}^{'} ( g_{N_2, N_2-j}^{-1}(x))} \\
 	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}g_{N_2, j}^{-1}(x)^{N_1 - N_2} \\
+	&= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2} \\
 \end{align*}
 
 When $x = 1$, 
