@@ -225,7 +225,7 @@ If we assume
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$ and $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ then
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$ and $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)$ is non-negative when $t \in (0,1),$ then
 \begin{align*}
 	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
   &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
@@ -242,8 +242,7 @@ where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n
 \end{theorem}
 
 \begin{proof}
- 
-	\begin{align*} \qedhere
+\begin{align*} \qedhere
 	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} f_{X_{1,(r_{1,k})}}(y)\ dy\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} d \ g_{N_1, r_{1,k}}(F_X(y))\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
@@ -263,10 +262,10 @@ p
 &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(j+p, n_2-n_1-p+j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(j+p, n_2+n_1-p-j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(r_{2,j}+p, N_2-N_1-p+r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}
+\end{array}\right)\frac{B(r_{2,j}+p, N_2+N_1-p-r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}
 \end{align*}
 where 
 \begin{align*}
@@ -274,18 +273,6 @@ where
 	&= F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x) \\
 	g_{n,i}(x) &= I_x(i, n-i+1) \\
 \end{align*}
-
-
-$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(x)$$
-
-\begin{align*}
-	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
-	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{k - j}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{k - j}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2}
-\end{align*}
-
-\end{proof}
-
 
 \begin{corollary} \label{corollary:samedisttop}
 Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
@@ -365,91 +352,98 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 \end{align*}
 \end{corollary}
 
-\begin{prop} \label{prop:condition}
-	Suppose $\frac{n_1}{N_1} \geq 1 \geq \frac{n_2}{N_2}$ and $k = j$, then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1).$
-\end{prop}
-	
+
+\newpage
+Notes:
+
+
+\begin{lemma} \label{lem:recursion}
+Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$ for $i = 1,2$, and that the Full House Model is of the form 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Suppose that $n_2 \geq n_1 > 1$, $N_1 \geq N_2 > 1$, and $k=j$. Then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)$ is non-negative when $t \in (0,1)$.	
+\end{lemma}
+
 \begin{proof}
-	Define the function $f(x) = g_{n_1, k}(x) - g_{N_1, k}(x), x \in (0,1)$ and we find $f(0) = 0$ and $f(1) = 0$. Then when $n_1 \geq N_1$
-	
-	\begin{align*}
-		f^`(x) &= \frac{x^{k-1}(1-x)^{n_1 - k}}{B(k, n_1+1-k)} - \frac{x^{k-1}(1-x)^{N_1 - k}}{B(k, N_1+1-k)} \\
-		&= \frac{x^{k-1}(1-x)^{N_1 - k}}{B(k, n_1+1-k)}((1-x)^{n_1 - N_1} - \frac{B(k, n_1+1-k)}{B(k, N_1+1-k)})
-	\end{align*}
-
-When $x = 0$, $(1-x)^{n_1 - N_1} = 1$ and when $x = 1$, $(1-x)^{n_1 - N_1} = 0$. Also $\frac{B(k, n_1+1-k)}{B(k, N_1+1-k)} \leq 1$. 
-
-Then $f^`(x)$ is positive first and then becomes negative. And now we have $f(x) \geq 0$ for all $x \in (0,1)$.
-
-Then when $x = g_{n_2, j}^{-1}(t)$, where $t \in (0,1)$, we have
-\begin{equation} \label{eq:inequa1}
-	g_{n_1, k}(g_{n_2, j}^{-1}(t)) \geq g_{N_1, k}(g_{n_2, j}^{-1}(t))
-\end{equation}
-Since $g_{N_1, k}(x)$ is an increasing function and $g_{n_2, j}^{-1}(t) \geq g_{N_2, j}^{-1}(t)$ when $n_2 \leq N_2$
-
-Now we have 
-
-\begin{equation} \label{eq:inequa2}
-	g_{N_1, k}(g_{n_2, j}^{-1}(t)) \geq g_{N_1, k}(g_{N_2, j}^{-1}(t))
-\end{equation}
-
-Based on \ref{eq:inequa1} and \ref{eq:inequa2}, we have 
-
-\begin{equation} \label{eq:inequa2}
-	g_{n_1, k}(g_{n_2, j}^{-1}(t)) \geq g_{N_1, k}(g_{N_2, j}^{-1}(t))
-\end{equation}
-
-Therefore, when $\frac{n_1}{N_1} \geq 1 \geq \frac{n_2}{N_2}$ and $k = j$, $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1).$
-
-\end{proof}
-
-\begin{prop} \label{prop:condition}
-	Suppose $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, $N_1 - N_2 > n_1 - n_2$, $k = j$, then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1).$
-\end{prop}
 
 Supposed
 
-$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, k} \circ g_{N_2, j}^{-1}(x)$$
+$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(x)$$
+
+Given the property of the system inclusion mechanism, $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$, and the condtion $k=j$, we have
+
+$$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x)$$
+
+	This proof will be by two induction arguments. For the base case, let $n_1 = n_2$ and $N_1 = N_2$. With these specifications, we have that 
+	$$
+	g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x) = 0.
+	$$
+	For the induction step, choose some $m \leq n_1 - 1$, and suppose that $g_{n_1 -m, n_1-m -j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t)$ is non-negative for $t \in (0,1)$ where $n_2 \geq n_1$ and $N_1 \geq N_2$. Since $g_{n, k}$ is the cumulative distribution function for a Beta$(k,n-k+1)$ random variable we can write
+	\begin{align*}
+		&g_{n_1-m-1, n_1-m-1-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t) \\
+		  &\qquad= g_{n_1-m, n_1-m-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 -j} \circ g_{N_2, N_2-j}^{-1}(t) + \frac{\left[g_{n_2, n_2-j}^{-1}(t)\right]^{n_1-m-1-j}\left[1 - g_{n_2, n_2-j}^{-1}(t)\right]^{j+1}}{(n_1-m-1-j)B(n_1-m-1-j,j+1)} \\
+		  &\geq 0,
+	\end{align*}
+	where the right hand sign of the equality is a property of regularized incomplete beta functions \url{https://dlmf.nist.gov/8.17}. Thus the induction step is satisfied. A similar argument holds for iterative increases to $N_1$.
+\end{proof}
+
+\begin{prop} \label{prop:condition}
+	Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
+Suppose that the system inclusion mechanism has the property that $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$ for $i = 1,2$, and that the Full House Model is of the form 
+\begin{align*}
+  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+\end{align*}
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$, $k = j$. Then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)$ is non-negative when $t \in (0,1)$.	
+\end{prop}
+
+\begin{proof}
+	
+\end{proof}
+
+Supposed
+
+$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(x)$$
+
+Given the property of the system inclusion mechanism, $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$, and the condtion $k=j$, we have
+
+$$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x)$$
 
 \begin{align*}
-	f^{'}(x) &= g_{n_1, k}^{'} ( g_{n_2, j}^{-1}(x)) *\frac{1}{g_{n_2, j}^{'} ( g_{n_2, j}^{-1}(x))} - g_{N_1, k}^{'} ( g_{N_2, j}^{-1}(x)) *\frac{1}{g_{N_2, j}^{'} ( g_{N_2, j}^{-1}(x))} \\
+	f^{'}(x) &= g_{n_1, n_1-j}^{'} ( g_{n_2, n_2-j}^{-1}(x)) *\frac{1}{g_{n_2, n_2-j}^{'} ( g_{n_2, n_2-j}^{-1}(x))} - g_{N_1, N_1-j}^{'} ( g_{N_2, N_2-j}^{-1}(x)) *\frac{1}{g_{N_2, N_2-j}^{'} ( g_{N_2, N_2-j}^{-1}(x))} \\
 	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{k - j}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{k - j}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2} \\
-	&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}(1-g_{n_2, j}^{-1}(x))^{n_1 - n_2} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}(1-g_{N_2, j}^{-1}(x))^{N_1 - N_2}
+	&= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}g_{N_2, j}^{-1}(x)^{N_1 - N_2} \\
 \end{align*}
 
-When $x = 0$, 
+When $x = 1$, 
 
 \begin{align*}
-	f^{`}(x) &= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}\\
-	&= \frac{(n_2 - j - 1)!(j)!/n_2!}{(n_1 - k - 1)!(k)!/n_1!} - \frac{(N_2 - j - 1)!(j)!/N_2!}{(N_1 - k - 1)!(k)!/N_1!}\\
-	&= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}
+	f^{`}(1) &= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
+	&= \frac{(n_2 - j-1)!(j)!/n_2!}{(n_1 - j-1)!(j)!/n_1!} - \frac{(N_2 - j-1)!(j)!/N_2!}{(N_1 - j-1)!(j)!/N_1!}\\
+	&= \frac{(n_2 - j)\dots(n_2)}{(n_1 - j)\dots(n_1)} - \frac{(N_2 - j)\dots(N_2)}{(N_1 - j)\dots(N_1)}
 \end{align*}
 
 Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
 
-$$h(x) = \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)}$$ 
+\begin{align*}
+	h(x) &= \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)} \\
+	&= \frac{n_1N_2 - n_2N_1 - (n_1 + N_2 -n_2 - N_1 )x}{(n_2 - x)(N_2 - x)}
+\end{align*}
 
-We define $l(x) = (n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)$, it is easy to prove $l^{`}(x) > 0$ when $N_1 - N_2 > n_1 - n_2$. 
-
-Then $l(x) > l(0)$ for all $0 < x < min(n_1, n_2, N_1, N_2)$, which is $l(x) > n_1N_2 - n_2N_1$ for all $0 < x < min(n_1, n_2, N_1, N_2)$
-
-Now we have
-
-$$h(x) = \frac{l(x)}{(n_2 - x)(N_2 - x)} > \frac{n_1N_2 - n_2N_1}{(n_2 - x)(N_2 - x)}$$
-
-We know $$\frac{n_1N_2 - n_2N_1}{(n_2 - x)(N_2 - x)} > \frac{n_1N_2 - n_2N_1}{n_2N_2} = \frac{n_1}{n_2} - \frac{N_1}{N_2} > 0$$ for $0 < x < min(n_1, n_2, N_1, N_2)$. 
-
-Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) > 0$. 
+Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$. 
 
 Finally, we show 
 
 \begin{align*}
-	f^{`}(x) &= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}\\
-	&= \frac{n_2 - j}{n_1 - j}\times\frac{n_2 - j+1}{n_1 - j+1}\times\dots\times\frac{n_2}{n_1} - \frac{N_2 - j}{N_1 - j}\times\frac{N_2 - j+1}{N_1 - j+1}\times\dots\times\frac{N_2}{N_1} > 0
+	f^{`}(1) &= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}\\
+	&= \frac{n_2 - j}{n_1 - j}\times\frac{n_2 - j+1}{n_1 - j+1}\times\dots\times\frac{n_2}{n_1} - \frac{N_2 - j}{N_1 - j}\times\frac{N_2 - j+1}{N_1 - j+1}\times\dots\times\frac{N_2}{N_1} < 0
 \end{align*}
 
-When x = 1, then $f^{`}(x) = 0$. And we know when x = 0, $f(x) = 0$, and when $x = 1$, $f(x) = 0$. Therefore, $f(x) \geq 0$ for all $x \in (0,1)$.
+We also have $f^{`}(0) = 0$. And we know $f(0) = 0$, and $f(1) = 0$. Therefore, $f(x) \geq 0$ for all $x \in (0,1)$.
+
 
 %\begin{proof}
 %We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
