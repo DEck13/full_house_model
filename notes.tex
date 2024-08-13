@@ -367,8 +367,41 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 
 
 \newpage
-Notes:
+Notes: \\
 
+Let $n > m$. Start with 
+$$
+  1 \leq \frac{g_{m,m-j}(x)}{g_{n,n-j}(x)} < +\infty
+$$
+where the above ratio is a decreasing function in $x$. Now,
+\begin{align*}
+	1 = \frac{x}{x} = \frac{g_{m,m-j}^{-1} \circ g_{m,m-j}(x)}{g_{n,n-j}^{-1} \circ g_{n,n-j}(x)} 
+	= \frac{g_{m,m-j}^{-1}(u_m)}{g_{n,n-j}^{-1}(u_n)}
+\end{align*}
+where
+$$
+   u_m = g_{m,m-j}(x) \qquad u_n = g_{n,n-j}(x),
+$$
+and we have that 
+$$
+  u_m \geq u_n.
+$$
+Thus
+$$
+  \frac{g_{m,m-j}^{-1}(u_m)}{g_{n,n-j}^{-1}(u_n)} \leq \frac{g_{m,m-j}^{-1}(u_n)}{g_{n,n-j}^{-1}(u_n)}
+$$
+which implies that 
+$$
+  g_{n,n-j}^{-1}(x) \leq g_{m,m-j}^{-1}(x)
+$$
+This implies that 
+$$
+  x \leq g_{n,n-j} \circ g_{m,m-j}^{-1}(x)
+$$
+and 
+$$
+  g_{m,m-j} \circ g_{n,n-j}^{-1}(x) \leq x
+$$ 
 
 \begin{lemma} \label{lem:recursion}
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
