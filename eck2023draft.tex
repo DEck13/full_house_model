@@ -275,6 +275,8 @@ where
 	g_{n,i}(x) &= I_x(i, n-i+1) \\
 \end{align*}
 
+\end{proof}
+
 \begin{corollary} \label{corollary:samedisttop}
 Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
@@ -424,7 +426,7 @@ When $x = 1$,
 \begin{align*}
 	f^{`}(1) &= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
 	&= \frac{(n_2 - j-1)!(j)!/n_2!}{(n_1 - j-1)!(j)!/n_1!} - \frac{(N_2 - j-1)!(j)!/N_2!}{(N_1 - j-1)!(j)!/N_1!}\\
-	&= \frac{(n_2 - j)\dots(n_2)}{(n_1 - j)\dots(n_1)} - \frac{(N_2 - j)\dots(N_2)}{(N_1 - j)\dots(N_1)}
+	&= \frac{(n_1 - j)\dots(n_1)}{(n_2 - j)\dots(n_2)} - \frac{(N_1 - j)\dots(N_1)}{(N_2 - j)\dots(N_2)}
 \end{align*}
 
 Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
@@ -439,8 +441,8 @@ Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n
 Finally, we show 
 
 \begin{align*}
-	f^{`}(1) &= \frac{(n_2 - j)(n_2 - j +1)\dots(n_2)}{(n_1 - j)(n_1 - j +1)\dots(n_1)} - \frac{(N_2 - j)(N_2 - j +1)\dots(N_2)}{(N_1 - j)(N_1 - j +1)\dots(N_1)}\\
-	&= \frac{n_2 - j}{n_1 - j}\times\frac{n_2 - j+1}{n_1 - j+1}\times\dots\times\frac{n_2}{n_1} - \frac{N_2 - j}{N_1 - j}\times\frac{N_2 - j+1}{N_1 - j+1}\times\dots\times\frac{N_2}{N_1} < 0
+	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
+	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
 \end{align*}
 
 We also have $f^{`}(0) = 0$. And we know $f(0) = 0$, and $f(1) = 0$. Therefore, $f(x) \geq 0$ for all $x \in (0,1)$.
