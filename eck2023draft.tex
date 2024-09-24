@@ -107,6 +107,9 @@ where $g_i(X_{i, (r(N_i, n_i, j))}, \textbf{X}_{i, -(r(N_i, n_i, j))}) = 1$, and
 \bigskip The setup \eqref{eq:truepar} immediately implies structural missingness in the form of no observed $Y$ values for any $X_{i,j}$ such that $g(X_{i,j},\textbf{X}_{i,-j}) = 0$. 
 
 
+\begin{defn} [Full House Model]
+	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $g(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$ Form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, $j = 1,\ldots,n_i$ for all individuals such that $g_i(X_{i, (r(N_i, n_i, j))}, \textbf{X}_{i, -(r(N_i, n_i, j))}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar}, provided that $F_Y$ and $F_X$ are continuous and invertible.
+\end{defn}
 
 
 %To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
@@ -165,11 +168,11 @@ $$
 
 \section{Paradoxes Under Same Distribution}
 
-Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. We define a paradox (or a Gould paradox) when 
+In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$ for $i = 1,2$. We define a paradox to have occurred when 
 $$
-  X_{1,(r_{1,j})} > X_{2,(r_{2,k})} \quad \text{and} \quad Y_{1,(j)} < Y_{2,(k)}
+  X_{1,(r_{1,j})} > X_{2,(r_{2,k})} \quad \text{and} \quad Y_{1,(j)} < Y_{2,(k)},
 $$
-both occur, where $i = 1,2$, $1 \leq j \leq n_1$, and $1 \leq j \leq n_2$. Our central interest will be the determination of  
+where $i = 1,2$, $1 \leq j \leq n_1$, and $1 \leq k \leq n_2$. Our central interest will be the determination of  
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right).
 \end{equation}
@@ -178,33 +181,33 @@ As a simple illustrative example of some mechanics concerning paradoxes, let $r_
 
 
 \begin{lemma} \label{lemma:rep}
-Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that 
-$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
-$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$, and that the Full House Model is of the form 
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+Consider a Full House Model with two populations $i = 1,2$.
+%Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
+%Suppose that the system inclusion mechanism has the property that 
+%$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
+%$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$, and that the Full House Model is of the form 
+%\begin{align*}
+%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
+%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+%\end{align*}
+%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+Then, 
 \begin{equation} \label{eq:pararep}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
   = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
 \end{equation}
-where $h_{1,2}(\fatterdot) = (f_1^{-1} \circ f_2)(\fatterdot)$, 
-$f_1(\fatterdot) = F_{Y_{1, (j)}}^{-1}\left(F_{X_{1,(r_{1,j})}}\left(\fatterdot\right)\right)$, 
-$f_2(\fatterdot) = F_{Y_{2, (k)}}^{-1}\left(F_{X_{2,(r_{2,k})}}\left(\fatterdot\right)\right)$,
-and both $f$ and $h$ exist.
+where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$.
 \end{lemma}
 
 \begin{proof}
-If $f$ and $h$ exist, then we have
+Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
+$f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
 \begin{align*}
   &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
   &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1}(X_{1,(r_{1,j})}) < f_{2}(X_{2,(r_{2,k})})\right) \\
-  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right).
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
-Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+where $h_{1,2,j,k}(\cdot) = (f_1^{-1} \circ f_2)(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 \end{proof}
 
 
