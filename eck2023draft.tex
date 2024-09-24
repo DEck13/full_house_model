@@ -171,61 +171,69 @@ Similarly, we can obtain $Y$ from $X$,
 % = \widehat{Y}_{i, (j)}.
 %$$
 
+
+
 \section{Paradoxes Under Same Distribution}
 
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. We define a paradox (or a Gould paradox) when 
 $$
-  X_{1,(r_{1,k})} > X_{2,(r_{2,j})} \quad \text{and} \quad Y_{1,(k)} < Y_{2,(j)}
+  X_{1,(r_{1,j})} > X_{2,(r_{2,k})} \quad \text{and} \quad Y_{1,(j)} < Y_{2,(k)}
 $$
-both occur, where k, j $\in \mathbb{Z}$, $i = 1,2$. 
-
-A central interest is evaluating the probability of such a paradox, 
-
+both occur, where $i = 1,2$, $1 \leq j \leq n_1$, and $1 \leq j \leq n_2$. Our central interest will be the determination of  
 \begin{equation} \label{eq:simpleparadox}
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right),
+  \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right).
 \end{equation}
 
-where $r_{i,t} = N_i - n_i + t, k = n_1, j = n_2$.
-
-As a simple illustrative example of some mechanics concerning paradoxes, suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following theorem.
+As a simple illustrative example of some mechanics concerning paradoxes, let $r_{i,t} = N_i - n_i + t$ and set $k = n_1, j = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following theorem. We introduce an important technical lemma and some results about beta functions before we study \eqref{eq:simpleparadox} in more depth.
 
 
 \begin{lemma} \label{lemma:rep}
 Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that 
+$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
+$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
 where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
-
 \begin{equation} \label{eq:pararep}
-  \Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) 
-  = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right)
+  \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
+  = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
 \end{equation}
-
 where $h_{1,2}(\fatterdot) = (f_1^{-1} \circ f_2)(\fatterdot)$, 
-$f_1(\fatterdot) = F_{Y_{1, (j)}}^{-1}\left(F_{X_{1,(r_{1,k})}}\left(\fatterdot\right)\right)$, $f_2(\fatterdot) = F_{Y_{2, (j)}}^{-1}\left(F_{X_{2,(r_{2,j})}}\left(\fatterdot\right)\right)$,
+$f_1(\fatterdot) = F_{Y_{1, (j)}}^{-1}\left(F_{X_{1,(r_{1,j})}}\left(\fatterdot\right)\right)$, 
+$f_2(\fatterdot) = F_{Y_{2, (k)}}^{-1}\left(F_{X_{2,(r_{2,k})}}\left(\fatterdot\right)\right)$,
 and both $f$ and $h$ exist.
 \end{lemma}
 
 \begin{proof}
 If $f$ and $h$ exist, then we have
 \begin{align*}
-  &\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
-  &\qquad= \Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j}))}, f_{1}(X_{1,(r_{1,k})}) < f_{2}(X_{2,(r_{2,j})})\right) \\
-  &\qquad= \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right).
+  &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1}(X_{1,(r_{1,j})}) < f_{2}(X_{2,(r_{2,k})})\right) \\
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right).
 \end{align*}
-Existance of $f_i$ follows directly from the existance of $F_Y^{-1}(y)$, and existance of $h_{i,j}$ follows directly from the existance of $f_i$ and the existance of $F_X^{-1}(x)$.
+Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 \end{proof}
 
+
+
+where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
+
 \begin{theorem} \label{theorem:samedistgeneral}
-If we assume 
+Suppose that
 \begin{align*}
   Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. If the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$ and $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)$ is non-negative when $t \in (0,1),$ then
+where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Suppose that the system inclusion mechanism satisfies 
+$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
+$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$. Assume that 
+\begin{equation} \label{eq:technical-condition}
+  g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).	
+\end{equation}
+Then
 \begin{align*}
 	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
   &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
@@ -236,9 +244,6 @@ N_1 \\
 p
 \end{array}\right)\frac{B(r_{2,j}+p, N_2-N_1-p+r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}.
 \end{align*}
-
-where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
-
 \end{theorem}
 
 \begin{proof}
