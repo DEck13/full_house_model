@@ -30,6 +30,7 @@
 \usepackage{tikz}
 \newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
 
+\newcommand{\R}{\mathbb{R}}
 \DeclareUnicodeCharacter{FB01}{fi}
 \DeclareUnicodeCharacter{FF0C}{,}
 \DeclareMathOperator*{\Prob}{P}
@@ -82,66 +83,55 @@ The next section establishes the model setting and specifies the assumptions in 
 \section{Model Setting}
 
 We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent aptitude 
-$X_{i,1}, \ldots, X_{i,N_i} \stackrel{\text { iid }}{\sim} F_{X}$. 
-We denote $X_{i,(j)}$ as the $j$th ordered latent aptitude in population $i$.
-We define $g_{i}\left(\cdot, \cdot\right)$ as the system inclusion function, where 
-$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, 
-and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. 
+$X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define $g_{i}\left(\cdot, \cdot\right)$ as a determined and known system inclusion function, where $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
 
-%We will assume that the most talented individuals in year $i$ are active players in the MLB so that 
-%\begin{equation} \label{eq:MLBselection}
-%	g_{i}\left(X_{i, j}, \mathbf{X}_{i,-j}\right) = 1\left(X_{i,j} \geq X_{i,(N_i-n_i + 1)}\right),
-%\end{equation}
-%where $n_i$ is the number of active MLB players in year $i$ and $1(\cdot)$ is the indicator function.
 
-%A general formulation for $g$ is given by,
-%\begin{equation} \label{eq:selection}
-%	g_{i}\left(X_{i, j}, \mathbf{X}_{i,-j}\right)=1\left( X_{i,j} \in { l_{i,1}(X_{i, j},\mathbf{X}_{i,-j}), l_{i,2}(X_{i, j},\mathbf{X}_{i,-j}), \dots, l_{i,n_i}(X_{i, j},\mathbf{X}_{i,-j})  }  \right),
-%\end{equation}
-%where $l_{i,k}(X_{i, j},\mathbf{X}_{i,-j}) = X_{i, (r(N_i, n_i, k))}, k = 1, 2, \dots, n_i$, $n_i$ is the number of individuals included in the $i$th system, $r(N_i, n_i, k)$ is the index function that selects components. 
-
-%We can choose any index functions we need to select the desirable components. For example, suppose $r(N_i, n_i, k) = N_i - n_i + k$, $k = 1, 2, \dots, n_i$, then the inclusion function $g_i$ will select the top $n_i$ components from the population $N_i$ into the $i$th system. 
-
-We now suppose that an individual $j$ included in system $i$ has an observed statistic $Y_{i,j}$, $j = 1,\ldots,n_i$ and we suppose that $Y_{i,j}$ is a one-to-one realization of $X_{i,j}$ given the $X_{i,j}$ is included in the ith system. Whether or not $X_{i,j}$ is chosen in the system does not alter its independence feature.
-
-%which is 
-
-%$$Y_{i,j} = p_i(X_{i,j} | g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1)$$
-
-%where $p_{i}\left(\cdot\right)$ is an unknown continuous function. 
-
-Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
+We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. %where $Y_{i,j}$ is a one-to-one realization of $X_{i,j}$ provided that $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. %Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. 
+Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ where $r(N_i, n_i, j): = r_{i,j}$ indexes the aptitude of the $k$th individual included in the system. As an example, let $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$ then the $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
 %where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
-
-The key to the Full House Model is connecting latent aptitudes $X$ with observed statistics $Y$. 
-To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
-$j = 1,\ldots,n_i$, where $r(N_i, n_i, k): = r_{i,k}$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. As an example, when $r(N_i, n_i, k) = N_i - n_i + k$, then the $k$th components in the system i is paired with the $(N_i - n_i + k)$th latent aptitude. 
-%\textcolor{red}{I am not sure what r() is, this needs to be stated more clearly.} 
-%\textcolor{red}{Needs to be more general.} %As an example, the highest performer in the MLB in year $i$ as judged by values $Y_{i,j}$ will be assumed to have the highest talent score in year $i$.
-
-\bigskip
-We now demonstrate how the Full House Model works in a parametric setting. Consider the pair 
-$(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ 
-%(\textcolor{red}{Needs to be more general, this currently corresponds to the case where all the highest latent aptitudes are in the system.})
-and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous distribution family.  %parametric family indexed by unknown parameter $\theta_{i}$, and let $F_{Y_i}(\cdot \mid \theta_i)$ be a parametric CDF with parameter $\theta_i \in \mathbb{R}^{p_{Y_i}}$. We can estimate $\theta_i$ with $\hat{\theta_i}$ and plug the estimator into the CDF $F_{Y}(\cdot \mid \hat{\theta_i})$.
-
-In order to connect the  $Y_{i,(j)}$ and $X_{i,(r(N_i, n_i, j))}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
-$$
-\begin{aligned}
-F_{Y_i}\left(Y_{i,(j)} \right) & \sim U_{i,(j)}, %& & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
-F_{Y_{i,(j)}}\left(Y_{i,(j)} \right) & \sim U_{i,j}, %& & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
-\end{aligned}
-$$
-where %$\approx$ means approximately distributed, 
-$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. %and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
-
-We now connect the order statistics to the underlying talent distribution that comes from a population with $N_i \geq n_i$ observations when $F_{X}$ is known. This connection is established with 
-\begin{equation} \label{eq:trueparX}
-F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right) 
-  \sim F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
-  = X_{i, (r(N_i, n_i, j))}.
+The key Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ pairs. Full House Modeling states this connection as
+\begin{equation} \label{eq:truepar}
+\begin{split}
+  Y_{i, (j)} &= F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right), \\
+  X_{i, (r(N_i, n_i, j))} &= F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right),
+\end{split}
 \end{equation}
+where $g_i(X_{i, (r(N_i, n_i, j))}, \textbf{X}_{i, -(r(N_i, n_i, j))}) = 1$, and both $F_Y$ and $F_X$ are continuous and invertible.
+
+
+
+\bigskip \textbf{Argue that iid of Y follows from iid of X}.
+
+
+\bigskip The setup \eqref{eq:truepar} immediately implies structural missingness in the form of no observed $Y$ values for any $X_{i,j}$ such that $g(X_{i,j},\textbf{X}_{i,-j}) = 0$. 
+
+
+
+
+%To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
+%$j = 1,\ldots,n_i$, where $r(N_i, n_i, k): = r_{i,k}$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. 
+
+%We now demonstrate how the Full House Model works in a parametric setting. Consider the pair 
+%$(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ 
+%and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous distribution family.  
+
+%In order to connect the  $Y_{i,(j)}$ and $X_{i,(r(N_i, n_i, j))}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
+%$$
+%\begin{aligned}
+%F_{Y_i}\left(Y_{i,(j)} \right) & \sim U_{i,(j)}, %& & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
+%F_{Y_{i,(j)}}\left(Y_{i,(j)} \right) & \sim U_{i,j}, %& & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
+%\end{aligned}
+$$
+%where %$\approx$ means approximately distributed, 
+%$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. %and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
+
+%We now connect the order statistics to the underlying talent distribution that comes from a population with $N_i \geq n_i$ observations when $F_{X}$ is known. This connection is established with 
+%\begin{equation} \label{eq:trueparX}
+%F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right) 
+%  \sim F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
+%  = X_{i, (r(N_i, n_i, j))}.
+%\end{equation}
 %We estimate the above with
 %$$
 %F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right)\right)\right) \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = X_{i, (r(N_i, n_i, j))}.
@@ -160,11 +150,11 @@ F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right
 %\end{equation}
 %where we estimate the above with $F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(\widehat{X}_{i, (r(N_i, n_i, j))}\right)\right) | \hat{\theta}_i\right) = \widehat{Y}_{i, (j)}$ for $j = 1,\ldots,n_i$.
 
-Similarly, we can obtain $Y$ from $X$,
-\begin{equation} \label{eq:trueparY}
- F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right) 
- = Y_{i, (j)},
-\end{equation}
+%Similarly, we can obtain $Y$ from $X$,
+%\begin{equation} \label{eq:trueparY}
+% F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right) 
+% = Y_{i, (j)},
+%\end{equation}
 %where we estimate the above with 
 %$$
 %  F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) | \hat{\theta}_i\right) 
@@ -184,7 +174,7 @@ both occur, where $i = 1,2$, $1 \leq j \leq n_1$, and $1 \leq j \leq n_2$. Our c
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right).
 \end{equation}
 
-As a simple illustrative example of some mechanics concerning paradoxes, let $r_{i,t} = N_i - n_i + t$ and set $k = n_1, j = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We motivate a convenient representation of \eqref{eq:simpleparadox} in the following theorem. We introduce an important technical lemma and some results about beta functions before we study \eqref{eq:simpleparadox} in more depth.
+As a simple illustrative example of some mechanics concerning paradoxes, let $r_{i,t} = N_i - n_i + t$ and set $k = n_1, j = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We now introduce a convenient representation which allows the paradox \eqref{eq:simpleparadox} to be expressed in terms of the latent abilities alone.
 
 
 \begin{lemma} \label{lemma:rep}
@@ -219,7 +209,15 @@ Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and exi
 
 
 
-where $B(x, y) = \frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$, $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the regularized incomplete beta function.
+
+\begin{defn}
+	Let $\alpha,\beta > 0$. Then 
+	$$
+	I_x(\alpha,\beta) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
+	$$
+	denotes the regularized incomplete beta function where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
+\end{defn}
+
 
 \begin{theorem} \label{theorem:samedistgeneral}
 Suppose that
