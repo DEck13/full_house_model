@@ -283,7 +283,7 @@ p
 \end{proof}
 
 
-Often it is of interest to compare the top performers from two systems. Below we state the paradox probability \eqref{eq:simpleparadox} for the top performers across systems in a Full House Modeling setting with two systems and $F_{Y_1} = F_Y$ for $i=1,2$.
+Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the paradox probability \eqref{eq:simpleparadox} in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
 Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = 1_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
@@ -343,7 +343,7 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 %\end{table}
 
 
-
+A similar result holds for the individuals with the lowest latent aptitudes in the population.
 
 \begin{corollary} \label{corollary:samedistbottom}
 Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = 1_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
@@ -371,7 +371,7 @@ For ease of notation we will let $g_{n,i}(x) = I_{i, n-i+1}(x)$.
 %$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(x)$$
 %Given the property of the system inclusion mechanism, $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$, and the condtion $k=j$, we have
 %$$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x)$$
-The proof will use two induction arguments. For the base case, let $n_1 = n_2$ and $N_1 = N_2$. With these specifications, we have that 
+The proof will use two induction arguments. For the base case let $n_1 = n_2$ and $N_1 = N_2$. With these specifications we have that 
 $$
   g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x) = 0.
 $$
