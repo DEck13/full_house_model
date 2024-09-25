@@ -82,34 +82,39 @@ The next section establishes the model setting and specifies the assumptions in 
 
 \section{Model Setting}
 
-We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent aptitude 
-$X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define $g_{i}\left(\cdot, \cdot\right)$ as a determined and known system inclusion function, where $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
+We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude 
+$X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$ as a determined and known system inclusion function for population $i$ where a 1 indicates inclusion and a 0 indicates exclusion. 
+%$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
+We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are one-to-one realizations of $X_{i,j}$, provided that $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
 
-
-We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. %where $Y_{i,j}$ is a one-to-one realization of $X_{i,j}$ provided that $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. %Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. 
-Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ where $r(N_i, n_i, j): = r_{i,j}$ indexes the aptitude of the $k$th individual included in the system. As an example, let $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$ then the $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
+Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th individual included in the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
 %where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
-The key Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ pairs. Full House Modeling states this connection as
+The key Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. Full House Modeling states this connection as
 \begin{equation} \label{eq:truepar}
 \begin{split}
-  Y_{i, (j)} &= F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right), \\
-  X_{i, (r(N_i, n_i, j))} &= F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right),
+  Y_{i, (j)} &= F_{Y_{i, (j)}}^{-1} \circ F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right), \\
+  X_{i, (r_{i,j})} &= F_{X_{i, (r_{i,j})}}^{-1} \circ F_{Y_{i,(j)}} \left(Y_{i,(j)} \right),
 \end{split}
 \end{equation}
-where $g_i(X_{i, (r(N_i, n_i, j))}, \textbf{X}_{i, -(r(N_i, n_i, j))}) = 1$, and both $F_Y$ and $F_X$ are continuous and invertible.
-
-
-
-\bigskip \textbf{Argue that iid of Y follows from iid of X}.
-
-
-\bigskip The setup \eqref{eq:truepar} immediately implies structural missingness in the form of no observed $Y$ values for any $X_{i,j}$ such that $g(X_{i,j},\textbf{X}_{i,-j}) = 0$. 
+where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarise Full House Modeling in the definition below.
 
 
 \begin{defn} [Full House Model]
-	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $g(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$ Form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, $j = 1,\ldots,n_i$ for all individuals such that $g_i(X_{i, (r(N_i, n_i, j))}, \textbf{X}_{i, -(r(N_i, n_i, j))}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar}, provided that $F_Y$ and $F_X$ are continuous and invertible.
+\label{def:fhm}
+	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$ Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
+
+Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary across systems. 
+
+\vspace{12pt}\textbf{Remarks}:
+\begin{enumerate}
+	\item The definition of a Full House Model immediately implies structural missingness. Every $X_{i,j}$ such that $1_i(X_{i,j},\textbf{X}_{i,-j}) = 0$ will not have a corresponding $Y$ value. In the following sections we will consider probabilities involving both $X$ and $Y$ quantities. To handle this structural missingness, we will suppose that $Y_{i,j}$ values that are not observed are not $\Prob$-measurable.
+	\item The probability integral transformation steps in \eqref{eq:truepar} involving $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ and $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ may be cumbersome to evaluate in practice. Instead one may replace $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ with $F_{U_{i,(r_{i,j})}} \circ F_X \left(X_{i, (r_{i,j})}\right)$ where $U_{i,(j)} \sim $ \,Beta$(r_{i,j},N_i-r_{i,j}+1)$, and may replace $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ with $F_{U_{i,(j)}} \circ F_{Y_i}\left(Y_{i,(j)} \right)$ where $U_{i,(j)} \sim $\, Beta$(j,n_i-j+1)$.
+\end{enumerate}
+
+
+
 
 
 %To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
@@ -167,8 +172,9 @@ $$
 
 
 \section{Paradoxes Under Same Distribution}
+\label{sec:samedist}
 
-In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$ for $i = 1,2$. We define a paradox to have occurred when 
+In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$ in Definition~\ref{def:fhm} for $i = 1,2$. We define a paradox to have occurred when 
 $$
   X_{1,(r_{1,j})} > X_{2,(r_{2,k})} \quad \text{and} \quad Y_{1,(j)} < Y_{2,(k)},
 $$
@@ -181,17 +187,7 @@ As a simple illustrative example of some mechanics concerning paradoxes, let $r_
 
 
 \begin{lemma} \label{lemma:rep}
-Consider a Full House Model with two populations $i = 1,2$.
-%Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-%Suppose that the system inclusion mechanism has the property that 
-%$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
-%$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$, and that the Full House Model is of the form 
-%\begin{align*}
-%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
-%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-%\end{align*}
-%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
-Then, 
+Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
 \begin{equation} \label{eq:pararep}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
   = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
@@ -204,92 +200,93 @@ Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ 
 $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
 \begin{align*}
   &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
-  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1}(X_{1,(r_{1,j})}) < f_{2}(X_{2,(r_{2,k})})\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
   &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
-where $h_{1,2,j,k}(\cdot) = (f_1^{-1} \circ f_2)(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+where $h_{1,2,j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 \end{proof}
 
 
-
-
 \begin{defn}
-	Let $\alpha,\beta > 0$. Then 
-	$$
-	I_x(\alpha,\beta) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
-	$$
-	denotes the regularized incomplete beta function where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
+\label{def:ribf}
+Let $\alpha,\beta > 0$. Then the regularized incomplete beta function is defined as
+$$
+  I_{\alpha,\beta}(x) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
+$$
+where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
 
 
+Lemma~\ref{lemma:rep} and Definition~\ref{def:ribf} give enough structure for us to state an prove an probability for a paradox assuming a Full House Model.
+
 \begin{theorem} \label{theorem:samedistgeneral}
-Suppose that
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Suppose that the system inclusion mechanism satisfies 
-$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
-$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$. Assume that 
+Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$.
+%Suppose that
+%\begin{align*}
+%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
+%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+%\end{align*}
+%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Suppose that the system inclusion mechanism satisfies 
+%$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
+%$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$. 
+Let $I$ be a regularized incomplete beta function. Assume that 
+%\begin{equation} \label{eq:technical-condition}
+%  g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).	
+%\end{equation}
 \begin{equation} \label{eq:technical-condition}
-  g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).	
+  I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).
 \end{equation}
 Then
 \begin{align*}
-	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) \\
-  &= \sum_{p=k}^{n_1}\left(\begin{array}{l}
+	&\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
+  &= \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(j+p, n_2-n_1-p+j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(k+p, n_2-n_1-p+k+1)}{B(k, n_2-k+1)} - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(r_{2,j}+p, N_2-N_1-p+r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}.
+\end{array}\right)\frac{B(r_{2,k}+p, N_2-N_1-p+r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
 \end{align*}
 \end{theorem}
 
 \begin{proof}
-
+For ease of notation, let $g_{n,i}(x) = I_{i, n-i+1}(x)$ and
+$$
+	h_{1,2}(x) = F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x).
+$$
+Then,
 \begin{align*} \qedhere
-	&\Prob\left(X_{1,(r_{1,k})} > X_{2,(r_{2,j})}, Y_{1,(k)} < Y_{2,(j)}\right) = \Prob\left( X_{2,(r_{2,j})} < X_{1,(r_{1,k})}  < h_{1,2}\left(X_{2,(r_{2,j})}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} f_{X_{1,(r_{1,k})}}(y)\ dy\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x)} d \ g_{N_1, r_{1,k}}(F_X(y))\right] \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, r_{2,j}} \circ F_X(x) - g_{N_1, r_{1,k}} \circ F_X(x)\right]^+ \ f_{X_{2,(r_{2,j})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ g_{n_2, j}^{-1} \circ g_{N_2, r_{2,j}} \circ F_X(x) - g_{N_1, r_{1,k}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,j}}(F_X(x))\\
-	&= \int_0^1 [g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)]^+	 \ dt\\
-	&= \int_0^1 g_{n_1, k}(x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, r_{1,k}}(x) \ dg_{N_2, r_{2,j}}(x)\\
-	&= \int_0^1 I_x(k, n_1 -k+1) \frac{x^{j-1}(1-x)^{n_2-j}}{B(j, n_2-j+1)} \ dx - \int_0^1 I_x(r_{1,k}, N_1-r_{1,k}+1) \frac{x^{r_{2,j}-1}(1-x)^{N_2-r_{2,j}}}{B(j, N_2-j+1)} \ dx\\
-	&= \int_0^1 \sum_{p=k}^{n_1}\left(\begin{array}{l}
+	&\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} d \ g_{N_1, r_{1,j}}(F_X(y))\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,k}}(F_X(x))\\
+	&= \int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+	 \ dt\\
+	&= \int_0^1 g_{n_1, j}(x) \ dg_{n_2, k}(x)- \int_0^1g_{N_1, r_{1,j}}(x) \ dg_{N_2, r_{2,k}}(x)\\
+	&= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx - \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
+	&= \int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{j-1}(1-x)^{n_2-j}}{B(j, n_2-j+1)} \ dx \\
-&- \int_0^1 \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
+\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
+&- \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,j}-1}(1-x)^{N_2-r_{2,j}}}{B(r_{2,j}, N_2-r_{2,j}+1)} \ dx\\ 
-&= \sum_{p=k}^{n_1}\left(\begin{array}{l}
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
+&= \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(j+p, n_2+n_1-p-j+1)}{B(j, n_2-j+1)} - \sum_{p=r_{1,k}}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
-\end{array}\right)\frac{B(r_{2,j}+p, N_2+N_1-p-r_{2,j}+1)}{B(r_{2,j}, N_2-r_{2,j}+1)}
+\end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
 \end{align*}
-where 
-\begin{align*}
-	h_{1,2}(x) &= (g_1 \circ f_2)(x) \\
-	&= F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x) \\
-	g_{n,i}(x) &= I_x(i, n-i+1) \\
-\end{align*}
-
 \end{proof}
 
+
+Often it is of interest to compare the top performers from two systems. Below we state the paradox probability \eqref{eq:simpleparadox} for the top performers across systems in a Full House Modeling setting with two systems and $F_{Y_1} = F_Y$ for $i=1,2$.
+
 \begin{corollary} \label{corollary:samedisttop}
-Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $I_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = I_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \begin{cases}
@@ -345,13 +342,11 @@ where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
 %\label{Tab:simulation}
 %\end{table}
 
+
+
+
 \begin{corollary} \label{corollary:samedistbottom}
-Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Then,
+Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $I_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = I_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
   = \begin{cases}
@@ -520,6 +515,7 @@ We also have $f^{`}(0) = 0$. And we know $f(0) = 0$, and $f(1) = 0$. Therefore, 
 %\end{proof}
 
 \section{Paradox Under Different Distribution}
+\label{sec:diffdist}
 
 \begin{defn}
 We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
