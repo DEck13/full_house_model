@@ -286,7 +286,7 @@ p
 Often it is of interest to compare the top performers from two systems. Below we state the paradox probability \eqref{eq:simpleparadox} for the top performers across systems in a Full House Modeling setting with two systems and $F_{Y_1} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
-Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $I_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = I_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
+Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = 1_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \begin{cases}
@@ -346,7 +346,7 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 
 
 \begin{corollary} \label{corollary:samedistbottom}
-Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $I_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = I_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
+Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = 1_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
   = \begin{cases}
@@ -361,38 +361,39 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 Notes:
 
 
-\begin{lemma} \label{lem:recursion}
-Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
-Suppose that the system inclusion mechanism has the property that $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$ for $i = 1,2$, and that the Full House Model is of the form 
-\begin{align*}
-  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-\end{align*}
-where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ exist. Suppose that $n_2 \geq n_1 > 1$, $N_1 \geq N_2 > 1$, and $k=j$. Then $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t)$ is non-negative when $t \in (0,1)$.	
-\end{lemma}
+\begin{prop} \label{prop:recursion}
+Suppose that conditions of Theorem~\ref{theorem:samedistgeneral} where the system inclusion function is $1_i(X_{i,j} \geq X_{N_i - n_i + 1})$, $i = 1,2$. Suppose that $n_2 \geq n_1 > 1$, $N_1 \geq N_2 > 1$, and fix $k=j$. Then condition~\eqref{eq:technical-condition} holds, and the conclusions of Theorem~\ref{theorem:samedistgeneral} follow.
+\end{prop}
 
 \begin{proof}
-
-Supposed
-
-$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(x)$$
-
-Given the property of the system inclusion mechanism, $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$, and the condtion $k=j$, we have
-
-$$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x)$$
-
-	This proof will be by two induction arguments. For the base case, let $n_1 = n_2$ and $N_1 = N_2$. With these specifications, we have that 
-	$$
-	g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x) = 0.
-	$$
-	For the induction step, choose some $m \leq n_1 - 1$, and suppose that $g_{n_1 -m, n_1-m -j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t)$ is non-negative for $t \in (0,1)$ where $n_2 \geq n_1$ and $N_1 \geq N_2$. Since $g_{n, k}$ is the cumulative distribution function for a Beta$(k,n-k+1)$ random variable we can write
-	\begin{align*}
-		&g_{n_1-m-1, n_1-m-1-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t) \\
-		  &\qquad= g_{n_1-m, n_1-m-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 -j} \circ g_{N_2, N_2-j}^{-1}(t) + \frac{\left[g_{n_2, n_2-j}^{-1}(t)\right]^{n_1-m-1-j}\left[1 - g_{n_2, n_2-j}^{-1}(t)\right]^{j+1}}{(n_1-m-1-j)B(n_1-m-1-j,j+1)} \\
-		  &\geq 0,
-	\end{align*}
-	where the right hand sign of the equality is a property of regularized incomplete beta functions \url{https://dlmf.nist.gov/8.17}. Thus the induction step is satisfied. A similar argument holds for iterative increases to $N_1$.
+For ease of notation we will let $g_{n,i}(x) = I_{i, n-i+1}(x)$.
+%Supposed
+%$$f(x) = g_{n_1, k} \circ g_{n_2, j}^{-1}(x) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(x)$$
+%Given the property of the system inclusion mechanism, $g(X_{i,j},\textbf{X}_{i,-j}) = I(X_{i,j} \geq X_{N_i-n_i+1})$, and the condtion $k=j$, we have
+%$$f(x) = g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x)$$
+The proof will use two induction arguments. For the base case, let $n_1 = n_2$ and $N_1 = N_2$. With these specifications, we have that 
+$$
+  g_{n_1, n_1-j} \circ g_{n_2, n_2-j}^{-1}(x) - g_{N_1, N_1 - j} \circ g_{N_2, N_2-j}^{-1}(x) = 0.
+$$
+For the induction step, choose some $m \leq n_1 - 1$ and suppose that 
+\begin{equation} \label{eq:inductstep}
+  g_{n_1 -m, n_1-m -j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t) \geq 0,	
+\end{equation}
+for $t \in (0,1)$ where $n_2 \geq n_1$ and $N_1 \geq N_2$. An integration by parts calculation applied to regularized incomplete beta functions gives
+$$
+  I_{\alpha,\beta}(x) = I_{\alpha+1,\beta}(x) + \frac{x^\alpha(1-x)^\beta}{\beta B(\alpha,\beta)}.
+$$
+Applying the above to \eqref{eq:inductstep} yields
+\begin{align*}
+	&g_{n_1-m-1, n_1-m-1-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t) \\ 
+	&= g_{n_1-m, n_1-m-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 -j} \circ g_{N_2, N_2-j}^{-1}(t) \\
+	&+ \frac{\left[g_{n_2, n_2-j}^{-1}(t)\right]^{n_1-m-1-j}\left[1 - g_{n_2, n_2-j}^{-1}(t)\right]^{j+1}}{(n_1-m-1-j)B(n_1-m-1-j,j+1)} \\
+		  &\geq 0.
+\end{align*}
+A similar argument holds for iterative increases to $N_1$. Thus, condition~\eqref{eq:technical-condition} holds under are assumed conditions and the conclusions of Theorem~\ref{theorem:samedistgeneral} follow.
 \end{proof}
+
+
 
 \begin{prop} \label{prop:condition}
 	Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
