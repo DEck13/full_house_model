@@ -110,7 +110,7 @@ Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary acro
 \vspace{12pt}\textbf{Remarks}:
 \begin{enumerate}
 	\item The definition of a Full House Model immediately implies structural missingness. Every $X_{i,j}$ such that $1_i(X_{i,j},\textbf{X}_{i,-j}) = 0$ will not have a corresponding $Y$ value. In the following sections we will consider probabilities involving both $X$ and $Y$ quantities. To handle this structural missingness, we will suppose that $Y_{i,j}$ values that are not observed are not $\Prob$-measurable.
-	\item The probability integral transformation steps in \eqref{eq:truepar} involving $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ and $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ may be cumbersome to evaluate in practice. Instead one may replace $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ with $F_{U_{i,(r_{i,j})}} \circ F_X \left(X_{i, (r_{i,j})}\right)$ where $U_{i,(j)} \sim $ \,Beta$(r_{i,j},N_i-r_{i,j}+1)$, and may replace $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ with $F_{U_{i,(j)}} \circ F_{Y_i}\left(Y_{i,(j)} \right)$ where $U_{i,(j)} \sim $\, Beta$(j,n_i-j+1)$.
+	%\item The probability integral transformation steps in \eqref{eq:truepar} involving $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ and $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ may be cumbersome to evaluate in practice. Instead one may replace $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ with $F_{U_{i,(r_{i,j})}} \circ F_X \left(X_{i, (r_{i,j})}\right)$ where $U_{i,(j)} \sim $ \,Beta$(r_{i,j},N_i-r_{i,j}+1)$, and may replace $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ with $F_{U_{i,(j)}} \circ F_{Y_i}\left(Y_{i,(j)} \right)$ where $U_{i,(j)} \sim $\, Beta$(j,n_i-j+1)$.
 \end{enumerate}
 
 
@@ -250,32 +250,49 @@ p
 \end{theorem}
 
 \begin{proof}
-For ease of notation, let $g_{n,i}(x) = I_{i, n-i+1}(x)$ and
+First, Lemma~\ref{lemma:rep} allows us to write
 $$
-	h_{1,2}(x) = F_X^{-1} \circ g_{N_1,r_{1,k}}^{-1} \circ g_{n_1, k} \circ g_{n_2,j}^{-1} \circ g_{N_2,r_{2,j}} \circ F_X(x).
+	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
 $$
-Then,
-\begin{align*} \qedhere
-	&\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right) \\
+where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the random variable $X_{2,(r_{2,k})}$. The random variable $X_{2,(r_{2,k})} = F_X^{-1} \circ U_{(r_{2,k})}$ where $U_{(r_{2,k})} \sim \text{Beta}(r_{2,k},N_2-r_{2,k}+1)$. Thus,
+\begin{align*}
+  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
+  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
+  &= g_{N_2,r_{2,k}} \circ F_X (x),
+\end{align*}
+where we write $g_{n,i}(x) = I_{i, n-i+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+\begin{align*}
+	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} d \ g_{N_1, r_{1,j}}(F_X(y))\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,k}}(F_X(x))\\
-	&= \int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+	 \ dt\\
-	&= \int_0^1 g_{n_1, j}(x) \ dg_{n_2, k}(x)- \int_0^1g_{N_1, r_{1,j}}(x) \ dg_{N_2, r_{2,k}}(x)\\
-	&= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx - \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
-	&= \int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
+	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,k}}(F_X(x)) \\
+	&= \int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+	 \ dt.
+\end{align*}
+Condition~\eqref{eq:technical-condition} states that 
+$$
+\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+\ dt = 
+\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]\ dt.
+$$
+Thus,
+\begin{align*}	
+&\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+\ dt \\
+	&\qquad= \int_0^1 g_{n_1, j}(x) \ dg_{n_2, k}(x)- \int_0^1g_{N_1, r_{1,j}}(x) \ dg_{N_2, r_{2,k}}(x)\\
+	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
+	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
+	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
 \end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
-&- \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
 \end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
-&= \sum_{p=j}^{n_1}\left(\begin{array}{l}
+&\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
+&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
 \end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
@@ -386,9 +403,9 @@ $$
 Applying the above to \eqref{eq:inductstep} yields
 \begin{align*}
 	&g_{n_1-m-1, n_1-m-1-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 - j} \circ g_{N_2, N_2 - j}^{-1}(t) \\ 
-	&= g_{n_1-m, n_1-m-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 -j} \circ g_{N_2, N_2-j}^{-1}(t) \\
-	&+ \frac{\left[g_{n_2, n_2-j}^{-1}(t)\right]^{n_1-m-1-j}\left[1 - g_{n_2, n_2-j}^{-1}(t)\right]^{j+1}}{(n_1-m-1-j)B(n_1-m-1-j,j+1)} \\
-		  &\geq 0.
+	&\qquad= g_{n_1-m, n_1-m-j} \circ g_{n_2, n_2-j}^{-1}(t) - g_{N_1, N_1 -j} \circ g_{N_2, N_2-j}^{-1}(t) \\
+	&\qquad\qquad+ \frac{\left[g_{n_2, n_2-j}^{-1}(t)\right]^{n_1-m-1-j}\left[1 - g_{n_2, n_2-j}^{-1}(t)\right]^{j+1}}{(n_1-m-1-j)B(n_1-m-1-j,j+1)} \\
+	&\qquad\geq 0.
 \end{align*}
 A similar argument holds for iterative increases to $N_1$. Thus, condition~\eqref{eq:technical-condition} holds under are assumed conditions and the conclusions of Theorem~\ref{theorem:samedistgeneral} follow.
 \end{proof}
