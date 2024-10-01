@@ -12,19 +12,19 @@ foo = batters_adjusted %>%
   as.data.frame()
 
 bar = foo %>% 
-  mutate(resp = ifelse(maxBA >= 0.3704348, 1,0)) %>% 
+  mutate(resp = ifelse(maxBA <= 0.3704348, 1,0)) %>% 
   filter(year < 2023)
 
-m1 = glm(resp ~ poly(year,1), data = bar, family = "binomial")
-summary(m1)
+#m1 = glm(resp ~ poly(year,1), data = bar, family = "binomial")
+#summary(m1)
+#baz = cbind(bar, preds = predict(m1, type = "response"))
+#baz
 
-baz = cbind(bar, preds = predict(m1, type = "response"))
-baz
-
-ggplot(baz) + 
+ggplot(bar) + 
   aes(x = year, y = resp) + 
   geom_smooth(method = "glm", 
               method.args = list(family = "binomial"), 
+              formula = y ~ poly(x,1),
               se = FALSE) + 
   geom_point() +
   theme_minimal()
@@ -50,13 +50,12 @@ bar_raw = foo_raw %>%
   mutate(resp = ifelse(maxBA >= maxBA2023, 1,0)) %>% 
   filter(yearID < 2023)
 
-m1_raw = glm(resp ~ poly(yearID,2), data = bar_raw, family = "binomial")
-summary(m1_raw)
+#m1_raw = glm(resp ~ poly(yearID,2), data = bar_raw, family = "binomial")
+#summary(m1_raw)
+#baz_raw = cbind(bar_raw, preds = predict(m1_raw, type = "response"))
+#baz_raw
 
-baz_raw = cbind(bar_raw, preds = predict(m1_raw, type = "response"))
-baz_raw
-
-ggplot(baz_raw) + 
+ggplot(bar_raw) + 
   aes(x = yearID, y = resp) + 
   geom_smooth(method = "glm", 
               formula = y ~ poly(x,2),
