@@ -102,7 +102,7 @@ where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}
 
 \begin{defn} [Full House Model]
 \label{def:fhm}
-	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$ Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
+	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
 Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary across systems. 
@@ -213,7 +213,7 @@ Let $\alpha,\beta > 0$. Then the regularized incomplete beta function, the cumul
 $$
   I_{\alpha,\beta}(x) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
 $$
-where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the Beta coefficient.
+where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
 
 
