@@ -252,13 +252,19 @@ p
 
 \noindent \textbf{Remarks}:
 \begin{enumerate}
-	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \cdot U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. Lemma~\ref{lemma:rep} implies that 
+	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \cdot U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
 \begin{align*}
 	h_{1,2,j,k}(x) &= F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1} \circ \left(F_Y \circ F_Y^{-1}\right) \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1}  \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x).
 \end{align*}
 The above is the upper-bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
+	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
+	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
+$$
+	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
+$$
+The technical condition \eqref{eq:technical-condition} ensures that this integral defines a non-negative probability in strong terms. We demonstrate with analytic and numeric arguments when \eqref{eq:technical-condition} is satisfied and the results of Theorem~\ref{theorem:samedistgeneral} therefore hold.
 \end{enumerate}
 
 
@@ -276,20 +282,20 @@ where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ 
 where we write $g_{n,i}(x) = I_{i, n-i+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
 \begin{align*}
 	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} d \ g_{N_1, r_{1,j}}(F_X(y))\right] \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right]^+ \  d \ g_{N_2, r_{2,k}}(F_X(x)) \\
-	&= \int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+	 \ dt.
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} d \ g_{N_1, r_{1,j}}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right\}^+ \  d \ g_{N_2, r_{2,k}}(F_X(x)) \\
+	&= \int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+	 \ dt.
 \end{align*}
 Condition~\eqref{eq:technical-condition} states that 
 $$
-\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+\ dt = 
-\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]\ dt.
+\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+\ dt = 
+\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}\ dt.
 $$
 Thus,
 \begin{align*}	
-&\int_0^1 [g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)]^+\ dt \\
+&\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+\ dt \\
 	&\qquad= \int_0^1 g_{n_1, j}(x) \ dg_{n_2, k}(x)- \int_0^1g_{N_1, r_{1,j}}(x) \ dg_{N_2, r_{2,k}}(x)\\
 	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
 	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
@@ -1069,7 +1075,7 @@ In this section we verify Theorem~\ref{theorem:samedistgeneral}, Theorem \ref{th
 
 The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 100. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
 $
-  1(X_{(N_1} > X_{N_2}, Y_{(n_1)} < Y_{(n_2)})
+  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
 $
 is recorded. 
 
@@ -1110,6 +1116,35 @@ $N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 100$ & $N(1,1), n_2 =
 \caption{Simulation results to validate the theory}
 \label{Tab:simulationtop}
 \end{table}
+
+
+\subsection{Recursive Full House Models}
+\label{sec:rFHMsetup}
+
+In this section we will investigate a simple recursive Full House Models in which Full House Models are repeatedly applied to individuals as they progress through iterations of some generic process. The general setup is that, in the first round, latent aptitude $X_{i} \overset{iid}{\sim} F_X$, $i = 1,\ldots,N$ will be generated  and then a label will be randomly assigned to each individual. There will be $m$ labels and each label will designate the outcome distribution. $F_{Y_{i,j}}$, $i = 1,\ldots,n$, $j = 1,\ldots,n_i$. Then outcomes will be realized as
+\begin{equation} \label{eq:iteration}
+  Y_{i,(r_{i,(j)})} = F_{Y_{i,j}}^{-1} \circ I_{r_{i,(j)},n_i-r_{i,(j)}+1}^{-1} \circ I_{j,N-j+1} \circ  F_X (X_{(j)}),	
+\end{equation}
+where $r_{i,(j)}$ is the rank of $X_{(j)}$ among the $n_i$ latent aptitudes also assigned label $i$. 
+
+In the next iteration, all observations will be combined and then sorted in descending order by $Y_{i,(j)}$. The labels will be assigned in descending order, the largest $n_m$ values of $Y_{i,(j)}$ are assigned label $m$, the next largest $n_{m-1}$ values of $Y_{i,(j)}$ are assigned label $m-1$, and so on. We will setup these simulation so that $Y_i$ stochastically dominates $Y_{j}$ whenever $i > j$ so that higher outcomes are associated with higher labels. Then new $Y$ values are generated according to \eqref{eq:iteration}. The process will repeat until a pre-assigned stopping rule is satisfied. Note that this simulation setup assumes an immutable latent aptitude.
+
+
+\subsubsection{Stop when highest latent aptitude is included in the highest-performing group}
+\label{sec:rFHMbestgroup}
+
+Here we consider a recursive Full House Modeling setup described in Section~\ref{sec:rFHMsetup} in which the recursion stops at the first iteration when $X_{(N)}$ is assigned label $m$. Here we specify that $N = 100,000$, $m=500$, $n_i = 2000$, $i = 1,\ldots,m$. We will assume that $X_i \overset{iid}{\sim} \text{Pareto}(1.16)$, $i = 1,\ldots,N$. And we will assume that $Y_{i,j} \overset{iid}{\sim} N(\mu_i,\sigma_i)$, $j = 1,\ldots,n_i$ and $i = 1,\ldots,m$. We will specify that the $\mu_i$s as a set of 500 equally spaced values between 60 and 80 with $\mu_i$ increasing in $i$, ie $\mu_i = 60 - 1/24.95 + i/24.95$, $i=1,\ldots,m$. %These values will be assigned to the index $i$ in increasing order, meaning that $\mu_1$ will be the smallest value $(60)$ and $\mu_m$ will be the largest value $(80)$. 
+We will fix $\sigma_i = \sigma$ and consider $\sigma \in \{0.5,1,2\}$. These simulation will be repeated 500 times.
+
+Results can be seen in Figure~\ref{Fig:rFHMrounds}. This Monte Carlo simulation reveal that it is expected to take several rounds before the individual with the top aptitude belongs to the group that allows for the highest performances. On average, with $\sigma$ set to 0.5, 1, and 2, it takes 2.61, 4.19, and 7.46 rounds, respectively, for the individual with the top aptitude to join the highest-performing group (respective standard errors: 0.05, 0.09, 0.18).
+
+\begin{figure}[t]
+\begin{center}
+	\includegraphics[scale=0.60]{rFHMrounds.png}
+\end{center}	
+\caption{The number of rounds that it takes for $X_{(N)}$ to be assigned label $m$ in a recursive Full House Modeling framework in Section~\ref{sec:rFHMsetup} with specifications in Section~\ref{sec:rFHMbestgroup}.}
+\label{Fig:rFHMrounds}
+\end{figure}
 
 
 
