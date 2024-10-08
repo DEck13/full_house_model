@@ -252,7 +252,7 @@ p
 
 \noindent \textbf{Remarks}:
 \begin{enumerate}
-	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \cdot U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
+	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
 \begin{align*}
 	h_{1,2,j,k}(x) &= F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1} \circ \left(F_Y \circ F_Y^{-1}\right) \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x) \\
@@ -273,13 +273,13 @@ First, Lemma~\ref{lemma:rep} allows us to write
 $$
 	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
 $$
-where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the random variable $X_{2,(r_{2,k})}$. The random variable $X_{2,(r_{2,k})} = F_X^{-1} \circ U_{(r_{2,k})}$ where $U_{(r_{2,k})} \sim \text{Beta}(r_{2,k},N_2-r_{2,k}+1)$. Thus, $F_{X_{2,(r_{2,k})}}(x) = g_{N_2,r_{2,k}} \circ F_X (x)$,
+where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. o see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
 %\begin{align*}
 %  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
 %  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
 %  &= g_{N_2,r_{2,k}} \circ F_X (x),
 %\end{align*}
-where we write $g_{n,i}(x) = I_{i, n-i+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
 \begin{align*}
 	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
