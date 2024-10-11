@@ -1,0 +1,136 @@
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> library(tidyverse)
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> library(orderstats)
+> library(Pareto)
+> library(parallel)
+> library(doParallel)
+Loading required package: foreach
+
+Attaching package: ‘foreach’
+
+The following objects are masked from ‘package:purrr’:
+
+    accumulate, when
+
+Loading required package: iterators
+> library(xtable)
+> library(mvtnorm)
+> #source('source.R')
+> 
+> ## set seed
+> ## set cores
+> ## Monte Carlo sample size = 2000
+> set.seed(13, "L'Ecuyer-CMRG")
+> nCores = detectCores() - 2
+> B = 2e3
+> 
+> 
+> Npop = 1e5
+> Nindex = 2e2
+> nsize = Npop/Nindex
+> 
+> # means = 60:80
+> mus = seq(from = 60, to = 80, length = Nindex)
+> 60 - 20/199 + 1 * 20/199
+[1] 60
+> 
+> # sd = 1,2,5
+> sds = c(1, 2, 5)
+> 
+> round_gen = function(X, Npop, Nindex, nsize, sd){
++   dat = as.data.frame(cbind(X, ind = rep(Nindex:1, each = nsize) )) %>% 
++     arrange(X) 
++   
++   dat$u = unlist(lapply(1:Npop, function(j){
++     pbeta(pPareto(dat$X[j], t = 1, alpha = 1.16), j, Npop-j+1)
++   }))
++   
++   foo = split(dat, f = as.factor(dat$ind))
++   
++   bar = lapply(foo, function(xx){
++     cbind(X = xx$X, u = xx$u, 
++           Y = qnorm(qbeta(xx$u, shape1 = 1:nsize, shape2 = nsize:1), 
++                     mean = mus[xx$ind], sd = sd))
++   })
++   
++   baz = as.data.frame(do.call(rbind, bar)) %>% arrange(desc(Y))
++   baz$ind = rep(Nindex:1, each = nsize)
++   baz
++ }
+> 
+> #round_gen(X = X, Npop = Npop, Nindex = Nindex, nsize = nsize, sd = 1)
+> 
+> round_iter = function(dat, Npop, Nindex, nsize, sd){
++   foo = split(dat, f = as.factor(dat$ind))
++   bar = lapply(foo, function(xx) xx %>% arrange(X))
++   baz = lapply(bar, function(xx){
++     cbind(X = xx$X, u = xx$u, 
++           Y = qnorm(qbeta(xx$u, shape1 = 1:nsize, shape2 = nsize:1), 
++                     mean = mus[xx$ind], sd = sd))
++   })
++   qux = as.data.frame(do.call(rbind, baz)) %>% arrange(desc(Y))
++   qux$ind = rep(Nindex:1, each = nsize)
++   qux
++ }
+> 
+> #dat1 = round_gen(X = X, Npop = Npop, Nindex = Nindex, nsize = nsize, sd = 1)
+> #dat2 = round_iter(dat = dat1, Npop = Npop, Nindex = Nindex, nsize = nsize, sd = 1)
+> 
+> simulator = function(Npop, Nindex, nsize, sd){
++   
++   X = rPareto(n = Npop, t = 1, alpha = 1.16)
++   dat = round_gen(X = X, Npop = Npop, Nindex = Nindex, nsize = nsize, sd = sd)
++   index = dat$ind[which.max(dat$X)]
++   round = index
++   #k = 0
++   
++   if(index < Nindex){
++     while(index < Nindex){
++       #k = k + 1
++       dat = round_iter(dat = dat, Npop = Npop, Nindex = Nindex, nsize = nsize, sd = sd)
++       index = dat$ind[which.max(dat$X)]
++       round = c(round, index)
++       #print(index)
++       if(length(round) == 25) index = Nindex
++     }
++   }
++   
++   round  
++ }
+> 
+> 
+> 
+> ## sd = 1
+> rounds = function(){
++   simulator(Npop = Npop, Nindex = Nindex, nsize = nsize, sd = 1)  
++ }
+> out_sd1 = mclapply(1:B, FUN = function(j) rounds(), mc.cores = nCores)
