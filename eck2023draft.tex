@@ -130,7 +130,7 @@ Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary acro
 %F_{Y_i}\left(Y_{i,(j)} \right) & \sim U_{i,(j)}, %& & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
 %F_{Y_{i,(j)}}\left(Y_{i,(j)} \right) & \sim U_{i,j}, %& & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
 %\end{aligned}
-$$
+%$$
 %where %$\approx$ means approximately distributed, 
 %$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. %and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
 
@@ -889,27 +889,27 @@ where $\mu_1 \leq \mu_2, \sigma_1 > 0$ and $\sigma_2 >0$.
 
 Assume $\Phi(\frac{\Phi^{-1}(t^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}} > t$ for all $t \in (0,1)$,
 
-When $\sigma_1 = \sigma_2 = \sigma$,
-	\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
-\end{align*}
+%When $\sigma_1 = \sigma_2 = \sigma$,
+%	\begin{align*}
+%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+%  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
+%\end{align*}
 
-$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
-2 & 1 & \dots & 1\\
-1 & 2 & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & 1\\
-1 & \dots & 1 & 2\\
-\end{bmatrix}$$
+%$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
+%2 & 1 & \dots & 1\\
+%1 & 2 & \ddots  & \vdots \\
+%\vdots & \ddots & \ddots & 1\\
+%1 & \dots & 1 & 2\\
+%\end{bmatrix}$$
 
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
-
-When $\sigma_1 \neq \sigma_2$, 
+%The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
 
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
   &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
 \end{align*}
+
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 
 $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
@@ -936,22 +936,20 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
-
 \end{theorem}
 
 \begin{proof}
 	
-Supposed $\sigma_1 = \sigma_2 = \sigma$, it is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
+%Supposed $\sigma_1 = \sigma_2 = \sigma$, it is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
 
-\begin{align*}
-	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu_1)^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu_2)^2}{2\sigma^2}}dx\\
-	&= \int_{y-\frac{\mu_2 - \mu_1}{2}}^{y+\frac{\mu_2 -\mu_1}{2}} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx
-\end{align*}
+%\begin{align*}
+%	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu_1)^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu_2)^2}{2\sigma^2}}dx\\
+%	&= \int_{y-\frac{\mu_2 - \mu_1}{2}}^{y+\frac{\mu_2 -\mu_1}{2}} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx
+%\end{align*}
 
-Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}$ is the density function for $N(\frac{\mu_2 +\mu_1}{2}, \sigma^2)$, then the maximum value of the difference between these two cumulative distribution function of the normal distribution is achieved when $y = \frac{\mu_2 + \mu_1}{2}$.
+%Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}$ is the density function for $N(\frac{\mu_2 +\mu_1}{2}, \sigma^2)$, then the maximum value of the difference between these two cumulative distribution function of the normal distribution is achieved when $y = \frac{\mu_2 + \mu_1}{2}$.
 
-We can pick $\varepsilon = \int_{\mu_1}^{\mu_2} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Prop~\ref{prop:weakstodom} are satisfied.
+%We can pick $\varepsilon = \int_{\mu_1}^{\mu_2} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Prop~\ref{prop:weakstodom} are satisfied.
 
 % However, our setup allows for direct calculation of the paradox probability. 
 
@@ -962,41 +960,41 @@ We can pick $\varepsilon = \int_{\mu_1}^{\mu_2} \frac{1}{\sqrt{2\pi\sigma^2}}e^{
 %$$ 
 %Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
 
-From Lemma~\ref{lemma:rep} and a bit of manipulation, we have that 
+%From Lemma~\ref{lemma:rep} and a bit of manipulation, we have that 
 
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
- &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
- & = \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
-  &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
-  &= \int_{-\infty}^{+\infty} \Phi(x+\frac{\mu_2 - \mu_1}{\sigma})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
-  &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \\
-  &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
-  &= n_2\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1}-X \leq \frac{\mu_2 - \mu_1}{\sigma}, Z_{2,1} -X\leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
-  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
- \end{align*}
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
+ % &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
+ % &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
+ % &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
+ % &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
+ % &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
+ % &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+ % &= \int_{-\infty}^{+\infty} \Phi(x+\frac{\mu_2 - \mu_1}{\sigma})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+ % &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \\
+ % &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
+ % &= n_2\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1}-X \leq \frac{\mu_2 - \mu_1}{\sigma}, Z_{2,1} -X\leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
+ % &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
+ %\end{align*}
   
-where
+%where
 
-\begin{align*}
-	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-	&= F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{\frac{n_1}{N_1}})(x)
-	\end{align*}
+%\begin{align*}
+%	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
+%	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
+%	&= F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{\frac{n_1}{N_1}})(x)
+%	\end{align*}
 
-$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
-2 & 1 & \dots & 1\\
-1 & 2 & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & 1\\
-1 & \dots & 1 & 2\\
-\end{bmatrix}$$
+%$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
+%2 & 1 & \dots & 1\\
+%1 & 2 & \ddots  & \vdots \\
+%\vdots & \ddots & \ddots & 1\\
+%1 & \dots & 1 & 2\\
+%\end{bmatrix}$$
 
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
+%The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
 
-Then when $\sigma_1 \neq \sigma_2$, we do not have a closed form for $\epsilon$ but we can calculate the probability of the paradox.
+%Then when $\sigma_1 \neq \sigma_2$, we do not have a closed form for $\epsilon$ but we can calculate the probability of the paradox.
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
   &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
@@ -1032,8 +1030,9 @@ where
 	&= F_X^{-1}((\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{\frac{n_1}{N_1}})(x)
 	\end{align*}
 	
-$$\Phi^{-1}(F_X(x)^{\frac{N_1}{n_1}})\sigma_1 + \mu_1 < \Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})\sigma_2 + \mu_2$$
+%$$\Phi^{-1}(F_X(x)^{\frac{N_1}{n_1}})\sigma_1 + \mu_1 < \Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})\sigma_2 + \mu_2$$
 
+The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 
 $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
@@ -1060,7 +1059,6 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 \end{proof}
 
 
