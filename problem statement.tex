@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{graphicx} % Allows including image
+\usepackage{hyperref}
+\hypersetup{
+  linkcolor  = blue,
+  citecolor  = blue,
+  urlcolor   = blue,
+  colorlinks = true,
+} % color setup
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{float} % for "H" placement specifier
+\usepackage[authoryear]{natbib}
+\usepackage{indentfirst}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{float}
+\usepackage{array}
+
+
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
+
+\DeclareUnicodeCharacter{FB01}{fi}
+\DeclareUnicodeCharacter{FF0C}{,}
+\DeclareMathOperator*{\Prob}{P}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setlength\extrarowheight{1pt}
+
+\newcommand\red[1]{{\color{red}#1}}
+
+\bibliographystyle{plainnat}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{defn}[theorem]{Definition}
+\allowdisplaybreaks
+
+\date{}
+
+\title{problem statement}
+
+\begin{document}
+
+\maketitle
+
+\begin{prop}
+	Define $g_{n,i}(x) = I_x(i, n-i+1)$, we want to prove $g^{-1}_{n, n-j}(x)^n$ is an increasing function with respect to n, or $g_{n, n-j}(x^{\frac{1}{n}})$ is a decreasing function with respect to n. We have known $g_{n,n-j}(x)$ is a decreasing function with respect to n and $g^{-1}_{n,n-j}(x)$ is an increasing function with respect to n. 
+\end{prop}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
