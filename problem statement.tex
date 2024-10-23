@@ -29,6 +29,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
+\newcommand{\xn}{x^{\frac{1}{n}}}
+\newcommand{\xnone}{x^{\frac{1}{n+1}}}
+
 
 \DeclareUnicodeCharacter{FB01}{fi}
 \DeclareUnicodeCharacter{FF0C}{,}
@@ -60,21 +63,63 @@
 	Define $g_{n,i}(x) = I_x(i, n-i+1)$, we want to prove $g^{-1}_{n, n-j}(x)^n$ is an increasing function with respect to n, or $g_{n, n-j}(x^{\frac{1}{n}})$ is a decreasing function with respect to n. We have known $g_{n,n-j}(x)$ is a decreasing function with respect to n and $g^{-1}_{n,n-j}(x)$ is an increasing function with respect to n. 
 \end{prop}
 
+I'm going to drop the $g_{i,n}$ notation here because it is very confusing. That notation should only be used when there are space constraints.
+
+\vspace{12pt}
+
+We will show that 
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) > 0.
+$$
+
+\vspace{12pt}
+
+\noindent\textbf{Assume $\xn > j/n$}:
+
+\vspace{12pt}
+
+Integration by parts allows us to write
+\begin{align*}
+&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) \\ 
+  &\qquad= I_{\xn}(n-j+1, j+1) - I_{\xnone}(n-j+1, n-j) + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)} \\
+  &\qquad= -\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
+  	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)}.
+\end{align*}
+
+The function $y^a(1-y)^b$ achieves its maximum value at $y^* = a/(a+b)$. The assumption that $\xn > j/n$ implies that the function $y^{n-j}(1 - y)^{j}$ is decreasing over $(\xn,\xnone)$. This implies that 
+\begin{align*}
+&-\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
+  	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)} \\
+	&\qquad> \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j+1,j+1)} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)}. 
+\end{align*}
+And $B(n-j+1,j+1) = B(n-j,j+1)\frac{j+1}{n+1}$ allows us to simplify the right hand side of the above inequality to
+$$
+  \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{(j+1)B(n-j,j+1)}\left(1-\xn + (n+1)(\xn - \xnone) \right).
+$$
+Note that
+$$
+  1-\xn + (n+1)(\xn - \xnone) = 1 + n\xn - (n+1)\xnone > 0
+$$
+for all $x \in (0,1)$. Putting it all together, we have 
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) > 0,
+$$
+when $\xn > j/n$.
 
 
+\vspace{12pt}
 
+\noindent\textbf{Assume $\xnone < j/n$}:
 
+\vspace{12pt}
 
-
-
-
-
-
-
-
-
-
-
+Integration by parts allows us to write
+\begin{align*}
+&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) \\ 
+  &\qquad= I_{\xn}(n-j+1, j+1) - I_{\xnone}(n-j+1, n-j) + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)} \\
+  &\qquad= -\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
+  	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)}.
+\end{align*}
 
 
 
