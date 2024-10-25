@@ -90,7 +90,7 @@ The function $y^a(1-y)^b$ achieves its maximum value at $y^* = a/(a+b)$. The ass
 \begin{align*}
 &-\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
   	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
-	&\qquad> \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j+1,j+1)} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)}. 
+	&\qquad\geq \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j+1,j+1)} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)}. 
 \end{align*}
 And $B(n-j+1,j+1) = B(n-j,j+1)\frac{j+1}{n+1}$ allows us to express the right hand side of the above inequality as
 \begin{align*}
@@ -100,9 +100,9 @@ And $B(n-j+1,j+1) = B(n-j,j+1)\frac{j+1}{n+1}$ allows us to express the right ha
 		&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{(n-j)B(n-j,j+1)}\left(\frac{(n+1)(n-j)}{j+1}\left(\xn - \xnone\right) + 1 - \xn\right)
 \end{align*}
 Let
-$$
-  f_{n,j}(x) = \frac{(n+1)(n-j)}{j+1}\left(\xn - \xnone\right) + 1 - \xn.
-$$
+\begin{equation} \label{eq:fnj}
+  f_{n,j}(x) = \frac{(n+1)(n-j)}{j+1}\left(\xn - \xnone\right) + 1 - \xn.	
+\end{equation}
 Now,
 \begin{align*}
 	f_{n,j}^{\prime}(x) &= \frac{(n+1)(n-j)}{j+1}\left(\frac{x^{\frac{1-n}{n}}}{n} - \frac{x^{-\frac{n}{n+1}}}{n+1}\right) - \frac{x^{\frac{1-n}{n}}}{n} \\
@@ -116,7 +116,22 @@ From here we see that there exists a single root,
 	&\qquad\implies \frac{n}{n+1}x^{-\frac{1}{n(n+1)}} = 1 - \frac{j+1}{(n+1)(n-j)}, \\
 	&\qquad\implies x^* = \left(\frac{n+1}{n}\left(1 - \frac{j+1}{(n+1)(n-j)}\right)\right)^{-n(n+1)}.
 \end{align*}
-We know that $f_{n,j}(0) = 1$ and $f_{n,j}(1) = 0$.
+Simplifying further yields
+\begin{align*}
+	&\left(\frac{n+1}{n}\left(1 - \frac{j+1}{(n+1)(n-j)}\right)\right)^{-n(n+1)} 
+	 = \left(\frac{n+1}{n} - \frac{j+1}{n(n-j)}\right)^{-n(n+1)} \\
+	 &\qquad= \left(\frac{(n+1)(n-j)}{n(n-j)} - \frac{j+1}{n(n-j)}\right)^{-n(n+1)} \\
+	 &\qquad= \left(\frac{n(n-j) + n - 2j+1}{n(n-j)} \right)^{-n(n+1)}.
+\end{align*}
+We have $x^* \geq 1$ whenever $n - 2j + 1 \leq 0$. We know that $f_{n,j}(0) = 1$ and $f_{n,j}(1) = 0$, and this implies that $f(x) > 0$ for all $x \in (0,1)$. Now consider when $n - 2j + 1 > 0$. We can rewrite \eqref{eq:fnj} as
+$$
+  f_{n,j}(x) = \frac{(n+1)(n-1) - (j+1)}{j+1}\xn - \frac{(n+1)(n-1)}{j+1}\xnone + 1.
+$$
+From here we can see that $f_{n,j}(x)$ is monotonic by noting that $n - 2j + 1 = (n-j)- (j+1)$. Therefore, when $\xn > j/n$ we can conclude that
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) \geq 0.
+$$
+ 
 
 
 \newpage
@@ -125,15 +140,7 @@ We know that $f_{n,j}(0) = 1$ and $f_{n,j}(1) = 0$.
 
 \noindent\textbf{Assume $\xnone < j/n$}:
 
-\vspace{12pt}
 
-Integration by parts allows us to write
-\begin{align*}
-&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) \\ 
-  &\qquad= I_{\xn}(n-j+1, j+1) - I_{\xnone}(n-j+1, n-j) + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)} \\
-  &\qquad= -\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
-  	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(j+1)B(n-j,j+1)}.
-\end{align*}
 
 
 
