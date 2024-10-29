@@ -74,7 +74,7 @@ $$
 
 \vspace{12pt}
 
-\noindent\textbf{Assume $\xn > j/n$}:
+\noindent\textbf{Assume $\xn > \frac{n-j}{n}$}:
 
 \vspace{12pt}
 
@@ -103,7 +103,20 @@ Let $f_{n}(x) = n\xn - (n+1)\xnone + 1$. Then
 \begin{align*}
 	f^{'}_{n}(x) &= x^{\frac{1-n}{n}} - x^{-\frac{n}{n+1}} = x^{\frac{1-n}{n}}(1 - x^{-\frac{1}{n(n+1)}}).
 \end{align*}
-Since $f^{'}_{n}(x)$ is less or equal to 0 
+Thus, $f^{'}_{n}(x) \leq 0$ for all $x \in (0,1)$ which implies that $f_n(x) \geq 0$ for all $x \in (0,1)$. Therefore, when $\xn > \frac{n-j}{n}$ we can conclude that
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \geq 0.
+$$
+
+\vspace{12pt}
+
+\noindent\textbf{Assume $\xnone < \frac{n-j}{n}$}:
+
+\vspace{12pt}
+
+
+
+
 
 
 Now,
