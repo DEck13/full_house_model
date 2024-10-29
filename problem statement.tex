@@ -69,7 +69,7 @@ I'm going to drop the $g_{i,n}$ notation here because it is very confusing. That
 
 We will show that 
 $$
-  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) > 0.
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) > 0.
 $$
 
 \vspace{12pt}
@@ -80,29 +80,32 @@ $$
 
 Integration by parts allows us to write
 \begin{align*}
-&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, n-j) \\ 
-  &\qquad= I_{\xn}(n-j+1, j+1) - I_{\xnone}(n-j+1, n-j) + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
+&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \\ 
+  &\qquad= I_{\xn}(n-j+1, j+1) - I_{\xnone}(n-j+1, j+1) + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
   &\qquad= -\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
   	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)}.
 \end{align*}
 
-The function $y^a(1-y)^b$ achieves its maximum value at $y^* = a/(a+b)$. The assumption that $\xn > j/n$ implies that the function $y^{n-j}(1 - y)^{j}$ is decreasing over $(\xn,\xnone)$. This implies that 
+The function $y^a(1-y)^b$ achieves its maximum value at $y^* = a/(a+b)$. The assumption that $\xn > \frac{n-j}{n}$ implies that the function $y^{n-j}(1 - y)^{j}$ is decreasing over $(\xn,\xnone)$. This implies that 
 \begin{align*}
 &-\int_{\xn}^{\xnone} \frac{y^{n-j}(1 - y)^{j}}{B(n-j+1,j+1)} dy 
   	+ \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
 	&\qquad\geq \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j+1,j+1)} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)}. 
 \end{align*}
-And $B(n-j+1,j+1) = B(n-j,j+1)\frac{j+1}{n+1}$ allows us to express the right hand side of the above inequality as
+And $B(n-j+1,j+1) = B(n-j,j+1)\frac{n-j}{n+1}$ allows us to express the right hand side of the above inequality as
 \begin{align*}
 	&\frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j+1,j+1)} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
-	&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j,j+1)\frac{j+1}{n+1}} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
-	&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{B(n-j,j+1)}\left(\frac{n+1}{j+1}\left(\xn - \xnone\right) + \frac{1}{n-j}\left(1 - \xn\right)\right) \\
-		&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{(n-j)B(n-j,j+1)}\left(\frac{(n+1)(n-j)}{j+1}\left(\xn - \xnone\right) + 1 - \xn\right)
+	&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}(\xn  - \xnone)}{B(n-j,j+1)\frac{n-j}{n+1}} + \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j+1}}{(n-j)B(n-j,j+1)} \\
+	&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{B(n-j,j+1)(n-j)}\left((n+1)\left(\xn - \xnone\right) + \left(1 - \xn\right)\right) \\
+		&\qquad= \frac{\left(\xn\right)^{n-j}\left(1-\xn\right)^{j}}{(n-j)B(n-j,j+1)}\left(n\xn - (n+1)\xnone + 1\right)
 \end{align*}
-Let
-\begin{equation} \label{eq:fnj}
-  f_{n,j}(x) = \frac{(n+1)(n-j)}{j+1}\left(\xn - \xnone\right) + 1 - \xn.	
-\end{equation}
+Let $f_{n}(x) = n\xn - (n+1)\xnone + 1$. Then 
+\begin{align*}
+	f^{'}_{n}(x) &= x^{\frac{1-n}{n}} - x^{-\frac{n}{n+1}} = x^{\frac{1-n}{n}}(1 - x^{-\frac{1}{n(n+1)}}).
+\end{align*}
+Since $f^{'}_{n}(x)$ is less or equal to 0 
+
+
 Now,
 \begin{align*}
 	f_{n,j}^{\prime}(x) &= \frac{(n+1)(n-j)}{j+1}\left(\frac{x^{\frac{1-n}{n}}}{n} - \frac{x^{-\frac{n}{n+1}}}{n+1}\right) - \frac{x^{\frac{1-n}{n}}}{n} \\
