@@ -198,7 +198,15 @@ where we used $B(n-j+1,j+1) = \frac{n-j}{n+1}B(n-j,j+1)$ in the second equality.
     &\qquad\implies x^{-\frac{j}{n(n+1)}}\left(\frac{1-\xn}{1-\xnone}\right)^j \geq \frac{n}{n-j} \\
     &\qquad\implies \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \geq \left(\frac{n}{n-j}\right)^\frac{1}{j}.
 \end{align*}
+Let 
+$$
+  g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone}.
+$$
 
-
+We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$, $g_n(x)$ is decreasing, and $g_n(x)\to1$ as $x\to1$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1)$ implies that 
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) > 0
+$$
+for all $x \in (0,1).$
 
 \end{document}
