@@ -114,10 +114,24 @@ $$
 
 \vspace{12pt}
 
+Integration by parts allows us to write
+\begin{align*}
+&I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \\ 
+  &\qquad= I_{\xn}(n-j, j+1) - \left(I_{\xnone}(n-j, j+1) - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^{j+1}}{(n-j)B(n-j,j+1)}\right) \\
+  &\qquad= \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^{j+1}}{(n-j)B(n-j,j+1)} + I_{\xn}(n-j, j+1) - I_{\xnone}(n-j, j+1) \\
+  &\qquad= \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^{j+1}}{(n-j)B(n-j,j+1)} - \int_{\xn}^{\xnone} \frac{y^{n-j-1}(1-y)^{j}}{B(n-j,j+1)}dy \\
+  &\qquad\geq \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^{j+1}}{(n-j)B(n-j,j+1)} - \frac{\left(\xnone\right)^{n-j-1}\left(1-\xnone\right)^{j}}{B(n-j,j+1)}\left(\xnone - \xn\right) \\
+  &\qquad= \frac{\left(\xnone\right)^{n-j-1}\left(1-\xnone\right)^{j}}{(n-j)B(n-j,j+1)}\left(\xnone(1 - \xnone) - (n-j)(\xnone - \xn)\right) \\
+  &\qquad= \frac{\left(\xnone\right)^{n-j-1}\left(1-\xnone\right)^{j}}{(n-j)B(n-j,j+1)}\left((n-j)\xn - (n-j-1)\xnone - x^{\frac{2}{n+1}} \right)  
+\end{align*}
 
 
 
 
+
+
+
+\newpage
 
 Now,
 \begin{align*}
@@ -149,15 +163,41 @@ $$
 $$
  
 
-
-\newpage
-
 \vspace{12pt}
 
 \noindent\textbf{Assume $\xnone < j/n$}:
 
 
 
+\newpage
+
+We will show that 
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) > 0.
+$$
+We can write
+\begin{align*}
+  f_{n,j}(x) & = I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \\
+  &= \int_0^{\xn}\frac{y^{n-j-1}(1-y)^j}{B(n-j,j+1)}dy 
+    - \int_0^{\xnone}\frac{y^{n-j}(1-y)^j}{B(n-j+1,j+1)}dy.
+\end{align*}
+An application of the chain rule yields 
+\begin{align*}
+  &f_{n,j}^\prime(x) = \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n+1)B(n-j+1,j+1)} \\
+  &= \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n-j)B(n-j,j+1)} \\    
+  &= \frac{1}{B(n-j,j+1)}\left(\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j}\right)
+\end{align*}
+where we used $B(n-j+1,j+1) = \frac{n-j}{n+1}B(n-j,j+1)$ in the second equality. Now define $A_{n,j} = \{x:f_{n,j}^\prime(x) \geq 0\}$. For $x \in A_{n,j}$ we have
+\begin{align*}
+	&\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    \geq \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j} \\
+    &\qquad\implies \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)} \geq \frac{n}{n-j} \\
+    &\qquad\implies x^{-\frac{j}{n(n+1)}}\left(\frac{1-\xn}{1-\xnone}\right)^j \geq \frac{n}{n-j} \\
+    &\qquad\implies \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \geq \left(\frac{n}{n-j}\right)^\frac{1}{j}.
+\end{align*}
 
 
 
