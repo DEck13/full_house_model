@@ -29,6 +29,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
+\newcommand{\xn}{x^{\frac{1}{n}}}
+\newcommand{\xnone}{x^{\frac{1}{n+1}}}
 
 \newcommand{\R}{\mathbb{R}}
 \DeclareUnicodeCharacter{FB01}{fi}
@@ -429,7 +431,73 @@ Applying the above to \eqref{eq:inductstep} yields
 A similar argument holds for iterative increases to $N_1$. Thus, condition~\eqref{eq:technical-condition} holds under are assumed conditions and the conclusions of Theorem~\ref{theorem:samedistgeneral} follow.
 \end{proof}
 
+\begin{lemma}\label{lemma:monotonicity}
+	Consider $x \in (0,1)$, then $I_{\xn}(n-j, j+1)$ is a decreasing function with respect to n. In other words, 
+	
+	$$
+	I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) > 0.
+	$$
+\end{lemma}
 
+\begin{proof}
+	We can write
+\begin{align*}
+  f_{n,j}(x) & = I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \\
+  &= \int_0^{\xn}\frac{y^{n-j-1}(1-y)^j}{B(n-j,j+1)}dy 
+    - \int_0^{\xnone}\frac{y^{n-j}(1-y)^j}{B(n-j+1,j+1)}dy.
+\end{align*}
+An application of the chain rule yields 
+\begin{align*}
+  &f_{n,j}^\prime(x) = \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n+1)B(n-j+1,j+1)} \\
+  &= \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n-j)B(n-j,j+1)} \\    
+  &= \frac{1}{B(n-j,j+1)}\left(\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j}\right)
+\end{align*}
+where we used $B(n-j+1,j+1) = \frac{n-j}{n+1}B(n-j,j+1)$ in the second equality. Now define $A_{n,j} = \{x:f_{n,j}^\prime(x) \geq 0\}$. For $x \in A_{n,j}$ we have
+\begin{align*}
+	&\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    \geq \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j} \\
+    &\qquad\implies \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)} \geq \frac{n}{n-j} \\
+    &\qquad\implies x^{-\frac{j}{n(n+1)}}\left(\frac{1-\xn}{1-\xnone}\right)^j \geq \frac{n}{n-j} \\
+    &\qquad\implies \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \geq \left(\frac{n}{n-j}\right)^\frac{1}{j}.
+\end{align*}
+Let 
+$$
+  g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone}.
+$$
+
+Then 
+
+\begin{align*}
+	g_n(x) &= \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \\
+	&= \frac{x^{-\frac{1}{n(n+1)}} - 1}{1-\xnone} + 1 \\
+\end{align*}
+
+\begin{align*}
+	g^{'}_n(x) &= \frac{1}{(1-\xnone)^2}\left(-\frac{1}{n(n+1)}x^{-\frac{1}{n(n+1)}-1}(1-\xnone) - (x^{-\frac{1}{n(n+1)}} - 1)(-\frac{1}{n+1}x^{\frac{1}{n+1}-1})\right)\\
+	&= \frac{1}{(1-\xnone)^2}\left( \frac{1}{n}x^{-\frac{n^2+1}{n(n+1)}} - \frac{1}{n+1}x^{-\frac{n}{n+1}} - \frac{1}{n(n+1)}x^{-\frac{n^2 + n + 1}{n(n+1)}}\right)\\
+	&= \frac{x^{-\frac{n^2+1}{n(n+1)}}}{n(n+1)(1-\xnone)^2}\left((n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}\right)
+\end{align*}
+
+Let $$
+l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}
+$$
+
+\begin{align*}
+	l^{'}_n(x) &= -\frac{1}{n+1}x^{\frac{1}{n(n+1)} - 1} + \frac{1}{n+1}x^{-\frac{1}{n+1} - 1}\\
+	&= \frac{1}{n+1}x^{-\frac{n+2}{n+1}}\left( 1 - \xn \right)
+\end{align*}
+
+Thus, $l_n(x)$ is an increasing function with respect to x and the maximum of $l_n(x)$ is $l_n(1)$, which is 0. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. 
+
+Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ implies that 
+$$
+  I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) > 0
+$$
+for all $x \in (0,1).$
+\end{proof}
 
 \begin{prop} \label{prop:condition}
 	Consider two populations $i = 1,2$ with sizes $N_1$ and $N_2$, and systems of sizes $n_1$ and $n_2$. 
@@ -476,14 +544,86 @@ Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
 
 Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$. 
 
-Finally, we show 
+Now, we show 
 
 \begin{align*}
 	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
 	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
 \end{align*}
 
-We also have $f^{`}(0) = 0$. And we know $f(0) = 0$, and $f(1) = 0$. Therefore, $f(x) \geq 0$ for all $x \in (0,1)$.
+
+
+
+
+
+
+
+Let $f^{'}(x) = 0$, then $$\frac{g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c$$
+
+$c \in (0,1)$
+
+If we can prove the $\frac{g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2}}$ is a monotonic function that ranges from 0 to 1, then we can conclude that $f(x) \geq 0$ for all $x \in (0,1)$
+
+Supposed $r(x) = \frac{g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2}}$, then rewrite $r(x)$ into 
+
+$$r(x) = (\frac{g_{N_2, N_2-j}^{-1}(x)^k}{g_{n_2, n_2-j}^{-1}(x)})^c$$
+
+where $c = n_1-n_2$ and $k = \frac{N_1 - N_2}{n_1 - n_2}$
+
+Based on the conditions we mentioned before, $c \leq 0$ and $1 \leq k \leq \frac{N_2}{n_2}$. 
+
+When $k = 1$, $r(x) \in (0,1)$ since $g_{N_2, N_2-j}^{-1}(x) > g_{n_2, n_2-j}^{-1}(x)$. 
+
+Supposed $s_k(x) = \frac{g_{N_2, N_2-j}^{-1}(x)^k}{g_{n_2, n_2-j}^{-1}(x)}$, then when $k = \frac{N_2}{n_2}$
+
+\begin{align*}
+	s_{\frac{N_2}{n_2}}(x) &= \frac{g_{N_2, N_2-j}^{-1}(x)^{\frac{N_2}{n_2}}}{g_{n_2, n_2-j}^{-1}(x)}\\
+	&= \left(\frac{g_{N_2, N_2-j}^{-1}(x)^{N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}
+\end{align*}
+
+Based on the result of Lemma \ref{lemma:monotonicity}, 
+
+$$
+	I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1).
+$$
+
+Then $$
+g_{N_2, N_2-j}^{-1}(x)^{N_2} > g_{n_2, n_2-j}^{-1}(x)^{n_2}
+$$
+
+Thus, $r(x) \in (0,1)$
+
+\begin{align*}
+	s^{'}_k(x) &= \frac{k(g_{N_2, N_2-j}^{-1}(x))^{k-1}g_{n_2, n_2-j}^{-1}(x)/g^{'}_{N_2, N_2-j}(g_{N_2, N_2-j}^{-1}(x)) - (g_{N_2, N_2-j}^{-1}(x))^{k}/g^{'}_{n_2, n_2-j}(g_{n_2, n_2-j}^{-1}(x))}{g_{n_2, n_2-j}^{-1}(x)^2}\\
+	&=  T_k*(k\frac{g_{n_2, n_2-j}^{-1}(x)^{n_2-j}(1-g_{n_2, n_2-j}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{g_{N_2, N_2-j}^{-1}(x)^{N_2-j}(1-g_{N_2, N_2-j}^{-1}(x))^j}{B(N_2-j,j+1)})
+\end{align*}
+
+where $T_k = \frac{(g_{N_2, N_2-j}^{-1}(x))^{k-1}}{g_{n_2, n_2-j}^{-1}(x)^2g^{'}_{N_2, N_2-j}(g_{N_2, N_2-j}^{-1}(x))g^{'}_{n_2, n_2-j}(g_{n_2, n_2-j}^{-1}(x))}$
+
+Then 	
+
+
+\begin{align*}
+	s^{'}_{\frac{N_2}{n_2}}(x) 
+	&=  T_{\frac{N_2}{n_2}}*N_2\left(\frac{1}{n_2}\frac{g_{n_2, n_2-j}^{-1}(x)^{n_2-j}(1-g_{n_2, n_2-j}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{1}{N_2}\frac{g_{N_2, N_2-j}^{-1}(x)^{N_2-j}(1-g_{N_2, N_2-j}^{-1}(x))^j}{B(N_2-j,j+1)}\right)
+\end{align*}
+
+Let $$m(x) = \frac{1}{n_2}\frac{g_{n_2, n_2-j}^{-1}(x)^{n_2-j}(1-g_{n_2, n_2-j}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{1}{N_2}\frac{g_{N_2, N_2-j}^{-1}(x)^{N_2-j}(1-g_{N_2, N_2-j}^{-1}(x))^j}{B(N_2-j,j+1)}$$
+
+\begin{align*}
+	m^{'}(x) &= \frac{1}{n_2}(\frac{(n_2-j)g_{n_2, n_2-j}^{-1}(x)^{n_2-j-1}}{g_{n_2, n_2-j}^{-1}(x)^{n_2-j-1}(1-g_{n_2, n_2-j}^{-1}(x))^j}(1-g_{n_2, n_2-j}^{-1}(x))^j \\
+	&- \frac{j*g_{n_2, n_2-j}^{-1}(x)^{n_2-j}}{g_{n_2, n_2-j}^{-1}(x)^{n_2-j-1}(1-g_{n_2, n_2-j}^{-1}(x))^j}(1-g_{n_2, n_2-j}^{-1}(x))^{j-1}) \\
+	&- \frac{1}{N_2}(\frac{(N_2-j)g_{N_2, N_2-j}^{-1}(x)^{N_2-j-1}}{g_{N_2, N_2-j}^{-1}(x)^{N_2-j-1}(1-g_{N_2, N_2-j}^{-1}(x))^j}(1-g_{N_2, N_2-j}^{-1}(x))^j\\
+	&- \frac{j*g_{N_2, N_2-j}^{-1}(x)^{N_2-j}}{g_{N_2, N_2-j}^{-1}(x)^{N_2-j-1}(1-g_{N_2, n-j}^{-1}(x))^j}(1-g_{N_2, N_2-j}^{-1}(x))^{j-1}) \\
+	&= \frac{1}{n_2}\left((n_2-j) - \frac{jg_{n_2, n_2-j}^{-1}(x)}{1-g_{n_2, n_2-j}^{-1}(x)}\right) - \frac{1}{N_2}\left((N_2-j) - \frac{jg_{N_2, N_2-j}^{-1}(x)}{1-g_{N_2, N_2-j}^{-1}(x)}\right)\\
+	&= j\left( \frac{1}{N_2(1 - g_{N_2, N_2-j}^{-1}(x) )}  - \frac{1}{n_2(1 - g_{n_2, n_2-j}^{-1}(x))}\right)
+\end{align*}
+
+Since $m(0) = m(1) = 0$, and $m^{'}(0) < 0$. Also $\lim_{x\rightarrow 1} m^{'}(x)> 0$ as $\frac{1}{1 - g_{N_2, N_2-j}^{-1}(x)} > \frac{1}{1 - g_{n_2, n_2-j}^{-1}(x)}$. Thus, $m(x) < 0$ for $x \in (0,1)$. 
+
+Now we show $\frac{g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2}}$ is a decreasing function that ranges from 0 to 1. 
+
+We can conclude $f(x) \geq 0$ for all $x \in (0,1)$.
 
 
 %\begin{proof}
