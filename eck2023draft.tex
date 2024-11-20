@@ -104,7 +104,7 @@ where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}
 
 \begin{defn} [Full House Model]
 \label{def:fhm}
-	Consider populations with sizes $N_i$ and system sizes $n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
+	Consider populations with sizes $N_i$ and system sizes $n_i$, $N_i \geq n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
 Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary across systems. 
@@ -445,7 +445,7 @@ Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1
 
 
 \begin{prop} \label{prop:condition}
-Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$ where the system inclusion function is $1_i(X_{i,j} \geq X_{(N_i - n_i + 1)})$. Let $I$ be a regularized incomplete beta function. In the notation of Theorem~\ref{theorem:samedistgeneral}, suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$, and $k = j$. Then, technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.	
+Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$ where the system inclusion function is $1_i(X_{i,j} \geq X_{(N_i - n_i + 1)})$. Let $I$ be a regularized incomplete beta function. In the notation of Theorem~\ref{theorem:samedistgeneral}, suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1 \geq 0$, and $k = j$. Then, technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.	
 \end{prop}
 
 \begin{proof}
@@ -455,14 +455,13 @@ $$
 $$
 Applications of the chain rule and the inverse function theorem allow us to write 
 \begin{align*}
-	f^\prime_{n_1,n_2,N_1,N_2,j}(x) &= \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
+	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
 	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}. \\
+	&\qquad= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2} \\
+	&\qquad= \left(I_{n_2-j,j+1}^{-1}(x)\right)^{n_1-n_2}\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)} \\ 
+	&\qquad\qquad \times\left[ \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}\right]
 \end{align*}
-
-
-
-When $x = 1$ we have that 
+From here we see that $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$, and when $x = 1$, we have 
 \begin{align*}
 	&f^\prime_{n_1,n_2,N_1,N_2,j}(1) = \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
 	&\qquad= \frac{(n_1 - j)\dots(n_1)}{(n_2 - j)\dots(n_2)} - \frac{(N_1 - j)\dots(N_1)}{(N_2 - j)\dots(N_2)} \\
@@ -480,59 +479,30 @@ from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
 %	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
 %	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
 %\end{align*}
+If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ as desired.
 
-\vspace{2cm}
 
-\textbf{Is this needed}: Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
+Define $r(x) = r_{n_1,n_2,N_1,N_2,j}(x) =\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$, and notice that 
 $$
-\frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
+  r_{n_1,n_2,N_1,N_2,j}(x) = \left(\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{a}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)}\right)^b,
 $$
-where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
+where $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. The conditions of the proposition imply that $b \leq 0$ and $1 \leq a \leq \frac{N_2}{n_2}$. When $a = 1$ we have that $r(x) \in (0,1)$ since $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x)$. 
 
-\vspace{2cm}
+Now let $s(x) = s_{n_2,N_2,k}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^k}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $k = \frac{N_2}{n_2}$, we have that 
+\begin{align*}
+	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
+\end{align*}
+Lemma \ref{lemma:monotonicity} states that  $I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} > I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 0$, and this implies that $r(x) \in (0,1)$.
 
-If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ for all $x \in (0,1)$ since $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$.
+\begin{center}
+	\LARGE Edited up to Here; need to go back and expand arguments and provide references
+\end{center}
 
-
-
-
-
-Define $r_{n_2,N_2,j}(x) =\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$, and notice that 
-$$
-  r_{n_2,N_2,j}(x) = \left(\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{a}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)}\right)^b
-$$
 $$
 (Key: a = k \qquad b = c)
 $$
-where  $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. 
-
-\begin{center}
-	\text{Edited up to Here: need to figure out the following sentence; am confused by it}
-\end{center}
 
 
-Based on the conditions we mentioned before, $c \leq 0$ and $1 \leq k \leq \frac{N_2}{n_2}$. 
-
-When $k = 1$, $r(x) \in (0,1)$ since $g_{N_2, N_2-j}^{-1}(x) > g_{n_2, n_2-j}^{-1}(x)$. 
-
-Supposed $s_k(x) = \frac{g_{N_2, N_2-j}^{-1}(x)^k}{g_{n_2, n_2-j}^{-1}(x)}$, then when $k = \frac{N_2}{n_2}$
-
-\begin{align*}
-	s_{\frac{N_2}{n_2}}(x) &= \frac{g_{N_2, N_2-j}^{-1}(x)^{\frac{N_2}{n_2}}}{g_{n_2, n_2-j}^{-1}(x)}\\
-	&= \left(\frac{g_{N_2, N_2-j}^{-1}(x)^{N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}
-\end{align*}
-
-Based on the result of Lemma \ref{lemma:monotonicity}, 
-
-$$
-	I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1).
-$$
-
-Then $$
-g_{N_2, N_2-j}^{-1}(x)^{N_2} > g_{n_2, n_2-j}^{-1}(x)^{n_2}
-$$
-
-Thus, $r(x) \in (0,1)$
 
 \begin{align*}
 	s^{'}_k(x) &= \frac{k(g_{N_2, N_2-j}^{-1}(x))^{k-1}g_{n_2, n_2-j}^{-1}(x)/g^{'}_{N_2, N_2-j}(g_{N_2, N_2-j}^{-1}(x)) - (g_{N_2, N_2-j}^{-1}(x))^{k}/g^{'}_{n_2, n_2-j}(g_{n_2, n_2-j}^{-1}(x))}{g_{n_2, n_2-j}^{-1}(x)^2}\\
@@ -565,6 +535,28 @@ Since $m(0) = m(1) = 0$, and $m^{'}(0) < 0$. Also $\lim_{x\rightarrow 1} m^{'}(x
 Now we show $\frac{g_{N_2, N_2-j}^{-1}(x)^{N_1 - N_2}}{g_{n_2, n_2-j}^{-1}(x)^{n_1 - n_2}}$ is a decreasing function that ranges from 0 to 1. 
 
 We can conclude $f(x) \geq 0$ for all $x \in (0,1)$.
+
+
+\vspace{2cm}
+
+\textbf{Is this needed}: Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
+$$
+\frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
+$$
+where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
+
+\vspace{2cm}
+
+%If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ for all $x \in (0,1)$ since $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$.
+
+
+
+
+
+
+
+
+
 \end{proof}
 
 
