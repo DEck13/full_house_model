@@ -453,9 +453,10 @@ The conditions of this proposition allow us to express technical condition \eqre
 $$
   f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
 $$
-Applications of the chain rule and the inverse function theorem allow us to write 
+Applications of the chain rule and the inverse function theorem (\textbf{provide authoritative textbook citation for inverse function theorem}) allow us to write 
 \begin{align*}
 	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
+	&\qquad \textbf{Show more work} \\
 	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
 	&\qquad= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2} \\
 	&\qquad= \left(I_{n_2-j,j+1}^{-1}(x)\right)^{n_1-n_2}\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)} \\ 
@@ -488,11 +489,11 @@ $$
 $$
 where $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. The conditions of the proposition imply that $b \leq 0$ and $1 \leq a \leq \frac{N_2}{n_2}$. When $a = 1$ we have that $r(x) \in (0,1)$ since $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x)$. 
 
-Now let $s(x) = s_{n_2,N_2,k}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^k}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $k = \frac{N_2}{n_2}$, we have that 
+Now let $s_k(x) = s_{n_2,N_2,k}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^k}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $k = \frac{N_2}{n_2}$, we have that 
 \begin{align*}
 	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
 \end{align*}
-Lemma \ref{lemma:monotonicity} states that  $I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} > I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 0$, and this implies that $r(x) \in (0,1)$.
+Lemma \ref{lemma:monotonicity} states that  $I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} > I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 0$, and this implies that $r(x) \in (0,1)$. \textbf{Provide more reasons for why the $s_k$ approach implies that $r(x) \in (0,1)$}
 
 \begin{center}
 	\LARGE Edited up to Here; need to go back and expand arguments and provide references
