@@ -401,6 +401,10 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{\xn}(n-j, j+1) \geq I_{\xnone}(n-j+1, j+1)$.
 \end{lemma}
 
+\begin{center}
+	\textbf{Need to fix notation; should be $I_{\alpha,\beta}(x)$}
+\end{center}
+
 \begin{proof}
 We can define a function $f_{n,j}(x)$ as
 \begin{align*}
@@ -453,7 +457,11 @@ The conditions of this proposition allow us to express technical condition \eqre
 $$
   f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
 $$
-Applications of the chain rule and the inverse function theorem \citep{rudin1964principles} allow us to write 
+Applications of the chain rule, the inverse function theorem \citep{rudin1964principles}, and this property of regularized incomplete beta functions
+$$
+  I^\prime_{\alpha,\beta}(I^{-1}_{\alpha,\beta}(x)) = \frac{I^{-1}_{\alpha,\beta}(x)^{\alpha-1}(1 - I^{-1}_{\alpha,\beta}(x))^{\beta-1}}{B(\alpha,\beta)}, 
+$$
+allow us to write 
 \begin{align*}
 	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
 	&\qquad= \frac{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_1-j,j+1)}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_2-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_2-j,j+1)} \\
@@ -494,47 +502,56 @@ Now let $s_a(x) = s_{n_2,N_2,a}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^a}{I_{n_2-j, j
 \begin{align*}
 	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
 \end{align*}
-Lemma \ref{lemma:monotonicity} states that  $I_{\xn}(n-j, j+1) > I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} > I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$.
+Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{\xn}(n-j, j+1) \geq I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
 
-Since $I^{-1}_{\xn}(n-j, j+1) \in (0,1)$, then for any $a \in (1, \frac{N_2}{n_2})$, $s_a(x) \geq 1$, and this implies that $r(x) \in (0,1)$. \textbf{Provide more reasons for why the $s_k$ approach implies that $r(x) \in (0,1)$}
+\vspace*{1cm}
 
-\begin{center}
-	\LARGE Edited up to Here; need to go back and expand arguments and provide references
-\end{center}
+Since $I^{-1}_{\xn}(n-j, j+1) \in (0,1)$, then for any $a \in (1, \frac{N_2}{n_2})$, $s_a(x) \geq 1$, and this implies that $r(x) \in (0,1)$. 
 
-$$
-(Key: a = k \qquad b = c)
-$$
+
+\vspace*{1cm}
+
 
 Then we show $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$
 
+\vspace*{1cm}
+
+We can write 
 \begin{align*}
-	s^{'}_a(x) &= \frac{a(I_{N_2-j, j+1}^{-1}(x))^{k-1}I_{n_2-j, j+1}^{-1}(x)/I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x)) - (I_{N_2-j, j+1}^{-1}(x))^{k}/I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}{I_{n_2-j, j+1}^{-1}(x)^2}\\
-	&=  T_a*(a\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)})
+	s^{\prime}_a(x) &= \frac{a(I_{N_2-j, j+1}^{-1}(x))^{a-1}I_{n_2-j, j+1}^{-1}(x)/I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x)) - (I_{N_2-j, j+1}^{-1}(x))^{a}/I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}{I_{n_2-j, j+1}^{-1}(x)^2} \\
+	&= T_a(x)\left(aI^{-1}_{n_2-j,j+1}(x)I^\prime_{n_2-j,j+1}(I^{-1}_{n_2-j,j+1}(x)) - I^{-1}_{N_2-j,j+1}(x)I^\prime_{N_2-j,j+1}(I^{-1}_{N_2-j,j+1}(x))\right) \\
+	&=  T_a(x)\left(a\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}\right),
 \end{align*}
-
-where $T_a = \frac{I_{N_2-j, j+1}^{-1}(x)^{k-1}}{I_{n_2-j, j+1}^{-1}(x)^2I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x))I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}$
-
-Then 	
-
-
+where 
+$$
+T_a(x) = T_{a,n_2,N_2,j}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^{a-1}}{I_{n_2-j, j+1}^{-1}(x)^2I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x))I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}. 
+$$
+Then, 
 \begin{align*}
-	s^{'}_{\frac{N_2}{n_2}}(x) 
-	&=  T_{\frac{N_2}{n_2}}*N_2\left(\frac{1}{n_2}\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{1}{N_2}\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}\right)
+	s^{\prime}_{\frac{N_2}{n_2}}(x) 
+	&=  N_2T_{\frac{N_2}{n_2}}(x)\left(\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}\right).
 \end{align*}
-
-Let $$m(x) = \frac{1}{n_2}\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{1}{N_2}\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}$$
-
+Now let 
+$$
+  m(x) = m_{n_2,N_2,j}(x) = \frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}.
+ $$
+We can write
 \begin{align*}
-	m^{'}(x) &= \frac{1}{n_2}(\frac{(n_2-j)I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^j \\
-	&- \frac{j*I_{n_2-j, j+1}^{-1}(x)^{n_2-j}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^{j-1}) \\
-	&- \frac{1}{N_2}(\frac{(N_2-j)I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^j\\
-	&- \frac{j*I_{N_2-j, j+1}^{-1}(x)^{N_2-j}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^{j-1}) \\
+	&m^{\prime}(x) = \frac{1}{n_2}\left(\frac{(n_2-j)I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^j\right. \\
+	&\qquad\qquad- \left.\frac{jI_{n_2-j, j+1}^{-1}(x)^{n_2-j}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^{j-1}\right) \\
+	&\qquad- \frac{1}{N_2}\left(\frac{(N_2-j)I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^j\right.\\
+	&\qquad\qquad- \left.\frac{jI_{N_2-j, j+1}^{-1}(x)^{N_2-j}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^{j-1}\right) \\
 	&= \frac{1}{n_2}\left((n_2-j) - \frac{jI_{n_2-j, j+1}^{-1}(x)}{1-I_{n_2-j, j+1}^{-1}(x)}\right) - \frac{1}{N_2}\left((N_2-j) - \frac{jI_{N_2-j, j+1}^{-1}(x)}{1-I_{N_2-j, j+1}^{-1}(x)}\right)\\
-	&= j\left( \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))}\right)
+	&= j\left( \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))}\right).
 \end{align*}
+We have that $m(0) = m(1) = 0$, and $m^\prime(0) < 0$. 
 
-Since $m(0) = m(1) = 0$, and $m^{'}(0) < 0$. Also $\lim_{x\rightarrow 1} m^{'}(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. Thus, $m(x) < 0$ for $x \in (0,1)$. 
+\begin{center}
+	\LARGE EDITTED TO HERE
+\end{center}
+
+
+Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. Thus, $m(x) < 0$ for $x \in (0,1)$. 
 
 Now we show $r(x)$ is a decreasing function that ranges from 0 to 1. 
 
