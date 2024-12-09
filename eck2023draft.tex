@@ -398,7 +398,7 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 
 
 \begin{lemma}\label{lemma:monotonicity}
-Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{\xn}(n-j, j+1) \geq I_{\xnone}(n-j+1, j+1)$.
+Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I_{\alpha, \beta}(x)$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$.
 \end{lemma}
 
 \begin{center}
@@ -408,7 +408,7 @@ Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I$ be a regularized incomplete be
 \begin{proof}
 We can define a function $f_{n,j}(x)$ as
 \begin{align*}
-  f_{n,j}(x) & = I_{\xn}(n-j, j+1) - I_{\xnone}(n-j+1, j+1) \\
+  f_{n,j}(x) & = I_{n-j, j+1}(\xn) - I_{n-j+1, j+1}(\xnone) \\
   &= \int_0^{\xn}\frac{y^{n-j-1}(1-y)^j}{B(n-j,j+1)}dy 
     - \int_0^{\xnone}\frac{y^{n-j}(1-y)^j}{B(n-j+1,j+1)}dy.
 \end{align*}
@@ -443,7 +443,7 @@ Now define $l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}$ and see
 \begin{align*}
 	l^{'}_n(x) = -\frac{1}{n+1}x^{\frac{1}{n(n+1)} - 1} + \frac{1}{n+1}x^{-\frac{1}{n+1} - 1} = \frac{1}{n+1}x^{-\frac{n+2}{n+1}}\left( 1 - \xn \right).
 \end{align*}
-Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{\xn}(n-j, j+1) \geq I_{\xnone}(n-j+1, j+1)$ for all $x \in (0,1)$.
+Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
 \end{proof}
 
 
@@ -457,7 +457,7 @@ The conditions of this proposition allow us to express technical condition \eqre
 $$
   f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
 $$
-Applications of the chain rule, the inverse function theorem \citep{rudin1964principles}, and this property of regularized incomplete beta functions
+Applications of the chain rule, the inverse function theorem \citep{rudin1964principles} on Page 221, and this property of regularized incomplete beta functions
 $$
   I^\prime_{\alpha,\beta}(I^{-1}_{\alpha,\beta}(x)) = \frac{I^{-1}_{\alpha,\beta}(x)^{\alpha-1}(1 - I^{-1}_{\alpha,\beta}(x))^{\beta-1}}{B(\alpha,\beta)}, 
 $$
@@ -502,7 +502,7 @@ Now let $s_a(x) = s_{n_2,N_2,a}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^a}{I_{n_2-j, j
 \begin{align*}
 	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
 \end{align*}
-Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{\xn}(n-j, j+1) \geq I_{\xnone}(n-j+1, j+1)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
+Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
 
 \begin{center}
 	\textbf{Need to make coherent}
@@ -559,7 +559,28 @@ We have that $m(0) = m(1) = 0$, and $m^\prime(0) < 0$.
 \end{center}
 
 
-Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. Thus, $m(x) < 0$ for $x \in (0,1)$. 
+Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. In details, 
+
+for $\forall \epsilon_1 > 0$ and $\forall \epsilon_2 > 0$, we can find $x \in (0,1)$ that satisfies $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x) - \epsilon_1$ and $1 - x > \epsilon_2$. We choose the $\epsilon = min(\epsilon_1, \epsilon_2)$
+
+Then we can find $x > I_{N_2-j, j+1}^{-1}(1 + \frac{\epsilon}{(n_2 - N_2) / n_2})$, 
+
+\begin{align*}
+	\frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  &- \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2(1 - I_{n_2-j, j+1}^{-1}(x)) - N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	&> \frac{(n_2 - N_2)(1 - I_{N_2-j, j+1}^{-1}(x)) + n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	&> \frac{(n_2 - N_2)(-\frac{\epsilon}{(n_2 - N_2) / n_2})+ n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	& > 0
+\end{align*}
+
+Therefore, $\lim_{x\rightarrow 1} m^\prime(x)> 0$. 
+
+Define $$w_{n_2, N_2}(x) = \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2w_1{x} - N_2w_2{x}}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}$$
+
+where $w_1(x) = 1 - I_{n_2-j, j+1}^{-1}(x)$, $w_2(x) = 1 - I_{N_2-j, j+1}^{-1}(x)$
+
+Since $w_1(x) > w_2(x)$ and $w_2(x)$ decays slower than for $w_2(x)$ for $x \in (0,1)$. Also, we know $w_{n_2, N_2}(0) <0 $.
+
+Thus, $m(x) < 0$ for $x \in (0,1)$. 
 
 Now we show $r(x)$ is a decreasing function that ranges from 0 to 1. 
 
