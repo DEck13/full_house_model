@@ -65,7 +65,7 @@
 
 
 \begin{abstract}
-The Full House Methodology is an approach for computing era-adjusted or system-adjusted statistics that balances the size of the eligible population in each system with the component's performance via "versus their peers" in a specific system. We assume that each component has a latent aptitude that can be calculated from this balancing act provided the system inclusion mechanism for components of the system is known. Without making any assumptions about the distribution of the system's components, the components' distribution is well-established from the nonparametric probability distribution.
+The Full House Methodology is an approach for computing era-adjusted or system-adjusted statistics that balances the size of the source population in each system with the component's performance via "versus their peers" in a specific system. We assume that each component has a latent aptitude that can be calculated from this balancing act provided the system inclusion mechanism for components of the system is known. Without making any assumptions about the distribution of the system's components, the components' distribution is well-established from the nonparametric probability distribution.
 
 \end{abstract}
 
@@ -89,7 +89,7 @@ $X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ 
 %$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
 We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are one-to-one realizations of $X_{i,j}$, provided that $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
 
-Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th individual included in the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
+Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger numbers will correspond to a notion of "better." Thus $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$, for example. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th highest value observed from the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
 %where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
 The key Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. Full House Modeling states this connection as
@@ -119,77 +119,24 @@ Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary acro
 
 
 
-%To achieve this we form pairs $(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$, 
-%$j = 1,\ldots,n_i$, where $r(N_i, n_i, k): = r_{i,k}$ is the index function that connects this latent aptitude to the $k$th components in the system $i$. The function $r(N_i, n_i, k)$ determines the relationship between the components in the system and the selected latent aptitudes in the population. 
 
-%We now demonstrate how the Full House Model works in a parametric setting. Consider the pair 
-%$(Y_{i,(j)}, X_{i,(r(N_i, n_i, j))})$ 
-%and suppose that the distribution corresponding to $Y_{i, j}$ from the $i$th system is known to belong to a continuous distribution family.  
-
-%In order to connect the  $Y_{i,(j)}$ and $X_{i,(r(N_i, n_i, j))}$ and obtain an estimate of the underlying talents,  we will make use of the following classical order statistics properties, 
-%$$
-%\begin{aligned}
-%F_{Y_i}\left(Y_{i,(j)} \right) & \sim U_{i,(j)}, %& & F_{Y_i}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,(j)}, \\
-%F_{Y_{i,(j)}}\left(Y_{i,(j)} \right) & \sim U_{i,j}, %& & F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right) \approx U_{i,j},
-%\end{aligned}
-%$$
-%where %$\approx$ means approximately distributed, 
-%$\sim$ means distributed as, $U_{i,j} \sim U(0,1)$, and $U_{i,(j)} \sim \operatorname{Beta}(j, n_i+1-j)$. %and the quality of the approximation in the right hand side depends upon the estimator $\hat{\theta}_i$ and the sample size. 
-
-%We now connect the order statistics to the underlying talent distribution that comes from a population with $N_i \geq n_i$ observations when $F_{X}$ is known. This connection is established with 
-%\begin{equation} \label{eq:trueparX}
-%F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \right)\right) 
-%  \sim F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
-%  = X_{i, (r(N_i, n_i, j))}.
-%\end{equation}
-%We estimate the above with
-%$$
-%F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(F_{Y_{i}}\left(Y_{i,(j)} \mid \hat{\theta_i}\right)\right)\right) \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{U_{i,(j)}}\left(U_{i,(j)}\right)\right) = X_{i, (r(N_i, n_i, j))}.
-%$$
-%When $r(N_i, n_i, j) = N_i - n_i + j$, $j = 1, \dots, n_i$, as in our application where the most talented baseball players are assumed to be in the MLB, then this relation becomes
-%\begin{equation} \label{eq:parestX}
-%	F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(F_{Y_{i,(j)}}\left(Y_{i,(j)} \mid \hat{\theta}_i\right)\right) 
-%  \approx F_{X_{i, (r(N_i, n_i, j))}}^{-1}\left(U_{i,j}\right) 
-%  = \widehat{X}_{i, (r(N_i, n_i, j))}.
-%\end{equation}
-%Similarly, we can obtain $Y$ from $X$. First note that 
-%$F_X\left(X_{i, (r(N_i, n_i, j))}\right) \sim \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$ 
-%for $j = 1,\ldots,n_i$ where, for simplicity, we we denote $V(i,j) \overset{d}{=} \text{Beta}(r(N_i, n_i, j), N_i +1 - r(N_i, n_i, j))$. Now, 
-%\begin{equation} \label{eq:trueparY}
- %F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(X_{i, (r(N_i, n_i, j))}\right)\right) | \theta_i\right) = Y_{i, (j)},
-%\end{equation}
-%where we estimate the above with $F_{Y_{i, (j)}}^{-1}\left( F_{V(i,j)}\left(F_X\left(\widehat{X}_{i, (r(N_i, n_i, j))}\right)\right) | \hat{\theta}_i\right) = \widehat{Y}_{i, (j)}$ for $j = 1,\ldots,n_i$.
-
-%Similarly, we can obtain $Y$ from $X$,
-%\begin{equation} \label{eq:trueparY}
-% F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) \right) 
-% = Y_{i, (j)},
-%\end{equation}
-%where we estimate the above with 
-%$$
-%  F_{Y_{i, (j)}}^{-1}\left( F_{X_{i, (r(N_i, n_i, j))}}\left(X_{i, (r(N_i, n_i, j))}\right) | \hat{\theta}_i\right) 
-% = \widehat{Y}_{i, (j)}.
-%$$
-
-
-
-\section{Paradoxes Under Same Distribution}
+\section{Paradoxes Under Identical Distributions}
 \label{sec:samedist}
 
-In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$ in Definition~\ref{def:fhm} for $i = 1,2$. We define a paradox to have occurred when 
-$$
-  X_{1,(r_{1,j})} > X_{2,(r_{2,k})} \quad \text{and} \quad Y_{1,(j)} < Y_{2,(k)},
-$$
-where $i = 1,2$, $1 \leq j \leq n_1$, and $1 \leq k \leq n_2$. Our central interest will be the determination of  
+In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$, $i=1,2$ in Definition~\ref{def:fhm}. The following definition formally defines the notion of paradox used throughout this article.
+
+\begin{defn}\label{def:paradox}
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations denoted by $i=1,2$. We say a paradox has occurred when both $X_{1,(r_{1,j})} > X_{2,(r_{2,k})}$ and  $Y_{1,(j)} < Y_{2,(k)}$ have occurred. The paradox probability is defined as
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right).
-\end{equation}
+\end{equation}	
+\end{defn}
 
-As a simple illustrative example of some mechanics concerning paradoxes, let $r_{i,t} = N_i - n_i + t$ and set $k = n_1, j = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ as $N_1 \to \infty$. We now introduce a convenient representation which allows the paradox \eqref{eq:simpleparadox} to be expressed in terms of the latent abilities alone.
+As a simple illustrative example of the above, let $r_{i,t} = N_i - n_i + t$ and set $j = n_1$ and $k = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then the paradox probability \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ when $N_1 \to \infty$. We now introduce a convenient representation which allows the paradox probability to be expressed in terms of the latent aptitudes alone.
 
 
 \begin{lemma} \label{lemma:rep}
-Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
 \begin{equation} \label{eq:pararep}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
   = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
@@ -208,37 +155,25 @@ $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then w
 where $h_{1,2,j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 \end{proof}
 
+Our first formal result provides conditions that allow for an explicit paradox probability result. Those conditions require the following definition.
 
 \begin{defn}
 \label{def:ribf}
-Let $\alpha,\beta > 0$. Then the regularized incomplete beta function, the cumulative distribution function of a $\text{Beta}(\alpha,\beta)$ distribution, is defined as
+Let $\alpha,\beta > 0$. Then the regularized incomplete beta function is defined as
 $$
   I_{\alpha,\beta}(x) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
 $$
 where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
 
-
-Lemma~\ref{lemma:rep} and Definition~\ref{def:ribf} give enough structure for us to state and prove a probability of a paradox assuming a Full House Model.
+Note that the regularized incomplete beta function is the cumulative distribution function of a $\text{Beta}(\alpha,\beta)$ distribution. 
 
 \begin{theorem} \label{theorem:samedistgeneral}
-Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$.
-%Suppose that
-%\begin{align*}
-%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-%\end{align*}
-%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Suppose that the system inclusion mechanism satisfies 
-%$g(X_{1,(r_{1,j})}, \textbf{X}_{1,-(r_{1,j})}) = 1$ and 
-%$g(X_{2,(r_{2,k})}, \textbf{X}_{2,-(r_{2,k})}) = 1$. 
-Let $I$ be a regularized incomplete beta function. Assume that 
-%\begin{equation} \label{eq:technical-condition}
-%  g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, r_{1,k}} \circ g_{N_2, r_{2,j}}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).	
-%\end{equation}
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$. Denote by $I$ the regularized incomplete beta function. Further assume that
 \begin{equation} \label{eq:technical-condition}
   I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t) \geq 0, \qquad \text{for all} \; t \in (0,1).
 \end{equation}
-Then
+Under these assumptions,
 \begin{align*}
 	&\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
   &= \sum_{p=j}^{n_1}\left(\begin{array}{l}
@@ -321,10 +256,10 @@ p
 \end{proof}
 
 
-Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the paradox probability \eqref{eq:simpleparadox} in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
+Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the paradox probability in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
-Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = 1_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
+Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppose that $1_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = 1_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \begin{cases}
@@ -334,57 +269,10 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 \end{align*}
 \end{corollary}
 
-%\begin{proof}
-%We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
-%	\begin{align*}
-%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(F_X(x)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty} (F_X(x)^{N_2\frac{n_1}{n_2}} - F_X(x)^{N_1}) \ N_2 (F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_0^1 t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
-%	&= \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2},
-%\end{align*}
-%where 
-%\begin{align*}
-%	h_{1,2}(x) 
-%	= F_X^{-1}((F_Y(F_Y^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
-%	= F_X^{-1}(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
-%\end{align*}
-
-%In order to ensure a positive probability,  we assume $h_{1,2}(x) > x$, which indicates $\frac{n_1}{N_1} < \frac{n_2}{N_2}$
-
-%\end{proof}
-
-%It is interesting to note that the paradox probability $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \frac{n_2}{n_1 + n_2}$ as $N_1 \to \infty$ under the setup of Corollary~\ref{corollary:samedisttop}. \\
-
-
-
-%We verify Corollary~\ref{corollary:samedisttop} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox occurs. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
-
-%\begin{table}[htb!]
-%\centering
-%\scalebox{0.7}{
-%\begin{tabular}{c|c|c}
-%  \hline
-% & Prob from Corollary~\ref{corollary:samedisttop} & Prob from simulation \\ 
-%  \hline
-%$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.1004 \\
-%$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2011  \\
-%$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-%$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0 & 0  \\
-%   \hline
-%\end{tabular}
-%}
-%\caption{Simulation result to validate the Corollary~\ref{corollary:samedisttop} about the probability of paradox}
-%\label{Tab:simulation}
-%\end{table}
-
-
 A similar result holds for the individuals with the lowest latent aptitudes in the population.
 
 \begin{corollary} \label{corollary:samedistbottom}
-Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $1_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = 1_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
+Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppose that $1_1(X_{1,(1)}, \textbf{X}_{1,-(1)}) = 1_2(X_{2,(1)}, \textbf{X}_{2,-(1)}) = 1$. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
   = \begin{cases}
@@ -395,296 +283,43 @@ Suppose that conditions of Theorem~\ref{theorem:samedistgeneral}. Suppose that $
 \end{corollary}
 
 
-
-
-\begin{lemma}\label{lemma:monotonicity}
-Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I_{\alpha, \beta}(x)$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$.
-\end{lemma}
-
-\begin{center}
-	\textbf{Need to fix notation; should be $I_{\alpha,\beta}(x)$}
-\end{center}
-
-\begin{proof}
-We can define a function $f_{n,j}(x)$ as
-\begin{align*}
-  f_{n,j}(x) & = I_{n-j, j+1}(\xn) - I_{n-j+1, j+1}(\xnone) \\
-  &= \int_0^{\xn}\frac{y^{n-j-1}(1-y)^j}{B(n-j,j+1)}dy 
-    - \int_0^{\xnone}\frac{y^{n-j}(1-y)^j}{B(n-j+1,j+1)}dy.
-\end{align*}
-An application of the chain rule yields 
-\begin{align*}
-  &f_{n,j}^\prime(x) = \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
-    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n+1)B(n-j+1,j+1)} \\
-  &= \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
-    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n-j)B(n-j,j+1)} \\    
-  &= \frac{1}{B(n-j,j+1)}\left(\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
-    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j}\right),
-\end{align*}
-where we used $B(n-j+1,j+1) = \frac{n-j}{n+1}B(n-j,j+1)$ in the second equality. Now define $A_{n,j} = \{x:f_{n,j}^\prime(x) \geq 0\}$. For $x \in A_{n,j}$ we have
-\begin{align*}
-	&\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
-    \geq \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j} \\
-    &\qquad\implies \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)} \geq \frac{n}{n-j} \\
-    &\qquad\implies x^{-\frac{j}{n(n+1)}}\left(\frac{1-\xn}{1-\xnone}\right)^j \geq \frac{n}{n-j} \\
-    &\qquad\implies \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \geq \left(\frac{n}{n-j}\right)^\frac{1}{j}.
-\end{align*}
-Define $g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone}$. Then 
-\begin{align*}
-	g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} = \frac{x^{-\frac{1}{n(n+1)}} - 1}{1-\xnone} + 1,
-\end{align*}
-and
-\begin{align*}
-	g^{'}_n(x) &= \frac{1}{(1-\xnone)^2}\left(-\frac{1}{n(n+1)}x^{-\frac{1}{n(n+1)}-1}(1-\xnone) - (x^{-\frac{1}{n(n+1)}} - 1)(-\frac{1}{n+1}x^{\frac{1}{n+1}-1})\right)\\
-	&= \frac{1}{(1-\xnone)^2}\left( \frac{1}{n}x^{-\frac{n^2+1}{n(n+1)}} - \frac{1}{n+1}x^{-\frac{n}{n+1}} - \frac{1}{n(n+1)}x^{-\frac{n^2 + n + 1}{n(n+1)}}\right)\\
-	&= \frac{x^{-\frac{n^2+1}{n(n+1)}}}{n(n+1)(1-\xnone)^2}\left((n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}\right).
-\end{align*}
-Now define $l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}$ and see that
-\begin{align*}
-	l^{'}_n(x) = -\frac{1}{n+1}x^{\frac{1}{n(n+1)} - 1} + \frac{1}{n+1}x^{-\frac{1}{n+1} - 1} = \frac{1}{n+1}x^{-\frac{n+2}{n+1}}\left( 1 - \xn \right).
-\end{align*}
-Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
-\end{proof}
-
+We now demonstrate a setting in which technical condition \eqref{eq:technical-condition} holds. This setting is based on a configuration of $n_j$, $N_j$, $j=1,2$ under the assumption that the systems are populated with individuals from the source populations who have the highest aptitudes.
 
 
 \begin{prop} \label{prop:condition}
-Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$ where the system inclusion function is $1_i(X_{i,j} \geq X_{(N_i - n_i + 1)})$. Let $I$ be a regularized incomplete beta function. In the notation of Theorem~\ref{theorem:samedistgeneral}, suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1 \geq 0$, and $k = j$. Then, technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.	
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
 \begin{proof}
-The conditions of this proposition allow us to express technical condition \eqref{eq:technical-condition} as 
+
+
+Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N + 1 - j$. Need to rectify notational inconsistencies.	
+
+\vspace{12pt}
+
+\textbf{Need to check and finish}: When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
 $$
-  f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
-Applications of the chain rule, the inverse function theorem \citep{rudin1964principles} on Page 221, and this property of regularized incomplete beta functions
-$$
-  I^\prime_{\alpha,\beta}(I^{-1}_{\alpha,\beta}(x)) = \frac{I^{-1}_{\alpha,\beta}(x)^{\alpha-1}(1 - I^{-1}_{\alpha,\beta}(x))^{\beta-1}}{B(\alpha,\beta)}, 
-$$
-allow us to write 
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased, or $n_2$ or $N_1$ are decreased (I think we can state these with easy to find references/logic). Therefore, 
+$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
+$
+whenever $\frac{n_1}{N_1}\frac{N_2}{n_2} \leq 1$. Observe that
 \begin{align*}
-	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
-	&\qquad= \frac{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_1-j,j+1)}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_2-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_2-j,j+1)} \\
-	&\qquad\qquad - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_1-j,j+1)}{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_2-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_2-j,j+1)}\\
-	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&\qquad= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2} \\
-	&\qquad= \left(I_{n_2-j,j+1}^{-1}(x)\right)^{n_1-n_2}\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)} \\ 
-	&\qquad\qquad \times\left[ \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}\right]
+&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq t.
 \end{align*}
-From here we see that $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$, and when $x = 1$, we have 
-\begin{align*}
-	&f^\prime_{n_1,n_2,N_1,N_2,j}(1) = \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
-	&\qquad= \frac{(n_1 - j)\dots(n_1)}{(n_2 - j)\dots(n_2)} - \frac{(N_1 - j)\dots(N_1)}{(N_2 - j)\dots(N_2)} \\
-	&\qquad\leq 0,
-\end{align*}
-from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-%Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
-%\begin{align*}
-%	h(x) &= \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)} \\
-%	&= \frac{n_1N_2 - n_2N_1 - (n_1 + N_2 -n_2 - N_1 )x}{(n_2 - x)(N_2 - x)}
-%\end{align*}
-%Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$. 
-%Now, we show 
-%\begin{align*}
-%	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
-%	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
-%\end{align*}
-If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$ and ranges from 0 to 1, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ as desired.
-
-
-Define $r(x) = r_{n_1,n_2,N_1,N_2,j}(x) =\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$, and notice that 
-$$
-  r_{n_1,n_2,N_1,N_2,j}(x) = \left(\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{a}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)}\right)^b,
-$$
-where $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. The conditions of the proposition imply that $b \leq 0$ and $1 \leq a \leq \frac{N_2}{n_2}$. When $a = 1$ we have that $r(x) \in (0,1)$ since $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x)$. 
-
-Now let $s_a(x) = s_{n_2,N_2,a}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^a}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $a = \frac{N_2}{n_2}$, we have that 
-\begin{align*}
-	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
-\end{align*}
-Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
-
-\begin{center}
-	\textbf{Need to make coherent}
-\end{center}
-
-\vspace*{1cm}
-
-Since $I^{-1}_{\xn}(n-j, j+1) \in (0,1)$, then for any $a \in (1, \frac{N_2}{n_2})$, $s_a(x) \geq 1$, and this implies that $r(x) \in (0,1)$. 
-
-
-\vspace*{1cm}
-
-
-Then we show $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$
-
-\vspace*{1cm}
-
-\begin{center}
-	\textbf{Need to make coherent}
-\end{center}
-
-We can write 
-\begin{align*}
-	s^{\prime}_a(x) &= \frac{a(I_{N_2-j, j+1}^{-1}(x))^{a-1}I_{n_2-j, j+1}^{-1}(x)/I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x)) - (I_{N_2-j, j+1}^{-1}(x))^{a}/I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}{I_{n_2-j, j+1}^{-1}(x)^2} \\
-	&= T_a(x)\left(aI^{-1}_{n_2-j,j+1}(x)I^\prime_{n_2-j,j+1}(I^{-1}_{n_2-j,j+1}(x)) - I^{-1}_{N_2-j,j+1}(x)I^\prime_{N_2-j,j+1}(I^{-1}_{N_2-j,j+1}(x))\right) \\
-	&=  T_a(x)\left(a\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}\right),
-\end{align*}
-where 
-$$
-T_a(x) = T_{a,n_2,N_2,j}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^{a-1}}{I_{n_2-j, j+1}^{-1}(x)^2I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x))I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}. 
-$$
-Then, 
-\begin{align*}
-	s^{\prime}_{\frac{N_2}{n_2}}(x) 
-	&=  N_2T_{\frac{N_2}{n_2}}(x)\left(\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}\right).
-\end{align*}
-Now let 
-$$
-  m(x) = m_{n_2,N_2,j}(x) = \frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}.
- $$
-We can write
-\begin{align*}
-	&m^{\prime}(x) = \frac{1}{n_2}\left(\frac{(n_2-j)I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^j\right. \\
-	&\qquad\qquad- \left.\frac{jI_{n_2-j, j+1}^{-1}(x)^{n_2-j}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^{j-1}\right) \\
-	&\qquad- \frac{1}{N_2}\left(\frac{(N_2-j)I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^j\right.\\
-	&\qquad\qquad- \left.\frac{jI_{N_2-j, j+1}^{-1}(x)^{N_2-j}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^{j-1}\right) \\
-	&= \frac{1}{n_2}\left((n_2-j) - \frac{jI_{n_2-j, j+1}^{-1}(x)}{1-I_{n_2-j, j+1}^{-1}(x)}\right) - \frac{1}{N_2}\left((N_2-j) - \frac{jI_{N_2-j, j+1}^{-1}(x)}{1-I_{N_2-j, j+1}^{-1}(x)}\right)\\
-	&= j\left( \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))}\right).
-\end{align*}
-We have that $m(0) = m(1) = 0$, and $m^\prime(0) < 0$. 
-
-\begin{center}
-	\LARGE EDITED UP TO HERE
-\end{center}
-
-
-Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. In details, 
-
-for $\forall \epsilon_1 > 0$ and $\forall \epsilon_2 > 0$, we can find $x \in (0,1)$ that satisfies $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x) - \epsilon_1$ and $1 - x > \epsilon_2$. We choose the $\epsilon = min(\epsilon_1, \epsilon_2)$
-
-Then we can find $x > I_{N_2-j, j+1}^{-1}(1 + \frac{\epsilon}{(n_2 - N_2) / n_2})$, 
-
-\begin{align*}
-	\frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  &- \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2(1 - I_{n_2-j, j+1}^{-1}(x)) - N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	&> \frac{(n_2 - N_2)(1 - I_{N_2-j, j+1}^{-1}(x)) + n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	&> \frac{(n_2 - N_2)(-\frac{\epsilon}{(n_2 - N_2) / n_2})+ n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	& > 0
-\end{align*}
-
-Therefore, $\lim_{x\rightarrow 1} m^\prime(x)> 0$. 
-
-Define $$w_{n_2, N_2}(x) = \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2w_1{x} - N_2w_2{x}}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}$$
-
-where $w_1(x) = 1 - I_{n_2-j, j+1}^{-1}(x)$, $w_2(x) = 1 - I_{N_2-j, j+1}^{-1}(x)$
-
-Since $w_1(x) > w_2(x)$ and $w_2(x)$ decays slower than for $w_2(x)$ for $x \in (0,1)$. Also, we know $w_{n_2, N_2}(0) <0 $.
-
-Thus, $m(x) < 0$ for $x \in (0,1)$. 
-
-Now we show $r(x)$ is a decreasing function that ranges from 0 to 1. 
-
-Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
-$$
-r(x^*) = \frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
-$$
-where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-
-Then, based on the property of $r(x)$, $x^*$ is the unique value that satisfies the $r(x^*) = c$. 
-
-We can conclude $f(x) \geq 0$ for all $x \in (0,1)$.
-
-
-\vspace{2cm}
-
-\textbf{Is this needed}: Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
-$$
-\frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
-$$
-where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-
-\vspace{2cm}
-
-%If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ for all $x \in (0,1)$ since $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$.
-
-
-
-
-
-
-
-
-
+Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
 \end{proof}
 
 
 
 
 
-%\begin{proof}
-%We can use the convenient representation of \eqref{eq:pararep} since the conditions of Lemma~\ref{lemma:rep} hold. Thus, we have 
-%	\begin{align*}
-%	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) = \Prob\left( X_{2,(1)} < X_{1,(1)}  < h_{1,2}\left(X_{2,(1)}\right)\right) \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(1)}}(y)\ dy\right] \ f_{X_{2,(1)}}(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{h_{1,2}(x)} N_1 (1-F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1-F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1}(1 - (1 - F_X(x))^{\frac{N_2}{N_1}\frac{n_1}{n_2}})} N_1 (1 - F_X(y))^{N_1-1}\ f_X(y)dy\right] \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_{-\infty}^{+\infty} -((1 - F_X(x))^{N_2\frac{n_1}{n_2}} + (1-F_X(x))^{N_1}) \ N_2 (1 - F_X(x))^{N_2-1}\ f_X(x) \ dx \\
-%	&= \int_0^1 -(1 - t)^{\frac{n_1}{n_2}} + (1-t)^{\frac{N_1}{N_2}} \ dt \\
-%	&= \frac{N_2}{N_1 + N_2} - \frac{n_2}{n_1 + n_2},
-%\end{align*}
-%where 
-%\begin{align*}
-%	h_{1,2}(x) 
-%	= F_X^{-1}(1-(F_Y(F_Y^{-1}((1 - F_X)^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
-%	= F_X^{-1}(1 - (1 - F_X)^{\frac{N_2}{N_1}\frac{n_1}{n_2}})(x).
-%\end{align*}
-%\end{proof}
-
-%We verify Corollary~\ref{corollary:samedistbottom} with a Monte Carlo simulation. In each simulation, we first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the standard normal distribution, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 10 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency. 
-
-%\begin{table}[htb!]
-%\centering
-%\scalebox{0.7}{
-%\begin{tabular}{c|c|c}
-%  \hline
-% & Prob from Corollary~\ref{corollary:samedistbottom} & Prob from simulation \\ 
- % \hline
-%$n_1 = 400, n_2 = 600, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-%$n_1 = 300, n_2 = 700, N_1 = 1e6, N_2 = 1e6$ & 0 & 0 \\
-%$n_1 = 600, n_2 = 400, N_1 = 1e6, N_2 = 1e6$ & 0.1 & 0.0937 \\
-%$n_1 = 700, n_2 = 300, N_1 = 1e6, N_2 = 1e6$ & 0.2 & 0.2006  \\
-%   \hline
-%\end{tabular}
-%}
-%\caption{Simulation result to validate the Corollary~\ref{corollary:samedistbottom} about the probability of paradox}
-%\label{Tab:simulation_min}
-%\end{table}
 
 
-%\begin{corollary}
-%If we assume 
-%\begin{align*}
-%  Y_{i,j} &\sim F_Y(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_1, \\
-%  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
-%\end{align*}
-%where $F_Y^{-1}(y)$ and $F_X^{-1}(x)$ are assumed to exist. Then,
-%\begin{align*}
-%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2-k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) \\
-%  &= \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
-%\end{align*}
-%\end{corollary}
-
-%\begin{proof}
-%	\begin{align*}
-%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2 - k)}, Y_{1,(n_1)} < Y_{2,(n_2 - k)}\right) = \Prob\left( X_{2,(N_2 - k)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2 - k)}\right)\right) \\
-%	& = \int_0^1 g_{n_1, k}g_{n_2, 0}^{-1}(t) - g_{N_1, k}g_{N_2, 0}^{-1}(t) \ dt \\
-%	& = \int_0^1 g_{n_1, k}(t^{\frac{1}{n_2}}) - g_{N_1, k}(t^{\frac{1}{N_2}}) \ dt \\
-%	& = \int_0^1 \int_0^{t^{\frac{1}{n_2}}} \frac{n_1!}{(n_1 - k-1)!}x^{n_1 - k - 1}(1-x)^{k} dx -  \int_0^{t^{\frac{1}{N_2}}} \frac{N_1!}{(N_1 - k-1)!}x^{N_1 - k - 1}(1-x)^{k} dx\ dt \\
-%	& = \int_0^1 \frac{n_1!}{(n_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{n_1 - k + i}t^{\frac{n_1 - k + i}{n_2}} - \frac{N_1!}{(N_1 - k-1)!}\sum_{i=0}^k \frac{{k \choose i}}{N_1 - k + i}t^{\frac{N_1 - k + i}{N_2}} dt \\
-%	& = \sum_{i=0}^k\frac{n_1!}{(n_1 - k-1)!} \frac{{k \choose i}}{(n_1 - k + i)}\frac{n_2}{(n_1 - k + i + n_2)} - \frac{N_1!}{(N_1 - k-1)!}\frac{{k \choose i}}{(N_1 - k + i)}\frac{N_2}{(N_1 - k + i + N_2)}
-%	\end{align*}
-
-%\end{proof}
 
 \section{Paradox Under Different Distribution}
 \label{sec:diffdist}
@@ -1320,6 +955,226 @@ We compute the talent scores for the batting average in each season using the (\
 
 \section*{Supplemental Results}
 
+
+\begin{lemma}\label{lemma:monotonicity}
+Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I_{\alpha, \beta}(x)$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$.
+\end{lemma}
+
+\begin{center}
+	\textbf{Need to fix notation; should be $I_{\alpha,\beta}(x)$}
+\end{center}
+
+\begin{proof}
+We can define a function $f_{n,j}(x)$ as
+\begin{align*}
+  f_{n,j}(x) & = I_{n-j, j+1}(\xn) - I_{n-j+1, j+1}(\xnone) \\
+  &= \int_0^{\xn}\frac{y^{n-j-1}(1-y)^j}{B(n-j,j+1)}dy 
+    - \int_0^{\xnone}\frac{y^{n-j}(1-y)^j}{B(n-j+1,j+1)}dy.
+\end{align*}
+An application of the chain rule yields 
+\begin{align*}
+  &f_{n,j}^\prime(x) = \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n+1)B(n-j+1,j+1)} \\
+  &= \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{nB(n-j,j+1)} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{(n-j)B(n-j,j+1)} \\    
+  &= \frac{1}{B(n-j,j+1)}\left(\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    - \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j}\right),
+\end{align*}
+where we used $B(n-j+1,j+1) = \frac{n-j}{n+1}B(n-j,j+1)$ in the second equality. Now define $A_{n,j} = \{x:f_{n,j}^\prime(x) \geq 0\}$. For $x \in A_{n,j}$ we have
+\begin{align*}
+	&\frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{n} 
+    \geq \frac{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)}{n-j} \\
+    &\qquad\implies \frac{\left(\xn\right)^{n-j-1}\left(1-\xn\right)^j\left(x^{\frac{1-n}{n}}\right)}{\left(\xnone\right)^{n-j}\left(1-\xnone\right)^j\left(x^{-\frac{n}{n+1}}\right)} \geq \frac{n}{n-j} \\
+    &\qquad\implies x^{-\frac{j}{n(n+1)}}\left(\frac{1-\xn}{1-\xnone}\right)^j \geq \frac{n}{n-j} \\
+    &\qquad\implies \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} \geq \left(\frac{n}{n-j}\right)^\frac{1}{j}.
+\end{align*}
+Define $g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone}$. Then 
+\begin{align*}
+	g_n(x) = \frac{x^{-\frac{1}{n(n+1)}}-\xnone}{1-\xnone} = \frac{x^{-\frac{1}{n(n+1)}} - 1}{1-\xnone} + 1,
+\end{align*}
+and
+\begin{align*}
+	g^{'}_n(x) &= \frac{1}{(1-\xnone)^2}\left(-\frac{1}{n(n+1)}x^{-\frac{1}{n(n+1)}-1}(1-\xnone) - (x^{-\frac{1}{n(n+1)}} - 1)(-\frac{1}{n+1}x^{\frac{1}{n+1}-1})\right)\\
+	&= \frac{1}{(1-\xnone)^2}\left( \frac{1}{n}x^{-\frac{n^2+1}{n(n+1)}} - \frac{1}{n+1}x^{-\frac{n}{n+1}} - \frac{1}{n(n+1)}x^{-\frac{n^2 + n + 1}{n(n+1)}}\right)\\
+	&= \frac{x^{-\frac{n^2+1}{n(n+1)}}}{n(n+1)(1-\xnone)^2}\left((n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}\right).
+\end{align*}
+Now define $l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}$ and see that
+\begin{align*}
+	l^{'}_n(x) = -\frac{1}{n+1}x^{\frac{1}{n(n+1)} - 1} + \frac{1}{n+1}x^{-\frac{1}{n+1} - 1} = \frac{1}{n+1}x^{-\frac{n+2}{n+1}}\left( 1 - \xn \right).
+\end{align*}
+Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
+\end{proof}
+
+
+
+\begin{prop} \label{prop:condition2}
+Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$ where the system inclusion function is $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Let $I$ be a regularized incomplete beta function. In the notation of Theorem~\ref{theorem:samedistgeneral}, suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1 \geq 0$, and $k = j$. Then, technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.	
+\end{prop}
+
+\begin{proof}
+The conditions of this proposition allow us to express technical condition \eqref{eq:technical-condition} as 
+$$
+  f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
+$$
+Applications of the chain rule, the inverse function theorem \citep{rudin1964principles} on Page 221, and this property of regularized incomplete beta functions
+$$
+  I^\prime_{\alpha,\beta}(I^{-1}_{\alpha,\beta}(x)) = \frac{I^{-1}_{\alpha,\beta}(x)^{\alpha-1}(1 - I^{-1}_{\alpha,\beta}(x))^{\beta-1}}{B(\alpha,\beta)}, 
+$$
+allow us to write 
+\begin{align*}
+	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
+	&\qquad= \frac{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_1-j,j+1)}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_2-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_2-j,j+1)} \\
+	&\qquad\qquad - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_1-j,j+1)}{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_2-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_2-j,j+1)}\\
+	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
+	&\qquad= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2} \\
+	&\qquad= \left(I_{n_2-j,j+1}^{-1}(x)\right)^{n_1-n_2}\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)} \\ 
+	&\qquad\qquad \times\left[ \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}\right]
+\end{align*}
+From here we see that $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$, and when $x = 1$, we have 
+\begin{align*}
+	&f^\prime_{n_1,n_2,N_1,N_2,j}(1) = \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
+	&\qquad= \frac{(n_1 - j)\dots(n_1)}{(n_2 - j)\dots(n_2)} - \frac{(N_1 - j)\dots(N_1)}{(N_2 - j)\dots(N_2)} \\
+	&\qquad\leq 0,
+\end{align*}
+from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
+%Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
+%\begin{align*}
+%	h(x) &= \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)} \\
+%	&= \frac{n_1N_2 - n_2N_1 - (n_1 + N_2 -n_2 - N_1 )x}{(n_2 - x)(N_2 - x)}
+%\end{align*}
+%Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$. 
+%Now, we show 
+%\begin{align*}
+%	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
+%	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
+%\end{align*}
+If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$ and ranges from 0 to 1, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ as desired.
+
+
+Define $r(x) = r_{n_1,n_2,N_1,N_2,j}(x) =\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$, and notice that 
+$$
+  r_{n_1,n_2,N_1,N_2,j}(x) = \left(\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{a}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)}\right)^b,
+$$
+where $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. The conditions of the proposition imply that $b \leq 0$ and $1 \leq a \leq \frac{N_2}{n_2}$. When $a = 1$ we have that $r(x) \in (0,1)$ since $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x)$. 
+
+Now let $s_a(x) = s_{n_2,N_2,a}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^a}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $a = \frac{N_2}{n_2}$, we have that 
+\begin{align*}
+	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
+\end{align*}
+Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
+
+\begin{center}
+	\textbf{Need to make coherent}
+\end{center}
+
+\vspace*{1cm}
+
+Since $I^{-1}_{\xn}(n-j, j+1) \in (0,1)$, then for any $a \in (1, \frac{N_2}{n_2})$, $s_a(x) \geq 1$, and this implies that $r(x) \in (0,1)$. 
+
+
+\vspace*{1cm}
+
+
+Then we show $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$
+
+\vspace*{1cm}
+
+\begin{center}
+	\textbf{Need to make coherent}
+\end{center}
+
+We can write 
+\begin{align*}
+	s^{\prime}_a(x) &= \frac{a(I_{N_2-j, j+1}^{-1}(x))^{a-1}I_{n_2-j, j+1}^{-1}(x)/I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x)) - (I_{N_2-j, j+1}^{-1}(x))^{a}/I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}{I_{n_2-j, j+1}^{-1}(x)^2} \\
+	&= T_a(x)\left(aI^{-1}_{n_2-j,j+1}(x)I^\prime_{n_2-j,j+1}(I^{-1}_{n_2-j,j+1}(x)) - I^{-1}_{N_2-j,j+1}(x)I^\prime_{N_2-j,j+1}(I^{-1}_{N_2-j,j+1}(x))\right) \\
+	&=  T_a(x)\left(a\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}\right),
+\end{align*}
+where 
+$$
+T_a(x) = T_{a,n_2,N_2,j}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^{a-1}}{I_{n_2-j, j+1}^{-1}(x)^2I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x))I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}. 
+$$
+Then, 
+\begin{align*}
+	s^{\prime}_{\frac{N_2}{n_2}}(x) 
+	&=  N_2T_{\frac{N_2}{n_2}}(x)\left(\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}\right).
+\end{align*}
+Now let 
+$$
+  m(x) = m_{n_2,N_2,j}(x) = \frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}.
+ $$
+We can write
+\begin{align*}
+	&m^{\prime}(x) = \frac{1}{n_2}\left(\frac{(n_2-j)I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^j\right. \\
+	&\qquad\qquad- \left.\frac{jI_{n_2-j, j+1}^{-1}(x)^{n_2-j}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^{j-1}\right) \\
+	&\qquad- \frac{1}{N_2}\left(\frac{(N_2-j)I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^j\right.\\
+	&\qquad\qquad- \left.\frac{jI_{N_2-j, j+1}^{-1}(x)^{N_2-j}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^{j-1}\right) \\
+	&= \frac{1}{n_2}\left((n_2-j) - \frac{jI_{n_2-j, j+1}^{-1}(x)}{1-I_{n_2-j, j+1}^{-1}(x)}\right) - \frac{1}{N_2}\left((N_2-j) - \frac{jI_{N_2-j, j+1}^{-1}(x)}{1-I_{N_2-j, j+1}^{-1}(x)}\right)\\
+	&= j\left( \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))}\right).
+\end{align*}
+We have that $m(0) = m(1) = 0$, and $m^\prime(0) < 0$. 
+
+\begin{center}
+	\LARGE EDITED UP TO HERE
+\end{center}
+
+
+Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. In details, 
+
+for $\forall \epsilon_1 > 0$ and $\forall \epsilon_2 > 0$, we can find $x \in (0,1)$ that satisfies $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x) - \epsilon_1$ and $1 - x > \epsilon_2$. We choose the $\epsilon = min(\epsilon_1, \epsilon_2)$
+
+Then we can find $x > I_{N_2-j, j+1}^{-1}(1 + \frac{\epsilon}{(n_2 - N_2) / n_2})$, 
+
+\begin{align*}
+	\frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  &- \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2(1 - I_{n_2-j, j+1}^{-1}(x)) - N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	&> \frac{(n_2 - N_2)(1 - I_{N_2-j, j+1}^{-1}(x)) + n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	&> \frac{(n_2 - N_2)(-\frac{\epsilon}{(n_2 - N_2) / n_2})+ n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
+	& > 0
+\end{align*}
+
+Therefore, $\lim_{x\rightarrow 1} m^\prime(x)> 0$. 
+
+Define $$w_{n_2, N_2}(x) = \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2w_1{x} - N_2w_2{x}}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}$$
+
+where $w_1(x) = 1 - I_{n_2-j, j+1}^{-1}(x)$, $w_2(x) = 1 - I_{N_2-j, j+1}^{-1}(x)$
+
+Since $w_1(x) > w_2(x)$ and $w_2(x)$ decays slower than for $w_2(x)$ for $x \in (0,1)$. Also, we know $w_{n_2, N_2}(0) <0 $.
+
+Thus, $m(x) < 0$ for $x \in (0,1)$. 
+
+Now we show $r(x)$ is a decreasing function that ranges from 0 to 1. 
+
+Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
+$$
+r(x^*) = \frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
+$$
+where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
+
+Then, based on the property of $r(x)$, $x^*$ is the unique value that satisfies the $r(x^*) = c$. 
+
+We can conclude $f(x) \geq 0$ for all $x \in (0,1)$.
+
+
+\vspace{2cm}
+
+\textbf{Is this needed}: Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
+$$
+\frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
+$$
+where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
+
+\vspace{2cm}
+
+%If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ for all $x \in (0,1)$ since $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$.
+
+
+
+
+
+
+
+
+
+\end{proof}
 
 \begin{prop} \label{prop:recursion}
 Suppose that conditions of Theorem~\ref{theorem:samedistgeneral} where the system inclusion function is $1_i(X_{i,j} \geq X_{(N_i - n_i + 1)})$, $i = 1,2$. Suppose that $n_2 \geq n_1 > 1$, $N_1 \geq N_2 > 1$, and fix $k=j$. Then condition~\eqref{eq:technical-condition} holds, and the conclusions of Theorem~\ref{theorem:samedistgeneral} follow.
