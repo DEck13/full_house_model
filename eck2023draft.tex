@@ -163,7 +163,7 @@ Let $\alpha,\beta > 0$. Then the regularized incomplete beta function is defined
 $$
   I_{\alpha,\beta}(x) = \frac{1}{B(\alpha,\beta)} \int_0^x u^{\alpha-1}(1-u)^{\beta-1}du,
 $$
-for $x \in (0,1)$, where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
+where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
 
 Note that the regularized incomplete beta function is the cumulative distribution function of a $\text{Beta}(\alpha,\beta)$ distribution. 
@@ -287,25 +287,24 @@ We now demonstrate a setting in which technical condition \eqref{eq:technical-co
 
 
 \begin{prop} \label{prop:condition}
-Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $n_1 \leq n_2$ and $N_1 \geq N_2$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
 \begin{proof}
 
 
-Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N + 1 - j$. Need to rectify notational inconsistencies.	
-
+Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. 
 \vspace{12pt}
 
-\textbf{Need to check and finish}: When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
+When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
 $$
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
-The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased, or $n_2$ or $N_1$ are decreased (I think we can state these with easy to find references/logic). Therefore, 
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
 $
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
 $
-whenever $\frac{n_1}{N_1}\frac{N_2}{n_2} \leq 1$. Observe that
+whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
 \begin{align*}
 &I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
 &\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
@@ -831,9 +830,150 @@ $$
 
 \end{proof}
 
+\begin{lemma}
+\label{lemma:derivative}
+	Supposed $\mathbf{X} \sim \mathcal{N}_{n}(\boldsymbol{\mu} = \boldsymbol{0}, \boldsymbol{\Sigma})$, $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$ are partitioned as follows, 
+	
+	$$
+\begin{aligned}
+& \boldsymbol{\mu}=\left[\begin{array}{l}
+\boldsymbol{\mu_1} \\
+\boldsymbol{\mu_2}
+\end{array}\right] =\left[\begin{array}{l}
+\boldsymbol{0} \\
+\boldsymbol{0}
+\end{array}\right] \text { with sizes }\left[\begin{array}{c}
+1 \times 1 \\
+(n-1) \times 1
+\end{array}\right] \\
+& \boldsymbol{\Sigma}=\left[\begin{array}{ll}
+\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\
+\boldsymbol{\Sigma}_{21} & \boldsymbol{\Sigma}_{22}
+\end{array}\right] \text { with sizes }\left[\begin{array}{cc}
+1 \times 1 & 1 \times(n-1) \\
+(n-1) \times 1 & (n-1) \times(n-1)
+\end{array}\right]
+\end{aligned}
+$$
+
+Denote $\mathbf{y} = (y_1, y_2, \dots, y_n)$ and $\mathbf{y}_{-1} = (y_2, \dots, y_n)$
+	
+	then $$
+	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(\tilde{\mathbf{y}}, \tilde{\boldsymbol{\Sigma}})
+	$$
+	
+	where $$\tilde{\mathbf{y}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1 $$
+	
+	and 
+	
+	$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}$$
+	
+	Also, 
+	
+	$$
+	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j)
+	$$
+	where $i \neq j$
+\end{lemma}
+
+\begin{proof}
+	$$
+	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(X_2 = y_2, \dots, X_n = y_n | X_1 = y_1)
+	$$
+	
+	Then
+	
+	$$
+	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j)
+	$$
+	where $i \neq j$
+	
+	$\mathbf{\Phi_{\mathbf{X_{n-1}}}}(X_2 = y_2, \dots, X_n = y_n | X_1 = y_1)$ is also a multivariate normal distribution with adjusted mean and covariance. Then using the Schur complement, 
+	
+	$$\tilde{\mathbf{\mu}} = \boldsymbol{\mu}_2 + \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}(y_1 -  \boldsymbol{\mu}_1) = \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1$$
+	
+	$$\tilde{\mathbf{y}} = \mathbf{y}_{-1} - \tilde{\mathbf{\mu}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1  $$
+	
+	and 
+	
+	$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}$$
+	
+\end{proof}
+
+Supposed $\hat{\mu}_1, \hat{\mu}_2$ and $\hat{\sigma}_1$ are root sample-size consistent estimator, which indicates 
+
+$$
+|\hat{\mu}_1 - \mu_1 | = Op(n_1^{-1/2}), 
+$$
+
+$$
+|\hat{\mu}_2 - \mu_2 | = Op(n_2^{-1/2}), 
+$$
 
 
+$$
+|\hat{\sigma}_1 - \sigma_1 | = Op(n_1^{-1/2}), 
+$$
 
+Then supposed $\hat{\theta} = \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}$, $\theta = \frac{\mu_2 - \mu_1}{\sigma_1}$, $\boldsymbol{\hat{\theta}} = (\hat{\theta}, \dots, \hat{\theta}, 0, \dots, 0)$ and $\boldsymbol{\theta} = (\theta, \dots, \theta, 0, \dots, 0)$ then by applying the multivariate version of Taylor's theorem
+
+\begin{align*}
+	&F_{\mathbf{W}}(\mathbf{w} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)) - F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) \\
+	&\qquad= F_{\mathbf{W}}(\mathbf{w} = \boldsymbol{\hat{\theta}}) - F_{\mathbf{W}}(\mathbf{w} = \boldsymbol{\theta}) \\
+	&\qquad\approx (\frac{\partial}{\partial w_1}\mathbf{\Phi_{W_{n_1+n_2-1}}}, \dots,\frac{\partial}{\partial w_{n_1+n_2-1}} \mathbf{\Phi_{W_{n_1+n_2-1}}}) \cdot (\boldsymbol{\hat{\theta}} -  \boldsymbol{\theta})^{T} \\
+	&\qquad+ (\boldsymbol{\hat{\theta}} -  \boldsymbol{\theta}) \cdot 
+\begin{bmatrix}
+\frac{\partial^2}{\partial w_1^2}\mathbf{\Phi_{W_{n_1+n_2-1}}} & \hdots & \frac{\partial^2}{\partial w_1\partial w_{n_1+n_2-1}}\mathbf{\Phi_{W_{n_1+n_2-1}}} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial^2}{\partial w_{n_1+n_2-1}\partial w_1}\mathbf{\Phi_{W_{n_1+n_2-1}}} & \dots & \frac{\partial^2}{\partial w_{n_1+n_2-1}^2}\mathbf{\Phi_{W_{n_1+n_2-1}}}\\
+\end{bmatrix} \cdot (\boldsymbol{\hat{\theta}} -  \boldsymbol{\theta})^{T} \\
+	&\qquad= \sum_{i=1}^{n_1}\frac{\partial}{\partial w_i}\mathbf{\Phi_{W_{n_1+n_2-1}}} \cdot (\hat{\theta} - \theta) + \frac{1}{2} \sum_{i,j = 1}^{n_1} \frac{\partial^2}{\partial w_i\partial w_j}\mathbf{\Phi_{W_{n_1+n_2-1}}} \cdot (\hat{\theta} - \theta)^2
+\end{align*}
+
+Considering the structure of $\boldsymbol{\Sigma}$ and applying the Lemma \ref{lemma:derivative}, 
+
+\begin{align*}
+	&F_{\mathbf{W}}(\mathbf{w} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)) - F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) \\
+	&\qquad= n_1\phi_{W_1}(\theta) \cdot \mathbf{\Phi_{\mathbf{W_{n_1+n_2-2}}}}(W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta)(\hat{\theta} - \theta)\\
+	&\qquad + \frac{1}{2} n_1^2\phi_{W_1}(\theta)\phi_{W_2}(\theta) \cdot \\
+	&\qquad \mathbf{\Phi_{\mathbf{W_{n_1+n_2-3}}}}(W_3 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta)(\hat{\theta} - \theta)^2
+\end{align*}
+
+Notice that 
+
+\begin{align*}
+	&\mathbf{\Phi_{\mathbf{W_{n_1+n_2-2}}}}(W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta) \\
+	&\qquad = \mathbf{\Phi}_{W_{n_1+n_2-2}}(W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-2} = 0) \times \dots \\
+	&\times \mathbf{\Phi}_{W_{1}}(W_2 = \theta| W_1 = \theta)
+\end{align*}
+
+\begin{align*}
+	W_{max} &= \max \bigg\{ \mathbf{\Phi_{\mathbf{W_{n_1+n_2-2}}}}(W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, \\
+	&\qquad W_{n_1+n_2-2} = 0), \dots , \mathbf{\Phi_\mathbf{W_1}}(W_2 = \theta| W_1 = \theta) \bigg\}
+\end{align*}
+
+where $W_{max} \in (0,1)$
+
+Then 
+\begin{align*}
+	&F_{\mathbf{W}}(\mathbf{w} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)) - F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) \\
+	&\qquad= n_1\phi_{W_1}(\theta) \cdot \mathbf{\Phi_{\mathbf{W_{n_1+n_2-2}}}}(W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta)(\hat{\theta} - \theta)\\
+	&\qquad + \frac{1}{2} n_1^2\phi_{W_1}(\theta)\phi_{W_2}(\theta) \cdot \\
+	&\qquad \mathbf{\Phi_{\mathbf{W_{n_1+n_2-3}}}}(W_3 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta)(\hat{\theta} - \theta)^2\\
+	&\qquad \leq n_1\phi_{W_1} W_{max}^{n_1+n_2-2}(\hat{\theta} - \theta) + n_1^2\phi_{W_1}(\theta)\phi_{W_2}(\theta)W_{max}^{n_1+n_2-3}(\hat{\theta} - \theta)^2
+\end{align*}
+
+Suppose the $n = \min \big\{ n_1, n_2 \big\}$, 
+
+$$
+|\hat{\theta} - \theta | = Op(n^{-1/2}), 
+$$
+
+The asymptotic convergence rate of $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)$ is $Op(n^{\frac{3}{2}} \cdot r^{2n})$
+
+\begin{align*}
+	\Phi(\hat{w}, \hat{\Sigma}) - \Phi(w, \Sigma) &= \frac{\partial\Phi(w, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(w, \Sigma)}{\partial\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(w, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) + \frac{\partial\Phi(w, \Sigma)}{\partial\partial\sigma_2}(\hat{\sigma_2} - \sigma_2)
+\end{align*}
 
 \section{Examples}
 
