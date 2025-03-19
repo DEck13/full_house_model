@@ -1186,13 +1186,13 @@ Similarly,
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
 	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\
-	&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
+	&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
 	&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
 
 \begin{align*}
 	& \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2}\right)\\
-	& = OP(n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-2} + n_2^{\frac{3}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}n_2w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2^2w_{max}^{n_1+n_2-3} + n_1^{2}n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{3}{2}}w_{max}^{n_1+n_2-3})
+	& = OP(n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-2} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}n_2w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2^2w_{max}^{n_1+n_2-3} + n_1^{2}n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{3}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
 
 \section{Examples}
