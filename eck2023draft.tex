@@ -51,7 +51,7 @@
 \newtheorem{defn}[theorem]{Definition}
 \allowdisplaybreaks
 
-\title{Foundations of Full House Methodology}
+\title{A Formal Investigation of Paradoxes Between Latent Aptitude and Observed Achievement via Full House Methodology}
 \author{Daniel J. Eck$^1$, Shen Yan$^1$\thanks{Daniel J. Eck (\url{dje13@illinois.edu}); email addresses: Shen Yan (\url{shenyan3@illinois.edu})}}
 
 \date{}
@@ -65,21 +65,15 @@
 
 
 \begin{abstract}
-The Full House Methodology is an approach for computing era-adjusted or system-adjusted statistics that balances the size of the source population in each system with the component's performance via "versus their peers" in a specific system. We assume that each component has a latent aptitude that can be calculated from this balancing act provided the system inclusion mechanism for components of the system is known. Without making any assumptions about the distribution of the system's components, the components' distribution is well-established from the nonparametric probability distribution.
 
 \end{abstract}
 
 \section{Introduction}
 
-Several academics have attempted to develop methods that can correct for era or system biases. The starting place for the answer to the problem of comparing players across eras can be found in the work of Stephen Jay Gould. \cite{Gould96} suggested that the entire distribution of achievement, or ``full house of variation,'' is relevant when considering the achievements of baseball players across eras. This idea was also recognized as the starting place for an answer by \cite{SM13} and \cite{SM16}. 
+Full House Modeling provides a novel foundation for comparative analysis of individuals evaluated across differing contexts. This foundation originated in an analysis comparing baseball players across eras \citep{yan2025fullhouse}. The historical significance of this analysis was further studied and presented in \cite{burgos2025change}. In baseball these analyses are game changing and gaining traction in the broader baseball analytics community. 
+Full House Modeling was expanded upon in an investigation of the impact of historical figures \citep{cohen2025contextualizing}. \textbf{needs to be edited and made much more interesting}
 
-\cite{BRL99, PPE11, SM13, SM16, PP20} provide several techniques to compare baseball players across eras, but they have fallen short in their objective and their results remain biased, as discussed in \cite{DE20} and \cite{DE20b}. In short, these previous attempts do not incorporate the evolving talent pool in calculations, which is necessary for understanding the changing distributions of achievement over time. The result is that existing methodologies produce a disproportionate number of players who began their career before baseball was integrated players in the rankings of baseball's greatest of all time. This era of baseball did not include a crucial population of eligible players. \cite{YZ16, meyer2021talents, campbell1990modeling} also develop methods for comparing components in historical popularity, educational attainment, and evaluation of employees. But they have similar problems as stated before and fail to account for the evolving talent pool.
-
-In some circumstances, such as test equating, it is not required to take into account an evolving talent pool. \cite{andersson2013performing} offers a collaborative framework for test equating and builds the cumulative density function using the kernel method. Nevertheless, they are unable to resolve the extrapolation issue in non-parametric estimation, and the distribution's tail is not given special consideration.
-
-Our Full House methodology directly incorporates the quality of the talent pool as a central modeling component. It offers metrics for assessing the performance of components in various eras or systems. With the application of educational attainment simulation, our Full House methodology reveals that the most talented students could perform worse than the other students who attend schools with lower mean scores. 
-
-The next section establishes the model setting and specifies the assumptions in our Full House methodology. Section 3 considers an intriguing paradox that the component with more talent underperforms the component with less talent. We compute the probability of this paradox under different scenarios. Section 4 discusses the application of the Full House methodology for the educational attainment simulation. 
+In this article we formalize Full House Methodology. Under this formalization we study probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analyses between individuals being compared across contexts. Here, the paradox is that an individual from one context can have higher aptitude and simultaneous lower observed achievement than an individual from another context. We provide explicit probabilities of these paradoxes in two settings: 1) when observed achievement is independent and identically distributed (iid); 2) when the observed statistics across contexts follow different normal distributions but are still independent. We also study bounds to the paradoxes in more general settings. We also demonstrate that when observed achievement is normally distributed, the paradox probabilities can be reliably estimated via plug-in.  
 
 
 \section{Model Setting}
@@ -323,6 +317,10 @@ Technical condition \eqref{eq:technical-condition} holds and the conclusion of T
 \section{Paradox Under Different Distribution}
 \label{sec:diffdist}
 
+
+\subsection{General bounds}
+
+
 \begin{defn}
 We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
 $
@@ -394,376 +392,60 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
 
 
 
-\noindent\textbf{Example: Uniform distributions}. In this example we demonstrate a case where Prop~\ref{prop:weakstodom} applies, but we can explicitly calculate the paradox probability. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
-\begin{align*}
-  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
-  Y_{2,j} &\sim U(0,1+\delta), \qquad j = 1,\ldots,n_2, \\
-  X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
-\end{align*} 
-where $\delta > 0$. We can pick $\varepsilon = \delta/(1 + \delta)$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Prop~\ref{prop:weakstodom} are satisfied. However, our setup allows for direct calculation of the paradox probability. From Lemma~\ref{lemma:rep} and a bit of manipulation, we have that 
+\subsection{Normal distributions}
 
-\begin{theorem} \label{theorem:uniformgeneral}
-
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  = \begin{cases}
-      \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}, & \text{if}\ \frac{n_1}{N_1} \geq \frac{n_2}{N_2} \\
-      \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - \\\frac{n_2}{n_1+n_2}(1+\delta)^{n_1}d^\frac{(n_1 + n_2)N_2}{n_2} + \frac{N_2}{N_1+N_2}d^{(N_1 + N_2)}, & \text{otherwise}
-    \end{cases}.
-\end{align*}
-
-\end{theorem}
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 F_X(y)^{N_1-1}f_X(y)\ dy \ N_2 F_X(x)^{N_2-1}f_X(x)\ dx \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x)} N_1 F_X(y)^{N_1-1}f_X(y)\ dy \ N_2 F_X(x)^{N_2-1} f_X(x)\ dx \\
-%  &= \int_{-\infty}^{+\infty} (((1+\delta)F_X(x)^{\frac{N_2}{n_2}})^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}f_X(y)\ dx \\
-%  &= \int_{0}^{1} (1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}} \ dt \\
-%  & = \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1} - \frac{N_2}{N_1 + N_2}.
-%  \end{align*}
-
-%where 
-
-%\begin{align*}
-%	h_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
-%	= F_X^{-1}((F_{Y_1}(F_{Y_2}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)
-%	= F_X^{-1}(((1+\delta) F_X^{\frac{N_2}{n_2}})^\frac{n_1}{N_1})(x).
-%\end{align*}
-
-%1st transformation:
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( Y_{1,(n_1)} < Y_{2,(n_2)}  < t_{1,2}\left(Y_{1,(n_1)}\right)\right) \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} f_{Y_{2,(n_2)}}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{t_{1,2}(x)} n_2 F_{Y_2}(y)^{n_2-1}f_{Y_2}(y)\ dy \ f_{Y_{1,(n_1)}}(x) \ dx  \\
-%  &= \int_{-\infty}^{+\infty}\int_{x}^{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta)} d(\frac{y}{1+\delta})^{n_2} \ f_{Y_{1,(n_1)}}(x) \ dx \\
-%  &= \int_{-\infty}^{+\infty} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-%  \end{align*}
-
-%The support for the integral above is $\{x \in (0,1)\} \cup \{x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta) > x\}$, which implies the support is $$\begin{cases}
-%      (0,1), & \text{if}\ \frac{n_1}{N_1} \leq \frac{n_2}{N_2} \\
-%%      ((1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}, 1), & \text{otherwise}
-%    \end{cases}.$$
-
-%Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-%  & = \int_{0}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
-%  & = \int_{0}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
-%  & = \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
-%  \end{align*}
-
-%Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2}\ f_{Y_{1,(n_1)}}(x) \ dx  \\
-%  & = \int_{c}^{1} x^{\frac{n_1}{N_1}{N_2}} - (\frac{x}{1+\delta})^{n_2} \ dx^{n_1}  \\
-%  & = \int_{c^{n_1}}^{1} t^{\frac{N_2}{N_1}} - t^{\frac{n_2}{n_1}} (\frac{1}{1+\delta})^{n_2} \ dt  \\
-%  & = \frac{N_1}{N_1 + N_2} (1 - c^{\frac{(N_1 + N_2)n_1}{N_1}})- (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}(1 - c^{n_1 + n_2})\\
-%  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2} - \frac{N_1}{N_1 + N_2} c^{\frac{(N_1 + N_2)n_1}{N_1}} + (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}c^{n_1 + n_2}
-%  \end{align*}
-
-%where 
-
-%\begin{align*}
-%	t_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
-%	= F_{Y_2}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_1}^{\frac{n_1}{N_1}})))^{\frac{N_2}{n_2}})(x)
-%	= x^{\frac{n_1}{N_1}\frac{N_2}{n_2}}(1+\delta).
-%\end{align*}
-
-%2nd transformation
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( h_{1,2}(Y_{2,(n_2)}) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
-%  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} f_{Y_{1,(n_1)}}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx \\
-%  &= \int_{-\infty}^{+\infty}\int_{h_{1,2}(x)}^{x} n_1 F_{Y_1}(y)^{n_1-1}f_{Y_1}(y)\ dy \ f_{Y_{2,(n_2)}}(x) \ dx  \\
-%  &= \int_{-\infty}^{+\infty}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx \\
-%\end{align*}
-
-%The support for the outer integration above is $\{x \in (0,1+\delta)\} \cup \{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}} < x\}$, and the support of inner integration is $(0,1)$. 
-
-%Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-%  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
-%  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
-%  &= \int_{0}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-%  &= \int_{0}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-%  &= \int_{0}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{0}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
-%  &= \int_{0}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{0}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
-%  &= \frac{n_2}{n_1 + n_2}(\frac{1}{1+\delta})^{n_2} + 1 - (\frac{1}{1+\delta})^{n_2} - \frac{N_2}{N_1 + N_2}\\
-%  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
-%  \end{align*}
-
-%Therefore, when $\frac{n_1}{N_1} > \frac{n_2}{N_2}$, and let $c = (1+\delta)^\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}$
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-%  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
-%  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
-%  &= \int_{c}^{1}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{x} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}\int_{(\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}}^{1} d(y^{n_1}) \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-%  &= \int_{c}^{1}x^{n_1} - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx  + \int_{1}^{1+\delta}1 - (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ f_{Y_{2,(n_2)}}(x) \ dx\\ 
-%  &= \int_{c}^{1}x^{n_1} \ d(\frac{x}{1+\delta})^{n_2} + \int_{1}^{1+\delta}1 \ d(\frac{x}{1+\delta})^{n_2} - \int_{c}^{1+\delta} (\frac{x}{1+\delta})^{\frac{N_1}{N_2}n_2} \ d(\frac{x}{1+\delta})^{n_2}\\ 
-%  &= \int_{(\frac{c}{1+\delta})^{n_2}}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} \ dt + \int_{(\frac{1}{1+\delta})^{n_2}}^{1}1 \ dt - \int_{(\frac{c}{1+\delta})^{n_2}}^{1} t^{\frac{N_1}{N_2}} \ dt\\ 
-%  &= \frac{n_2}{n_1 + n_2}(1+\delta)^{n_1}((\frac{1}{1+\delta})^{n_1+n_2} - (\frac{c}{1+\delta})^{n_1+n_2}) + 1 - (\frac{1}{1+\delta})^{n_2} \\
-%  &- \frac{N_2}{N_1 + N_2}(1-(\frac{c}{1+\delta})^{\frac{n_2(N_1 + N_2)}{N_2}})\\
-%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} -  \frac{n_2}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
-%  &+ \frac{N_2}{N_1+N_2}(\frac{c}{(1+\delta)})^{c}\\
-%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - (1 - \frac{n_1}{n_1+n_2})(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} \\
-%  &+ (1 - \frac{N_1}{N_1+N_2})((1+\delta)^{\frac{1}{1-\frac{n_1}{N_1}\frac{N_2}{n_2}}-1})^{\frac{n_2(N_1 + N_2)}{N_2}}\\
-%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - (\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2}\\
-%  &- \frac{N_1}{N_1+N_2}(1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1} + (1+\delta)^\frac{n_1n_2(N_1+N_2)}{N_1n2-N2n1}\\
-%  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} + \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2}c^{n_1 + n_2} - \frac{N_1}{N_1+N_2}c^\frac{n_1(N_1 + N_2)}{N_1}
-%    \end{align*}
-
-%where 
-
-%\begin{align*}
-%	h_{1,2}(x) = (f_1^{-1} \circ f_2)(x)
-%	= F_{Y_1}^{-1}((F_{X}(F_{X}^{-1}(F_{Y_2}^{\frac{n_2}{N_2}})))^{\frac{N_1}{n_1}})(x)
-%	= (\frac{x}{1+\delta})^{\frac{n_2}{N_2}\frac{N_1}{n_1}}.
-%\end{align*}
-
-\begin{proof}
-	
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (0,1) \right)  \\
-  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}, Y_{2,(n_2)} \in (1,1 + \delta) \right) \\
-  &= \Prob\left(X_{2,(N_2)} < X_{1,(N_1)} < f_{1,2}(X_{2,(N_2)}), F_X(X_2)^{\frac{N_2}{n_2}}(1+\delta) \in (0,1) \right)  \\
-  & + \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, F_X(X_2)^{\frac{N_2}{n_2}}(1+\delta) \in (1,1 + \delta) \right) \\
-  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
-  &+ \int_{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}^{+\infty}\int_{x}^{+\infty} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
-  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  \end{align*}
-
-The support for the outer integration above is $\{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}}) > x\} \cup \{ x <  F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2}) \}$.
-
-Therefore, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, 
-
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \int_{-\infty}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}(F_X(x)^\frac{N_2}{n_2}(1+\delta))^{n_1} -  F_X(x)^{N_1}\  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \int_{0}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}}\  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \frac{N_1}{N_1 + N_2} - (\frac{1}{1+\delta})^{n_2}\frac{n_1}{n_1 + n_2}
-  \end{align*}
-  
-Therefore, when $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$, and let $d = (1+\delta)^\frac{1}{\frac{N_1}{n_1} - \frac{N_2}{n_2}}$
-
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= \int_{F_X^{-1}(d)}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}\int_{x}^{F_X^{-1}((F_X(x)^\frac{N_2}{n_2}(1+\delta))^{\frac{n_1}{N_1}})} d(F_X(y)^{N_1}) \  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \int_{F_X^{-1}(d)}^{F_X^{-1}((\frac{1}{1+\delta})^\frac{n_2}{N_2})}(F_X(x)^\frac{N_2}{n_2}(1+\delta))^{n_1} -  F_X(x)^{N_1}\  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \int_{d^{N_2}}^{(\frac{1}{1+\delta})^{n_2}}(1+\delta)^{n_1}t^{\frac{n_1}{n_2}} - t^{\frac{N_1}{N_2}}\  d(F_X(x)^{N_2}) \\
-  &+ (1 - (\frac	{1}{1+\delta})^{n_2}) - \frac{N_2}{N_1 + N_2}(1 - (\frac{1}{1+\delta})^{\frac{n_2(N_1+N_2)}{N_2}}) \\
-  &= \frac{N_1}{N_1+N_2} - \frac{n_1}{n_1+n_2}(\frac{1}{(1+\delta)})^{n_2} - \frac{n_2}{n_1+n_2}(1+\delta)^{n_1}d^\frac{(n_1 + n_2)N_2}{n_2} + \frac{N_2}{N_1+N_2}d^{(N_1 + N_2)}
-    \end{align*}
-\end{proof}
-
-Here we see that the probability of paradox is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{n_1} - 1$ and we see that the probability of paradox is $1$ for extremely small values of $\delta$. 
-
-\begin{theorem}
-	Assume $g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1)$. Then 
-	
-\begin{align*}
-	\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) &\leq (1+\delta)^p\sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} \\
-&- 
-\sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
-\end{align*}
-
-\end{theorem}
-
-\begin{proof}
-	\begin{align*} \qedhere
-	&\Prob\left(X_{1,(N_1 - k)} > X_{2,(N_2 - j)}, Y_{1,(n_1 - k)} < Y_{2,(n_2 - j)}\right) = \Prob\left( X_{2,(N_2 - j)} < X_{1,(N_1 - k)}  < h_{1,2}\left(X_{2,(N_2 - j)}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} f_{X_{1,(N_1 - k)}}(y)\ dy\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[\int_{x}^{F_X^{-1} \circ g_{N_1,k}^{-1} \circ g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2,j}^{-1} \circ g_{N_2,j} \circ F_X(x)} d \ g_{N_1, k}(F_X(y))\right] \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \ f_{X_{2,(N_2 - j)}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left[g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1} \circ g_{N_2, j} \circ F_X(x) - g_{N_1, k} \circ F_X(x)\right]^+ \  d \ g_{N_2, j}(F_X(x))\\
-	&= \int_0^1 [g_{n_1, k} \circ F_{Y_1}\circ F_{Y_2}^{-1}\circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)]^+	 \ dt\\
-	&= \int_0^1 g_{n_1, k}((1+\delta)x) \ dg_{n_2, j}(x)- \int_0^1g_{N_1, k}(x) \ dg_{N_2, j}(x)\\
-	&= \int_0^1 I_{(1+\delta)x}(n_1-k, k+1) \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx - \int_0^1 I_x(N_1-k, k+1) \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
-	&= \int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right) ((1+\delta)x)^p(1-(1+\delta)x)^{n_1-p} \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx \\
-&- \int_0^1 \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
-&\leq (1+\delta)^p\int_0^1 \sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{n_2-j-1}(1-x)^{j}}{B(n_2-j, j+1)} \ dx \\
-&- \int_0^1 \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{N_2-j-1}(1-x)^{j}}{B(N_2-j, j+1)} \ dx\\
-&= (1+\delta)^p\sum_{p=n_1-k}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(n_2-j+p, n_1-p+j+1)}{B(n_2-j, j+1)} - \sum_{p=N_1-k}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(N_2-j+p, N_1-p+j+1)}{B(N_2-j, j+1)}
-\end{align*}
-\end{proof}
-
-%\noindent\textbf{Example: Uniform distributions}. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
-%\begin{align*}
-%  Y_{1,j} &\sim U(0,1), \qquad j = 1,\ldots,n_1, \\
-%  Y_{2,j} &\sim U(\varepsilon,1+\varepsilon), \qquad j = 1,\ldots,n_2, \\
-%  X_{i,j} &\sim U(0,1), \qquad j = 1,\ldots,N_i, \\
-%\end{align*}
-%where $\epsilon > 0$. A quick inspection reveals that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$, so Lemma~\ref{lem:weakstodom} applies. However, there is enough distributional specification to explicitly compute the paradox probability. The setup of this Full House Model gives $h_{1,2}(x) = (x^{N_2/n_2} + \varepsilon)^{n_1/N_1}$. This then gives,
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-%  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy\right] \ f_{X_{2,(N_2)}}(x) \ dx \\
-%  &= \int_{0}^{1}\left[\int_{x}^{h_{1,2}(x)} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1}\ dx \\
-%  &= \int_{0}^{1}\left[\int_{x}^{(x^{N_2/n_2} + \varepsilon)^{n_1/N_1}} N_1 y^{N_1-1}\ dy\right] \ N_2 x^{N_2-1} \ dx \\
-%  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} - x^{N_1}) \ N_2 x^{N_2-1}\ dx \\
-%  &= \int_{0}^{1} ((x^{N_2/n_2} + \varepsilon)^{n_1} \ N_2 x^{N_2-1}\ dx  - \frac{N_2}{N_1 + N_2} \\ 
-%  \end{align*}
-%\textbf{Not sure if this will work out, and if it does we may be able to avoid the Taylor expansion in the previous Lemma}  
-%%%Here we see that the paradox probability is $1$ for all $\delta \geq [2(n_1/n_2 + 1)]^{1/n_1} - 1$. When $n_1 \gg n_2$, then $[2(n_1/n_2 + 1)]^{1/n_1} - 1 \approx n_1^{1/n_1} - 1$ and we see that the paradox probability is $1$ for extremely small values of $\delta$. 
-
-
-\noindent\textbf{Example: Normal distributions}
-
-In this example, we demonstrate a case where Prop~\ref{prop:weakstodom} applies. Suppose that the system inclusion mechanism has the property that $g(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$, and we will consider the following Full House Model for two systems,
-\begin{align*}
-  Y_{1,j} &\sim N(\mu_1,\sigma_1^2), \qquad j = 1,\ldots,n_1, \\
-  Y_{2,j} &\sim N(\mu_2,\sigma_2^2), \qquad j = 1,\ldots,n_2, \\
-  X_{i,j} &\sim F_X(x), \qquad j = 1,\ldots,N_i, \\
-\end{align*} 
-where $\mu_1 \leq \mu_2, \sigma_1 > 0$ and $\sigma_2 >0$. 
-
-\begin{theorem} \label{theorem:normalgeneral}
-
-Assume $\Phi(\frac{\Phi^{-1}(t^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}} > t$ for all $t \in (0,1)$,
-
-%When $\sigma_1 = \sigma_2 = \sigma$,
-%	\begin{align*}
-%	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-%  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
-%\end{align*}
-
-%$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
-%2 & 1 & \dots & 1\\
-%1 & 2 & \ddots  & \vdots \\
-%\vdots & \ddots & \ddots & 1\\
-%1 & \dots & 1 & 2\\
-%\end{bmatrix}$$
-
-%The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
-
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}.
-\end{align*}
-
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
-
-$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
+In this example we demonstrate a case where explicit paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} additionally specifies that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
+\begin{equation}\label{eq:Sigma}
+\boldsymbol{\Sigma} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
 	\Sigma_{21} & \Sigma_{22}\\
-\end{bmatrix}$$
-
-$\Sigma_{11} = \begin{bmatrix}
+\end{bmatrix},
+\end{equation}
+defined with the following structure \\
+\begin{align}\label{eq:Sigmastructure}
+\begin{split}
+\Sigma_{11} = \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
 \vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
-\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
-\end{bmatrix}_{n_1 \times n_1}, 
-\Sigma_{12}^{T} = \Sigma_{21} = \begin{bmatrix}
+\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1 \\
+\end{bmatrix}_{n_1 \times n_1} \;\;
+&\Sigma_{12}^{T} = \Sigma_{21} = \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(n_2-1) \times n_1}$
-$$
-\Sigma_{22} = \begin{bmatrix}
+\end{bmatrix}_{(n_2-1) \times n_1} \\
+&\Sigma_{22} = \begin{bmatrix}
 2 & 1 & \hdots & 1\\
 1 & \ddots & \ddots & \vdots\\
 \vdots & \ddots & \ddots & 1\\
 1 & \hdots & 1 & 2\\
-\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
+\end{bmatrix}_{(n_2-1) \times (n_2-1)}
+\end{split}
+\end{align}
 
+\begin{theorem} \label{theorem:normalgeneral}
+
+Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Let $\Phi$ be the cumulative distribution function of the standard normal distribution and assume that $\Phi(\frac{\Phi^{-1}(t^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}} > t$ for all $t \in (0,1)$. Then,
+\begin{equation} \label{eq:paradoxnormal}
+\begin{split}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+	&\qquad= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2},	
+\end{split}
+\end{equation}
+where the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 \end{theorem}
 
+
 \begin{proof}
-	
-%Supposed $\sigma_1 = \sigma_2 = \sigma$, it is obvious to see $\Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y)$ and we can also find the $\varepsilon$ such that $\Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon$
-
-%\begin{align*}
-%	F_{Y_1}(y) - F_{Y_2}(y) &= \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x - \mu_1)^2}{2\sigma^2}}dx - \int_{-\infty}^y \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu_2)^2}{2\sigma^2}}dx\\
-%	&= \int_{y-\frac{\mu_2 - \mu_1}{2}}^{y+\frac{\mu_2 -\mu_1}{2}} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx
-%\end{align*}
-
-%Since $\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}$ is the density function for $N(\frac{\mu_2 +\mu_1}{2}, \sigma^2)$, then the maximum value of the difference between these two cumulative distribution function of the normal distribution is achieved when $y = \frac{\mu_2 + \mu_1}{2}$.
-
-%We can pick $\varepsilon = \int_{\mu_1}^{\mu_2} \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\frac{\mu_2 + \mu_1}{2})^2}{2\sigma^2}}dx$ so that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ with this choice of $\varepsilon$, and the conditions of Prop~\ref{prop:weakstodom} are satisfied.
-
-% However, our setup allows for direct calculation of the paradox probability. 
-
-
-%Let $Y_1 \sim N(0, \sigma)$ and $Y_2 \sim N(2\sigma, \sigma)$. Let 
-%$$
-%  a(y) = \frac{F_{Y_1}(y) - F_{Y_2}(y)}{2\sigma}.
-%$$ 
-%Then $a(y)$ is the density of a normal distribution with mean $\sigma$ and standard deviation $1 / \left(\sqrt{2\pi}a(\sigma)\right)$. \emph{This needs to be verified}.
-
-%From Lemma~\ref{lemma:rep} and a bit of manipulation, we have that 
-
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
- % &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
- % &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
- % &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
- % &= \int_{-\infty}^{+\infty} ((\Phi(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
- % &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
- % &= \int_{0}^{1}(\Phi(\Phi^{-1}(t^{\frac{1}{n_2}})+\frac{\mu_2 - \mu_1}{\sigma}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
- % &= \int_{-\infty}^{+\infty} \Phi(x+\frac{\mu_2 - \mu_1}{\sigma})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
- % &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \\
- % &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
- % &= n_2\mathbb{P}(Z_{1,1} -X \leq \frac{\mu_2 - \mu_1}{\sigma}, \dots, Z_{1,n_1}-X \leq \frac{\mu_2 - \mu_1}{\sigma}, Z_{2,1} -X\leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) - \frac{N_2}{N_1 + N_2}\\
- % &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma}, \dots, \frac{\mu_2 - \mu_1}{\sigma}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
- %\end{align*}
-  
-%where
-
-%\begin{align*}
-%	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-%	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-%	&= F_X^{-1}((\Phi(\Phi^{-1}(F_X^{\frac{N_2}{n_2}})-\frac{\mu}{\sigma}))^{\frac{n_1}{N_1}})(x)
-%	\end{align*}
-
-%$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix  $$\boldsymbol{\Sigma} = \begin{bmatrix}
-%2 & 1 & \dots & 1\\
-%1 & 2 & \ddots  & \vdots \\
-%\vdots & \ddots & \ddots & 1\\
-%1 & \dots & 1 & 2\\
-%\end{bmatrix}$$
-
-%The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma}$ and the last $n_2-1$ elements are 0. 
-
-%Then when $\sigma_1 \neq \sigma_2$, we do not have a closed form for $\epsilon$ but we can calculate the probability of the paradox.
+First let
+\begin{align*}
+	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
+	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
+	&= F_X^{-1}((\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{\frac{n_1}{N_1}})(x).
+\end{align*}
+With this definition of $h_{1,2}(x)$ we can write
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
   &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
@@ -777,58 +459,18 @@ $$
   &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
   &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
   &- \frac{N_2}{N_1 + N_2}\\
-  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} \\
-%  &= n_2\mathbb{MVN}(x = \{\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0\}, \mu = \{0, \dots, 0\}, \\
-%  &\Sigma = \begin{bmatrix}
-%\frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
-%\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots & \vdots & \ddots &  & \vdots\\
-%\vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} & \vdots &  & \ddots & \vdots\\
-%\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-%\frac{\sigma_2}{\sigma_1} & \hdots &  \hdots & \frac{\sigma_2}{\sigma_1} & 2 & 1 & \hdots & 1\\
-%\vdots & \ddots & & \vdots & 1 & \ddots & \ddots & \vdots\\
-%\vdots &  & \ddots & \vdots & \vdots & \ddots & \ddots & 1\\
-%\frac{\sigma_2}{\sigma_1} & \hdots &  \hdots & \frac{\sigma_2}{\sigma_1} & 1 & \hdots & 1 & 2\\
-%\end{bmatrix}) - \frac{N_2}{N_1 + N_2}\\
+  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}. 
 \end{align*}
-  
-where
-
-\begin{align*}
-	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-	&= F_X^{-1}((\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{\frac{n_1}{N_1}})(x)
-	\end{align*}
-	
-%$$\Phi^{-1}(F_X(x)^{\frac{N_1}{n_1}})\sigma_1 + \mu_1 < \Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})\sigma_2 + \mu_2$$
-
-The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
-
-$\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ with $(n_1 + n_2 - 1)$-dimensional mean vector $$\boldsymbol{\mu} = (0, \dots, 0)$$ and $(n_1 + n_2 - 1) \times (n_1 + n_2 - 1)$ covariance matrix $$\boldsymbol{\Sigma} = \begin{bmatrix}
-	\Sigma_{11} & \Sigma_{12}\\
-	\Sigma_{21} & \Sigma_{22}\\
-\end{bmatrix}$$
-
-$\Sigma_{11} = \begin{bmatrix}
-\frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
-\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
-\frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
-\end{bmatrix}_{n_1 \times n_1}, 
-\Sigma_{12}^{T} = \Sigma_{21} = \begin{bmatrix}
-\frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
-\vdots & \ddots &  & \vdots\\
-\vdots &  & \ddots & \vdots\\
-\frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(n_2-1) \times n_1}$
-$$
-\Sigma_{22} = \begin{bmatrix}
-2 & 1 & \hdots & 1\\
-1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
-1 & \hdots & 1 & 2\\
-\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
-
+The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
 \end{proof}
+
+
+\begin{center}
+\vspace{12pt}
+\LARGE Need Theorem statement here. I have no idea what you are trying to show. Also, the OP term at the end of the argument is probably too long. Just pick the dominant asymptotic terms. The proof of the Theorem can reference the technical lemma. Please also avoid weird spacing/formatting/indentation issues. 
+\vspace{12pt}
+\end{center}
+
 
 \begin{lemma}
 \label{lemma:derivative}
@@ -852,37 +494,47 @@ $$
 \end{array}\right] \text { with sizes }\left[\begin{array}{cc}
 1 \times 1 & 1 \times(n-1) \\
 (n-1) \times 1 & (n-1) \times(n-1)
-\end{array}\right]
+\end{array}\right].
 \end{aligned}
 $$
-
-Denote $\mathbf{y} = (y_1, y_2, \dots, y_n)$ and $\mathbf{y}_{-1} = (y_2, \dots, y_n)$
-	
-	then $$
+Denote $\mathbf{y} = (y_1, y_2, \dots, y_n)$ and $\mathbf{y}_{-1} = (y_2, \dots, y_n)$. Then 
+$$
 	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(\tilde{\mathbf{y}}, \tilde{\boldsymbol{\Sigma}})
-	$$
-	
-	where $$\tilde{\mathbf{y}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1 $$
-	
-	and 
-	
-	$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}$$
-	
-	Also, 
-	
-	$$
-	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j)
-	$$
-	where $i \neq j$
+$$
+where 
+$$ 
+  \tilde{\mathbf{y}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1
+$$
+and 
+$$
+	\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}.
+$$
+Moreover, 
+$$
+	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j),
+$$
+whenever $i \neq j$.
 \end{lemma}
 
 \begin{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Do not indent like this (similar comment throughout)
+%% There needs to be text here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	$$
 	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(X_2 = y_2, \dots, X_n = y_n | X_1 = y_1)
 	$$
-	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%% Do not include this line break (similar comment throughout)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	Then
 	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%% Do not include this line break (similar comment throughout)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
 	$$
 	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j)
 	$$
