@@ -471,88 +471,15 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 \vspace{12pt}
 \end{center}
 
-
-\begin{lemma}
-\label{lemma:derivative}
-	Supposed $\mathbf{X} \sim \mathcal{N}_{n}(\boldsymbol{\mu} = \boldsymbol{0}, \boldsymbol{\Sigma})$, $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$ are partitioned as follows, 
-	
-	$$
-\begin{aligned}
-& \boldsymbol{\mu}=\left[\begin{array}{l}
-\boldsymbol{\mu_1} \\
-\boldsymbol{\mu_2}
-\end{array}\right] =\left[\begin{array}{l}
-\boldsymbol{0} \\
-\boldsymbol{0}
-\end{array}\right] \text { with sizes }\left[\begin{array}{c}
-1 \times 1 \\
-(n-1) \times 1
-\end{array}\right] \\
-& \boldsymbol{\Sigma}=\left[\begin{array}{ll}
-\boldsymbol{\Sigma}_{11} & \boldsymbol{\Sigma}_{12} \\
-\boldsymbol{\Sigma}_{21} & \boldsymbol{\Sigma}_{22}
-\end{array}\right] \text { with sizes }\left[\begin{array}{cc}
-1 \times 1 & 1 \times(n-1) \\
-(n-1) \times 1 & (n-1) \times(n-1)
-\end{array}\right].
-\end{aligned}
-$$
-Denote $\mathbf{y} = (y_1, y_2, \dots, y_n)$ and $\mathbf{y}_{-1} = (y_2, \dots, y_n)$. Then 
-$$
-	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(\tilde{\mathbf{y}}, \tilde{\boldsymbol{\Sigma}})
-$$
-where 
-$$ 
-  \tilde{\mathbf{y}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1
-$$
-and 
-$$
-	\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}.
-$$
-Moreover, 
-$$
-	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j),
-$$
-whenever $i \neq j$.
-\end{lemma}
+\begin{theorem}
+\label{asympotic}
+	Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator with respect of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 
+	$$\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \rightarrow 0$$ 
+	as $n_1, n_2 \rightarrow \infty$
+\end{theorem}
 
 \begin{proof}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Do not indent like this (similar comment throughout)
-%% There needs to be text here.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	$$
-	\frac{\partial}{\partial y_1}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_1) \cdot \mathbf{\Phi_{\mathbf{X_{n-1}}}}(X_2 = y_2, \dots, X_n = y_n | X_1 = y_1)
-	$$
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-%% Do not include this line break (similar comment throughout)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	Then
-	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-%% Do not include this line break (similar comment throughout)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
-
-	$$
-	\frac{\partial^2}{\partial y_i\partial y_j}\mathbf{\Phi_{\mathbf{X_n}}(\mathbf{y}, \boldsymbol{\Sigma})} = \phi(y_i) \phi(y_j) \cdot \mathbf{\Phi_{\mathbf{X_{n-2}}}}(y_1, \dots, y_{i-1}, y_{i+1}, \dots, y_{j-1} , y_{j+1}, \dots, y_n | y_i, y_j)
-	$$
-	where $i \neq j$
-	
-	$\mathbf{\Phi_{\mathbf{X_{n-1}}}}(X_2 = y_2, \dots, X_n = y_n | X_1 = y_1)$ is also a multivariate normal distribution with adjusted mean and covariance. Then using the Schur complement, 
-	
-	$$\tilde{\mathbf{\mu}} = \boldsymbol{\mu}_2 + \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}(y_1 -  \boldsymbol{\mu}_1) = \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1$$
-	
-	$$\tilde{\mathbf{y}} = \mathbf{y}_{-1} - \tilde{\mathbf{\mu}} = \mathbf{y}_{-1} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1} \cdot y_1  $$
-	
-	and 
-	
-	$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{22} - \boldsymbol{\Sigma}_{21}\boldsymbol{\Sigma}_{11}^{-1}\boldsymbol{\Sigma}_{12}$$
-	
-\end{proof}
-
-Supposed $\hat{\mu}_1, \hat{\mu}_2$ and $\hat{\sigma}_1$ are root sample-size consistent estimator, which indicates 
+Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator, which indicates 
 
 $$
 |\hat{\mu}_1 - \mu_1 | = Op(n_1^{-1/2}), 
@@ -567,20 +494,11 @@ $$
 |\hat{\sigma}_1 - \sigma_1 | = Op(n_1^{-1/2}), 
 $$
 
-Notice that 
+$$
+|\hat{\sigma}_2 - \sigma_2 | = Op(n_1^{-1/2}), 
+$$
 
-\begin{align*}
-	&\mathbf{\Phi_{\mathbf{W_{n_1+n_2-3}}}}(W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-1} = 0 | W_1 = \theta) \\
-	&\qquad = \mathbf{\Phi}_{W_{n_1+n_2-3}}(W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, W_{n_1+n_2-3} = 0) \times \dots \\
-	&\times \mathbf{\Phi}_{W_{1}}(W_2 = \theta| W_1 = \theta)
-\end{align*}
-
-\begin{align*}
-	w_{max} &= \max \bigg\{ \mathbf{\Phi_{\mathbf{W_{n_1+n_2-3}}}}(W_{n_1+n_2-1} = 0 | W_1 = \theta, W_2 = \theta, \dots, W_{n_1} = \theta, W_{n_1+1} = 0, \dots, \\
-	&\qquad W_{n_1+n_2-3} = 0), \dots , \mathbf{\Phi_\mathbf{W_1}}(W_2 = \theta| W_1 = \theta) \bigg\}
-\end{align*}
-
-where $w_{max} \in (0,1)$
+Notice that
 
 $$\Phi(\mathbf{w}, \Sigma) = F_{\mathbf{W}}(\mathbf{W} = \mathbf{w}), \mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$$
 
@@ -611,6 +529,55 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
+Notice that the cumulative distribution function of multivariate normal distribution can be decomposed into a series of product of conditional univariate normal distribution. 
+
+\begin{align*}
+	&\mathbf{\Phi}(W_1 = w_1, W_2 = w_2, \dots, W_n = w_n) \\
+	&\qquad = \mathbf{\Phi}(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}) \\
+	& \times \mathbf{\Phi}(W_{n-1} = w_{n-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n-2} = w_{n-2}) \times \dots \\
+	&\times \mathbf{\Phi}(W_2 = w_2| W_1 = w_1) \times \mathbf{\Phi}(W_1 = w_1)
+\end{align*}
+
+Supposed 
+\begin{align*}
+	w_{max} &= \max \bigg\{ \mathbf{\Phi}(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}), \\ 
+	&\mathbf{\Phi}(W_{n-1} = w_{n-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n-2} = w_{n-2}), \dots,  \mathbf{\Phi}(W_2 = w_2| W_1 = w_1) \times \mathbf{\Phi}(W_1 = w_1) \bigg\}
+\end{align*}
+
+then $w_{max} \in (0,1)$
+
+Supposed $$\hat{\mathbf{w}} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)$$
+
+$$\hat{\boldsymbol{\Sigma}} = \begin{bmatrix}
+	\hat{\Sigma}_{11} & \hat{\Sigma}_{12}\\
+	\hat{\Sigma}_{21} & \hat{\Sigma}_{22}\\
+\end{bmatrix}$$
+
+$\hat{\Sigma}_{11} = \begin{bmatrix}
+\frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2}+1 & \frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} & \hdots & \frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} \\
+\frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & \frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} \\
+\frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} & \dots & \frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2} & \frac{\hat{\sigma_2}^2}{\hat{\sigma_1}^2}+1\\
+\end{bmatrix}_{n_1 \times n_1}, 
+\hat{\Sigma}{12}^{T} = \hat{\Sigma}_{21} = \begin{bmatrix}
+\frac{\hat{\sigma_2}}{\hat{\sigma_1}} & \hdots & \hdots & \frac{\hat{\sigma_2}}{\hat{\sigma_1}}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+\frac{\hat{\sigma_2}}{\hat{\sigma_1}} & \hdots &\hdots & \frac{\hat{\sigma_2}}{\hat{\sigma_1}}\\
+\end{bmatrix}_{(n_2-1) \times n_1}$
+$$
+\hat{\Sigma}_{22} = \begin{bmatrix}
+2 & 1 & \hdots & 1\\
+1 & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & 1\\
+1 & \hdots & 1 & 2\\
+\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
+
+\begin{align*}
+	& \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
+	&= n_2(\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma))
+\end{align*}
+
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
@@ -620,19 +587,23 @@ $$
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_1}\\
 	&= -\frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
-	&= -\frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})
+	&= -\frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})\\
+	&= OP(n_1w_{max}^{n_1+n_2-2})
 \end{align*}
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_2}\\
 	&= \frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
-	&= \frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})
+	&= \frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})\\
+	&= OP(n_1w_{max}^{n_1+n_2-2})
 \end{align*}
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \sigma_1} + tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
 	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
 \end{align*}
+
+
 
 Define the $\phi(\mathbf{x})$ is the probability density function of $\Phi(\mathbf{w}, \Sigma)$
 
@@ -817,7 +788,7 @@ w_{max}^{n_1+n_2-3} & \hdots & w_{max}^{n_1+n_2-3} & 2w_{max}^{n_1+n_2-3}\\
 &- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{max}^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{max}^{n_1+n_2-3}\\
 &-  \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{max}^{n_1+n_2-3} + \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{max}^{n_1+n_2-3}\\
 &+ \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{max}^{n_1+n_2-3} - \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{max}^{n_1+n_2-3}\\
-&= OP(n_1^2w_{max}^{n_1+n_2-3} + n_1n_2w_{max}^{n_1+n_2-3})
+&= OP(n_1^2w_{max}^{n_1+n_2-3})
 \end{align*}
 
 Then
@@ -825,27 +796,31 @@ Then
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1} 
 	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
-	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + OP(n_1^2w_{max}^{n_1+n_2-3} + n_1n_2w_{max}^{n_1+n_2-3})
+	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + OP(n_1^2w_{max}^{n_1+n_2-3}) \\
+	&= OP(n_1^2w_{max}^{n_1+n_2-3})
 \end{align*}
 
 Similarly, 
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2} &= tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_2}) \\
-	&= OP(n_1^2w_{max}^{n_1+n_2-3} + n_1n_2w_{max}^{n_1+n_2-3})
+	&= OP(n_1^2w_{max}^{n_1+n_2-3})
 \end{align*}
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
 	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\
-	&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
-	&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
+	&= OP(n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3})
+	%&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
+	%&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
 
 \begin{align*}
-	& \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2}\right)\\
-	& = OP(n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-2} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}n_2w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2^2w_{max}^{n_1+n_2-3} + n_1^{2}n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{3}{2}}w_{max}^{n_1+n_2-3})
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
+	& = OP(n_1^{\frac{3}{2}}n_2w_{max}^{n_1+n_2-3}) \xrightarrow{n_1, n_2 \to \infty} 0
 \end{align*}
+
+\end{proof}
 
 \section{Examples}
 
