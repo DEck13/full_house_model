@@ -1,4 +1,3 @@
-
 library(tidyverse)
 library(fullhouse)
 library(parallel)
@@ -6,32 +5,42 @@ library(Pareto)
 library(mvtnorm)
 library(Lahman)
 
+# set seed for parallel job
 set.seed(13)
 RNGkind(kind = "L'Ecuyer-CMRG")
 
+# load in annual information about full-time 
+# player status
 pops_full_time = read_csv("BA_normal.csv")
 
-## compute n and N for all years
+# compute n and N for all years
 sample_sizes = pops_full_time %>% group_by(yearID) %>% 
   summarise(n = sum(full_time == "Y"), 
             pops = max(pops), 
             thres = max(thres))
 
-## get annual thresholds for full time players
+
+# get estimated seasonal means and sds for batting average 
+# for full-time players
+## calculate batting average for all players
+BA_year_player = Batting %>% 
+  rename(year = yearID) %>% 
+  summarise(BA = H/AB, AB, .by = c(playerID, year))
+
+## get annual thresholds for full-time players
 foo = pops_full_time %>% 
   rename(year = yearID) %>% 
   select(playerID, year, thres)
 
-## get estimated seasonal means and sds for batting average 
-## for full time players
-bat_season_para = read_csv("bat_season_para.csv")
-mean_sd = bat_season_para %>% 
+## restrict attention to BAs for full-time players
+mean_sd = BA_year_player %>% 
   left_join(foo) %>% 
   filter(AB >= thres) %>% 
   summarise(mean_BA = mean(BA), sd_BA = sd(BA), .by = year) %>% 
   arrange(year)
 
-## paradox probability calculator for normal distributions
+# paradox probability calculator function for normal distributions
+# n2 P_W(w) - N2/(N1 + N2)
 prob_paradox = function(n1, n2, N1, N2, mu1, mu2, sigma1, sigma2){
   x = c(rep((mu2-mu1)/sigma1, n1), rep(0, (n2-1)))
   mu = rep(0, (n1+n2-1))
@@ -49,8 +58,12 @@ prob_paradox = function(n1, n2, N1, N2, mu1, mu2, sigma1, sigma2){
 }
 
 
-## compute paradox probabilities for all baseball seasons 
-## with respect to a target season
+# compute paradox probabilities for all baseball seasons 
+# with respect to a target season
+## Monte Carlo aggregates across B reps 
+## Fitting algorithm implemented using methodology is described in 
+## Genz (1992, 1993) (for algorithm GenzBretz). 
+## The default algorithm GenzBretz is randomized
 BA_prob_paradox = function(year_range_index, 
                            year_target_index, 
                            setup, 
@@ -79,64 +92,39 @@ BA_prob_paradox = function(year_range_index,
                           }))
 }
 
-## build setup data to be used in above function
+# build setup data to be used in above function
+## includes: means and standard deviations of batting averages 
+## for full-time players, and n and N for all years
 foo = sample_sizes %>% 
   rename(year = yearID) %>% 
   select(-thres)
 para_setup = mean_sd %>% left_join(foo)
+
+## number of years in data set
 n_years = nrow(para_setup)
 
 ## set cores
 ncores = detectCores() - 2
 ncores
 
-## compute paradox probabilities with respect to 2023 season
-paradox_prob_results_2023 = BA_prob_paradox(
-  year_range_index = 1:(n_years-1),
-  year_target_index = n_years,
-  setup = para_setup,
-  ncores = ncores
-)
+# compute paradox probabilities with respect to 2023 season
+system.time({
+  paradox_prob_results_2023 = BA_prob_paradox(
+    year_range_index = 1:(n_years-1),
+    year_target_index = n_years,
+    setup = para_setup,
+    ncores = ncores
+  )
+})
 write_csv(paradox_prob_results_2023, file = "paradox_prob_results_2023.csv")
 
-## compute paradox probabilities with respect to 2022 season
-paradox_prob_results_2022 = BA_prob_paradox(
-  year_range_index = 1:(n_years-2),
-  year_target_index = n_years - 1,
-  setup = para_setup,
-  ncores = ncores
-)
+# compute paradox probabilities with respect to 2022 season
+system.time({
+  paradox_prob_results_2022 = BA_prob_paradox(
+    year_range_index = 1:(n_years-2),
+    year_target_index = n_years - 1,
+    setup = para_setup,
+    ncores = ncores
+  )
+})
 write_csv(paradox_prob_results_2022, file = "paradox_prob_results_2022.csv")
-
-
-# para_BA_2023 = do.call(rbind, mclapply(1:n_years, 
-#   mc.cores = ncores, FUN = function(xx){
-#   # res_test = replicate(100, simu(n1 = para_dat$n[xx], 
-#   #                               n2 = para_dat$n[153], 
-#   #                               N1 = para_dat$N[xx], 
-#   #                               N2 = para_dat$N[153], 
-#   #                               n1j = 0, 
-#   #                               n2k = 0, 
-#   #                               mu1 = para_dat$mu[xx], 
-#   #                               mu2 = para_dat$mu[153], 
-#   #                               sigma1 = para_dat$sd[xx], 
-#   #                               sigma2 = para_dat$sd[153]))
-#   
-#   num_test = replicate(100, prob_paradox(n1 = para_setup$n[n_years],
-#                                          n2 = para_setup$n[xx],
-#                                          N1 = para_setup$pops[n_years],
-#                                          N2 = para_setup$pops[xx],
-#                                          mu1 = para_setup$mean_BA[n_years],
-#                                          mu2 = para_setup$mean_BA[xx],
-#                                          sigma1 = para_setup$sd_BA[n_years],
-#                                          sigma2 = para_setup$mean_BA[xx]))
-#   num_test_mean = mean(num_test)
-#   num_test_se = sd(num_test) / 10
-#   
-#   # data.frame(yearID = para_dat$yearID[xx], 
-#   #            simu_prob = mean(res_test)/1000, 
-#   #            norm_prob = ifelse(num_test < 0, 0, round(num_test, 4)))
-#   data.frame(yearID = para_setup$year[xx], 
-#              norm_prob = ifelse(num_test_mean < 0, 0, round(num_test_mean, 4)),
-#              num_test_se = num_test_se)
-# }))

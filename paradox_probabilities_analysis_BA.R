@@ -73,6 +73,10 @@ batting_averages_raw_full_time %>%
 
 
 ## Paradox Probability plot
+#paradox_prob_results = bind_rows(paradox_prob_results_2022, 
+#                                 paradox_prob_results_2023, 
+#                                 .id = "year_target") %>% 
+#  mutate(year_target = ifelse(year_target == 1, 2022, 2023))
 ggplot(data = paradox_prob_results_2023, aes(x = year, y = norm_prob)) + 
   geom_line() +
   geom_smooth() + 

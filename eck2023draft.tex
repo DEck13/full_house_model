@@ -1146,6 +1146,25 @@ Both meta-analyses in \cite{walton2009latent} revealed a bias in standard measur
 
 \subsection{Batting averages in Major League Baseball}
 
+Roadmap and results to discuss in this analysis:
+
+\begin{center}
+We have paradox probability results comparing the 2022 and 2023 seasons to all other seasons. The 2022-2023 probabilities are almost perfectly identical. However, the mean and sd for batting average of full-time players is slightly different.
+\end{center}
+
+What does the above mean? possible explanations and thoughts:
+
+\begin{enumerate}
+	\item MLB initiated rule changes between the 2022 and 2023 seasons with the goals of ...(improving entertainment value? increasing excitement? increasing more balls being put into play? increasing batting averages?) (need references).
+	\item Luis Arraez led all batters in 2023 with a .354 batting average (first $>.350$ batting average since Josh Hamilton 2010). Jeff McNeil led all batters with a .326 batting average in 2022. Justin Turner led all batters the year before with an average of .328.
+	\item In this sense, in addition to increasing stolen base attempts and successful steals, these rule changes have been successful. 
+	\item Need to discuss that era-adjusted batting results which adjust for contextual factors including handedness-specific park factors show no change in batting talent (is batting talent the right word?) between McNeil and Arraez. 
+	\item Thus, the rule changes have had a positive effect on player outcomes. The mean batting average increased with a reduction in variation. Is it fair to conclude that Arraez's season is a result of rule changes, or was it a fluke, or were the changes specifically beneficial to him and a small group of similar players, or some combination of the above? 
+	\item In a different line of questions, does this show that there is potential yet-to-be realized long-term impact of these changes? 
+	\item The paradox probabilities are about the same (increase in mean batting average + a reduction in variation nets out to similar extreme performance). The era-adjusted batting averages are also similar. Is it fair to say latent ability has not changed much and comparative analyses across eras did not change either when relevant contextual factors are taken into account. The only change seems to be on observed outcomes which, if this is all correct, means that rule changes had an instant, albeit relatively small from a historical perspective, positive effect
+\end{enumerate}
+
+
 In this analysis, we compute the probability of the paradox using the results from the Normal distribution example above and illustrate it in the application of Major League Baseball (MLB) since it is widely acknowledged that the batting average follows Normal distribution. Specifically, we compute the probability that the top batting average in 2023 is lower than the top batting average in the other season, but the players who have the highest batting average in 2023 are more talented than those who have the highest batting average in the other season. 
 
 In this analysis, we detail the considerations made for the batting average statistics that we era-adjust using the Full House Model \citep{DE20b}. Park factor adjustment is considered in this analysis and we apply the adjusted park index from \cite{SM16} to all ballparks from the 1871 season to the 2022 season. The batting average can be affected by the ballpark and we apply the park factor adjustment to this statistic, which accounts for the handedness of batters.

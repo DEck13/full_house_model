@@ -17,7 +17,6 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> 
 > library(tidyverse)
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -35,9 +34,12 @@ Type 'q()' to quit R.
 > library(mvtnorm)
 > library(Lahman)
 > 
+> # set seed for parallel job
 > set.seed(13)
 > RNGkind(kind = "L'Ecuyer-CMRG")
 > 
+> # load in annual information about full-time 
+> # player status
 > pops_full_time = read_csv("BA_normal.csv")
 New names:
 • `` -> `...1`
@@ -55,38 +57,41 @@ e.g.:
   dat <- vroom(...)
   problems(dat) 
 > 
-> ## compute n and N for all years
+> # compute n and N for all years
 > sample_sizes = pops_full_time %>% group_by(yearID) %>% 
 +   summarise(n = sum(full_time == "Y"), 
 +             pops = max(pops), 
 +             thres = max(thres))
 > 
-> ## get annual thresholds for full time players
+> 
+> # get estimated seasonal means and sds for batting average 
+> # for full-time players
+> ## calculate batting average for all players
+> BA_year_player = Batting %>% 
++   rename(year = yearID) %>% 
++   summarise(BA = H/AB, AB, .by = c(playerID, year))
+Warning message:
+Returning more (or less) than 1 row per `summarise()` group was deprecated in
+dplyr 1.1.0.
+ℹ Please use `reframe()` instead.
+ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
+  always returns an ungrouped data frame and adjust accordingly. 
+> 
+> ## get annual thresholds for full-time players
 > foo = pops_full_time %>% 
 +   rename(year = yearID) %>% 
 +   select(playerID, year, thres)
 > 
-> ## get estimated seasonal means and sds for batting average 
-> ## for full time players
-> bat_season_para = read_csv("bat_season_para.csv")
-New names:
-• `` -> `...1`
-Rows: 50950 Columns: 16
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): ...1, name, playerID
-dbl (13): age, year, AB, HBP, SF, BA, HR, BB, ebWAR, efWAR, PA, OBP, H
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-> mean_sd = bat_season_para %>% 
+> ## restrict attention to BAs for full-time players
+> mean_sd = BA_year_player %>% 
 +   left_join(foo) %>% 
 +   filter(AB >= thres) %>% 
 +   summarise(mean_BA = mean(BA), sd_BA = sd(BA), .by = year) %>% 
 +   arrange(year)
 Joining with `by = join_by(playerID, year)`
 > 
-> ## paradox probability calculator for normal distributions
+> # paradox probability calculator function for normal distributions
+> # n2 P_W(w) - N2/(N1 + N2)
 > prob_paradox = function(n1, n2, N1, N2, mu1, mu2, sigma1, sigma2){
 +   x = c(rep((mu2-mu1)/sigma1, n1), rep(0, (n2-1)))
 +   mu = rep(0, (n1+n2-1))
@@ -104,8 +109,12 @@ Joining with `by = join_by(playerID, year)`
 + }
 > 
 > 
-> ## compute paradox probabilities for all baseball seasons 
-> ## with respect to a target season
+> # compute paradox probabilities for all baseball seasons 
+> # with respect to a target season
+> ## Monte Carlo aggregates across B reps 
+> ## Fitting algorithm implemented using methodology is described in 
+> ## Genz (1992, 1993) (for algorithm GenzBretz). 
+> ## The default algorithm GenzBretz is randomized
 > BA_prob_paradox = function(year_range_index, 
 +                            year_target_index, 
 +                            setup, 
@@ -134,12 +143,16 @@ Joining with `by = join_by(playerID, year)`
 +                           }))
 + }
 > 
-> ## build setup data to be used in above function
+> # build setup data to be used in above function
+> ## includes: means and standard deviations of batting averages 
+> ## for full-time players, and n and N for all years
 > foo = sample_sizes %>% 
 +   rename(year = yearID) %>% 
 +   select(-thres)
 > para_setup = mean_sd %>% left_join(foo)
 Joining with `by = join_by(year)`
+> 
+> ## number of years in data set
 > n_years = nrow(para_setup)
 > 
 > ## set cores
@@ -147,57 +160,32 @@ Joining with `by = join_by(year)`
 > ncores
 [1] 8
 > 
-> ## compute paradox probabilities with respect to 2023 season
-> paradox_prob_results_2023 = BA_prob_paradox(
-+   year_range_index = 1:(n_years-1),
-+   year_target_index = n_years,
-+   setup = para_setup,
-+   ncores = ncores
-+ )
+> # compute paradox probabilities with respect to 2023 season
+> system.time({
++   paradox_prob_results_2023 = BA_prob_paradox(
++     year_range_index = 1:(n_years-1),
++     year_target_index = n_years,
++     setup = para_setup,
++     ncores = ncores
++   )
++ })
+     user    system   elapsed 
+34881.134    52.620  4487.497 
 > write_csv(paradox_prob_results_2023, file = "paradox_prob_results_2023.csv")
 > 
-> ## compute paradox probabilities with respect to 2022 season
-> paradox_prob_results_2022 = BA_prob_paradox(
-+   year_range_index = 1:(n_years-2),
-+   year_target_index = n_years - 1,
-+   setup = para_setup,
-+   ncores = ncores
-+ )
+> # compute paradox probabilities with respect to 2022 season
+> system.time({
++   paradox_prob_results_2022 = BA_prob_paradox(
++     year_range_index = 1:(n_years-2),
++     year_target_index = n_years - 1,
++     setup = para_setup,
++     ncores = ncores
++   )
++ })
+     user    system   elapsed 
+35554.379   130.913  4716.550 
 > write_csv(paradox_prob_results_2022, file = "paradox_prob_results_2022.csv")
-> 
-> 
-> # para_BA_2023 = do.call(rbind, mclapply(1:n_years, 
-> #   mc.cores = ncores, FUN = function(xx){
-> #   # res_test = replicate(100, simu(n1 = para_dat$n[xx], 
-> #   #                               n2 = para_dat$n[153], 
-> #   #                               N1 = para_dat$N[xx], 
-> #   #                               N2 = para_dat$N[153], 
-> #   #                               n1j = 0, 
-> #   #                               n2k = 0, 
-> #   #                               mu1 = para_dat$mu[xx], 
-> #   #                               mu2 = para_dat$mu[153], 
-> #   #                               sigma1 = para_dat$sd[xx], 
-> #   #                               sigma2 = para_dat$sd[153]))
-> #   
-> #   num_test = replicate(100, prob_paradox(n1 = para_setup$n[n_years],
-> #                                          n2 = para_setup$n[xx],
-> #                                          N1 = para_setup$pops[n_years],
-> #                                          N2 = para_setup$pops[xx],
-> #                                          mu1 = para_setup$mean_BA[n_years],
-> #                                          mu2 = para_setup$mean_BA[xx],
-> #                                          sigma1 = para_setup$sd_BA[n_years],
-> #                                          sigma2 = para_setup$mean_BA[xx]))
-> #   num_test_mean = mean(num_test)
-> #   num_test_se = sd(num_test) / 10
-> #   
-> #   # data.frame(yearID = para_dat$yearID[xx], 
-> #   #            simu_prob = mean(res_test)/1000, 
-> #   #            norm_prob = ifelse(num_test < 0, 0, round(num_test, 4)))
-> #   data.frame(yearID = para_setup$year[xx], 
-> #              norm_prob = ifelse(num_test_mean < 0, 0, round(num_test_mean, 4)),
-> #              num_test_se = num_test_se)
-> # }))
 > 
 > proc.time()
      user    system   elapsed 
-72644.347   100.631  9315.420 
+70436.733   183.635  9205.214 
