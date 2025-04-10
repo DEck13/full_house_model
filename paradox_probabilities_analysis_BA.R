@@ -65,6 +65,13 @@ bar = split(foo, f = as.factor(foo$year))
 baz = lapply(bar, function(xx) xx$BA)
 t.test(baz[[1]], baz[[2]])
 
+Teams %>% 
+  filter(yearID %in% c(2022,2023)) %>% 
+  summarise(sum_H = sum(H), .by = yearID) %>% 
+  mutate(HpG = sum_H / (162*30)) %>% 
+  pull(HpG) %>% 
+  diff()
+
 
 ## Extreme right tail of batting average distributions over time
 batting_averages_raw_full_time %>% 
