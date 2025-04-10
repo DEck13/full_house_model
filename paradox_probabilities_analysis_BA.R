@@ -45,6 +45,7 @@ batting_averages_raw_full_time = Batting %>%
               select(year, thres)) %>% 
   filter(AB >= thres) %>% 
   mutate(BA = H/AB) 
+
 batting_averages_raw_full_time %>% 
   summarise(mean = mean(BA), sd = sd(BA), .by = year) %>% 
   pivot_longer(cols = mean:sd, names_to = "quantity") %>% 
@@ -56,6 +57,14 @@ batting_averages_raw_full_time %>%
   labs(title = "Batting average means and standard deviations", 
        subtitle = "1871-2023") +
   theme_minimal()
+
+## t-test difference in 2022 and 2023 batting average means
+foo = batting_averages_raw_full_time %>% 
+  filter(year %in% c(2022,2023)) 
+bar = split(foo, f = as.factor(foo$year))
+baz = lapply(bar, function(xx) xx$BA)
+t.test(baz[[1]], baz[[2]])
+
 
 ## Extreme right tail of batting average distributions over time
 batting_averages_raw_full_time %>% 
