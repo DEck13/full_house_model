@@ -47,15 +47,16 @@ batting_averages_raw_full_time = Batting %>%
   mutate(BA = H/AB) 
 
 batting_averages_raw_full_time %>% 
-  summarise(mean = mean(BA), sd = sd(BA), .by = year) %>% 
-  pivot_longer(cols = mean:sd, names_to = "quantity") %>% 
+  summarise(Mean = mean(BA), SD = sd(BA), .by = year) %>% 
+  rename("Standard Deviation" = SD) %>% 
+  pivot_longer(cols = Mean:`Standard Deviation`, names_to = "quantity") %>% 
   ggplot() + 
   aes(x = year, y = value) + 
   #geom_line() + 
   geom_smooth(method = "lm", formula = y ~ poly(x, 20)) +
   facet_wrap(.~ quantity, scales = "free_y") + 
   labs(title = "Batting average means and standard deviations", 
-       subtitle = "1871-2023") +
+       subtitle = "Full-time players from 1871-2023") + 
   theme_minimal()
 
 ## t-test difference in 2022 and 2023 batting average means
@@ -64,13 +65,31 @@ foo = batting_averages_raw_full_time %>%
 bar = split(foo, f = as.factor(foo$year))
 baz = lapply(bar, function(xx) xx$BA)
 t.test(baz[[1]], baz[[2]])
+### 2022
+shapiro.test(baz[[1]])
+### 2023
+shapiro.test(baz[[2]])
 
+## hits per game
 Teams %>% 
   filter(yearID %in% c(2022,2023)) %>% 
   summarise(sum_H = sum(H), .by = yearID) %>% 
   mutate(HpG = sum_H / (162*30)) %>% 
   pull(HpG) %>% 
   diff()
+
+## BABIP difference
+Teams %>% 
+  filter(yearID %in% c(2022,2023)) %>% 
+  summarise(sum_H = sum(H), 
+            sum_AB = sum(AB),
+            sum_HR = sum(HR), 
+            sum_SO = sum(SO), 
+            sum_SF = sum(SF), .by = yearID) %>% 
+  mutate(BABIP = (sum_H - sum_HR)/(sum_AB - sum_SO - sum_HR + sum_SF)) %>% 
+  pull(BABIP) %>% 
+  diff()
+
 
 
 ## Extreme right tail of batting average distributions over time
@@ -97,7 +116,7 @@ ggplot(data = paradox_prob_results_2023, aes(x = year, y = norm_prob)) +
   geom_line() +
   geom_smooth() + 
   ylim(0,1) + 
-  labs(title = "Normal Paradox Probabilities Over Time", 
+  labs(title = "Normal Paradox Probabilities for Max Batting Averages", 
        subtitle = "Comparing year 2023 season to all others") + 
   xlab("Year") + 
   ylab("Paradox Probability") +
@@ -106,16 +125,17 @@ ggplot(data = paradox_prob_results_2023, aes(x = year, y = norm_prob)) +
 
 ## Era-adjusted batting leaders comparison assuming 
 ## batting averages are normally distributed
-baz = bat_season_para %>% 
+qux = bat_season_para %>% 
   left_join(sample_sizes %>% 
               rename(year = yearID) %>% 
               select(year, thres)) %>% 
   filter(AB >= thres) %>% 
   summarise(max_BA = max(BA), .by = year) %>% 
   arrange(year)
-Arraez_2023 = baz %>% filter(year == 2023) %>% pull(max_BA)
+Arraez_2023 = qux %>% filter(year == 2023) %>% pull(max_BA)
+McNeil_2022 = qux %>% filter(year == 2022) %>% pull(max_BA)
 
-baz %>% 
+qux %>% 
   mutate(era_paradox = as.numeric(max_BA > Arraez_2023)) %>% 
   ggplot() + 
   aes(x = year, y = era_paradox) + 
@@ -131,12 +151,48 @@ baz %>%
 
 
 ## Batting leaders comparison 
-qux = batting_averages_raw_full_time %>% 
+foobar = batting_averages_raw_full_time %>% 
   summarise(max_BA = max(BA), .by = year) %>% 
   arrange(year)
-Arraez_2023_raw = qux %>% filter(year == 2023) %>% pull(max_BA)
+Arraez_2023_raw = foobar %>% filter(year == 2023) %>% pull(max_BA)
+McNeil_2022_raw = foobar %>% filter(year == 2022) %>% pull(max_BA)
 
-qux %>% 
+mu2022 = mean(baz[[1]]); sd2022 = sd(baz[[1]]); n2022 = length(baz[[1]])
+pnorm(McNeil_2022_raw, mean = mu2022, sd = sd2022, lower = TRUE)^n2022
+
+mu2023 = mean(baz[[1]]); sd2023 = sd(baz[[1]]); n2023 = length(baz[[1]])
+pnorm(Arraez_2023_raw, mean = mu2023, sd = sd2023, lower = TRUE)^n2023
+
+## Max order stat percentiles
+### and shapiro wilk test results
+extreme_prob = batting_averages_raw_full_time %>% 
+  summarise(max_BA = max(BA), 
+            n = n(), 
+            mean_BA = mean(BA), 
+            sd_BA = sd(BA),
+            shap_test = shapiro.test(BA)$p.value,
+            .by = year) %>% 
+  mutate(extreme_prob = pnorm(max_BA, mean = mean_BA, sd = sd_BA)^n) %>% 
+  arrange(year)
+
+more_extreme_Arraez = 
+  extreme_prob[extreme_prob["extreme_prob"] >= 
+               extreme_prob[extreme_prob$year == 2023, "extreme_prob"],  ] %>% 
+  select(year, max_BA, n, shap_test, extreme_prob)
+nrow(more_extreme_Arraez)
+nrow(more_extreme_Arraez[more_extreme_Arraez$year > 1947, ])
+
+### Uniform Q-Q plot
+frac_seq = (1:nrow(extreme_prob) / nrow(extreme_prob))
+plot(frac_seq,  sort(extreme_prob$extreme_prob), 
+     main = "Uniform Q-Q Plot for Extreme Batting Averages", 
+     xlab = "Theoretical Quantiles", 
+     ylab = "Observed Quantiles")
+lines(frac_seq, frac_seq)
+
+
+
+foobar %>% 
   mutate(era_paradox = as.numeric(max_BA > Arraez_2023_raw)) %>% 
   ggplot() + 
   aes(x = year, y = era_paradox) + 
@@ -148,4 +204,67 @@ qux %>%
   ylab("") +
   theme_minimal()  
 
+blah = qux %>% 
+  mutate(era_paradox = as.numeric(max_BA > Arraez_2023_raw)) 
+
+lapply(1:10, FUN = function(j){ 
+  AIC(glm(era_paradox ~ poly(year, j), data = blah, family = "binomial"))
+})  
+
+lapply(1:10, FUN = function(j){ 
+  AIC(glm(era_paradox ~ poly(year, j), data = baz %>% 
+            mutate(era_paradox = as.numeric(max_BA > Arraez_2023), 
+                   family = "binomial")))
+})  
+
+
+## compare paradox probabilities to  
+## probability of max BA exceeding 2023 Luis Arraez
+foobar %>% 
+  mutate(era_paradox = as.numeric(max_BA > Arraez_2023_raw)) %>% 
+  ggplot(aes(x = year)) + 
+  # 6th order polynomial from AIC (raw BA)
+  geom_smooth( # formula = y ~ poly(x, 6)
+    aes(y = era_paradox, color = "Smoothed Prob (Raw BA)", linetype = "Smoothed Prob (Raw BA)"),
+    se = FALSE
+  ) + 
+  # Paradox probability line
+  geom_line(
+    data = paradox_prob_results_2023, 
+    aes(y = norm_prob, color = "Paradox Prob", linetype = "Paradox Prob"), 
+    lwd = 1
+  ) +
+  ylim(0,1) + 
+  labs(
+    title = "Comparison of Paradox Probabilities and Results", 
+    subtitle = "Comparing 2023 season to all others (1871-2022)",
+    x = "Year",
+    y = "",
+    color = "Legend",
+    linetype = "Legend"
+  ) +
+  scale_color_manual(values = c("Smoothed Prob (Raw BA)" = "black", "Paradox Prob" = "blue")) +
+  scale_linetype_manual(values = c("Smoothed Prob (Raw BA)" = "dashed", "Paradox Prob" = "solid")) +
+  theme_minimal()
+
+
+foobar %>% 
+  mutate(era_paradox = as.numeric(max_BA > McNeil_2022_raw)) %>% 
+  ggplot() + 
+  aes(x = year, y = era_paradox) + 
+  # 6th order polynomial from AIC (raw BA)
+  geom_smooth(#method = "glm", formula = y ~ poly(x, 6), 
+    color = "black", lty = 2) + 
+  geom_line(data = paradox_prob_results_2022, 
+            aes(y = norm_prob), color = "blue", lwd = 1, lty = 1) + 
+  # 5th order polynomial from AIC (era-adjusted BA)
+  geom_smooth(data = qux %>% 
+                mutate(era_paradox = as.numeric(max_BA > McNeil_2022)), 
+              #method = "glm", formula = y ~ poly(x, 5), 
+              aes(y = era_paradox), color = "red", lty = 2) +
+  ylim(-0.2,1.2) + 
+  labs(title = "Comparison of Paradox Probabilities to Results in 2022") + 
+  xlab("Year") + 
+  ylab("") +
+  theme_minimal()  
 
