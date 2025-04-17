@@ -1120,7 +1120,7 @@ We will fix $\sigma_i = \sigma$ and consider $\sigma \in \{0.5,1,2\}$. These sim
 
 To illustrate the procedure, consider a simplified scenario in which all $X_{(j)}$ values are realized at their median value. With this simplification, $Y_{i,(r_{i,(j)})}$ in \eqref{eq:iteration} is approximately $F_{Y_{i,j}}^{-1}( (r_{i,(j)} - 1/3)/(n_i + 1/3))$ \citep{kerman2011closed}. And we have that $Y_{i,(n_{i})} - Y_{i+1,(n_{i+1}-1)} > \mu_{i+1} - \mu_{i}$ for all considered values of $\sigma$. The individual with latent ability $X_{(N)}$ will consistently attain the value $Y_{i,(n_{i})}$, regardless their assigned group. Consequently, this individual's position among the $m$ groups will improve as the simulation advances. 
 
-Results can be seen in Figure~\ref{Fig:rFHMrounds}. This Monte Carlo simulation reveal that it is expected to take several rounds before the individual with the top aptitude belongs to the group that allows for the highest performances. On average, with $\sigma$ set to 0.5, 1, and 2, it takes 2.61, 4.19, and 7.46 rounds, respectively, for the individual with the top aptitude to join the highest-performing group (respective standard errors: 0.05, 0.09, 0.18).
+Results can be seen in Figure~\ref{Fig:rFHMrounds}. These Monte Carlo simulations reveal that it typically takes several rounds before the individual with the top aptitude belongs to the group that allows for the highest performances. On average, with $\sigma$ set to 0.5, 1, and 2, it takes 2.61, 4.19, and 7.46 rounds, respectively, for the individual with the top aptitude to join the highest-performing group (respective standard errors: 0.05, 0.09, 0.18).
 
 \begin{figure}[t]
 \begin{center}
@@ -1131,16 +1131,22 @@ Results can be seen in Figure~\ref{Fig:rFHMrounds}. This Monte Carlo simulation 
 \end{figure}
 
 
+These findings resonate with several empirical studies examining bias and distortion in real-world evaluative systems. The GRADE algorithm developed by \cite{waters2014grade} demonstrates how admission systems can bypass nuanced information (e.g., personal statements) in favor of machine-learned proxies, potentially reinforcing existing filters. Similarly, \cite{alvero2020ai} show that seemingly innocuous features (such as the word baseball) can serve as strong demographic signals. This raises concerns about indirect inference. A broader review by \cite{baker2022algorithmic} warns that algorithmic systems may harbor unknown unknowns, especially in global or under-examined subpopulations. Finally, the meta-analyses in \cite{walton2009latent} provide direct evidence that outcome-based measures (e.g., grades, test scores) can systematically understate the aptitude of marginalized groups due to identity-based threat.
 
-Notes:
+These phenomena of latent talent being misclassified, sorted, and repeatedly filtered through context-specific outcome layers is precisely what this presentation of recursive Full House Modeling aims to formalize and study. At any stage in the selection process, you cannot be sure that the highest marks correspond to individuals with the highest ability. While the setting we consider is stylized and assumes fixed latent aptitude, it serves to illustrate how structural features of evaluative systems, not just randomness, can delay or obscure the recognition of true potential.
 
-\cite{waters2014grade} developed an automated machine learning based admissions systems, called GRADE, designed to save time by pre-classifying people who are likely to be admitted to the Department of Computer Science at the University of Texas at Austin. This procedure ignored statements of purpose because, in practice, it was found that features in a statement of purpose were not discriminative and did not improve the quality of GRADE's predictions.
 
-\cite{alvero2020ai} used a "unique corpus of 283,676 application essays submitted to a large, selective, state university system between 2015 and 2016, we assess the extent to which applicant demographic characteristics can be inferred from application essays." They found that the word \emph{baseball} best classified Male applicants. 
+%Notes:
 
-\cite{baker2022algorithmic} reviewed algorithmic bias in education. They concluded that "there are a great number of "known unknowns" in the study of algorithmic bias in education -- areas where we know that our current knowledge is insufficient -- but also exposes the possibility that there may also be many "unknown unknowns" -- groups that we do not even realize are being severely impacted. Foremost among these "unknown unknowns" is the lack of empirical work on how algorithmic bias impact specific groups of learners outside the United States, at a finer grain-size than the national level."
+%\cite{waters2014grade} developed an automated machine learning based admissions systems, called GRADE, designed to save time by pre-classifying people who are likely to be admitted to the Department of Computer Science at the University of Texas at Austin. This procedure ignored statements of purpose because, in practice, it was found that features in a statement of purpose were not discriminative and did not improve the quality of GRADE's predictions.
 
-Both meta-analyses in \cite{walton2009latent} revealed a bias in standard measures of academic performance--both test scores and classroom grades. The bias results from psychological threat. It causes measures of academic performance to underestimate the true intellectual ability and potential of ethnic minority students and of women in quantitative fields.
+%\cite{alvero2020ai} used a "unique corpus of 283,676 application essays submitted to a large, selective, state university system between 2015 and 2016, we assess the extent to which applicant demographic characteristics can be inferred from application essays." They found that the word \emph{baseball} best classified Male applicants. 
+
+%\cite{baker2022algorithmic} reviewed algorithmic bias in education. They concluded that "there are a great number of "known unknowns" in the study of algorithmic bias in education -- areas where we know that our current knowledge is insufficient -- but also exposes the possibility that there may also be many "unknown unknowns" -- groups that we do not even realize are being severely impacted. Foremost among these "unknown unknowns" is the lack of empirical work on how algorithmic bias impact specific groups of learners outside the United States, at a finer grain-size than the national level."
+
+%Both meta-analyses in \cite{walton2009latent} revealed a bias in standard measures of academic performance--both test scores and classroom grades. The bias results from psychological threat. It causes measures of academic performance to underestimate the true intellectual ability and potential of ethnic minority students and of women in quantitative fields.
+
+
 
 
 
