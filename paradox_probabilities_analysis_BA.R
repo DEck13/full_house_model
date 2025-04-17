@@ -182,6 +182,28 @@ more_extreme_Arraez =
 nrow(more_extreme_Arraez)
 nrow(more_extreme_Arraez[more_extreme_Arraez$year > 1947, ])
 
+more_extreme_Arraez_names = more_extreme_Arraez %>% left_join(
+batting_averages_raw_full_time %>% 
+  select(playerID, year, BA) %>% 
+  left_join(People %>% 
+              mutate(name = paste(nameFirst, nameLast, sep = " ")) %>% 
+              select(playerID, name)) %>% 
+  select(-playerID) %>%
+  group_by(year) %>%
+  filter(BA == max(BA, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(year, name, BA) %>% 
+  rename(max_BA = BA)) %>% 
+  select(year, name, max_BA, n, shap_test, extreme_prob) %>% 
+  mutate(extreme_prob = round(extreme_prob, 4), 
+         shap_test = round(shap_test, 4))
+
+library(xtable)  
+xtable(more_extreme_Arraez_names, 
+       digits = c(0, 0, 0, 3, 0, 4, 4)) %>% 
+  print(include.rownames = FALSE)
+
+
 ### Uniform Q-Q plot
 frac_seq = (1:nrow(extreme_prob) / nrow(extreme_prob))
 plot(frac_seq,  sort(extreme_prob$extreme_prob), 
