@@ -22,9 +22,9 @@
 \usepackage[authoryear]{natbib}
 \usepackage{indentfirst}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{float}
 \usepackage{array}
-
+\usepackage{subcaption}
+\usepackage{caption}
 
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
@@ -526,7 +526,7 @@ c \cdot (n-1)+1 & -c & \hdots & -c\\
 
 
 \begin{theorem}
-\label{asympotic}
+\label{theorem:asymptotic}
 	Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator with respect of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 
 	
 	\begin{align*}
@@ -1168,54 +1168,99 @@ Based on the structure of the $\Sigma^{-1}$ and $\frac{\partial \Sigma}{\partial
 
 \section{Examples}
 
-\subsection{Theory supporting simulations}
+\subsection{Sensitivity Analysis for Theorem \ref{theorem:samedistgeneral}}
 
-In this section we verify Theorem~\ref{theorem:samedistgeneral}, Theorem \ref{theorem:uniformgeneral}, and ~\ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
+In this section, we conduct a sensitivity analysis to evaluate the influence of the parameters $N_1, N_2, n_1,$ and $n_2$ in Theorem~\ref{theorem:samedistgeneral}.
 
-The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 100. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
-$
-  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
-$
-is recorded. 
+Under the setting of Theorem~\ref{theorem:samedistgeneral}, we assume $X_1 = X_2 = X$, $Y_1 = Y_2 = Y$, where $X \sim \text{Pareto}(\alpha)$ and $Y \sim \mathcal{N}(0,1)$. Without loss of generality, we set $j = n_1 - 1$ and  $k = n_2 - 1$ , corresponding to the selection of the second-best performer in the paradox probability, as defined in Definition~\ref{def:paradox}.
 
-The results are tabulated in Theorem~\ref{Tab:simulationtop}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
+In each simulation, we randomly sample $n_1$ and $n_2$ observations from the distribution of $Y$, and compute their latent aptitudes using Equation~\eqref{eq:truepar}. Based on these values, we evaluate the paradox probability according to Definition~\ref{def:paradox}. We repeat this simulation 10000 times and report the average paradox probability.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{N1N2_fix.png}
+        \caption{$N_1$ and $N_2$ are fixed}
+        \label{Fig:N1N2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{fix_n1n2.png}
+        \caption{$n_1$ and $n_2$ are fixed}
+        \label{Fig:n1n2}
+    \end{subfigure}
+    
+    \vspace{1em}
+    
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{fix_N2n1.png}
+        \caption{$n_1$ and $N_2$ are fixed}
+        \label{Fig:n1N2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{n2N1_fix.png}
+        \caption{$N_1$ and $n_2$ are fixed}
+        \label{Fig:N1n2}
+    \end{subfigure}
+    
+    \caption{Sensitivity Analysis for Paradox Probability}
+    \label{Fig:sensitivity}
+\end{figure}
+
+Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:N1N2}, we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:n1n2}, we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000. In Figure~\ref{Fig:n1N2}, we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_1$ from 20 to 200 and $N_2$ from 200 to 2000. In Figure~\ref{Fig:N1n2}, we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_1$ from 200 to 2000 and $n_2$ from 20 to 200.
+
+As shown in Figure~\ref{Fig:N1N2}, a small $n_1$ combined with a large $n_2$ leads to a higher paradox probability, since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right)$ towards 1. Similarly, in Figure~\ref{Fig:n1n2}, a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right)$ approach 1.
+
+
+%In this section we verify Theorem~\ref{theorem:samedistgeneral} %Theorem \ref{theorem:uniformgeneral}, 
+%and \ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
+
+%The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 100. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
+%$
+%  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
+%$
+%is recorded. 
+
+%The results are tabulated in Theorem~\ref{Tab:simulationtop}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
 
 
 %We first randomly generate two groups of observation: $Y_1$ and $Y_2$ from the distributions below, and the number of each group is given by $n_1$ and $n_2$. Based on our setting, we assume the latent aptitudes follow the Pareto distribution with $\alpha = 1.16$,  and $r(N_i, n_i, t) = N_i - n_i + t$. Under these assumptions, we select the top $n_i$ talents from the talent pools $X_i$. Then we obtain the latent aptitudes for each group and check whether the paradox happens. We repeat this process 1000 times and record the frequency of the paradox. 100 Monte Carlo iterations of our simulation are performed and we compute the average of the frequency.  
  
-\begin{table}[htb!]
-\centering
-\scalebox{0.7}{
-\begin{tabular}{c|c|c|c|c}
-  \hline
-Setting & Distribution for $Y_1$  & Distribution for $Y_2$ & Prob from Theorem & Prob from simulation\\ 
-  \hline
-$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 40$ & $N(0,1), n_2 = 60$ & 0.1495 & 0.1472 \\
-$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 30$ & $N(0,1), n_2 = 70$ & 0.2866 & 0.2875 \\
-$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 60$ & $N(0,1), n_2 = 40$ & 0 & 0 \\
-$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 70$ & $N(0,1), n_2 = 30$ & 0 & 0 \\
-\hline
-$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 40$ & $U(0,1+\delta), n_2 = 60$ & 0.1233 & 0.1224 \\
-$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 30$ & $U(0,1+\delta), n_2 = 70$ & 0.2203 & 0.2210 \\
-$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 60$ & $U(0,1+\delta), n_2 = 40$ & 0.0022 & 0.0021 \\
-$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 70$ & $U(0,1+\delta), n_2 = 30$ & 0.0008 & 0.0007 \\
-\hline
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 40$ & $N(1,4), n_2 = 60$ & 0.3338 & 0.3356 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 30$ & $N(1,4), n_2 = 70$ & 0.3336 & 0.3343 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 10$ & $N(1,4), n_2 = 100$ & 0.3331 & 0.3345 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 100$ & $N(1,4), n_2 = 10$ & 0.2378 & 0.2406 \\
-\hline
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 40$ & $N(1,1), n_2 = 60$ & 0.3321 & 0.3326 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 30$ & $N(1,1), n_2 = 70$ & 0.3313 & 0.3325 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 10$ & $N(1,1), n_2 = 100$ & 0.3334 & 0.3346 \\
-$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 100$ & $N(1,1), n_2 = 10$ & 0.2593 & 0.2592 \\
-\hline
-\end{tabular}
-}
-\caption{Simulation results to validate the theory}
-\label{Tab:simulationtop}
-\end{table}
-
+%\begin{table}[htb!]
+%\centering
+%\scalebox{0.7}{
+%\begin{tabular}{c|c|c|c|c}
+%  \hline
+%Setting & Distribution for $Y_1$  & Distribution for $Y_2$ & Prob from Theorem & Prob from simulation\\ 
+%  \hline
+%$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 40$ & $N(0,1), n_2 = 60$ & 0.1495 & 0.1472 \\
+%$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 30$ & $N(0,1), n_2 = 70$ & 0.2866 & 0.2875 \\
+%$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 60$ & $N(0,1), n_2 = 40$ & 0 & 0 \\
+%$N_1 = 1e3, N_2 = 1e3, k = n_1 - 1, j = n_2 - 1$ & $N(0,1), n_1 = 70$ & $N(0,1), n_2 = 30$ & 0 & 0 \\
+%\hline
+%$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 40$ & $U(0,1+\delta), n_2 = 60$ & 0.1233 & 0.1224 \\
+%$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 30$ & $U(0,1+\delta), n_2 = 70$ & 0.2203 & 0.2210 \\
+%$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 60$ & $U(0,1+\delta), n_2 = 40$ & 0.0022 & 0.0021 \\
+%$N_1 = 1e5, N_2 = 1e5, k = n_1, j = n_2$ & $U(0,1), n_1 = 70$ & $U(0,1+\delta), n_2 = 30$ & 0.0008 & 0.0007 \\
+%\hline
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 40$ & $N(1,4), n_2 = 60$ & 0.3338 & 0.3356 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 30$ & $N(1,4), n_2 = 70$ & 0.3336 & 0.3343 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 10$ & $N(1,4), n_2 = 100$ & 0.3331 & 0.3345 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,2), n_1 = 100$ & $N(1,4), n_2 = 10$ & 0.2378 & 0.2406 \\
+%\hline
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 40$ & $N(1,1), n_2 = 60$ & 0.3321 & 0.3326 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 30$ & $N(1,1), n_2 = 70$ & 0.3313 & 0.3325 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 10$ & $N(1,1), n_2 = 100$ & 0.3334 & 0.3346 \\
+%$N_1 = 1e5, N_2 = 2e5, k = n_1, j = n_2$ & $N(-1,1), n_1 = 100$ & $N(1,1), n_2 = 10$ & 0.2593 & 0.2592 \\
+%\hline
+%\end{tabular}
+%}
+%\caption{Simulation results to validate the theory}
+%\label{Tab:simulationtop}
+%\end{table}
+%
 
 \subsection{Recursive Full House Models}
 \label{sec:rFHMsetup}
