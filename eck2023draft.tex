@@ -493,16 +493,17 @@ where \eqref{eq:inverse} follows from an application of the Woodbury identity \c
 
 \begin{theorem}
 \label{theorem:asymptotic}
-	Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator with respect of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 
-	
+	Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 	
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \\ 
 	&=  OP(n_1^{\frac{3}{2}}n_2w_{max}^{n_1+n_2-3})
 	\end{align*}
+	\textcolor{red}{The reader has no idea what $w_{max}$ is because it is not defined.}
 \end{theorem}
 
 \begin{proof}
-Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator, which indicates 
+
+\textcolor{red}{These definitions of root sample-size consistent does not need to be stated because that is the definition. If you want to state these definitions formally, then state them right before they are actually used. Stating them here is disorganized.} Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator, which indicates 
 
 $$
 |\hat{\mu}_1 - \mu_1 | = Op(n_1^{-1/2}), 
@@ -521,7 +522,7 @@ $$
 |\hat{\sigma}_2 - \sigma_2 | = Op(n_1^{-1/2}), 
 $$
 
-Notice that
+Notice that \textcolor{red}{This setup is defined earlier and does not need to be written down again. You need to actually read Section 4.2 and use the equation referencing that I previously setup.}
 
 $$\Phi(\mathbf{w}, \Sigma) = F_{\mathbf{W}}(\mathbf{W} = \mathbf{w}), \mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$$
 
@@ -552,8 +553,7 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-Notice that the cumulative distribution function of multivariate normal distribution can be decomposed into a series of product of conditional univariate normal distribution. 
-
+Notice that the cumulative distribution function of multivariate normal distribution can be decomposed into a series of product of conditional univariate normal distribution. \textcolor{red}{The text is clear, but the math below is hard to read.}
 \begin{align*}
 	&\mathbf{\Phi}(W_1 = w_1, W_2 = w_2, \dots, W_n = w_n) \\
 	&\qquad = \mathbf{\Phi}(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}) \\
@@ -561,13 +561,12 @@ Notice that the cumulative distribution function of multivariate normal distribu
 	&\times \mathbf{\Phi}(W_2 = w_2| W_1 = w_1) \times \mathbf{\Phi}(W_1 = w_1)
 \end{align*}
 
-Supposed 
+Supposed \textcolor{red}{Supposed is the wrong word. You should say Let. Edit this throughout.}
 \begin{align*}
 	w_{max} &= \max \bigg\{ \mathbf{\Phi}(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}), \\ 
-	&\mathbf{\Phi}(W_{n-1} = w_{n-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n-2} = w_{n-2}), \dots,  \mathbf{\Phi}(W_2 = w_2| W_1 = w_1) \times \mathbf{\Phi}(W_1 = w_1) \bigg\}
+	&\mathbf{\Phi}(W_{n-1} = w_{n-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n-2} = w_{n-2}), \dots,  \mathbf{\Phi}(W_2 = w_2| W_1 = w_1) \times \mathbf{\Phi}(W_1 = w_1) \bigg\},
 \end{align*}
-
-then $w_{max} \in (0,1)$
+Then $w_{max} \in (0,1)$. \textcolor{red}{The claim that $w_{max} \in (0,1)$ is not clear at all. I thought that I had clarified this in a previous version of this draft.}
 
 Supposed $$\hat{\mathbf{w}} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)$$
 
@@ -596,11 +595,14 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
+\textcolor{red}{All of the above matrix estimates can be stated more precisely by embracing the fact that these matrix quantities are already defined in Section 4.2 and you are replacing population parameters by their estimators. The following difference in probabilities is unmotivated. You need to say something about it.}
+
 \begin{align*}
 	& \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
 	&= n_2(\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma))
 \end{align*}
 
+\textcolor{red}{What is the following? Where does it come from? Where is this going? It is unmotivated.}
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
@@ -611,16 +613,19 @@ $$
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_1}\\
 	&= -\frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
 	&= -\frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})\\
+		&\textcolor{red}{\text{Going from the formula above to the formula below is not clear. Also OP should be} \; O_P} \\
 	&= OP(n_1w_{max}^{n_1+n_2-2})
 \end{align*}
 
+
+\textcolor{red}{I think this explains the confusion mentioned in the previous derivation, but it needs to be clearer.}
 where $\tilde{\mathbf{w}}$ is a vector with the first $n_1-1$ elements is $\frac{\mu_2- \mu_1}{\sigma_1} -\frac{\mu_2- \mu_1}{\sigma_1} \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}$ and the last $n_2-1$ elements are $-\frac{\mu_2- \mu_1}{\sigma_1} \frac{\sigma_1\sigma_2}{\sigma_1^2 + \sigma_2^2}$,
 
 $$\tilde{\boldsymbol{\Sigma}} = \begin{bmatrix}
 	\tilde{\Sigma}_{11} & \tilde{\Sigma}_{12}\\
 	\tilde{\Sigma}_{21} & \tilde{\Sigma}_{22}\\
 \end{bmatrix}$$
-
+\textcolor{red}{How are the components of $\tilde{\Sigma}$ derived? It is unclear. Where are these used? I am unsure how you arrived at $O_P(n_1w_{max}^{n_1+n_2-2})$ in the above. No one can follow this.}
 $$\tilde{\Sigma}_{11} = \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}+1 - \frac{\frac{\sigma_2^4}{\sigma_1^4}}{\frac{\sigma_2^2}{\sigma_1^2}+1} &\frac{\sigma_2^2}{\sigma_1^2} - \frac{\frac{\sigma_2^4}{\sigma_1^4}}{\frac{\sigma_2^2}{\sigma_1^2}+1} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} - \frac{\frac{\sigma_2^4}{\sigma_1^4}}{\frac{\sigma_2^2}{\sigma_1^2}+1} \\
 \frac{\sigma_2^2}{\sigma_1^2} - \frac{\frac{\sigma_2^4}{\sigma_1^4}}{\frac{\sigma_2^2}{\sigma_1^2}+1} & \ddots & \ddots  & \vdots \\
@@ -641,7 +646,7 @@ $$
 1-\frac{\frac{\sigma_2^2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}+1} & \hdots & 1 -\frac{\frac{\sigma_2^2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}+1}& 2-\frac{\frac{\sigma_2^2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}+1}\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-
+\textcolor{red}{The following is unmotivated.}
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_2}\\
@@ -650,19 +655,23 @@ $$
 	&= OP(n_1w_{max}^{n_1+n_2-2})
 \end{align*}
 
+\textcolor{red}{The following is unmotivated.}
+
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \sigma_1} + tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
 	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
 \end{align*}
 
 
-
+\textcolor{red}{The following is unmotivated.}
 Define the $\phi(\mathbf{x})$ is the probability density function of $\Phi(\mathbf{w}, \Sigma)$
 
 \begin{align*}
-	\frac{\partial \log (\phi(\mathbf{x}))}{\partial \Sigma} &= -\frac{1}{2}(\frac{\partial \log (det(\Sigma))}{\partial \Sigma} + \frac{\partial \mathbf{x}^t \Sigma^{-1} \mathbf{x} }{\partial \Sigma})\\
+	\frac{\partial \log (\phi(\mathbf{x}))}{\partial \Sigma} &= -\frac{1}{2}(\frac{\partial \log (det(\Sigma)) \textcolor{red}{\text{missing math mode for determinant} }}{\partial \Sigma} + \frac{\partial \mathbf{x}^t \Sigma^{-1} \mathbf{x} }{\partial \Sigma})\\
 	&= -\frac{1}{2}(\Sigma^{-1} - \Sigma^{-1} \mathbf{x} \mathbf{x}^t \Sigma^{-1})
 \end{align*}
+
+\textcolor{red}{The following is unmotivated.}
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} &=  \frac{\partial \int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) d\mathbf{x}}{\partial \Sigma}\\
@@ -675,7 +684,10 @@ Define the $\phi(\mathbf{x})$ is the probability density function of $\Phi(\math
 %	&= \frac{1}{2}\Sigma^{-1}\left(1-\Phi(\mathbf{w}, \Sigma)\right)
 \end{align*}
 
+\textcolor{red}{The following is unmotivated.}
+
 \begin{align*}
+	&\textcolor{red}{\text{missing math mode for trace}} \\
 	tr(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})&= tr\left(\frac{1}{2} \Sigma^{-1}\left( \int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} - \Phi(\mathbf{w}, \Sigma) \right)\frac{\partial \Sigma}{\partial \sigma_1}\right)\\
 	&= \frac{1}{2}tr\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1}\right) - \frac{1}{2}tr \left( \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} \right)
 \end{align*}
@@ -684,6 +696,8 @@ Define the $\phi(\mathbf{x})$ is the probability density function of $\Phi(\math
 
 %$$\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \leq \frac{1}{2} \Sigma^{-1}\left( w_{max}^{n_1+n_2-1} \Sigma^{-1} - \Phi(\mathbf{w}, \Sigma) \right)
 %$$
+
+\textcolor{red}{The following is unmotivated.}
 
 \begin{align*}
 	\frac{\partial \Sigma}{\partial \sigma_1} &= \begin{bmatrix}
@@ -704,7 +718,7 @@ A_{12}^{T} = A_{21} = \begin{bmatrix}
 \end{bmatrix}_{(n_2-1) \times n_1}, A_{22} = \begin{bmatrix}
 0\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-By applying Schur complement, 
+By applying Schur complement \textcolor{red}{Need to reference Schur complement from an authoritative source. Need to mention why we need $\Sigma^{-1}$}, 
 
 $$\boldsymbol{\Sigma}^{-1} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
@@ -734,7 +748,9 @@ $$
 1 & \hdots & 1 & 2\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-By applying Lemma \ref{inverse}, 
+By applying Lemma \ref{inverse}, \textcolor{red}{Lemma not needed. Just reference the displayed equations above. Also, you do not need to define $\Sigma$. That quantity has already been defined!}
+
+
 
 \begin{align*}
 	&B_{11} = (\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21})^{-1} \\
@@ -822,6 +838,7 @@ By applying Lemma \ref{inverse},
 \vdots & \ddots & \ddots & 1\\
 1 & \hdots & 1 & 2\\
 \end{bmatrix}^{-1}\\
+&\textcolor{red}{\text{Steps going from the above derivation to the derivation below are skipped.}} \\
 &= \begin{bmatrix}
 - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} & \hdots & \hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1}\\
 \vdots & \ddots &  & \vdots\\
@@ -829,6 +846,11 @@ By applying Lemma \ref{inverse},
 - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} & \hdots &\hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1}\\
 \end{bmatrix}_{n_1 \times (n_2-1)}
 \end{align*}
+
+
+\begin{center}
+	\LARGE \textcolor{red}{I am stopping here. Please fix the above and revise the work below so that it is readable.}
+\end{center}
 
 \begin{align*}
 	&B_{21} = -\Sigma_{22}^{-1}\Sigma_{21}(\Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21})^{-1} \\
