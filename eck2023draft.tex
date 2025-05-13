@@ -465,64 +465,30 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 \end{proof}
 
 
-\begin{center}
-\vspace{12pt}
-\LARGE Need Theorem statement here. I have no idea what you are trying to show. Also, the OP term at the end of the argument is probably too long. Just pick the dominant asymptotic terms. The proof of the Theorem can reference the technical lemma. Please also avoid weird spacing/formatting/indentation issues. 
-\vspace{12pt}
-\end{center}
-
-\begin{lemma}
-\label{inverse}
-	For the matrix $$
-\Sigma = \begin{bmatrix}
-c+1 & c & \hdots & c\\
-c & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & c\\
-c & \hdots & c & c+1\\
-\end{bmatrix}_{n \times n}$$, $$\det(\Sigma) = c \cdot n+1$$, and $$\Sigma^{-1} = \frac{1}{c \cdot n+1}\begin{bmatrix}
+We now show that plug-in estimates for normal distribution parameters $\mu_i$, $\sigma_i$, $i = 1,2$ allow for reliable estimate of the paradox probability \eqref{eq:paradoxnormal}. Our approach requires properties for matrices of the form 
+ $$
+	\Sigma = \begin{bmatrix}
+		c+1 & c & \hdots & c\\
+		c & \ddots & \ddots & \vdots\\
+		\vdots & \ddots & \ddots & c\\
+		c & \hdots & c & c+1\\
+\end{bmatrix}_{n \times n}. 
+$$
+These properties are
+\begin{equation} \label{eq:det}
+	\det(\Sigma) = cn+1,
+\end{equation}
+and 
+\begin{equation} \label{eq:inverse}
+\Sigma^{-1} = \frac{1}{c \cdot n+1}\begin{bmatrix}
 c \cdot (n-1)+1 & -c & \hdots & -c\\
 -c & \ddots & \ddots & \vdots\\
 \vdots & \ddots & \ddots & -c\\
 -c & \hdots & -c & c \cdot (n-1)+1\\
-\end{bmatrix}$$
-\end{lemma}
+\end{bmatrix}_{n \times n},
+\end{equation}
+where \eqref{eq:inverse} follows from an application of the Woodbury identity \citep{golub2013matrix}.
 
-\begin{proof}
-	$\det(\begin{bmatrix}
-c+1 & c & \hdots & c\\
-c & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & c\\
-c & \hdots & c & c+1\\
-\end{bmatrix})$ = $\det(\begin{bmatrix}
-c+1 & c & c & \hdots & c\\
--1 & 1 & 0 & \hdots & 0\\
--1 & 0 & 1 & \ddots & \vdots\\
-\vdots & \vdots & \ddots & \ddots & 0\\
--1 & 0 & \hdots & 0 & 1\\
-\end{bmatrix})$ = $\det(\begin{bmatrix}
-	A & B\\
-	C & D\\
-\end{bmatrix})$, 
-
-where A = $\begin{bmatrix}c+1
-\end{bmatrix}$, B = $\begin{bmatrix}c, \dots, c
-\end{bmatrix}$, C = $\begin{bmatrix}-1, \dots, -1
-\end{bmatrix}^T$, D = $I_{n-1}$. 
-
-Then we use Schur complement to compute the determinant. 
-
-$$\det(\Sigma) = \det(D) \cdot \det(A - B D^{-1} C) = c+1 + c(n-1) = c \cdot n+1$$
-
-Then it is straightforward to compute 
-
-$$\Sigma^{-1} = \frac{1}{c \cdot n+1}\begin{bmatrix}
-c \cdot (n-1)+1 & -c & \hdots & -c\\
--c & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & -c\\
--c & \hdots & -c & c \cdot (n-1)+1\\
-\end{bmatrix}$$
-
-\end{proof}
 
 
 \begin{theorem}
