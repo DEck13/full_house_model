@@ -497,7 +497,7 @@ where \eqref{eq:inverse} follows from an application of the Woodbury identity \c
 	Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 	
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \\ 
-	&=  OP(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})
+	&=  O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})
 	\end{align*}
 	where \begin{align*}
 	w_{n,max} &= \max \bigg\{ \Phi(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}), \\ 
@@ -509,25 +509,7 @@ and $\Phi$ is the cumulative distribution function of the standard normal distri
 
 \begin{proof}
 
-%\textcolor{red}{These definitions of root sample-size consistent does not need to be stated because that is the definition. If you want to state these definitions formally, then state them right before they are actually used. Stating them here is disorganized.} Supposed $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are root sample-size consistent estimator, which indicates 
-%
-%$$
-%|\hat{\mu}_1 - \mu_1 | = Op(n_1^{-1/2}), 
-%$$
-%
-%$$
-%|\hat{\mu}_2 - \mu_2 | = Op(n_2^{-1/2}), 
-%$$
-%
-%
-%$$
-%|\hat{\sigma}_1 - \sigma_1 | = Op(n_1^{-1/2}), 
-%$$
-%
-%$$
-%|\hat{\sigma}_2 - \sigma_2 | = Op(n_1^{-1/2}), 
-%$$
-%
+
 %Notice that \textcolor{red}{This setup is defined earlier and does not need to be written down again. You need to actually read Section 4.2 and use the equation referencing that I previously setup.}
 %
 %$$\Phi(\mathbf{w}, \Sigma) = F_{\mathbf{W}}(\mathbf{W} = \mathbf{w}), \mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$$
@@ -1325,20 +1307,42 @@ Now we have
 &+  \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
 &- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{n_1+n_2-1,max}^{n_1+n_2-3} + \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} \\
 &- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
-&= OP(n_1^2w_{n_1+n_2-1,max}^{n_1+n_2-3})
+&= O_P(n_1^2w_{n_1+n_2-1,max}^{n_1+n_2-3})
 \end{align*}
+
+Then we put $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}$, and $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}$ together and based on the definition of root sample-size consistent estimator, 
+$$
+|\hat{\mu}_1 - \mu_1 | = O_p(n_1^{-1/2}), 
+$$
+
+$$
+|\hat{\mu}_2 - \mu_2 | = O_p(n_2^{-1/2}), 
+$$
+
+
+$$
+|\hat{\sigma}_1 - \sigma_1 | = O_p(n_1^{-1/2}), 
+$$
+
+$$
+|\hat{\sigma}_2 - \sigma_2 | = O_p(n_2^{-1/2}), 
+$$
+
+we have
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
 	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\
-	&= OP(n_1^{\frac{3}{2}}w_{n_1+n_2-1,max}^{n_1+n_2-3})
+	&= O_P(n_1^{\frac{3}{2}}w_{n_1+n_2-1,max}^{n_1+n_2-3})
 	%&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
 	%&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
 
+Finally, 
+
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
-	& = OP(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-1,max}^{n_1+n_2-3}) \xrightarrow{n_1, n_2 \to \infty} 0
+	& = O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-1,max}^{n_1+n_2-3}) \xrightarrow{n_1, n_2 \to \infty} 0
 \end{align*}
 
 \end{proof}
@@ -1356,39 +1360,30 @@ In each simulation, we randomly sample $n_1$ and $n_2$ observations from the dis
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{N1N2_fix.png}
-        \caption{$N_1$ and $N_2$ are fixed}
-        \label{Fig:N1N2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{fix_n1n2.png}
-        \caption{$n_1$ and $n_2$ are fixed}
-        \label{Fig:n1n2}
-    \end{subfigure}
-    
-    \vspace{1em}
-    
-    \begin{subfigure}[t]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{fix_N2n1.png}
-        \caption{$n_1$ and $N_2$ are fixed}
-        \label{Fig:n1N2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{n2N1_fix.png}
-        \caption{$N_1$ and $n_2$ are fixed}
-        \label{Fig:N1n2}
-    \end{subfigure}
-    
+    \includegraphics[width=\textwidth]{fourplot.png}
     \caption{Sensitivity Analysis for Paradox Probability}
     \label{Fig:sensitivity}
 \end{figure}
 
-Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:N1N2}, we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:n1n2}, we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000. In Figure~\ref{Fig:n1N2}, we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_1$ from 20 to 200 and $N_2$ from 200 to 2000. In Figure~\ref{Fig:N1n2}, we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_1$ from 200 to 2000 and $n_2$ from 20 to 200.
+Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:sensitivity} (A), we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000.  In Figure~\ref{Fig:sensitivity} (B), we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:sensitivity} (C), we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_1$ from 20 to 200 and $N_2$ from 200 to 2000. In Figure~\ref{Fig:sensitivity} (D), we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_1$ from 200 to 2000 and $n_2$ from 20 to 200.
 
-As shown in Figure~\ref{Fig:N1N2}, a small $n_1$ combined with a large $n_2$ leads to a higher paradox probability, since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right)$ towards 1. Similarly, in Figure~\ref{Fig:n1n2}, a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right)$ approach 1.
+As shown in Figure~\ref{Fig:sensitivity} (A), a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right)$ approach 1. Similarly, in Figure~\ref{Fig:sensitivity} (B), a small $n_1$ combined with a large $n_2$ leads to a higher paradox probability, since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right)$ towards 1.
+
+We also investigate the effect of the ratio between $N_2$ and $N_1$ on the paradox probability. Let $c = \frac{N_2}{N_1} $, and vary $c$ from 0.1 to 1 in increments of 0.1. Without loss of generality, we set $j = n_1 - 1$ and  $k = n_2 - 1$ , corresponding to the selection of the second-best performer in the paradox probability, as defined in Definition~\ref{def:paradox}.
+
+In each simulation, we fix $n_1 = 60$ and $n_2 = 40$, and vary $N_1$ from 100 to 2000. We repeat this simulation 10000 times and report the average paradox probability. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{cplot.png}
+    \caption{Effect of the ratio between $N_2$ and $N_1$ on the paradox probability}
+    \label{Fig:ratioeffect}
+\end{figure}
+
+Figure~\ref{Fig:ratioeffect} presents the results illustrating the effect of the ratio between $N_2$ and $N_1 $ on the paradox probability under different settings. As shown in the figure, the paradox probability decreases as $c $ increases, which is reasonable since $\mathbb{P}\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) $ decreases as $N_2 $ increases.
+
+Figure~\ref{Fig:ratioeffect} also demonstrates that the paradox probability remains constant when the ratio between $N_2$ and $N_1$ is fixed. This implies that it is unnecessary to focus on the exact values of $N_1$ and $N_2$ when computing the paradox probability; rather, the ratio $N_2/N_1$ alone determines its value.
+
 
 
 %In this section we verify Theorem~\ref{theorem:samedistgeneral} %Theorem \ref{theorem:uniformgeneral}, 
