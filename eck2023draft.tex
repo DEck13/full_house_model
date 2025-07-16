@@ -497,16 +497,16 @@ Before we state our result, we introduce the Lemma \ref{lemma:wmax}
 
 \begin{lemma} \label{lemma:wmax}
 
-Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ defined above. We denote the cumulative distribution function (CDF) of $\mathbf{W}$ by $\mathbf{\Phi}(\mathbf{w}; \boldsymbol{\Sigma})$, where $\mathbf{w} \in \mathbb{R}^{n}$ is the quantile vector at which the CDF is evaluated. 
+Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. We denote the cumulative distribution function (CDF) of $\mathbf{W}$ by $\mathbf{\Phi}(\mathbf{w}; \boldsymbol{\Sigma})$, where $\mathbf{w} \in \mathbb{R}^{n}$ is the quantile vector at which the CDF is evaluated. 
 
 Define 
 	\begin{equation} \label{eq:wn}
 \begin{split}
 	c &= \max \bigg\{ \Phi(W_{n_1+n_2-1} = w_{n_1+n_2-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n_1+n_2-2} = w_{n_1+n_2-2}), \\ 
 	&\Phi(W_{n_1+n_2-2} = w_{n_1+n_2-2} | W_1 = w_1, W_2 = w_2, \dots, W_{n_1+n_2-3} = w_{n_1+n_2-3}),	 \dots, \\
-  	&\Phi(W_2 = w_2| W_1 = w_1), \Phi(W_1 = w_1) \bigg\}.
+  	&\Phi(W_2 = w_2| W_1 = w_1), \Phi(W_1 = w_1) \bigg\},
 \end{split}
-\end{equation}, 
+\end{equation}
 
 then $c$ is strictly less than 1 and 
 
@@ -522,9 +522,9 @@ then $c$ is strictly less than 1 and
 Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 	
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \\ 
-	&=  O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})
+	&=  O_P(n_1^{\frac{3}{2}}n_2c^{n_1+n_2-3})
 	\end{align*}
-	where $w_{n, max}$ is defined in \eqref{eq:wn}. \textcolor{red}{The main issue is the definition of $w_{n, max}$. This quantity is stated in complete generality as a function with arbitrary entries. However, its main use is when the entries take a specific form as stated in the proof of this theorem. The general version is not well-defined as $w_{n, max}$ is a function of the entries themselves. The specific version of $w_{n, max}$ with either population parameters or their estimators plugged-in is well-defined. More work is needed to determine what happens to $w_{n, max}$ as $n \to \infty$ and the corresponding $\hat{w}_{n, max}$ as $n\to \infty$. I do not expect the argument to be deal-breaking as the estimators exhibit nice convergence properties and, with population parameters defined within the interior of the parameter space, will be away from the boundary as $n\to\infty$. Also note that your Theorem conclusion is that the difference in probabilities is $O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})$ whereas the end of the proof states that the difference goes to 0. These are two different things.}
+	where $c$ is defined in \eqref{eq:wn}. \textcolor{red}{The main issue is the definition of $w_{n, max}$. This quantity is stated in complete generality as a function with arbitrary entries. However, its main use is when the entries take a specific form as stated in the proof of this theorem. The general version is not well-defined as $w_{n, max}$ is a function of the entries themselves. The specific version of $w_{n, max}$ with either population parameters or their estimators plugged-in is well-defined. More work is needed to determine what happens to $w_{n, max}$ as $n \to \infty$ and the corresponding $\hat{w}_{n, max}$ as $n\to \infty$. I do not expect the argument to be deal-breaking as the estimators exhibit nice convergence properties and, with population parameters defined within the interior of the parameter space, will be away from the boundary as $n\to\infty$. Also note that your Theorem conclusion is that the difference in probabilities is $O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})$ whereas the end of the proof states that the difference goes to 0. These are two different things.}
 \end{theorem}
 
 \begin{proof}
@@ -628,7 +628,7 @@ Consider the term $\Phi(\hat{\mathbf{w}}, \hat{\boldsymbol{\Sigma}}) - \Phi(\mat
 	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2)
 \end{align*}
 
-Then for the first derivative term $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$
+Then for the first derivative term $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$:
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_1}\\
@@ -638,7 +638,7 @@ Then for the first derivative term $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\par
 %	&= O_P(n_1w_{max}^{n_1+n_2-2})
 \end{align*}
 
-By applying Leibniz rule and without loss of generality, we consider the $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_1}$
+By applying Leibniz rule and without loss of generality, we compute the $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_1}$
 
 \begin{align*}
 	\frac{\partial \Phi(\mathbf{w}; \boldsymbol{\Sigma})}{\partial w_1}  &= \frac{\partial}{\partial w_1}\int_{-\infty}^{w_1}\dots\int_{-\infty}^{w_{n_1+n_2-1}} f_\mathbf{W}(z_1, \dots, z_{n_1+n_2-1}) dz_{n_1+n_2-1} \dots  dz_1\\
@@ -652,9 +652,9 @@ where $\phi(w_1)$ is the probability density function of univariate normal distr
 
 $$\tilde{\mathbf{w}} = (w_2, \dots, w_{n_1+n_2-1}) - (\frac{\sigma_2^2}{\sigma_1^2}, \dots, \frac{\sigma_2^2}{\sigma_1^2}, \frac{\sigma_2}{\sigma_1},  \dots, \frac{\sigma_2}{\sigma_1})*(\frac{\sigma_2^2}{\sigma_1^2}+1)^{-1} *(w_1)	$$
 
-$\tilde{\mathbf{w}}$ is a vector with the first $n_1-1$ elements is $\frac{\mu_2- \mu_1}{\sigma_1} -\frac{\mu_2- \mu_1}{\sigma_1} \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}$ and the last $n_2-1$ elements are $- \frac{(\mu_2- \mu_1)\sigma_2}{\sigma_1^2 + \sigma_2^2}$,
+$\tilde{\mathbf{w}}$ is a vector with the first $n_1-1$ elements is $\frac{\mu_2- \mu_1}{\sigma_1} -\frac{\mu_2- \mu_1}{\sigma_1} \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}$ and the last $n_2-1$ elements are $- \frac{(\mu_2- \mu_1)\sigma_2}{\sigma_1^2 + \sigma_2^2}$.
 
-$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{-1, -1} - \boldsymbol{\Sigma}_{-1, 1} \boldsymbol{\Sigma}_{1, 1}^{-1}\boldsymbol{\Sigma}_{1, -1} $$, 
+$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{-1, -1} - \boldsymbol{\Sigma}_{-1, 1} \boldsymbol{\Sigma}_{1, 1}^{-1}\boldsymbol{\Sigma}_{1, -1} $$
 where $\boldsymbol{\Sigma}_{-1, -1}$ denotes the submatrix of $\boldsymbol{\Sigma}$ obtained by removing the first row and the first column, 
 $\boldsymbol{\Sigma}_{-1, 1}$ denotes the column vector obtained by removing the first element from the first column of $\boldsymbol{\Sigma}$, 
 $\boldsymbol{\Sigma}_{1, -1}$ denotes the row vector obtained by removing the first element from the first row of $\boldsymbol{\Sigma}$, 
@@ -733,7 +733,7 @@ Therefore, $\Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})$ is finite and by applying 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}	&= -\frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
 	&= -\frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})\\
-	& \leq O_P(n_1w_{n_1+n_2-2, max}^{n_1+n_2-1})
+	& \leq O_P(n_1c^{n_1+n_2-1})
 \end{align*}
 
 By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, we have
@@ -742,7 +742,7 @@ By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2} &= \sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i} \cdot \frac{\partial w_i}{\partial \mu_2}\\
 	&= \frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
 	&= \frac{n_1}{\sigma_1} \cdot \phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})\\
-	&= OP(n_1w_{n_1+n_2-2, max}^{n_1+n_2-1})
+	&= OP(n_1c^{n_1+n_2-1})
 \end{align*}
 
 Notice that $\Phi(\mathbf{w}, \Sigma)$ has two parameters $\mathbf{w}$, and $\Sigma$ involving $\sigma_1$, then using the Equation (137) in \cite{petersen2008matrix} and the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, we have
@@ -764,7 +764,7 @@ then using the Equation (57) and (61) in \cite{petersen2008matrix}, we have
 	&= -\frac{1}{2}(\Sigma^{-1} - \Sigma^{-1} \mathbf{x} \mathbf{x}^t \Sigma^{-1})
 \end{align*}
 
-Then for the term $\operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})$,
+Then for the term $\operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})$ is: 
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} &=  \frac{\partial \int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) d\mathbf{x}}{\partial \Sigma}\\
@@ -1068,26 +1068,26 @@ $$\boldsymbol{\Sigma}^{-1} = \begin{bmatrix}
 Then by applying Lemma \ref{lemma:wmax}, we have 
 
 \begin{align*}
-	\Phi(\mathbf{w}, \Sigma) \leq w_{n_1+n_2-1,max}^{n_1+n_2-1}
+	\Phi(\mathbf{w}, \Sigma) \leq c^{n_1+n_2-1}
 \end{align*}
 
 Therefore, 
 
 \begin{align*}
-	 \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} \leq \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1} w_{max}^{n_1+n_2-1}
+	 \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} \leq \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1} c^{n_1+n_2-1}
 \end{align*}
 
 Based on the structure of the $\Sigma^{-1}$ and $\frac{\partial \Sigma}{\partial \sigma_1}$, we have
 
 \begin{align*}
 	&\qquad \operatorname{tr}(\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1})\\
-	&= \operatorname{tr}(\begin{bmatrix}
+	&= \operatorname{tr}\left(\begin{bmatrix}
 	B_{11} & B_{12}\\
 	B_{21} & B_{22}\\
 \end{bmatrix} \begin{bmatrix}
 	A_{11} & A_{12}\\
 	A_{21} & A_{22}\\
-\end{bmatrix})\\
+\end{bmatrix}\right)\\
 &= \operatorname{tr}(B_{11}A_{11} + B_{12}A_{21}) + tr(B_{21}A_{12} + B_{22}A_{22})\\
 	&= n_1\left(\frac{-\frac{2\sigma_2^2}{\sigma_1^3}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} ( \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{n_2}+1 - (n_1-1)\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{n_2}) + \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} \frac{\sigma_2}{\sigma_1^2} (n_2-1) \right)\\
 	&+ (n_2-1)\left( n_1 \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} \frac{\sigma_2}{\sigma_1^2}  \right)\\
@@ -1097,7 +1097,7 @@ Based on the structure of the $\Sigma^{-1}$ and $\frac{\partial \Sigma}{\partial
 Now we have
 
 \begin{align*}
-	\operatorname{tr}(\Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} ) \leq 2\frac{\frac{\sigma_2^2}{\sigma_1^3}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} w_{n_1+n_2-1,max}^{n_1+n_2-1}
+	\operatorname{tr}(\Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} ) \leq 2\frac{\frac{\sigma_2^2}{\sigma_1^3}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} c^{n_1+n_2-1}
 \end{align*}
 
 Now we compute the term $\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1}\right)$. Let rewrite the $\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x}$ into matrix form:
@@ -1116,15 +1116,15 @@ Then
 
 \begin{align*}
 	\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot x_i^2 d\mathbf{x} &= \int_{-\infty}^{w_i} \left( \int_{-\infty}^{\mathbf{w}_{-i}} \phi(\mathbf{x}_{-i} | x_i) d\mathbf{x}_{-i} \right) \ x_i^2 \ \phi(x_i) dx_i\\
-	&\leq w_{n_1+n_2-2,max}^{n_1+n_2-2} \cdot Var(X_i)\\
-    &\leq w_{n_1+n_2-2,max}^{n_1+n_2-3} \cdot Var(X_i)\\
-    &\leq w_{n_1+n_2-1,max}^{n_1+n_2-3} \cdot Var(X_i)\\
+%	&\leq w_{n_1+n_2-2,max}^{n_1+n_2-2} \cdot Var(X_i)\\
+%    &\leq w_{n_1+n_2-2,max}^{n_1+n_2-3} \cdot Var(X_i)\\
+    &\leq c^{n_1+n_2-3} \cdot Var(X_i)\\
 \end{align*}
 
 \begin{align*}
 	\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot x_ix_j d\mathbf{x} &= \int_{-\infty}^{w_i} \int_{-\infty}^{w_j} \left( \int_{-\infty}^{\mathbf{w}_{-(i,j)}} \phi(\mathbf{x}_{-(i,j)} | x_i, x_j) d\mathbf{x}_{-(i,j)} \right) \ x_ix_j \ \phi(x_i, x_j) dx_i dx_j\\
-	&\leq w_{n_1+n_2-3,max}^{n_1+n_2-3} \cdot Cov(X_i, X_j)\\
-	&\leq w_{n_1+n_2-1,max}^{n_1+n_2-3} \cdot Cov(X_i, X_j)\\
+%	&\leq c^{n_1+n_2-3} \cdot Cov(X_i, X_j)\\
+	&\leq c^{n_1+n_2-3} \cdot Cov(X_i, X_j)\\
 \end{align*}
 
 Replace $Var(X_i)$ and $Cov(X_i, X_j)$ using the elements of $\Sigma$, we have
@@ -1144,33 +1144,33 @@ Replace $Var(X_i)$ and $Cov(X_i, X_j)$ using the elements of $\Sigma$, we have
 where 
 
 $$S_{11} = \begin{bmatrix}
-w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}+1) & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \hdots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) \\
-w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) \\
-w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \dots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}+1)\\
+c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}+1) & c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \hdots & c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) \\
+c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) \\
+c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & \dots & c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}) & c^{n_1+n_2-3}(\frac{\sigma_2^2}{\sigma_1^2}+1)\\
 \end{bmatrix}_{n_1 \times n_1}$$
 $$S_{12}^{T} = S_{21} = \begin{bmatrix}
-w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1}) & \hdots & \hdots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1})\\
+c^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1}) & \hdots & \hdots & c^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1})\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
-w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1}) & \hdots &\hdots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1})\\
+c^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1}) & \hdots &\hdots & c^{n_1+n_2-3}(\frac{\sigma_2}{\sigma_1})\\
 \end{bmatrix}_{(n_2-1) \times n_1}$$
 $$
 S_{22} = \begin{bmatrix}
-2w_{n_1+n_2-1,,max}^{n_1+n_2-3} & w_{n_1+n_2-1,,max}^{n_1+n_2-3} & \hdots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
-w_{n_1+n_2-1,,max}^{n_1+n_2-3} & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
-w_{n_1+n_2-1,,max}^{n_1+n_2-3} & \hdots & w_{n_1+n_2-1,,max}^{n_1+n_2-3} & 2w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
+2c^{n_1+n_2-3} & c^{n_1+n_2-3} & \hdots & c^{n_1+n_2-3}\\
+c^{n_1+n_2-3} & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & c^{n_1+n_2-3}\\
+c^{n_1+n_2-3} & \hdots & c^{n_1+n_2-3} & 2c^{n_1+n_2-3}\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
 Therefore, 
 
 \begin{align*}
-	&\qquad \operatorname{tr}(\Sigma^{-1}\begin{bmatrix}
+	&\qquad \operatorname{tr}\left(\Sigma^{-1}\begin{bmatrix}
 	S_{11} & S_{12}\\
 	S_{21} & S_{22}\\
-\end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1} )\\
-&= \operatorname{tr}(\begin{bmatrix}
+\end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1} \right)\\
+&= \operatorname{tr}\left(\begin{bmatrix}
 	B_{11} & B_{12}\\
 	B_{21} & B_{22}\\
 \end{bmatrix}\begin{bmatrix}
@@ -1182,22 +1182,22 @@ Therefore,
 \end{bmatrix}\begin{bmatrix}
 	A_{11} & A_{12}\\
 	A_{21} & A_{22}\\
-\end{bmatrix})\\
-&= \operatorname{tr}(\begin{bmatrix}
+\end{bmatrix}\right)\\
+&= \operatorname{tr}\left(\begin{bmatrix}
 	B_{11}S_{11} + B_{12}S_{21} & B_{11}S_{12}+ B_{12}S_{22}\\
 	B_{21}S_{11} + B_{22}S_{21} & B_{21}S_{12} + B_{22}S_{22}\\
 \end{bmatrix}\begin{bmatrix}
 	B_{11}A_{11} + B_{12}A_{21} & B_{11}A_{12}+ B_{12}A_{22}\\
 	B_{21}A_{11} + B_{22}A_{21} & B_{21}A_{12} + B_{22}A_{22}\\
-\end{bmatrix})\\
+\end{bmatrix}\right)\\
 &= \operatorname{tr}((B_{11}S_{11} + B_{12}S_{21})(B_{11}A_{11} + B_{12}A_{21}) + (B_{11}S_{12}+ B_{12}S_{22})(B_{21}A_{11} + B_{22}A_{21}))\\
 &+ \operatorname{tr}((B_{21}S_{11} + B_{22}S_{21})(B_{11}A_{12}+ B_{12}A_{22}) + (B_{21}S_{12} + B_{22}S_{22})(B_{21}A_{12} + B_{22}A_{22}))\\
-&= -\frac{\frac{n_1\sigma_2^2}{\sigma_2^3}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
-&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
-&-  \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,,max}^{n_1+n_2-3} \\
-&+ \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3}+ \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{n_1+n_2-1,,max}^{n_1+n_2-3} \\
-&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,,max}^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,,max}^{n_1+n_2-3}\\
-&= O_P(n_1^2w_{n_1+n_2-1,,max}^{n_1+n_2-3})
+&= -\frac{\frac{n_1\sigma_2^2}{\sigma_2^3}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
+&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3}\\
+&-  \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3} \\
+&+ \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}+ \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3} \\
+&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3}\\
+&= O_P(n_1^2c^{n_1+n_2-3})
 \end{align*}
 
 Then 
@@ -1205,7 +1205,7 @@ Then
 \begin{align*}
 	\operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})
 	&= \frac{1}{2}\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1}\right) - \frac{1}{2}\operatorname{tr} \left( \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} \right)\\
-	&=  O_p(n_1^2w_{n_1+n_2-1,,max}^{n_1+n_2-3})
+	&=  O_p(n_1^2c^{n_1+n_2-3})
 \end{align*}
 
 By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, we have
@@ -1213,8 +1213,8 @@ By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1} 
 	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + \operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
-	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + O_p(n_1^2w_{n_1+n_2-1,,max}^{n_1+n_2-3}) \\
-	&= O_P(n_1^2w_{n_1+n_2-1,,max}^{n_1+n_2-3})
+	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + O_p(n_1^2c^{n_1+n_2-3}) \\
+	&= O_P(n_1^2c^{n_1+n_2-3})
 \end{align*}
 
 Similarly, we compute $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}$,
@@ -1248,26 +1248,26 @@ C_{12}^{T} = C_{21} = \begin{bmatrix}
 Then by applying Lemma \ref{lemma:wmax}, we have 
 
 \begin{align*}
-	 \Phi(\mathbf{w}, \Sigma) \leq w_{n_1+n_2-1,max}^{n_1+n_2-1}
+	 \Phi(\mathbf{w}, \Sigma) \leq c^{n_1+n_2-1}
 \end{align*}
 
 Then 
 
 \begin{align*}
-	 \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_2} \leq \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_2} w_{n_1+n_2-1,max}^{n_1+n_2-1}
+	 \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_2} \leq \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_2} c^{n_1+n_2-1}
 \end{align*}
 
 Based on the structure of the $\Sigma^{-1}$ and $\frac{\partial \Sigma}{\partial \sigma_2}$, we have
 
 \begin{align*}
 	&\qquad \operatorname{tr}(\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_2})\\
-	&= \operatorname{tr}(\begin{bmatrix}
+	&= \operatorname{tr}\left(\begin{bmatrix}
 	B_{11} & B_{12}\\
 	B_{21} & B_{22}\\
 \end{bmatrix} \begin{bmatrix}
 	C_{11} & C_{12}\\
 	C_{21} & C_{22}\\
-\end{bmatrix})\\
+\end{bmatrix}\right)\\
 &= \operatorname{tr}(B_{11}C_{11} + B_{12}C_{21}) + tr(B_{21}C_{12} + B_{22}C_{22})\\
 	&= n_1\left(\frac{\frac{2\sigma_2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} ( \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{n_2}+1 - (n_1-1)\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{n_2})\right) - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} \frac{1}{\sigma_1} n_1(n_2-1) \\
 	&- (n_2-1)\left( n_1 \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} \frac{1}{\sigma_1}  \right)\\
@@ -1277,15 +1277,15 @@ Based on the structure of the $\Sigma^{-1}$ and $\frac{\partial \Sigma}{\partial
 Now we have
 
 \begin{align*}
-	\operatorname{tr}(\Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_2} ) \leq \frac{\frac{2\sigma_2}{\sigma_1^2}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} w_{n_1+n_2-1,max}^{n_1+n_2-1}
+	\operatorname{tr}(\Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_2} ) \leq \frac{\frac{2\sigma_2}{\sigma_1^2}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1} c^{n_1+n_2-1}
 \end{align*}
 
 \begin{align*}
-	&\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_2}\right) \leq \operatorname{tr}(\Sigma^{-1}\begin{bmatrix}
+	&\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_2}\right) \leq \operatorname{tr}\left(\Sigma^{-1}\begin{bmatrix}
 	S_{11} & S_{12}\\
 	S_{21} & S_{22}\\
-\end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_2} )\\
-&= \operatorname{tr}(\begin{bmatrix}
+\end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_2} \right)\\
+&= \operatorname{tr}\left(\begin{bmatrix}
 	B_{11} & B_{12}\\
 	B_{21} & B_{22}\\
 \end{bmatrix}\begin{bmatrix}
@@ -1297,15 +1297,15 @@ Now we have
 \end{bmatrix}\begin{bmatrix}
 	C_{11} & C_{12}\\
 	C_{21} & C_{22}\\
-\end{bmatrix})\\
+\end{bmatrix}\right)\\
 &= \operatorname{tr}((B_{11}S_{11} + B_{12}S_{21})(B_{11}C_{11} + B_{12}C_{21}) + (B_{11}S_{12}+ B_{12}S_{22})(B_{21}C_{11} + B_{22}C_{21}))\\
 &+ \operatorname{tr}((B_{21}S_{11} + B_{22}S_{21})(B_{11}C_{12}+ B_{12}C_{22}) + (B_{21}S_{12} + B_{22}S_{22})(B_{21}C_{12} + B_{22}C_{22}))\\
-&= \frac{\frac{n_1\sigma_2}{\sigma_2^2}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
-&+ \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
-&+  \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,max}^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
-&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)w_{n_1+n_2-1,max}^{n_1+n_2-3} + \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}w_{n_1+n_2-1,max}^{n_1+n_2-3} \\
-&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})w_{n_1+n_2-1,max}^{n_1+n_2-3}\\
-&= O_P(n_1^2w_{n_1+n_2-1,max}^{n_1+n_2-3})
+&= \frac{\frac{n_1\sigma_2}{\sigma_2^2}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
+&+ \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3}\\
+&+  \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
+&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3} + \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} \\
+&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3}\\
+&= O_P(n_1^2c^{n_1+n_2-3})
 \end{align*}
 
 Then we put $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}$, and $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}$ together and based on the definition of root sample-size consistent estimator, 
@@ -1330,8 +1330,8 @@ we have
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
-	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\
-	&= O_P(n_1^{\frac{3}{2}}w_{n_1+n_2-1,max}^{n_1+n_2-3})
+	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\c
+	&= O_P(n_1^{\frac{3}{2}}c^{n_1+n_2-3})
 	%&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
 	%&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
@@ -1340,7 +1340,7 @@ Finally,
 
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
-	& = O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-1,max}^{n_1+n_2-3})
+	& = O_P(n_1^{\frac{3}{2}}n_2c^{n_1+n_2-3})
 	% \xrightarrow{n_1, n_2 \to \infty} 0
 \end{align*}
 
@@ -2041,15 +2041,20 @@ When $k \leq n_1$, by applying the Equation (\ref{eq:inverse})
 
 Then \begin{align*}
 	&\qquad\Phi(W_k = w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
-	&= \phi(\frac{\frac{\mu_2-\mu_1}{\sigma_1} - \frac{\frac{\sigma_2^2(\mu_2-\mu_1)}{\sigma_1^3}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{\frac{\sigma_2^2}{\sigma_1^2}+1 -  \frac{\frac{\sigma_2^4}{\sigma_1^4}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}) = \phi(\frac{\frac{\sigma_1(\mu_2 - \mu_1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}})\\
+	&= \Phi\Bigg(\frac{\frac{\mu_2-\mu_1}{\sigma_1} - \frac{\frac{\sigma_2^2(\mu_2-\mu_1)}{\sigma_1^3}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{\frac{\sigma_2^2}{\sigma_1^2}+1 -  \frac{\frac{\sigma_2^4}{\sigma_1^4}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
+	&= \Phi\Bigg(\frac{\frac{\mu_2-\mu_1}{\sigma_1}(1 - \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1})}{\sqrt{1+\frac{\sigma_2^2}{\sigma_1^2}(1 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}})}\Bigg)\\
+	&= \Phi\Bigg(\frac{\frac{\frac{\mu_2-\mu_1}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{1+\frac{\frac{\sigma_2^2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
+	& = \Phi\Bigg(\frac{\frac{\sigma_1(\mu_2 - \mu_1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}\Bigg)\\
 	&= c_k
 \end{align*}
 
-$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty}\phi(\frac{\frac{\sigma_1(\mu_2 - \mu_1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}) = 0.5$$
+$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty}\Phi\Bigg(\frac{\frac{\sigma_1(\mu_2 - \mu_1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}\Bigg) = \Phi(0) = 0.5$$
 
-where $\phi(x)$ is the density function of standard normal distribution. 
+where $\Phi(x)$ is the cumulative distribution function of standard normal distribution. 
 
-When $k = n_1+1$,
+Therefore, no matter what the value of $k$ is, $c_k < 1$.
+
+When $k = n_1 + 1$, the only difference from the case $k \leq n_1$ is that $\boldsymbol{\Sigma}_{k,\,1:(k-1)}$ is different. We can then apply a similar method as in the case $k \leq n_1$ to compute $\mu_k$ and $\sigma_k$.
 
 \begin{align*}
 	\mu_k&=\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
@@ -2067,29 +2072,29 @@ When $k = n_1+1$,
 \vdots \\
 \frac{\mu_2 - \mu_1}{\sigma_1}\\
 \end{bmatrix}_{(k-1) \times 1}\\
-&= \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
-\frac{\sigma_2}{\sigma_1}\\
- \vdots \\
- \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
-\frac{\sigma_2^2}{\sigma_1^2}(k-2)+1 & -\frac{\sigma_2^2}{\sigma_1^2} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2} \\
--\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2} \\
--\frac{\sigma_2^2}{\sigma_1^2} & \dots & -\frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}(k-2)+1  \\
-\end{bmatrix}_{(k-1) \times (k-1)}\begin{bmatrix}
-\frac{\mu_2 - \mu_1}{\sigma_1}\\
-\vdots \\
-\frac{\mu_2 - \mu_1}{\sigma_1}\\
-\end{bmatrix}_{(k-1) \times 1}\\
-&= \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
-\frac{\sigma_2}{\sigma_1}\\
- \vdots \\
- \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
-\frac{\mu_2 - \mu_1}{\sigma_1}\\
-\vdots \\
-\frac{\mu_2 - \mu_1}{\sigma_1}\\
-\end{bmatrix}_{(k-1) \times 1}\\
+%&= \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
+%\frac{\sigma_2}{\sigma_1}\\
+% \vdots \\
+% \frac{\sigma_2}{\sigma_1}\\
+%\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
+%\frac{\sigma_2^2}{\sigma_1^2}(k-2)+1 & -\frac{\sigma_2^2}{\sigma_1^2} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2} \\
+%-\frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
+%\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2} \\
+%-\frac{\sigma_2^2}{\sigma_1^2} & \dots & -\frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}(k-2)+1  \\
+%\end{bmatrix}_{(k-1) \times (k-1)}\begin{bmatrix}
+%\frac{\mu_2 - \mu_1}{\sigma_1}\\
+%\vdots \\
+%\frac{\mu_2 - \mu_1}{\sigma_1}\\
+%\end{bmatrix}_{(k-1) \times 1}\\
+%&= \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
+%\frac{\sigma_2}{\sigma_1}\\
+% \vdots \\
+% \frac{\sigma_2}{\sigma_1}\\
+%\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
+%\frac{\mu_2 - \mu_1}{\sigma_1}\\
+%\vdots \\
+%\frac{\mu_2 - \mu_1}{\sigma_1}\\
+%\end{bmatrix}_{(k-1) \times 1}\\
 &= \frac{\frac{\sigma_2(\mu_2-\mu_1)}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}
 \end{align*}
 
@@ -2109,28 +2114,31 @@ When $k = n_1+1$,
  \vdots \\
  \frac{\sigma_2}{\sigma_1}\\
 \end{bmatrix}_{(k-1)\times 1}\\
-&= 2 -  \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
-\frac{\sigma_2}{\sigma_1}\\
- \vdots \\
- \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
-\frac{\sigma_2}{\sigma_1}\\
- \vdots \\
- \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}_{(k-1)\times 1}\\
+%&= 2 -  \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\begin{bmatrix}
+%\frac{\sigma_2}{\sigma_1}\\
+% \vdots \\
+% \frac{\sigma_2}{\sigma_1}\\
+%\end{bmatrix}_{(k-1)\times 1}^{T}\begin{bmatrix}
+%\frac{\sigma_2}{\sigma_1}\\
+% \vdots \\
+% \frac{\sigma_2}{\sigma_1}\\
+%\end{bmatrix}_{(k-1)\times 1}\\
 &= 2 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}\\
 \end{align*}
 
 Then \begin{align*}
 	&\qquad\Phi(W_k = w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
-	&= \phi(\frac{0 - \frac{\frac{\sigma_2(\mu_2-\mu_1)}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{2 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}) = \phi(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}})\\
+	&= \Phi\Bigg(\frac{0 - \frac{\frac{\sigma_2(\mu_2-\mu_1)}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{2 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
+	& = \Phi\Bigg(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+1 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
+	& = \Phi\Bigg(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}\Bigg)\\
 	&= c_{k}
 \end{align*}
 
-$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty} \phi(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}) = \phi(-\frac{\mu_2 - \mu_1}{\sigma_2})$$
+$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty} \Phi\Bigg(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}\Bigg) = \Phi\Bigg(-\frac{\mu_2 - \mu_1}{\sigma_2}\Bigg)$$
 
-where $\phi(x)$ is the density function of standard normal distribution. 
+where $\phi(x)$ is the cumulative distribution function of standard normal distribution. 
 
+Therefore, no matter what the value of $k$ is, $c_k < 1$.
 
 When $k > n_1+1$, we first compute $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1}$. Based on the structure of $\boldsymbol{\Sigma}$ in Equation (\ref{eq:Sigma}), the $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}$ can be decomposed into 
 
@@ -2138,7 +2146,7 @@ When $k > n_1+1$, we first compute $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1}$
 \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)} = \begin{bmatrix}
 	D_{11} & D_{12}\\
 	D_{21} & D_{22}\\
-\end{bmatrix},
+\end{bmatrix}
 \end{equation}
 defined with the following structure \\
 \begin{align}\label{eq:Sigmastructure_k}
@@ -2175,7 +2183,7 @@ By applying the Equation (\ref{eq:inverse}) and Schur complement \citep{zhang200
 
 \begin{align*}
 	&E_{11} = (D_{11} - D_{12}D_{22}^{-1}D_{21})^{-1} \\
-	&= \left(\begin{bmatrix}
+	&= \Bigg(\begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
 \vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
@@ -2195,29 +2203,37 @@ By applying the Equation (\ref{eq:inverse}) and Schur complement \citep{zhang200
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix} \right)^{-1}\\
-&= (\begin{bmatrix}
+\end{bmatrix} \Bigg)^{-1}\\
+&= \Bigg( 
+\begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
 \vdots & \ddots & \ddots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \dots & \frac{\sigma_2^2}{\sigma_1^2} & \frac{\sigma_2^2}{\sigma_1^2}+1\\
-\end{bmatrix} -\begin{bmatrix}
+\end{bmatrix} 
+- 
+\begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix} \frac{1}{k-n_1} \begin{bmatrix}
+\end{bmatrix} 
+\cdot \frac{1}{k-n_1} \cdot 
+\begin{bmatrix}
 k-n_1-1 & -1 & \hdots & -1\\
 -1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
+\vdots & \ddots & \ddots & -1\\
 -1 & \hdots & -1 & k-n_1-1\\
-\end{bmatrix}\\
-&\times \begin{bmatrix}
+\end{bmatrix}
+\\
+&\quad \cdot 
+\begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
 \vdots & \ddots &  & \vdots\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix} )^{-1}\\
+\end{bmatrix}
+\Bigg)^{-1}
 &= \left(\begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}+1 & \frac{\sigma_2^2}{\sigma_1^2} & \hdots & \frac{\sigma_2^2}{\sigma_1^2} \\
 \frac{\sigma_2^2}{\sigma_1^2} & \ddots & \ddots  & \vdots \\
@@ -2274,10 +2290,10 @@ k-n_1-1 & -1 & \hdots & -1\\
 \vdots &  & \ddots & \vdots\\
 \frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
 \end{bmatrix} \frac{1}{k-n_1} \begin{bmatrix}
-k-n_1 & -1 & \hdots & -1\\
+k-n_1-1 & -1 & \hdots & -1\\
 -1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
--1 & \hdots & -1 & k-n_1\\
+\vdots & \ddots & \ddots & -1\\
+-1 & \hdots & -1 & k-n_1-1\\
 \end{bmatrix}\\
 	&= -\frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
@@ -2299,37 +2315,39 @@ k-n_1 & -1 & \hdots & -1\\
 \end{bmatrix}_{n_1 \times (k-n_1-1)}
 \end{align*}
 
+Since $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}$ is a symmetric matrix, then $E_{12} = E_{21}^T$. Thus, 
+
 \begin{align*}
 	&E_{21} = -D_{22}^{-1}D_{21}(D_{11} - D_{12}D_{22}^{-1}D_{21})^{-1} \\
-	&= -\begin{bmatrix}
-2 & 1 & \hdots & 1\\
-1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
-1 & \hdots & 1 & 2\\
-\end{bmatrix}^{-1}\begin{bmatrix}
-\frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
-\vdots & \ddots &  & \vdots\\
-\vdots &  & \ddots & \vdots\\
-\frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
-\end{bmatrix}\\
-&\times \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
-\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
--\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
--\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
-\end{bmatrix}\\
-&= -\begin{bmatrix}
-\frac{\sigma_2}{(k-n_1)\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{(k-n_1)\sigma_1}\\
-\vdots & \ddots &  & \vdots\\
-\vdots &  & \ddots & \vdots\\
-\frac{\sigma_2}{(k-n_1)\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{(k-n_1)\sigma_1}\\
-\end{bmatrix} \\
-&\times \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
-\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
--\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
--\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
-\end{bmatrix}\\
+%	&= -\begin{bmatrix}
+%2 & 1 & \hdots & 1\\
+%1 & \ddots & \ddots & \vdots\\
+%\vdots & \ddots & \ddots & 1\\
+%1 & \hdots & 1 & 2\\
+%\end{bmatrix}^{-1}\begin{bmatrix}
+%\frac{\sigma_2}{\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{\sigma_1}\\
+%\vdots & \ddots &  & \vdots\\
+%\vdots &  & \ddots & \vdots\\
+%\frac{\sigma_2}{\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{\sigma_1}\\
+%\end{bmatrix}\\
+%&\times \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
+%\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+%-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
+%\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+%-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
+%\end{bmatrix}\\
+%&= -\begin{bmatrix}
+%\frac{\sigma_2}{(k-n_1)\sigma_1} & \hdots & \hdots & \frac{\sigma_2}{(k-n_1)\sigma_1}\\
+%\vdots & \ddots &  & \vdots\\
+%\vdots &  & \ddots & \vdots\\
+%\frac{\sigma_2}{(k-n_1)\sigma_1} & \hdots &\hdots & \frac{\sigma_2}{(k-n_1)\sigma_1}\\
+%\end{bmatrix} \\
+%&\times \frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
+%\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+%-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
+%\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+%-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
+%\end{bmatrix}\\
 &= \begin{bmatrix}
 - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & \hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
 \vdots & \ddots &  & \vdots\\
@@ -2364,7 +2382,7 @@ k-n_1 & -1 & \hdots & -1\\
 &= \frac{1}{k-n_1} \begin{bmatrix}
 k-n_1-1 & -1 & \hdots & -1\\
 -1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
+\vdots & \ddots & \ddots & -1\\
 -1 & \hdots & -1 & k-n_1-1\\
 \end{bmatrix} \\
 &+ \begin{bmatrix}
@@ -2381,7 +2399,7 @@ k-n_1-1 & -1 & \hdots & -1\\
 &=\frac{1}{k-n_1} \begin{bmatrix}
 k-n_1-1 & -1 & \hdots & -1\\
 -1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
+\vdots & \ddots & \ddots & -1\\
 -1 & \hdots & -1 & k-n_1-1\\
 \end{bmatrix} +  \begin{bmatrix}
 \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & \hdots & \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
@@ -2462,6 +2480,52 @@ Then
  \vdots \\
  \frac{\mu_2 - \mu_1}{\sigma_1}\\
 \end{bmatrix}\\
+&= \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1} & 
+ \dots &
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix}\frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
+\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
+\end{bmatrix}\begin{bmatrix}
+\frac{\mu_2 - \mu_1}{\sigma_1}\\
+ \vdots \\
+ \frac{\mu_2 - \mu_1}{\sigma_1}\\
+\end{bmatrix} \\
+&+ \begin{bmatrix}
+1 & 
+ \dots &
+ 1\\
+\end{bmatrix}\begin{bmatrix}
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & \hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots &\hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix}\begin{bmatrix}
+\frac{\mu_2 - \mu_1}{\sigma_1}\\
+ \vdots \\
+ \frac{\mu_2 - \mu_1}{\sigma_1}\\
+\end{bmatrix}\\
+&=  \begin{bmatrix}
+\frac{\frac{\sigma_2}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}  & 
+ \dots &
+\frac{ \frac{\sigma_2}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \\
+\end{bmatrix}\begin{bmatrix}
+\frac{\mu_2 - \mu_1}{\sigma_1}\\
+ \vdots \\
+ \frac{\mu_2 - \mu_1}{\sigma_1}\\
+\end{bmatrix} - \begin{bmatrix}
+\frac{\frac{\sigma_2}{\sigma_1}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}  & 
+ \dots &
+\frac{ \frac{\sigma_2}{\sigma_1}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \\
+\end{bmatrix}\begin{bmatrix}
+\frac{\mu_2 - \mu_1}{\sigma_1}\\
+ \vdots \\
+ \frac{\mu_2 - \mu_1}{\sigma_1}\\
+\end{bmatrix}\\
+&= \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}n_1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} - \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1(k-n_1-1)}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
 &=  \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}
 \end{align*}
 
@@ -2511,7 +2575,7 @@ Then
   \vdots \\
   1\\
 \end{bmatrix}\\
-&= 2 - (
+&= 2 - \Bigg(
 	\begin{bmatrix}
 \frac{\sigma_2}{\sigma_1} & 
  \dots &
@@ -2545,23 +2609,119 @@ Then
  1 \\
   \vdots \\
   1\\
-\end{bmatrix})\\
+\end{bmatrix}\Bigg)\\
+&= 2 - \Bigg(
+	\begin{bmatrix}
+\frac{\sigma_2}{\sigma_1} & 
+ \dots &
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix}\frac{1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \begin{bmatrix}
+\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1 & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \hdots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} \\
+-\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \dots & -\frac{\sigma_2^2}{\sigma_1^2}\frac{1}{k-n_1} & \frac{\sigma_2^2}{\sigma_1^2}\frac{n_1-1}{k-n_1}+1\\
+\end{bmatrix}\begin{bmatrix}
+\frac{\sigma_2}{\sigma_1}\\
+ \vdots \\
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix} \\
+&+ \begin{bmatrix}
+1 & 
+ \dots &
+ 1\\
+\end{bmatrix}\begin{bmatrix}
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & \hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots &\hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix} \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1}\\
+ \vdots \\
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix} \\
+&+ \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1} & 
+ \dots &
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix}\begin{bmatrix}
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & \hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+- \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots &\hdots & - \frac{\frac{\sigma_2}{\sigma_1}\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix} \begin{bmatrix}
+ 1 \\
+  \vdots \\
+  1\\
+\end{bmatrix}\\
+&+ \begin{bmatrix}
+1 & 
+ \dots &
+ 1\\
+\end{bmatrix}\begin{bmatrix}
+1-\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & -\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \hdots & -\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \\
+-\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}& \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & -\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \\
+-\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & \dots & -\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & 1-\frac{\frac{1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix}\begin{bmatrix}
+ 1 \\
+  \vdots \\
+  1\\
+\end{bmatrix}\Bigg)\\
+&= 2 - \Bigg(
+	\begin{bmatrix}
+\frac{\frac{\sigma_2}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}  & 
+ \dots &
+\frac{ \frac{\sigma_2}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} \\
+\end{bmatrix}\begin{bmatrix}
+\frac{\sigma_2}{\sigma_1}\\
+ \vdots \\
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix} - \begin{bmatrix}
+\frac{\frac{\sigma_2}{\sigma_1}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & 
+ \dots &
+ \frac{\frac{\sigma_2}{\sigma_1}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix} \begin{bmatrix}
+\frac{\sigma_2}{\sigma_1}\\
+ \vdots \\
+ \frac{\sigma_2}{\sigma_1}\\
+\end{bmatrix} \\
+&- \begin{bmatrix}
+\frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & 
+ \dots &
+ \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix} \begin{bmatrix}
+ 1 \\
+  \vdots \\
+  1\\
+\end{bmatrix}+ \begin{bmatrix}
+1-\frac{\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} & 
+ \dots &
+ 1-\frac{\frac{k-n_1-1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+\end{bmatrix}\begin{bmatrix}
+ 1 \\
+  \vdots \\
+  1\\
+\end{bmatrix}\Bigg)\\
 &= 2 - (\frac{\frac{\sigma_2^2}{\sigma_1^2}n_1}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{2(k-n_1-1)n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} + \frac{k-n_1-1}{k - n_1} + \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{(k-n_1-1)^2n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1} )\\
-&= 2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
+&= 2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}\\
 \end{align*}
 
 Then \begin{align*}
 	&\qquad\Phi(W_k = w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
-	&= \phi(\frac{0 - \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}})\\
+	&= \Phi\Bigg(\frac{0 - \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}}\Bigg)\\
+	&= \Phi\Bigg(-\frac{\frac{\frac{(\mu_2 - \mu_1)\sigma_2}{\sigma_1^2}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}}\Bigg)\\
+	&= \Phi\Bigg(-\frac{\frac{(\mu_2 - \mu_1)\sigma_2n_1}{\sigma_2^2n_1+\sigma_1^2(k-n_1)}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\sigma_2^2n_1}{\sigma_2^2n_1(k-n_1)+\sigma_1^2(k-n_1)^2}}}\Bigg)\\
 	&= c_{k}
 \end{align*}
 
-$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty}\phi(\frac{0 - \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}}) = 0.5$$
-where $\phi(x)$ is the density function of standard normal distribution. 
+$$\lim_{k \rightarrow +\infty}c_k = \lim_{k \rightarrow +\infty}\Phi\Bigg(-\frac{\frac{(\mu_2 - \mu_1)\sigma_2n_1}{\sigma_2^2n_1+\sigma_1^2(k-n_1)}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\sigma_2^2n_1}{\sigma_2^2n_1(k-n_1)+\sigma_1^2(k-n_1)^2}}}\Bigg) = \Phi(0) = 0.5$$
+where $\phi(x)$ is the cumulative distribution function of standard normal distribution. 
+
+Therefore, no matter what the value of $k$ is, $c_k < 1$. 
 
 Therefore, we show the parameters $\mu$ and $\sigma^2$ of the conditional univariate normal distribution in the set of Equation (\ref{eq:wn}) are finite. 
 
-Let $$c_{max} = \max_{k = 2, \dots, n_1+n_2-1}c_k, $$ then $c_{max} < 1$
+Let $$c_{max} = \max_{k = 2, \dots, n_1+n_2-1}c_k, $$ then $c_{max} < 1$.
 
 We can rewrite $\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma})$ \begin{align*}
 	\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma})  &= \Phi(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}) \times \\
