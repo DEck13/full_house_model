@@ -71,10 +71,17 @@
 
 \section{Introduction}
 
-Full House Modeling provides a novel foundation for comparative analysis of individuals evaluated across differing contexts. This foundation originated in an analysis comparing baseball players across eras \citep{yan2025fullhouse}. The historical significance of this analysis was further studied and presented in \cite{burgos2025change}. In baseball these analyses are game changing and gaining traction in the broader baseball analytics community. 
-Full House Modeling was expanded upon in an investigation of the impact of historical figures \citep{cohen2025contextualizing}. \textbf{needs to be edited and made much more interesting}
+Comparisons of human performance across differing contexts, schools, regions, eras, institutions, and tasks, are central to education, labor economics, psychometrics, medicine, and sports analytics \citep{chetty2014measuring, iezzoni1997risk, yan2025comparing}. Yet such comparisons are notoriously fragile when the context both shapes opportunities to perform and distorts how performance is measured. This paper studies a fundamental tension that can arise in these settings: an individual from one context may possess higher latent aptitude than an individual from another context while nonetheless exhibiting lower observed achievement. We call this the aptitude-achievement paradox across contexts and develop a statistical framework to quantify the probability that it occurs.
 
-In this article we formalize Full House Methodology. Under this formalization we study probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analyses between individuals being compared across contexts. Here, the paradox is that an individual from one context can have higher aptitude and simultaneous lower observed achievement than an individual from another context. We provide explicit probabilities of these paradoxes in two settings: 1) when observed achievement is independent and identically distributed (iid); 2) when the observed statistics across contexts follow different normal distributions but are still independent. We also study bounds to the paradoxes in more general settings. We also demonstrate that when observed achievement is normally distributed, the paradox probabilities can be reliably estimated via plug-in.  
+The paradox is structurally impossible if a single, strictly increasing, context-invariant measurement map aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness, transportability, and domain shift. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
+
+A large class of methods measures how often observed orderings disagree with a target ordering-precisely the phenomenon at the heart of our cross-context paradox. At the most elementary level, discordance statistics summarize the share of ordered pairs whose observed outcomes align (or misalign) with a reference score or latent ordering. Classic measures include Kendall's $\tau$ \citep{kendall1938new} and Somers'D \citep{somers1962new}, which compute differences between the proportions of concordant and discordant pairs and offer adjustments for ties; Somers'D is asymmetric and treats one variable (e.g., a score) as the predictor of the other (e.g., an outcome), making it particularly natural for "does the score rank the outcomes correctly?" questions. These rank-based indices provide assumption-lean, effect-size-like summaries of reversal risk. However, because these indices operate on observed rankings, they neither place individuals on a common latent scale nor disentangle measurement non-invariance or selection, motivating models that make the measurement process explicit.
+
+Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and that comparisons of item difficulties are independent of the sample of individuals tested, but it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. 
+
+Full House Modeling offers a groundbreaking approach for comparing individuals across diverse contexts, initially developed through the analysis of baseball players across different eras \citep{yan2025comparing}. This analytical framework gained further historical significance \citep{burgos2025change}, which was subsequently explored and presented in a separate study. These analyses are transforming baseball analytics and are increasingly recognized within the broader baseball community. The applicability of Full House Modeling was further extended to investigate the influence of historical figures \citep{cohen2025contextualizing}. 
+
+In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts. The aptitude-achievement  paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. We provide explicit probabilities for these paradoxes in two scenarios: first, when observed achievement is independent and identically distributed (i.i.d.), and second, when observed statistics across contexts follow different normal distributions but remain independent. We also explore bounds for these paradoxes in more generalized settings and demonstrate that when observed achievement is normally distributed, paradox probabilities can be reliably estimated using a plug-in method.
 
 
 \section{Model Setting}
@@ -728,7 +735,10 @@ $$\tilde{\boldsymbol{\Sigma}} = \begin{bmatrix}
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}
 \end{align*}
 
-Therefore, $\Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})$ is finite and by applying Lemma \ref{lemma:wmax}, we get 
+Therefore, $\Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})$ is finite. Then for $i = 1, \dots, n_1$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}$
+ is the same as $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_1}$. 
+ 
+By applying Lemma \ref{lemma:wmax}, we get 
 
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}	&= -\frac{1}{\sigma_1}\sum_{i=1}^{n_1}\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_i}\\
@@ -1163,41 +1173,22 @@ c^{n_1+n_2-3} & \ddots & \ddots & \vdots\\
 c^{n_1+n_2-3} & \hdots & c^{n_1+n_2-3} & 2c^{n_1+n_2-3}\\
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-Therefore, 
+Then, $$\begin{bmatrix}
+	S_{11} & S_{12}\\
+	S_{21} & S_{22}\\
+\end{bmatrix} = c^{n_1+n_2-3}*\Sigma$$
+
+Therefore, followed by the results before, 
 
 \begin{align*}
-	&\qquad \operatorname{tr}\left(\Sigma^{-1}\begin{bmatrix}
+&\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1}\right)\\
+	&\leq \operatorname{tr}\left(\Sigma^{-1}\begin{bmatrix}
 	S_{11} & S_{12}\\
 	S_{21} & S_{22}\\
 \end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1} \right)\\
-&= \operatorname{tr}\left(\begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{21} & B_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	S_{11} & S_{12}\\
-	S_{21} & S_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{21} & B_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	A_{11} & A_{12}\\
-	A_{21} & A_{22}\\
-\end{bmatrix}\right)\\
-&= \operatorname{tr}\left(\begin{bmatrix}
-	B_{11}S_{11} + B_{12}S_{21} & B_{11}S_{12}+ B_{12}S_{22}\\
-	B_{21}S_{11} + B_{22}S_{21} & B_{21}S_{12} + B_{22}S_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	B_{11}A_{11} + B_{12}A_{21} & B_{11}A_{12}+ B_{12}A_{22}\\
-	B_{21}A_{11} + B_{22}A_{21} & B_{21}A_{12} + B_{22}A_{22}\\
-\end{bmatrix}\right)\\
-&= \operatorname{tr}((B_{11}S_{11} + B_{12}S_{21})(B_{11}A_{11} + B_{12}A_{21}) + (B_{11}S_{12}+ B_{12}S_{22})(B_{21}A_{11} + B_{22}A_{21}))\\
-&+ \operatorname{tr}((B_{21}S_{11} + B_{22}S_{21})(B_{11}A_{12}+ B_{12}A_{22}) + (B_{21}S_{12} + B_{22}S_{22})(B_{21}A_{12} + B_{22}A_{22}))\\
-&= -\frac{\frac{n_1\sigma_2^2}{\sigma_2^3}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
-&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3}\\
-&-  \frac{\frac{2n_1^2\sigma_2^4}{\sigma_2^5}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3} \\
-&+ \frac{\frac{n_1\sigma_2^2}{\sigma_2^3}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}+ \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3} \\
-&- \frac{\frac{n_1^2\sigma_2^4}{\sigma_2^5}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} + \frac{\frac{n_1(n_2-1)\sigma_2^2}{\sigma_2^3}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3}\\
-&= O_P(n_1^2c^{n_1+n_2-3})
+&=\operatorname{tr}\left(\Sigma^{-1}c^{n_1+n_2-3}*\Sigma*\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1} \right)\\
+&= c^{n_1+n_2-3}\operatorname{tr}\left(\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_1} \right)\\
+&= 2\frac{\frac{\sigma_2^2}{\sigma_1^3}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1}c^{n_1+n_2-3}
 \end{align*}
 
 Then 
@@ -1205,7 +1196,7 @@ Then
 \begin{align*}
 	\operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})
 	&= \frac{1}{2}\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_1}\right) - \frac{1}{2}\operatorname{tr} \left( \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_1} \right)\\
-	&=  O_p(n_1^2c^{n_1+n_2-3})
+	&=  O_p(c^{n_1+n_2-3})
 \end{align*}
 
 By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, we have
@@ -1213,8 +1204,8 @@ By applying the similar method used for $\frac{\partial\Phi(\mathbf{w}, \Sigma)}
 \begin{align*}
 	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1} 
 	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + \operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_1})\\
-	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + O_p(n_1^2c^{n_1+n_2-3}) \\
-	&= O_P(n_1^2c^{n_1+n_2-3})
+	&= -\frac{(\mu_2 - \mu_1)n_1}{\sigma_1^2}\phi(w_1) \cdot \Phi(\tilde{\mathbf{w}}, \tilde{\Sigma}) + O_p(c^{n_1+n_2-3}) \\
+	&= O_P(n_1c^{n_1+n_2-3})
 \end{align*}
 
 Similarly, we compute $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}$,
@@ -1285,27 +1276,14 @@ Now we have
 	S_{11} & S_{12}\\
 	S_{21} & S_{22}\\
 \end{bmatrix}\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_2} \right)\\
-&= \operatorname{tr}\left(\begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{21} & B_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	S_{11} & S_{12}\\
-	S_{21} & S_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	B_{11} & B_{12}\\
-	B_{21} & B_{22}\\
-\end{bmatrix}\begin{bmatrix}
-	C_{11} & C_{12}\\
-	C_{21} & C_{22}\\
-\end{bmatrix}\right)\\
-&= \operatorname{tr}((B_{11}S_{11} + B_{12}S_{21})(B_{11}C_{11} + B_{12}C_{21}) + (B_{11}S_{12}+ B_{12}S_{22})(B_{21}C_{11} + B_{22}C_{21}))\\
-&+ \operatorname{tr}((B_{21}S_{11} + B_{22}S_{21})(B_{11}C_{12}+ B_{12}C_{22}) + (B_{21}S_{12} + B_{22}S_{22})(B_{21}C_{12} + B_{22}C_{22}))\\
-&= \frac{\frac{n_1\sigma_2}{\sigma_2^2}(\frac{2n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(\frac{n_1\sigma_2^2}{\sigma_2^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
-&+ \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3}\\
-&+  \frac{\frac{2n_1^2\sigma_2^3}{\sigma_2^4}\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} - \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3} - \frac{\frac{n_1\sigma_2}{\sigma_2^2}\frac{n_2-1}{n_2}(n_1\frac{\sigma_2^2}{\sigma_1^2}+1)}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3}\\
-&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(\frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}-1)c^{n_1+n_2-3} + \frac{\frac{n_1^2\sigma_2^3}{\sigma_2^4}(\frac{n_2-1}{n_2})^2}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)^2}c^{n_1+n_2-3} \\
-&- \frac{\frac{n_1(n_2-1)\sigma_2}{\sigma_2^2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)}(1- \frac{\frac{n_2-1}{n_2}}{(\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1)})c^{n_1+n_2-3}\\
-&= O_P(n_1^2c^{n_1+n_2-3})
+&= c^{n_1+n_2-3}\operatorname{tr}\left(\Sigma^{-1}\frac{\partial \Sigma}{\partial \sigma_2}\right)\\
+&= \frac{\frac{2\sigma_2}{\sigma_1^2}\frac{n_1}{n_2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{n_2}+1}c^{n_1+n_2-3}
+\end{align*}
+
+\begin{align*}
+	\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2} &= \operatorname{tr}(\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial \Sigma} \cdot \frac{\partial \Sigma}{\partial \sigma_2}) \\
+	&= \frac{1}{2}\operatorname{tr}\left(\Sigma^{-1}\int_{-\infty}^\mathbf{w} \phi(\mathbf{x}) \cdot \mathbf{x} \mathbf{x}^t d\mathbf{x} \Sigma^{-1} \frac{\partial \Sigma}{\partial \sigma_2}\right) - \frac{1}{2}\operatorname{tr} \left( \Sigma^{-1} \Phi(\mathbf{w}, \Sigma)  \frac{\partial \Sigma}{\partial \sigma_2} \right)\\
+	&= O_p(c^{n_1+n_2-3})
 \end{align*}
 
 Then we put $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}$, $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}$, and $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}$ together and based on the definition of root sample-size consistent estimator, 
@@ -1330,8 +1308,8 @@ we have
 
 \begin{align*}
 	\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma) &\approx \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_1}(\hat{\mu_1} - \mu_1) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\mu_2}(\hat{\mu_2} - \mu_2) + \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_1}(\hat{\sigma_1} - \sigma_1) \\
-	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\c
-	&= O_P(n_1^{\frac{3}{2}}c^{n_1+n_2-3})
+	&+ \frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial\sigma_2}(\hat{\sigma_2} - \sigma_2) \\
+	&= O_P(n_1^{\frac{1}{2}}c^{n_1+n_2-3})
 	%&=  OP(n_1^{\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-2} + n_1^{\frac{3}{2}}w_{max}^{n_1+n_2-3} + n_1^{\frac{1}{2}}n_2w_{max}^{n_1+n_2-3} \\
 	%&+ n_1^{2}n_2^{-\frac{1}{2}}w_{max}^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}w_{max}^{n_1+n_2-3})
 \end{align*}
@@ -1340,7 +1318,7 @@ Finally,
 
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
-	& = O_P(n_1^{\frac{3}{2}}n_2c^{n_1+n_2-3})
+	& = O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3})
 	% \xrightarrow{n_1, n_2 \to \infty} 0
 \end{align*}
 
@@ -1519,7 +1497,7 @@ Figure~\ref{Fig:paradox-prob-results} displays paradox probabilities \eqref{eq:p
 \label{Fig:uniform-qq}
 \end{figure}
 
-\cite{yan2025fullhouse} studied historical batting averages and era-adjusted batting averages through Full House Modeling for Luis Arraez's 2023 seasons and Jeff McNeil's MLB leading 2022 season in which he hit 0.326. They found that when one accounts for park and era effects then Arraez and McNeil had very similar performances, despite Arraez's large lead in raw batting average. These authors also found that assuming normality for batting averages among full-time players might not be appropriate \citep{yan2025fullhouse-supplement}. Even so, we evaluate $\widehat{F}(Y_{(n_i),i})^{n_i}$, the observed percentile of the distribution for the maximum batting average $Y_{(n_i),i}$ in season $i$. These percentiles are not uniformly distributed as seen in Figure~\ref{Fig:uniform-qq}. 
+\cite{yan2025comparing} studied historical batting averages and era-adjusted batting averages through Full House Modeling for Luis Arraez's 2023 seasons and Jeff McNeil's MLB leading 2022 season in which he hit 0.326. They found that when one accounts for park and era effects then Arraez and McNeil had very similar performances, despite Arraez's large lead in raw batting average. These authors also found that assuming normality for batting averages among full-time players might not be appropriate \citep{yan2025fullhouse-supplement}. Even so, we evaluate $\widehat{F}(Y_{(n_i),i})^{n_i}$, the observed percentile of the distribution for the maximum batting average $Y_{(n_i),i}$ in season $i$. These percentiles are not uniformly distributed as seen in Figure~\ref{Fig:uniform-qq}. 
 
 Interestingly, the percentile corresponding to Luis Arraez's 2023 MLB leading batting average is largely without recent precedent. See Table~\ref{Tab:extreme-performers} for specifics. This table contains information from all seasons in which an MLB leading batter's extreme batting average percentile exceeds that of Luis Arraez in 2023. Notice that there is a significant drop off in the frequency of such seasons after Rogers Hornsby's modern day (post-1900) record 0.424 season from 1924. It is also interesting to note that the four most recent seasons in this table are from international players or players that would not have been allowed to play baseball had segregation continued (same with Rod Carew in 1977). Again, extreme performances were more common when the talent pool was more restricted and batting strategies and training methods were more variable, not when MLB expanded the number of teams \citep{Gould96, DE20, DE20b, yan2025fullhouse-supplement}. This table also includes a column for p-values from a Shapiro-Wilk test \citep{shapiro1965analysis} on the normality of batting average for full-time players. These results support the findings in \cite{yan2025fullhouse-supplement}. Moreover, the values $\widehat{F}(Y_{(n_i),i})^{n_i}$ do not follow a uniform distribution as indicated in Figure~\ref{Fig:uniform-qq}.
  
@@ -1573,7 +1551,19 @@ This demonstrates a central tenet of Full House Modeling: observed records are s
 %\end{figure}
 
 
+\section{Disscussion}
 
+The aptitude-achievement paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. Although widely encountered in education, labor economics, psychometrics, medicine, and sports analytics, measuring the frequency of this paradox under realistic data-generating regimes is nontrivial. In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts.
+
+ Full House Modeling provides a direct comparison of individuals' latent aptitudes and observed achievements across different contexts, which is a novel contribution to latent trait modeling. While traditional latent trait models  \citep{bartholomew2011latent} often focus on estimating underlying traits from observed categorical data , our approach specifically quantifies the probability of paradoxical outcomes in comparative settings. 
+ %In contrast to the Rasch model, which assumes a specific probabilistic form governing the relationship between ability and difficulty \citep{bond2013applying}, Full House Modeling does not rely on a fixed functional form such as the logistic curve. Instead, it employs nonparametric estimation of observed achievements, thereby offering greater flexibility. 
+ Full House Modeling formalizes the comparison of individuals' performance across distinct contexts based on the large source population size $N$, thereby offering a more nuanced understanding of individual differences and the impact of contextual factors on observed outcomes. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. By comparison, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and that comparisons of item difficulties are independent of the sample of individuals tested, but it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal or group-level random effects rather than through an explicit embedding into a large source population. Full House Modeling enhances broader statistical modeling practices by providing a framework for robust comparative analysis, particularly in situations where direct, context-independent comparisons are challenging.
+
+We derive closed-form expressions for the paradox probability in two regimes: (i) when observed achievements are i.i.d., and (ii) when context-specific summaries are independent normals with distinct means and variances. The probability rises with population-size asymmetry (large $N_1$, small $N_2$) and sampling asymmetry (small $n_1$, large $n_2$). Moreover, for a fixed population-size ratio $N_2/N_1$, it is unchanged by proportional rescaling of the sample sizes $(n_1,n_2)$. We also develop bounds for more general settings and show that, when observed achievement is normal, a plug-in estimator yields reliable paradox-probability estimates.
+
+Our findings align with a growing body of evidence that real-world evaluative systems routinely substitute \emph{proxies} for the constructs they claim to measure, with consequential distortion. The GRADE algorithm of \cite{waters2014grade} shows how admissions workflows may privilege machine-learned surrogates over nuanced information (e.g., personal statements), reinforcing pre-existing filters. Relatedly, \cite{alvero2020ai} document that seemingly innocuous features (e.g., the word ``baseball'') can act as strong demographic signals, raising concerns about \emph{indirect inference} in which protected or contextual attributes are inferred through correlated proxies. A broader survey by \cite{baker2022algorithmic} warns that such systems may conceal ``unknown unknowns,'' particularly for under-examined subpopulations. Complementing these mechanism-level concerns, the meta-analytic evidence in \cite{walton2009latent} demonstrates that outcome-based measures (grades, test scores) can systematically understate the aptitude of marginalized groups through identity-contingent dynamics.
+
+By elevating probability paradox from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
 
 
 \section*{Supplemental Results}
