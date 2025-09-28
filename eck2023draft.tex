@@ -71,15 +71,18 @@
 
 \section{Introduction}
 
-Comparisons of human performance across differing contexts, schools, regions, eras, institutions, and tasks, are central to education, labor economics, psychometrics, medicine, and sports analytics \citep{chetty2014measuring, iezzoni1997risk, yan2025comparing}. Yet such comparisons are notoriously fragile when the context both shapes opportunities to perform and distorts how performance is measured. This paper studies a fundamental tension that can arise in these settings: an individual from one context may possess higher latent aptitude than an individual from another context while nonetheless exhibiting lower observed achievement. We call this the aptitude-achievement paradox across contexts and develop a statistical framework to quantify the probability that it occurs.
+Comparisons of human performance across differing contexts, schools, regions, eras, institutions, and tasks, are central to education, labor economics, psychometrics, medicine, and sports analytics \citep{chetty2014measuring, iezzoni1997risk, bartholomew2011latent, bond2013applying, BRL99, imbens2018causal, holland2012differential, yan2025comparing}. A recurring challenge is that an individual in one context may have higher latent aptitude yet lower observed achievement than a counterpart elsewhere. We term this the aptitude-achievement paradox and develop a statistical framework to quantify its probability across contexts. Formally, let individual $j$ in context $i$ have an observed $\R$-valued statistic $Y_{i,j}$ and an underlying latent $\R$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ has an observed $\R$-valued statistic $Y_{m,n}$,and an underlying latent $\R$-valued aptitude $X_{m,n}$. The probability of aptitude-achievement paradox is 
+$$
+\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right)
+$$
 
 The paradox is structurally impossible if a single, strictly increasing, context-invariant measurement map aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness, transportability, and domain shift. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
 
 A large class of methods measures how often observed orderings disagree with a target ordering-precisely the phenomenon at the heart of our cross-context paradox. At the most elementary level, discordance statistics summarize the share of ordered pairs whose observed outcomes align (or misalign) with a reference score or latent ordering. Classic measures include Kendall's $\tau$ \citep{kendall1938new} and Somers'D \citep{somers1962new}, which compute differences between the proportions of concordant and discordant pairs and offer adjustments for ties; Somers'D is asymmetric and treats one variable (e.g., a score) as the predictor of the other (e.g., an outcome), making it particularly natural for "does the score rank the outcomes correctly?" questions. These rank-based indices provide assumption-lean, effect-size-like summaries of reversal risk. However, because these indices operate on observed rankings, they neither place individuals on a common latent scale nor disentangle measurement non-invariance or selection, motivating models that make the measurement process explicit.
 
-Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and that comparisons of item difficulties are independent of the sample of individuals tested, but it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. 
+Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and the Rasch model expect no differential item functioning (DIF) \citep{holland2012differential}, which means an item behaves differently for two (or more) groups of examinees who have the same underlying ability on the target construct. But it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. 
 
-Full House Modeling offers a groundbreaking approach for comparing individuals across diverse contexts, initially developed through the analysis of baseball players across different eras \citep{yan2025comparing}. This analytical framework gained further historical significance \citep{burgos2025change}, which was subsequently explored and presented in a separate study. These analyses are transforming baseball analytics and are increasingly recognized within the broader baseball community. The applicability of Full House Modeling was further extended to investigate the influence of historical figures \citep{cohen2025contextualizing}. 
+Full House Modeling offers a novel approach for comparing individuals across diverse contexts, initially developed through the analysis of baseball players across different eras \citep{yan2025comparing}. This analytical framework gained further historical significance \citep{burgos2025change}, which was subsequently explored and presented in a separate study. These analyses are transforming baseball analytics and are increasingly recognized within the broader baseball community. The applicability of Full House Modeling was further extended to investigate the influence of historical figures \citep{cohen2025contextualizing}. 
 
 In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts. The aptitude-achievement  paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. We provide explicit probabilities for these paradoxes in two scenarios: first, when observed achievement is independent and identically distributed (i.i.d.), and second, when observed statistics across contexts follow different normal distributions but remain independent. We also explore bounds for these paradoxes in more generalized settings and demonstrate that when observed achievement is normally distributed, paradox probabilities can be reliably estimated using a plug-in method.
 
@@ -1566,16 +1569,16 @@ Our findings align with a growing body of evidence that real-world evaluative sy
 By elevating probability paradox from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
 
 
-\section*{Supplemental Results}
+\section{Supplemental Results}
 
 
 \begin{lemma}\label{lemma:monotonicity}
 Let $1 \leq j < n$ and let $x \in (0,1)$. Let $I_{\alpha, \beta}(x)$ be a regularized incomplete beta function as in Definition~\ref{def:ribf}. Then, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$.
 \end{lemma}
-
-\begin{center}
-	\textbf{Need to fix notation; should be $I_{\alpha,\beta}(x)$}
-\end{center}
+%
+%\begin{center}
+%	\textbf{Need to fix notation; should be $I_{\alpha,\beta}(x)$}
+%\end{center}
 
 \begin{proof}
 We can define a function $f_{n,j}(x)$ as
@@ -1616,177 +1619,6 @@ Now define $l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}$ and see
 	l^{'}_n(x) = -\frac{1}{n+1}x^{\frac{1}{n(n+1)} - 1} + \frac{1}{n+1}x^{-\frac{1}{n+1} - 1} = \frac{1}{n+1}x^{-\frac{n+2}{n+1}}\left( 1 - \xn \right).
 \end{align*}
 Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
-\end{proof}
-
-
-
-\begin{prop} \label{prop:condition2}
-Consider a Full House Model in Definition~\ref{def:fhm} with two populations and $F_{Y_i} = F_{Y}$ for $i=1,2$ where the system inclusion function is $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Let $I$ be a regularized incomplete beta function. In the notation of Theorem~\ref{theorem:samedistgeneral}, suppose that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1 \geq 0$, and $k = j$. Then, technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.	
-\end{prop}
-
-\begin{proof}
-The conditions of this proposition allow us to express technical condition \eqref{eq:technical-condition} as 
-$$
-  f_{n_1,n_2,N_1,N_2,j}(x) = I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x).
-$$
-Applications of the chain rule, the inverse function theorem \citep{rudin1964principles} on Page 221, and this property of regularized incomplete beta functions
-$$
-  I^\prime_{\alpha,\beta}(I^{-1}_{\alpha,\beta}(x)) = \frac{I^{-1}_{\alpha,\beta}(x)^{\alpha-1}(1 - I^{-1}_{\alpha,\beta}(x))^{\beta-1}}{B(\alpha,\beta)}, 
-$$
-allow us to write 
-\begin{align*}
-	&f^\prime_{n_1,n_2,N_1,N_2,j}(x) = \frac{ I^\prime_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)}{ I^\prime_{n_2-j,j+1} \circ I_{n_2-j,j+1}^{-1}(x)} - \frac{ I^\prime_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)}{ I^\prime_{N_2-j,j+1} \circ I_{N_2-j,j+1}^{-1}(x)} \\
-	&\qquad= \frac{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_1-j,j+1)}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_2-j-1}\left(1 - I_{n_2-j, j+1}^{-1}(x)\right)^{j}/B(n_2-j,j+1)} \\
-	&\qquad\qquad - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_1-j,j+1)}{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_2-j-1}\left(1 - I_{N_2-j, j+1}^{-1}(x)\right)^{j}/B(N_2-j,j+1)}\\
-	%&= \frac{B(n_2 - j, j+1)}{B(n_1-k,k+1)}g_{n_2, j}^{-1}(x)^{n_2 - n_1}(1-g_{n_2, j}^{-1}(x))^{k-j} - \frac{B(N_2 - j, j+1)}{B(N_1-k,k+1)}g_{N_2, j}^{-1}(x)^{N_2 - N_1}(1-g_{N_2, j}^{-1}(x))^{k-j}\\
-	&\qquad= \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)}\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2} \\
-	&\qquad= \left(I_{n_2-j,j+1}^{-1}(x)\right)^{n_1-n_2}\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)} \\ 
-	&\qquad\qquad \times\left[ \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} - \frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}\right]
-\end{align*}
-From here we see that $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$, and when $x = 1$, we have 
-\begin{align*}
-	&f^\prime_{n_1,n_2,N_1,N_2,j}(1) = \frac{B(n_2-j,j+1)}{B(n_1-j,j+1)} - \frac{B(N_2 -j, j+1)}{B(N_1-j,j+1)}\\
-	&\qquad= \frac{(n_1 - j)\dots(n_1)}{(n_2 - j)\dots(n_2)} - \frac{(N_1 - j)\dots(N_1)}{(N_2 - j)\dots(N_2)} \\
-	&\qquad\leq 0,
-\end{align*}
-from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-%Supposed $h(x) = \frac{n_1 - x}{n_2 - x} - \frac{N_1 - x}{N_2 - x}$, then
-%\begin{align*}
-%	h(x) &= \frac{(n_1 - x)(N_2 - x) - (n_2 - x)(N_1 - x)}{(n_2 - x)(N_2 - x)} \\
-%	&= \frac{n_1N_2 - n_2N_1 - (n_1 + N_2 -n_2 - N_1 )x}{(n_2 - x)(N_2 - x)}
-%\end{align*}
-%Now we prove for all $0 < x < min(n_1, n_2, N_1, N_2)$, $h(x) < 0$ when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $N_2 - N_1 > n_2 - n_1$. 
-%Now, we show 
-%\begin{align*}
-%	f^{`}(1) &= \frac{(n_1 - j)(n_1 - j +1)\dots(n_1)}{(n_2 - j)(n_2 - j +1)\dots(n_2)} - \frac{(N_1 - j)(N_1 - j +1)\dots(N_1)}{(N_2 - j)(N_2 - j +1)\dots(N_2)}\\
-%	&= \frac{n_1 - j}{n_2 - j}\times\frac{n_1 - j+1}{n_2 - j+1}\times\dots\times\frac{n_1}{n_2} - \frac{N_1 - j}{N_2 - j}\times\frac{N_1 - j+1}{N_2 - j+1}\times\dots\times\frac{N_1}{N_2} < 0
-%\end{align*}
-If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$ and ranges from 0 to 1, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ as desired.
-
-
-Define $r(x) = r_{n_1,n_2,N_1,N_2,j}(x) =\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$, and notice that 
-$$
-  r_{n_1,n_2,N_1,N_2,j}(x) = \left(\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{a}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)}\right)^b,
-$$
-where $a = \frac{N_1 - N_2}{n_1 - n_2}$ and $b = n_1-n_2$. The conditions of the proposition imply that $b \leq 0$ and $1 \leq a \leq \frac{N_2}{n_2}$. When $a = 1$ we have that $r(x) \in (0,1)$ since $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x)$. 
-
-Now let $s_a(x) = s_{n_2,N_2,a}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^a}{I_{n_2-j, j+1}^{-1}(x)}$. Then, when $a = \frac{N_2}{n_2}$, we have that 
-\begin{align*}
-	s_{\frac{N_2}{n_2}}(x) &= \frac{I_{N_2-j, j+1}^{-1}(x)^{\frac{N_2}{n_2}}}{I_{n_2-j, j+1}^{-1}(x)} = \left(\frac{I_{N_2-j, j+1}^{-1}(x)^{N_2}}{I_{n_2-j, j+1}^{-1}(x)^{n_2}}\right)^{\frac{1}{n_2}}.
-\end{align*}
-Lemma \ref{lemma:monotonicity} states that for all $x \in (0,1)$, $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$, and this implies that $I_{N_2-j, j+1}^{-1}(x)^{N_2} \geq I_{n_2-j, j+1}^{-1}(x)^{n_2}$. Thus, $s_{\frac{N_2}{n_2}}(x) \geq 1$ for all $x \in (0,1)$.
-
-\begin{center}
-	\textbf{Need to make coherent}
-\end{center}
-
-\vspace*{1cm}
-
-Since $I^{-1}_{\xn}(n-j, j+1) \in (0,1)$, then for any $a \in (1, \frac{N_2}{n_2})$, $s_a(x) \geq 1$, and this implies that $r(x) \in (0,1)$. 
-
-
-\vspace*{1cm}
-
-
-Then we show $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$
-
-\vspace*{1cm}
-
-\begin{center}
-	\textbf{Need to make coherent}
-\end{center}
-
-We can write 
-\begin{align*}
-	s^{\prime}_a(x) &= \frac{a(I_{N_2-j, j+1}^{-1}(x))^{a-1}I_{n_2-j, j+1}^{-1}(x)/I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x)) - (I_{N_2-j, j+1}^{-1}(x))^{a}/I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}{I_{n_2-j, j+1}^{-1}(x)^2} \\
-	&= T_a(x)\left(aI^{-1}_{n_2-j,j+1}(x)I^\prime_{n_2-j,j+1}(I^{-1}_{n_2-j,j+1}(x)) - I^{-1}_{N_2-j,j+1}(x)I^\prime_{N_2-j,j+1}(I^{-1}_{N_2-j,j+1}(x))\right) \\
-	&=  T_a(x)\left(a\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{B(N_2-j,j+1)}\right),
-\end{align*}
-where 
-$$
-T_a(x) = T_{a,n_2,N_2,j}(x) = \frac{I_{N_2-j, j+1}^{-1}(x)^{a-1}}{I_{n_2-j, j+1}^{-1}(x)^2I^{'}_{N_2-j, j+1}(I_{N_2-j, j+1}^{-1}(x))I^{'}_{n_2-j, j+1}(I_{n_2-j, j+1}^{-1}(x))}. 
-$$
-Then, 
-\begin{align*}
-	s^{\prime}_{\frac{N_2}{n_2}}(x) 
-	&=  N_2T_{\frac{N_2}{n_2}}(x)\left(\frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}\right).
-\end{align*}
-Now let 
-$$
-  m(x) = m_{n_2,N_2,j}(x) = \frac{I_{n_2-j, j+1}^{-1}(x)^{n_2-j}(1-I_{n_2-j, j+1}^{-1}(x))^j}{n_2B(n_2-j,j+1)} - \frac{I_{N_2-j, j+1}^{-1}(x)^{N_2-j}(1-I_{N_2-j, j+1}^{-1}(x))^j}{N_2B(N_2-j,j+1)}.
- $$
-We can write
-\begin{align*}
-	&m^{\prime}(x) = \frac{1}{n_2}\left(\frac{(n_2-j)I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^j\right. \\
-	&\qquad\qquad- \left.\frac{jI_{n_2-j, j+1}^{-1}(x)^{n_2-j}}{I_{n_2-j, j+1}^{-1}(x)^{n_2-j-1}(1-I_{n_2-j, j+1}^{-1}(x))^j}(1-I_{n_2-j, j+1}^{-1}(x))^{j-1}\right) \\
-	&\qquad- \frac{1}{N_2}\left(\frac{(N_2-j)I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^j\right.\\
-	&\qquad\qquad- \left.\frac{jI_{N_2-j, j+1}^{-1}(x)^{N_2-j}}{I_{N_2-j, j+1}^{-1}(x)^{N_2-j-1}(1-I_{N_2-j, j+1}^{-1}(x))^j}(1-I_{N_2-j, j+1}^{-1}(x))^{j-1}\right) \\
-	&= \frac{1}{n_2}\left((n_2-j) - \frac{jI_{n_2-j, j+1}^{-1}(x)}{1-I_{n_2-j, j+1}^{-1}(x)}\right) - \frac{1}{N_2}\left((N_2-j) - \frac{jI_{N_2-j, j+1}^{-1}(x)}{1-I_{N_2-j, j+1}^{-1}(x)}\right)\\
-	&= j\left( \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))}\right).
-\end{align*}
-We have that $m(0) = m(1) = 0$, and $m^\prime(0) < 0$. 
-
-\begin{center}
-	\LARGE EDITED UP TO HERE
-\end{center}
-
-
-Also $\lim_{x\rightarrow 1} m^\prime(x)> 0$ as $\frac{1}{1 - I_{N_2-j, j+1}^{-1}(x)} > \frac{1}{1 - I_{n_2-j, j+1}^{-1}(x)}$. In details, 
-
-for $\forall \epsilon_1 > 0$ and $\forall \epsilon_2 > 0$, we can find $x \in (0,1)$ that satisfies $I_{N_2-j, j+1}^{-1}(x) > I_{n_2-j, j+1}^{-1}(x) - \epsilon_1$ and $1 - x > \epsilon_2$. We choose the $\epsilon = min(\epsilon_1, \epsilon_2)$
-
-Then we can find $x > I_{N_2-j, j+1}^{-1}(1 + \frac{\epsilon}{(n_2 - N_2) / n_2})$, 
-
-\begin{align*}
-	\frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  &- \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2(1 - I_{n_2-j, j+1}^{-1}(x)) - N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	&> \frac{(n_2 - N_2)(1 - I_{N_2-j, j+1}^{-1}(x)) + n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	&> \frac{(n_2 - N_2)(-\frac{\epsilon}{(n_2 - N_2) / n_2})+ n_2\epsilon}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}\\
-	& > 0
-\end{align*}
-
-Therefore, $\lim_{x\rightarrow 1} m^\prime(x)> 0$. 
-
-Define $$w_{n_2, N_2}(x) = \frac{1}{N_2(1 - I_{N_2-j, j+1}^{-1}(x) )}  - \frac{1}{n_2(1 - I_{n_2-j, j+1}^{-1}(x))} = \frac{n_2w_1{x} - N_2w_2{x}}{n_2N_2(1 - I_{n_2-j, j+1}^{-1}(x))(1 - I_{N_2-j, j+1}^{-1}(x) )}$$
-
-where $w_1(x) = 1 - I_{n_2-j, j+1}^{-1}(x)$, $w_2(x) = 1 - I_{N_2-j, j+1}^{-1}(x)$
-
-Since $w_1(x) > w_2(x)$ and $w_2(x)$ decays slower than for $w_2(x)$ for $x \in (0,1)$. Also, we know $w_{n_2, N_2}(0) <0 $.
-
-Thus, $m(x) < 0$ for $x \in (0,1)$. 
-
-Now we show $r(x)$ is a decreasing function that ranges from 0 to 1. 
-
-Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
-$$
-r(x^*) = \frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
-$$
-where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-
-Then, based on the property of $r(x)$, $x^*$ is the unique value that satisfies the $r(x^*) = c$. 
-
-We can conclude $f(x) \geq 0$ for all $x \in (0,1)$.
-
-
-\vspace{2cm}
-
-\textbf{Is this needed}: Let $x^* = x_{n_1,n_2,N_1,N_2,j}^*$ be such that $f^\prime_{n_1,n_2,N_1,N_2,j}(x^*) = 0$, then 
-$$
-\frac{\left(I_{N_2-j, j+1}^{-1}(x^*)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x^*)\right)^{n_1 - n_2}} = \frac{B(n_2 -j, j+1)/B(n_1-j,j+1)}{B(N_2-j,j+1)/B(N_1-j,j+1)} = c,
-$$
-where $c = c_{n_1,n_2,N_1,N_2,j} \in (0,1)$, again from the assumption that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$.
-
-\vspace{2cm}
-
-%If we can prove the $\frac{\left(I_{N_2-j, j+1}^{-1}(x)\right)^{N_1 - N_2}}{\left(I_{n_2-j, j+1}^{-1}(x)\right)^{n_1 - n_2}}$ is a monotonic decreasing function for $x \in (0,1)$, then we can conclude that $f_{n_1,n_2,N_1,N_2,j}(x) \geq 0$ for all $x \in (0,1)$ since $f_{n_1,n_2,N_1,N_2,j}(0) = f_{n_1,n_2,N_1,N_2,j}(1) = 0$.
-
-
-
-
-
-
-
-
-
 \end{proof}
 
 \begin{prop} \label{prop:recursion}
@@ -1920,7 +1752,7 @@ When $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$ and $k = j$, then
 
 $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ where $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the CDF of Beta$(\alpha, \beta)$ distribution. 
 
-\section{Proof to Lemma \ref{lemma:wmax}}
+\subsection*{Proof to Lemma \ref{lemma:wmax}}
 
 \begin{proof}
 	
