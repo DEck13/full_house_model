@@ -84,7 +84,7 @@ Traditional latent trait models \citep{bartholomew2011latent} focus on estimatin
 
 Full House Modeling offers a novel approach for comparing individuals across diverse contexts, initially developed through the analysis of baseball players across different eras \citep{yan2025comparing}. This analytical framework gained further historical significance \citep{burgos2025change}, which was subsequently explored and presented in a separate study. These analyses are transforming baseball analytics and are increasingly recognized within the broader baseball community. The applicability of Full House Modeling was further extended to investigate the influence of historical figures \citep{cohen2025contextualizing}. 
 
-In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts. The aptitude-achievement  paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. We provide explicit probabilities for these paradoxes in two scenarios: first, when observed achievement is independent and identically distributed (i.i.d.), and second, when observed statistics across contexts follow different normal distributions but remain independent. We also explore bounds for these paradoxes in more generalized settings and demonstrate that when observed achievement is normally distributed, paradox probabilities can be reliably estimated using a plug-in method.
+In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts. The aptitude-achievement  paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. We provide explicit probabilities for these paradoxes in two scenarios: first, when observed achievement is independent and identically distributed (i.i.d.), and second, when observed statistics across contexts follow different normal distributions but remain independent. We also explore bounds for these paradoxes in more generalized settings and demonstrate that when observed achievement is normally distributed, paradox probabilities can be reliably estimated using a plug-in method. Based on the sensitivity analysis of the paradox probability, it depends on population size ratios not absolute population sizes.
 
 
 \section{Model Setting}
@@ -144,9 +144,13 @@ As a simple illustrative example of the above, let $r_{i,t} = N_i - n_i + t$ and
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
 \begin{equation} \label{eq:pararep}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
-  = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
+  = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
 \end{equation}
-where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$.
+\begin{equation} \label{eq:pararep2}
+  \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
+  = \Prob\left( g_{1,2,j,k}\left(Y_{2,(k)}\right) < Y_{1,(j)}  < Y_{2,(k)}\right)
+\end{equation}
+where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot), g_{1,2,j,k}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} \circ F_{X_{2,(r_{2,k})}}^{-1} \circ F_{Y_{2, (k)}}^{-1} (\cdot)$.
 \end{lemma}
 
 \begin{proof}
@@ -158,6 +162,8 @@ $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then w
   &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
 where $h_{1,2,j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+
+A similar technique can be applied to the second equation to obtain the result.
 \end{proof}
 
 Our first formal result provides conditions that allow for an explicit paradox probability result. Those conditions require the following definition.
@@ -215,30 +221,33 @@ First, Lemma~\ref{lemma:rep} allows us to write
 $$
 	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
 $$
-where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. o see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
+where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
+%Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
 %\begin{align*}
 %  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
 %  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
-%  &= g_{N_2,r_{2,k}} \circ F_X (x),
+%  &= I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X (x),
 %\end{align*}
-where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+%where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
 \begin{align*}
 	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ g_{N_1,r_{1,j}}^{-1} \circ g_{n_1, j} \circ g_{n_2,k}^{-1} \circ g_{N_2,r_{2,k}} \circ F_X(x)} d \ g_{N_1, r_{1,j}}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{g_{n_1, j} \circ g_{n_2, k}^{-1} \circ g_{N_2, r_{2,k}} \circ F_X(x) - g_{N_1, r_{1,j}} \circ F_X(x)\right\}^+ \  d \ g_{N_2, r_{2,k}}(F_X(x)) \\
-	&= \int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+	 \ dt.
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \  d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
 \end{align*}
 Condition~\eqref{eq:technical-condition} states that 
-$$
-\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+\ dt = 
-\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}\ dt.
-$$
+
+\begin{align*}
+	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
+\end{align*}
+
 Thus,
 \begin{align*}	
-&\int_0^1 \left\{g_{n_1, j} \circ g_{n_2, k}^{-1}(t) - g_{N_1, r_{1,j}} \circ g_{N_2, r_{2,k}}^{-1}(t)\right\}^+\ dt \\
-	&\qquad= \int_0^1 g_{n_1, j}(x) \ dg_{n_2, k}(x)- \int_0^1g_{N_1, r_{1,j}}(x) \ dg_{N_2, r_{2,k}}(x)\\
+&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
 	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
 	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
 	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
@@ -333,7 +342,7 @@ In this section we will provide explicit paradox probability results in a Full H
 
 \subsection{General bounds}
 
-\begin{defn}
+\begin{defn}\label{def:stodom}
 We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
 $
   \Prob(Y_2 \leq y) \leq \Prob(Y_1 \leq y) \leq \Prob(Y_2 \leq y) + \varepsilon
@@ -352,7 +361,7 @@ Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
   X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
 \end{align*}
-where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$. Then,
+where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. Then,
 \begin{equation} \label{eq:paradox2}
 \begin{split}
   &\frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -400,6 +409,44 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
 %    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
 %\end{align*}
 %Putting it all together yields the second inequality of \eqref{eq:paradox2}.
+
+First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
+
+$$F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}}$$, 
+
+which is 
+
+$$x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)$$, 
+
+By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
+
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+	&= \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_1)}(x)\\
+	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_1)}(x)\\
+	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+\end{align*}
+
+Based on the Definition \ref{def:stodom}, we have
+
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&= \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2}
+\end{align*}
+
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	& = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
+\end{align*}
+
+
+
 \end{proof}
 
 
@@ -536,7 +583,7 @@ then $c$ is strictly less than 1 and
 Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 	
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \\ 
-	&=  O_P(n_1^{\frac{3}{2}}n_2c^{n_1+n_2-3})
+	&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3})
 	\end{align*}
 %	where $c$ is defined in \eqref{eq:wn}. \textcolor{red}{The main issue is the definition of $w_{n, max}$. This quantity is stated in complete generality as a function with arbitrary entries. However, its main use is when the entries take a specific form as stated in the proof of this theorem. The general version is not well-defined as $w_{n, max}$ is a function of the entries themselves. The specific version of $w_{n, max}$ with either population parameters or their estimators plugged-in is well-defined. More work is needed to determine what happens to $w_{n, max}$ as $n \to \infty$ and the corresponding $\hat{w}_{n, max}$ as $n\to \infty$. I do not expect the argument to be deal-breaking as the estimators exhibit nice convergence properties and, with population parameters defined within the interior of the parameter space, will be away from the boundary as $n\to\infty$. Also note that your Theorem conclusion is that the difference in probabilities is $O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})$ whereas the end of the proof states that the difference goes to 0. These are two different things.}
 where c is defined in the Lemma \ref{lemma:wmax}
