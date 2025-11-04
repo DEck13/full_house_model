@@ -424,8 +424,8 @@ By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep},
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
 	&= \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_1)}(x)\\
-	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_1)}(x)\\
+	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
+	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
 	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
 \end{align*}
 
@@ -511,8 +511,8 @@ With this definition of $g_{1,2, j, k}(x)$ we can write
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_1)}(x)\\
-	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_1)}(x)\\
+	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
+	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
 	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
   &= \int_{0}^{1}\left(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})\right)^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
   &= \int_{-\infty}^{+\infty} \Phi\left(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} \left(n_2\Phi(x)^{n_2-1}\phi(x)\right)\ dx - \frac{N_2}{N_1 + N_2} \\
