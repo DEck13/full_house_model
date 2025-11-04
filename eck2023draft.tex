@@ -159,7 +159,7 @@ $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then w
 \begin{align*}
   &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
   &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
-  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right),
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
 where $h_{1,2,j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 
@@ -207,8 +207,8 @@ p
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1}  \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x).
 \end{align*}
 The above is the upper-bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
-	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
-	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
+	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
+	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
 $$
 	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
 $$
@@ -372,30 +372,30 @@ where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is f
 \end{prop}
 
 \begin{proof}
-First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
-$$
-  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} = \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
-$$
-and this implies that 
-$$
-   F_X^{-1}\left(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}}(X_{2,(N_2)})\right) \leq 
-   h_{1,2}(X_{2,(N_2)}) \leq 
-   F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
-$$
-In combination with Corollary~\ref{corollary:samedisttop} and the proof of Corollary~\ref{corollary:samedisttop}, the first inequality yields  
-$$
-  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-  \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
-$$
-This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}. Now,
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-  &\qquad \leq \int_{-\infty}^{\infty}\left[\int_{x}^{F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(x)\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right)} f_{X_{1,(N_1)}}(y) dy\right] f_{X_{2,(N_2)}}(x) dx \\
-  &\qquad = \int_{-\infty}^{\infty}\left[\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} - F_{X}(x)^{N_1}\right] N_2F_{X}(x)^{N_2-1} f_X(x) dx \\
-  &\qquad = \int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}N_2F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2} \\
-  &\qquad = \int_{0}^{1}\left(t^{1/n_2} + \varepsilon\right)^{n_1} dt - \frac{N_2}{N_1 + N_2} \\
-  &\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
-\end{align*}
+%First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
+%$$
+%  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} = \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
+%$$
+%and this implies that 
+%$$
+%   F_X^{-1}\left(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}}(X_{2,(N_2)})\right) \leq 
+%   h_{1,2}(X_{2,(N_2)}) \leq 
+%   F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
+%$$
+%In combination with Corollary~\ref{corollary:samedisttop} and the proof of Corollary~\ref{corollary:samedisttop}, the first inequality yields  
+%$$
+%  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+%  \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
+%$$
+%This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}. Now,
+%\begin{align*}
+%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+%  &\qquad \leq \int_{-\infty}^{\infty}\left[\int_{x}^{F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(x)\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right)} f_{X_{1,(N_1)}}(y) dy\right] f_{X_{2,(N_2)}}(x) dx \\
+%  &\qquad = \int_{-\infty}^{\infty}\left[\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} - F_{X}(x)^{N_1}\right] N_2F_{X}(x)^{N_2-1} f_X(x) dx \\
+%  &\qquad = \int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}N_2F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2} \\
+%  &\qquad = \int_{0}^{1}\left(t^{1/n_2} + \varepsilon\right)^{n_1} dt - \frac{N_2}{N_1 + N_2} \\
+%  &\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
+%\end{align*}
 
 %A first-order Taylor expansion of $\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}$ gives, 
 %$$
@@ -412,11 +412,11 @@ This verifies the first inequality of \eqref{eq:paradox2}. We now verify the sec
 
 First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
 
-$$F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}}$$, 
+$$F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}},$$ 
 
 which is 
 
-$$x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)$$, 
+$$x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right),$$ 
 
 By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
 
@@ -489,7 +489,7 @@ defined with the following structure \\
 Let $\Phi$ be the cumulative distribution function of the standard normal distribution. Our paradox probability result is presented in the Thereom below.
 
 \begin{theorem} \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi(\frac{\Phi^{-1}(t^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}} > t$ for all $t \in (0,1)$. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in (0,1)$. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -499,24 +499,23 @@ Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify t
 where $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 \end{theorem}
 
-
 \begin{proof}
-First let
+
+First by applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
+
 \begin{align*}
-	&h_{1,2}(x) = (g_1 \circ f_2)(x) \\
-	&= F_X^{-1}((F_{Y_2}(F_{Y_1}^{-1}(F_X^{\frac{N_2}{n_2}})))^{\frac{n_1}{N_1}})(x)\\
-	&= F_X^{-1}((\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{\frac{n_1}{N_1}})(x).
+	g_{1,2,j,k}(x) &= g_{1,2,n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi(\frac{x-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right)
 \end{align*}
-With this definition of $h_{1,2}(x)$ we can write
+
+With this definition of $g_{1,2, j, k}(x)$ we can write
 \begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( X_{2,(N_2)} < X_{1,(N_1)}  < h_{1,2}\left(X_{2,(N_2)}\right)\right) \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} f_{X_{1,(N_1)}}(y)\ dy \ f_{X_{2,(N_2)}}(x) \ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{h_{1,2}(x)} N_1 (F_X(y))^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1}\ dx \\
-  &= \int_{-\infty}^{+\infty}\int_{x}^{F_X^{-1}(\Phi(\frac{\Phi^{-1}(F_X^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})^{\frac{n_1}{N_1}})(x)} N_1 F_X(y)^{N_1-1}\ dy \ N_2 F_X(x)^{N_2-1} \ dx \\
-  &= \int_{-\infty}^{+\infty} ((\Phi(\frac{(\Phi^{-1}(F_X(x)^{\frac{N_2}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} - F_X(x)^{N_1}) \ N_2 F_X(x)^{N_2-1}\ dx \\
-  & = \int_{0}^{1}(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} - t^{\frac{N_1}{N_2}}) \ dt \\
-  &= \int_{0}^{1}(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}))^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
-  &= \int_{-\infty}^{+\infty} \Phi(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1})^{n_1} (n_2\Phi(x)^{n_2-1}\phi(x))\ dx - \frac{N_2}{N_1 + N_2} \\
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_1)}(x)\\
+	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_1)}(x)\\
+	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+  &= \int_{0}^{1}\left(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})\right)^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+  &= \int_{-\infty}^{+\infty} \Phi\left(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} \left(n_2\Phi(x)^{n_2-1}\phi(x)\right)\ dx - \frac{N_2}{N_1 + N_2} \\
   &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, \\
   &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
   &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
@@ -524,6 +523,12 @@ With this definition of $h_{1,2}(x)$ we can write
   &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}. 
 \end{align*}
 The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
+
+\vspace{12pt}\textbf{Remarks}:
+\begin{enumerate}
+	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in (0,1)$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
+\end{enumerate}
+
 \end{proof}
 
 
