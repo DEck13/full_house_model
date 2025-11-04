@@ -489,7 +489,7 @@ defined with the following structure \\
 Let $\Phi$ be the cumulative distribution function of the standard normal distribution. Our paradox probability result is presented in the Thereom below.
 
 \begin{theorem} \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in (0,1)$. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in \mathbb{R}$. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -526,7 +526,7 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 
 \vspace{12pt}\textbf{Remarks}:
 \begin{enumerate}
-	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in (0,1)$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
+	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in \mathbb{R}$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
 \end{enumerate}
 
 \end{proof}
