@@ -144,13 +144,13 @@ As a simple illustrative example of the above, let $r_{i,t} = N_i - n_i + t$ and
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
 \begin{equation} \label{eq:pararep}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
-  = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
+  = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
 \end{equation}
 \begin{equation} \label{eq:pararep2}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) 
-  = \Prob\left( g_{1,2,j,k}\left(Y_{2,(k)}\right) < Y_{1,(j)}  < Y_{2,(k)}\right)
+  = \Prob\left( g_{j,k}\left(Y_{2,(k)}\right) < Y_{1,(j)}  < Y_{2,(k)}\right)
 \end{equation}
-where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot), g_{1,2,j,k}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} \circ F_{X_{2,(r_{2,k})}}^{-1} \circ F_{Y_{2, (k)}}^{-1} (\cdot)$.
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot), g_{j,k}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} \circ F_{X_{2,(r_{2,k})}}^{-1} \circ F_{Y_{2, (k)}} (\cdot)$.
 \end{lemma}
 
 \begin{proof}
@@ -159,9 +159,9 @@ $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then w
 \begin{align*}
   &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
   &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
-  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
-where $h_{1,2,j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
 
 A similar technique can be applied to the second equation to obtain the result.
 \end{proof}
@@ -202,13 +202,13 @@ p
 \begin{enumerate}
 	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
 \begin{align*}
-	h_{1,2,j,k}(x) &= F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (x) \\
+	h_{j,k}(x) &= F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1} \circ \left(F_Y \circ F_Y^{-1}\right) \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1}  \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x).
 \end{align*}
 The above is the upper-bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
-	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
-	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
+	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
+	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
 $$
 	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
 $$
@@ -219,9 +219,9 @@ The technical condition \eqref{eq:technical-condition} ensures that this integra
 \begin{proof}
 First, Lemma~\ref{lemma:rep} allows us to write
 $$
-	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right),
+	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
 $$
-where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{1,2,j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
 %Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
 %\begin{align*}
 %  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
@@ -230,7 +230,7 @@ where $h_{1,2,j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ 
 %\end{align*}
 %where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
 \begin{align*}
-	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{1,2,j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
+	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
 	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
@@ -422,7 +422,7 @@ By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep},
 
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-	&= \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
 	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
@@ -489,7 +489,7 @@ defined with the following structure \\
 Let $\Phi$ be the cumulative distribution function of the standard normal distribution. Our paradox probability result is presented in the Thereom below.
 
 \begin{theorem} \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in \mathbb{R}$. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1 \leq t$ for all $t \in \mathbb{R}$. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -499,17 +499,19 @@ Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify t
 where $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
 \end{theorem}
 
+%$\Phi\left(\frac{t-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \leq \Phi\left(\frac{t-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}$
+
 \begin{proof}
 
 First by applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
 
 \begin{align*}
-	g_{1,2,j,k}(x) &= g_{1,2,n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi(\frac{x-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right)
+	g_{j,k}(x) &= g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi(\frac{x-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right)
 \end{align*}
 
-With this definition of $g_{1,2, j, k}(x)$ we can write
+With this definition of $g_{j, k}(x)$ we can write
 \begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{1,2,n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
 	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
@@ -526,7 +528,7 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 
 \vspace{12pt}\textbf{Remarks}:
 \begin{enumerate}
-	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) > t$ for all $t \in \mathbb{R}$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
+	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) \leq t$ for all $t \in \mathbb{R}$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
 \end{enumerate}
 
 \end{proof}
