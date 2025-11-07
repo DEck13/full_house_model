@@ -92,7 +92,7 @@ In this article, we formalize the Full House Methodology and investigate the pro
 We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude 
 $X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$ as a determined and known system inclusion function for population $i$ where a 1 indicates inclusion and a 0 indicates exclusion. 
 %$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
-We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are one-to-one realizations of $X_{i,j}$, provided that $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
+We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are one-to-one realizations of $X_{i,j}$, provided that $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
 
 Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger numbers will correspond to a notion of "better." Thus $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$, for example. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th highest value observed from the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
@@ -128,17 +128,16 @@ Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary acro
 \section{Paradoxes Under Identical Distributions}
 \label{sec:samedist}
 
-In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$, $i=1,2$ in Definition~\ref{def:fhm}. The following definition formally defines the notion of paradox used throughout this article.
+In this section we will provide explicit aptitude-achievement paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$, $i=1,2$ in Definition~\ref{def:fhm}. The following definition formally defines the notion of paradox used throughout this article.
 
 \begin{defn}\label{def:paradox}
-Consider the Full House Model in Definition~\ref{def:fhm} with two populations denoted by $i=1,2$. We say a paradox has occurred when both $X_{1,(r_{1,j})} > X_{2,(r_{2,k})}$ and  $Y_{1,(j)} < Y_{2,(k)}$ have occurred. The paradox probability is defined as
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations denoted by $i=1,2$. We say a aptitude-achievement paradox has occurred when both $X_{1,(r_{1,j})} > X_{2,(r_{2,k})}$ and  $Y_{1,(j)} < Y_{2,(k)}$ have occurred. The aptitude-achievement paradox probability is defined as
 \begin{equation} \label{eq:simpleparadox}
   \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right).
 \end{equation}	
 \end{defn}
 
-As a simple illustrative example of the above, let $r_{i,t} = N_i - n_i + t$ and set $j = n_1$ and $k = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then the paradox probability \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ when $N_1 \to \infty$. We now introduce a convenient representation which allows the paradox probability to be expressed in terms of the latent aptitudes alone.
-
+As a simple illustrative example of the above, let $r_{i,t} = N_i - n_i + t$ and set $j = n_1$ and $k = n_2$, and further suppose that $Y_{1,j} < Y_{2,k}$ a.s. Then the aptitude-achievement paradox probability \eqref{eq:simpleparadox} is equivalent to $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right)$, and we have $\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}\right) \to 1$ when $N_1 \to \infty$. We now introduce a convenient representation which allows the paradox probability to be expressed in terms of the latent aptitudes alone.
 
 \begin{lemma} \label{lemma:rep}
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$. Then, 
@@ -162,11 +161,10 @@ $f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then w
   &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
 \end{align*}
 where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
-
 A similar technique can be applied to the second equation to obtain the result.
 \end{proof}
 
-Our first formal result provides conditions that allow for an explicit paradox probability result. Those conditions require the following definition.
+Our first formal result provides conditions that allow for an explicit aptitude-achievement paradox probability result. Those conditions require the following definition.
 
 \begin{defn}
 \label{def:ribf}
@@ -206,8 +204,8 @@ p
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1} \circ \left(F_Y \circ F_Y^{-1}\right) \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1}  \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x).
 \end{align*}
-The above is the upper-bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
-	\item The distribution on $X$ is eliminated when calculating the paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
+The above is the upper bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the aptitude-achievement paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
+	\item The distribution on $X$ is eliminated when calculating the aptitude-achievement paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
 	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
 $$
 	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
@@ -238,12 +236,10 @@ where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y
 	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
 \end{align*}
 Condition~\eqref{eq:technical-condition} states that 
-
 \begin{align*}
 	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
 	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
 \end{align*}
-
 Thus,
 \begin{align*}	
 &\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
@@ -270,7 +266,7 @@ p
 \end{proof}
 
 
-Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the paradox probability in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
+Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the aptitude-achievement paradox probability in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
 Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppose that $1_1(X_{1,(N_1)}, \textbf{X}_{1,-(N_1)}) = 1_2(X_{2,(N_2)}, \textbf{X}_{2,-(N_2)}) = 1$. Then,
@@ -296,21 +292,14 @@ Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppo
 \end{align*}
 \end{corollary}
 
-
 We now demonstrate a setting in which technical condition \eqref{eq:technical-condition} holds. This setting is based on a configuration of $n_j$, $N_j$, $j=1,2$ under the assumption that the systems are populated with individuals from the source populations who have the highest aptitudes.
-
 
 \begin{prop} \label{prop:condition}
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
 \begin{proof}
-
-
-Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. 
-\vspace{12pt}
-
-When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
+Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
 $$
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
@@ -328,19 +317,15 @@ Technical condition \eqref{eq:technical-condition} holds and the conclusion of T
 \end{proof}
 
 
-
-
-
-
-
-
 \section{Paradox Under Different Distribution}
 \label{sec:diffdist}
 
-In this section we will provide explicit paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_1} \neq F_{Y_2}$, in Definition~\ref{def:fhm}. Under first-order $\varepsilon$-weak stochastic dominance, we derive a general lower and upper bound on the paradox probability allowing for $F_{Y_1}\neq F_{Y_2}$. We then specialize to the Gaussian case in which $Y_1$ and $Y_2$ are normally distributed with different means and variances, and obtain an explicit upper bound on the paradox probability in this setting.
+In this section we will provide aptitude-achievement paradox probability results in a Full House Modeling setting involving two populations when we relax the specification that $F_{Y_1} = F_{Y_2}$ in Definition~\ref{def:fhm}. We first provide bounds for aptitude-achievement paradox probability in general settings. We then provide explicit aptitude-achievement paradox probability results when $Y_1$ and $Y_2$ are normally distributed with different means and variances.
 
 
 \subsection{General bounds}
+
+The general bounds we derive require a relaxed form of first-order stochastic dominance that constrains the distributions of $Y_1$ and $Y_2$ are `close' to each other. More formally, we introduce first-order $\varepsilon$-weak stochastic dominance, which is necessary for our aptitude-achievement paradox probability results.
 
 \begin{defn}\label{def:stodom}
 We will say that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ if, for $\varepsilon > 0$, 
@@ -354,12 +339,13 @@ $
 for some $y$.
 \end{defn}
 
+Under first-order $\varepsilon$-weak stochastic dominance, we derive a general lower and upper bound on the aptitude-achievement paradox probability when $F_{Y_1}\neq F_{Y_2}$.
 
 \begin{prop} \label{prop:weakstodom}
-Suppose that the system inclusion mechanism has the property that $g(X_{1,(r_{1,k})}) = 1$ and $g(X_{2,(r_{2,j})}) = 1$, and that the Full House Model is of the form 
+Suppose that the system inclusion mechanism has the property that $1_{i}\left(X_{i,(N_i)},\textbf{X}_{i,-(N_i)}\right) = 1$, for $i=1,2$, and that the Full House Model is of the form 
 \begin{align*}
   Y_{i,j} &\sim F_{Y_i}(y), \qquad i = 1,2, \qquad j = 1,\ldots,n_i, \\
-  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, \\
+  X_{i,j} &\sim F_X(x), \qquad i = 1,2, \qquad j = 1,\ldots,N_i, 
 \end{align*}
 where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. Then,
 \begin{equation} \label{eq:paradox2}
@@ -372,89 +358,107 @@ where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is f
 \end{prop}
 
 \begin{proof}
-%First, observe that the assumption of first order $\varepsilon$-weakly stochastically dominant gives 
-%$$
-%  \left(F_{Y_{2,(n_2)}}(y)\right)^{n_1/n_2} \leq \left(F_{Y_1}(y)\right)^{n_1} \leq \left(F_{Y_2}(y) + \varepsilon\right)^{n_1} = \left(\left(F_{Y_{2,(n_2)}}(y)\right)^{1/n_2} + \varepsilon\right)^{n_1},
-%$$
-%and this implies that 
-%$$
-%   F_X^{-1}\left(F_X^{\frac{N_2}{N_1}\frac{n_1}{n_2}}(X_{2,(N_2)})\right) \leq 
-%   h_{1,2}(X_{2,(N_2)}) \leq 
-%   F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(X_{2,(N_2)})\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right).
-%$$
-%In combination with Corollary~\ref{corollary:samedisttop} and the proof of Corollary~\ref{corollary:samedisttop}, the first inequality yields  
-%$$
-%  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-%  \geq \frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2}.
-%$$
-%This verifies the first inequality of \eqref{eq:paradox2}. We now verify the second inequality of \eqref{eq:paradox2}. Now,
-%\begin{align*}
-%  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-%  &\qquad \leq \int_{-\infty}^{\infty}\left[\int_{x}^{F_{X_{1,(N_1)}}^{-1}\left(  \left(\left(F_{X_{2,(N_2)}}(x)\right)^{1/n_2} + \varepsilon\right)^{n_1}  \right)} f_{X_{1,(N_1)}}(y) dy\right] f_{X_{2,(N_2)}}(x) dx \\
-%  &\qquad = \int_{-\infty}^{\infty}\left[\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} - F_{X}(x)^{N_1}\right] N_2F_{X}(x)^{N_2-1} f_X(x) dx \\
-%  &\qquad = \int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}N_2F_{X}(x)^{N_2-1} f_X(x) dx - \frac{N_2}{N_1 + N_2} \\
-%  &\qquad = \int_{0}^{1}\left(t^{1/n_2} + \varepsilon\right)^{n_1} dt - \frac{N_2}{N_1 + N_2} \\
-%  &\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
-%\end{align*}
-
-%A first-order Taylor expansion of $\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}$ gives, 
-%$$
-%  \left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1} = \left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1} + o(\varepsilon).
-%$$
-%Thus, 
-%\begin{align*}
-%  &N_2\int_{-\infty}^{\infty}\left(\left(F_{X}(x)\right)^{N_2/n_2} + \varepsilon\right)^{n_1}F_{X}(x)^{N_2-1} f_X(x) dx \\
-%    &\qquad = N_2\int_{-\infty}^{\infty}\left[\left(F_{X}(x)\right)^{N_2n_1/n_2} + \varepsilon n_1\left(\left(F_{X}(x)\right)^{N_2/n_2}\right)^{n_1-1}\right]F_{X}(x)^{N_2-1} f_X(x) dx + o(\varepsilon) \\
-%    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon n_1N_2\int_{-\infty}^{\infty} F_X(x)^{N_2((n_1-1)/n_2 + 1) - 1}f_X(x) dx + o(\varepsilon) \\
-%    &\qquad = \frac{n_2}{n_1 + n_2} + \varepsilon \frac{n_1n_2}{n_1 + n_2 - 1} + o(\varepsilon).
-%\end{align*}
-%Putting it all together yields the second inequality of \eqref{eq:paradox2}.
-
 First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
-
-$$F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}},$$ 
-
-which is 
-
-$$x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right),$$ 
-
-By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
-
+$$
+  F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}} 
+ \implies  
+ x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right).
+$$ 
+By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we have 
 \begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-	&= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
-	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
+	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. \\
 \end{align*}
-
 Based on the Definition \ref{def:stodom}, we have
-
 \begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-	&\geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-	&= \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad = \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2},
 \end{align*}
-
+and
 \begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-	&\leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-	& = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}.
 \end{align*}
-
-
-
 \end{proof}
 
+These bounds are a prescription under general distributions for achievement in Full House Modeling. However, we can still obtain explicit aptitude-achievement paradox probabilities when we specify $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$.
 
 
 \subsection{Normal distributions}
-\label{subsec: normal}
+\label{subsec:normal}
 
-In this example we demonstrate a case where explicit paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} additionally specifies that $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$ and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
+This section will develop explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} additionally specifies that $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We will focus on the case where the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. 
+
+The outline for our results is similar to that in Section~\ref{sec:samedist} where a technical condition is needed to prove the main result -- like condition~\eqref{eq:technical-condition} in Theorem~\ref{theorem:samedistgeneral} --and further results provide configurations of the sample sizes that satisfy the technical condition. However, in this setting with $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$, the technical condition leaves a remainder term in excess of a clean probability result, and further results will show that this remainder term is negligible. %Talk about plug-in
+
+Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
+$$
+ \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right),
+$$
+where, from the definition of $g$ in Lemma~\ref{lemma:rep} applied to our current setting, we have 
+\begin{equation} \label{eq:gnorm}
+	  g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1,
+\end{equation}
+and $\Phi$ defines the cumulative distribution function of the standard normal distribution. From here, we have that
+\begin{align*}
+	&\Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x),
+%	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+\end{align*}
+where $A := A(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ is the range of integration so that the inner integral above is properly specified. More formally,
+\begin{equation} \label{eq:A}
+\begin{split}
+	  A &= \left\{\omega: F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)}(\omega))^{\frac{n_2N_1}{N_2n_1}}\right) \leq Y_{2,(n_2)}(\omega)\right\} \\
+  &= \left\{\omega: \Phi\left(\frac{Y_{2,(n_2)}(\omega)-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \leq \Phi\left(\frac{Y_{2,(n_2)}(\omega) - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right\},
+\end{split}	
+\end{equation}
+where the second equality in \eqref{eq:A} follows from \eqref{eq:gnorm}. Continuing with the probability calculation above
+\begin{align*}
+	&\int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) = \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad = \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x).
+\end{align*}
+The left-hand side can (and will) be further evaluated and leads to the desired explicit aptitude-achievement paradox probability. The right-hand side represents a remainder term $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$,
+\begin{equation} \label{eq:remainder}
+  R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
+\end{equation}
+where $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder term may seem unintuitive. However, we will now motivate a simple setting that allows for $R$ to be negligible when $n_2$ is moderately large. 
+
+From \eqref{eq:A} and \eqref{eq:remainder}, we have
+\begin{align*}
+  |R| &= \left|\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\right|\\
+  &\leq \int_{A^c} \left|F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right|d F_{Y_2, (n_2)}(x) \\
+    &\leq \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right).
+\end{align*}
+Now, when we specify that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ as in Proposition~\ref{prop:weakstodom}, we have 
+\begin{align*}
+    &\Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right) \\
+    &\qquad \leq 
+    \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right) \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)\right)	 \\	
+    &\qquad = \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right).
+\end{align*}
+A bit of algebra under the specification that $\sigma_1 \leq \sigma_2$ yields
+$$
+  \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right) = \Prob\left(Y_{2,(n_2)} \leq \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1}\right).
+$$
+A bit of algebra under the specification that $\mu_1 \leq \mu_2$ implies that 
+$$
+  \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1} \leq \mu_2.
+$$
+Putting it all together, we have
+$$
+  |R| \leq \Prob\left(Y_{2,(n_2)} \leq \mu_2\right) \leq \left(\frac{1}{2}\right)^{n_2},
+$$
+when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, we have a trivial bound on the remainder term which shows that it is negligible when $n_2$ is moderately large under a familiar sample size specification (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration, despite the remainder term \eqref{eq:remainder} being unintuitive. This argument will be necessary both for the statement and proof of our main result in this section. First some additional preliminaries.
+
+Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
 \begin{equation}\label{eq:Sigma}
 \boldsymbol{\Sigma} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
@@ -486,51 +490,56 @@ defined with the following structure \\
 \end{align}
 
 
-Let $\Phi$ be the cumulative distribution function of the standard normal distribution. Our paradox probability result is presented in the Thereom below.
+With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section.
 
 \begin{theorem} \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1 \leq t$ for all $t \in \mathbb{R}$. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
-	&\qquad= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2},	
+	&\qquad= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2} + R,	
 \end{split}
 \end{equation}
-where $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
+where $R$ is defined in \eqref{eq:remainder}, $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. 
+
+Moreover, we have that
+\begin{equation} \label{eq:remainder-bound}
+  |R| \leq \left(\frac{1}{2}\right)^{n_2},
+\end{equation}
+when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
 \end{theorem}
 
 %$\Phi\left(\frac{t-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \leq \Phi\left(\frac{t-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}$
 
 \begin{proof}
-
-First by applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep}, 
-
+Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
 \begin{align*}
-	g_{j,k}(x) &= g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi(\frac{x-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right)
+	g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1.
 \end{align*}
-
-With this definition of $g_{j, k}(x)$ we can write
+Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remainder}. We have,
 \begin{align*}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&= \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\
-	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-	&= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-  &= \int_{0}^{1}\left(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})\right)^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
-  &= \int_{-\infty}^{+\infty} \Phi\left(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} \left(n_2\Phi(x)^{n_2-1}\phi(x)\right)\ dx - \frac{N_2}{N_1 + N_2} \\
-  &= n_2 \int_{-\infty}^{+\infty}\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, \\
-  &Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0| X = x) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
-  &= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
-  &- \frac{N_2}{N_1 + N_2}\\
-  &= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}. 
+	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
+	&\qquad= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) + R.
+\end{align*}
+We continue with the left-hand side of the last equality,	
+\begin{align*}
+&\int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+  &\qquad= \int_{0}^{1}\left(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})\right)^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
+  &\qquad= \int_{-\infty}^{+\infty} \Phi\left(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} \left(n_2\Phi(x)^{n_2-1}\phi(x)\right)\ dx - \frac{N_2}{N_1 + N_2} \\
+  &\qquad= n_2 \int_{-\infty}^{+\infty}\mathbb{P}\left(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1},\right. \\
+  &\qquad\qquad \left. Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0 | X = x\right\Big) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
+  &\qquad= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
+  &\qquad\qquad- \frac{N_2}{N_1 + N_2}\\
+  &\qquad= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}. 
 \end{align*}
 The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
 
-\vspace{12pt}\textbf{Remarks}:
-\begin{enumerate}
-	\item When $\sigma_1 = \sigma_2$, the $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ when $\mu_2 \geq \mu_1$. Recall the proof of Proposition \ref{prop:weakstodom}, then the assumption $\Phi^{-1}\left(\Phi(\frac{t-\mu_2}{\sigma_2})^\frac{n_2N_1}{N_2n_1}\sigma_1 + \mu_1\right) \leq t$ for all $t \in \mathbb{R}$ can be simplified to $\sigma_1 = \sigma_2$, $\mu_2 \geq \mu_1$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. 
-\end{enumerate}
-
+The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
 \end{proof}
 
 
@@ -750,7 +759,7 @@ We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees 
 
 In particular, MLB introduced a series of rule changes in 2023 intended to increase in-game action, including a restriction on defensive positioning designed to raise batting averages on balls in play (BABIP) \citep{castrovince2023mlb}. 
 
-First, the 2023 mean batting average for full-time players increased by 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample tests for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, the rule changes seemed to be slightly effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increased batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 since Josh Hamilton in 2010. 
+First, the 2023 mean batting average for full-time players increased by 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample tests for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, the rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increased batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 since Josh Hamilton in 2010. 
 
 Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in this example to contextualize the effect of these rule changes. Here we assume that seasonal batting averages of full-time players are normally distributed. The true means and standard deviations of these distributions are unknown. Thus, we estimate them via plug-in sample mean and sample standard-deviation and invoke the reliability guarantees from Theorem~\ref{theorem:asymptotic}. Figure~\ref{Fig:means-sd-full-time} presents smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871 to 2023. Notably, both the average and variability of batting averages in 2023 are among the lowest observed in the dataset, indicating a historically suppressed environment for batting averages of full-time batters.
 
@@ -762,7 +771,7 @@ Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in th
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-Figure~\ref{Fig:paradox-prob-results} displays paradox probabilities \eqref{eq:paradoxnormal} for each season from 1871 to 2022, comparing them to the 2023 season in which Luis Arraez led MLB in batting average (treating 2023 as system 1 in the notation of Theorem~\ref{theorem:normalgeneral}). These probabilities are estimated using plug-in, sample means and standard deviations are substituted for population parameters. These estimators are $\sqrt{n}$-consistent so that the reliability results of Theorem~\ref{theorem:asymptotic} apply. For comparison, the figure also shows a smoothed empirical curve representing the proportion of seasons in which the maximum batting average exceeded Arraez's 2023 mark. We observe that the estimated paradox probabilities track closely with the empirical exceedance rate. Both quantities increase as we move backward in time, reinforcing the idea that earlier eras, with higher means, larger variances, and smaller populations, were more conducive to producing extreme individual batting averages, even when overall talent levels may have been lower.
+In this example we will investigate the paradox probability corresponding to maximum batting averages when comparing the 2023 season to all prior seasons. We will thus specify the 2023 season as system 1 and the comparison season, which ranges from 1871 to 2022, as system 2. Figure~\ref{Fig:paradox-prob-results} displays these estimated paradox probabilities \eqref{eq:paradoxnormal} where estimates are obtained using plug-in, sample means and standard deviations are substituted for population parameters. These estimators are $\sqrt{n}$-consistent so that the reliability results of Theorem~\ref{theorem:asymptotic} apply. For comparison, the figure also shows a smoothed empirical curve representing the proportion of seasons in which the maximum batting average exceeded Arraez's 2023 mark. We observe that the estimated paradox probabilities track closely with the empirical exceedance rate. Both quantities increase as we move backward in time, reinforcing the idea that earlier eras, with higher means, larger variances, and smaller populations, were more conducive to producing extreme individual batting averages, even when overall talent levels may have been lower.
 
 \begin{figure}[ht!]
 \begin{center}
@@ -824,7 +833,7 @@ This demonstrates a central tenet of Full House Modeling: observed records are s
 %\end{figure}
 
 
-\section{Disscussion}
+\section{Discussion}
 
 The aptitude-achievement paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. Although widely encountered in education, labor economics, psychometrics, medicine, and sports analytics, measuring the frequency of this paradox under realistic data-generating regimes is nontrivial. In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts.
 
