@@ -527,16 +527,36 @@ Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remai
 \end{align*}
 We continue with the left-hand side of the last equality,	
 \begin{align*}
-&\int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) 
-	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-  &\qquad= \int_{0}^{1}\left(\Phi(\frac{\Phi^{-1}(t^{\frac{1}{n_2}})\sigma_2 + \mu_2 - \mu_1}{\sigma_1})\right)^{n_1} \ dt - \frac{N_2}{N_1 + N_2} \\
-  &\qquad= \int_{-\infty}^{+\infty} \Phi\left(\frac{\sigma_2x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} \left(n_2\Phi(x)^{n_2-1}\phi(x)\right)\ dx - \frac{N_2}{N_1 + N_2} \\
-  &\qquad= n_2 \int_{-\infty}^{+\infty}\mathbb{P}\left(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1},\right. \\
-  &\qquad\qquad \left. Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0 | X = x\right\Big) \phi(x)\ dx - \frac{N_2}{N_1 + N_2}\\
-  &\qquad= n_2\mathbb{P}(Z_{1,1} -\frac{\sigma_2}{\sigma_1}X \leq \frac{\mu_2 - \mu_1}{\sigma_1}, \dots, Z_{1,n_1} -\frac{\sigma_2}{\sigma_1}X \leq - \frac{\mu_2 - \mu_1}{\sigma_1}, Z_{2,1} -X \leq 0, \dots,  Z_{2,{n_2-1}} -X \leq 0) \\
-  &\qquad\qquad- \frac{N_2}{N_1 + N_2}\\
-  &\qquad= n_2F_{\mathbf{W}}(\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)) - \frac{N_2}{N_1 + N_2}. 
+&\int_{-\infty}^{\infty} \left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}} \right] d F_{Y_2,(n_2)}(x) 
+= \int_0^1 \left[ F_{Y_1}\!\left( F_{Y_2}^{-1}(t^{1/n_2}) \right)^{n_1} - t^{N_1/N_2} \right] dt\\[6pt]
+&\qquad= \int_{0}^{1} \left( \Phi\!\left(\frac{\Phi^{-1}(t^{1/n_2})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}\right) \right)^{n_1} \, dt \;-\; \frac{N_2}{N_1 + N_2} \\[6pt]
+&\qquad= \int_{-\infty}^{+\infty} 
+\Phi\!\left(\frac{\sigma_2 x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} 
+\left( n_2 \Phi(x)^{n_2-1} \phi(x) \right)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[8pt]
+&\qquad= n_2 \int_{-\infty}^{+\infty}
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\;\middle|\; X=x \right)
+\phi(x)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2 \,
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\right)
+\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w} = (
+\frac{\mu_2 - \mu_1}{\sigma_1},\dots,\frac{\mu_2 - \mu_1}{\sigma_1},
+0,\dots,0)
+\right) \;-\; \frac{N_2}{N_1 + N_2}.
 \end{align*}
+
 The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
 
 The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
@@ -608,6 +628,40 @@ where c is defined in the Lemma \ref{lemma:wmax}
 \begin{proof}
 	The proof can be found in the supplementary materials. 
 \end{proof}
+
+We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
+
+The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 2000. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
+$
+  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
+$
+is recorded. 
+
+The theoretical results are computed from the Theorem \ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R
+
+The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|rrrrrrrr|r|r|}
+\hline
+$n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
+\hline
+10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.4000 & 0.4000099 \\
+10 & 20 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3970 & 0.3970305 \\
+10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3 & 0.5715 & 0.5714174 \\
+10 & 20 & 400 & 600 & 0 & 1 & 1.5 & 2 & 0.3645 & 0.3647783 \\
+10 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999245 \\
+20 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999803 \\
+10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3 & 0.4000 & 0.3995149 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.5 & 2 & 0.2970 & 0.2962431 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3750 & 0.3740938 \\
+10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.3990 & 0.4000059 \\
+\hline
+\end{tabular}
+\caption{Simulation Results for Normal Example. }
+\label{Tab:simulationnormal}
+\end{table}
 
 \section{Examples}
 
@@ -788,7 +842,6 @@ Interestingly, the percentile corresponding to Luis Arraez's 2023 MLB leading ba
 \begin{table}[H]\centering\begin{tabular}{rlcccc}  \hlineYear & Name & MLB leading BA & n & Shapiro Wilk p-value & Extreme Percentile \\   \hline1876 & Ross Barnes & 0.429 & 40 & 0.0043 & 0.9791 \\   1881 & Cap Anson & 0.399 & 42 & 0.3213 & 0.9665 \\   1884 & Fred Dunlap & 0.412 & 110 & 0.0066 & 0.9722 \\   1887 & Tip O'Neill & 0.435 & 112 & 0.0352 & 0.9848 \\   1901 & Nap Lajoie & 0.426 & 104 & 0.3360 & 0.9760 \\   1904 & Nap Lajoie & 0.376 & 104 & 0.0402 & 0.9861 \\   1905 & Cy Seymour & 0.377 & 112 & 0.0437 & 0.9602 \\   1908 & Honus Wagner & 0.354 & 115 & 0.0462 & 0.9614 \\   1909 & Ty Cobb & 0.377 & 111 & 0.0937 & 0.9673 \\   1910 & Nap Lajoie & 0.383 & 118 & 0.0082 & 0.9775 \\   1911 & Ty Cobb & 0.420 & 115 & 0.0416 & 0.9663 \\   1912 & Ty Cobb & 0.409 & 126 & 0.0001 & 0.9730 \\   1913 & Ty Cobb & 0.390 & 119 & 0.0132 & 0.9570 \\   1916 & Tris Speaker & 0.386 & 114 & 0.0003 & 0.9915 \\   1917 & Ty Cobb & 0.383 & 117 & 0.0890 & 0.9724 \\   1918 & Ty Cobb & 0.382 & 109 & 0.4605 & 0.9575 \\   1922 & George Sisler & 0.420 & 118 & 0.0174 & 0.9671 \\   1924 & Rogers Hornsby & 0.424 & 118 & 0.1749 & 0.9863 \\   1941 & Ted Williams & 0.406 & 110 & 0.0104 & 0.9946 \\   1957 & Ted Williams & 0.388 & 117 & 0.0534 & 0.9885 \\   1977 & Rod Carew & 0.388 & 196 & 0.2965 & 0.9935 \\   1980 & George Brett & 0.390 & 184 & 0.0400 & 0.9960 \\   1985 & Wade Boggs & 0.368 & 190 & 0.0417 & 0.9885 \\   1988 & Wade Boggs & 0.366 & 180 & 0.0573 & 0.9789 \\   1994 & Tony Gwynn & 0.394 & 153 & 0.0392 & 0.9631 \\   2002 & Barry Bonds & 0.370 & 209 & 0.0102 & 0.9647 \\   2004 & Ichiro Suzuki & 0.372 & 207 & 0.0622 & 0.9634 \\   2023 & Luis Arraez & 0.354 & 205 & 0.0055 & 0.9564 \\    \hline\end{tabular}
 \caption{Batting average performances that are at least as extreme as Luis Arraez in 2023. Extreme as defined by the value $\widehat{F}(Y_{(n_i),i})^{n_i}$ where $i$ denotes the season, $n_i$ denotes the number of full-time players in season $i$, $Y_{(n_i),i}$ denotes the highest batting average for full-time players in season $i$, and $\widehat{F}$ is the distribution function of the normal distribution with sample mean and standard deviation estimators substituted for the population parameters. This table also includes the year, name, and raw batting average of extreme performers. It also includes the number of full-time players (n), and a Shapiro Wilk p-value corresponding to a test against normality for the batting average distribution for full-time players.}
 \label{Tab:extreme-performers}\end{table}
-
 
 Despite the simplifying assumption of normality, the paradox probability analysis and associated diagnostics (Figures~\ref{Fig:paradox-prob-results} and \ref{Fig:uniform-qq}, Table~\ref{Tab:extreme-performers}) illustrate a key insight that under the empirical structure of 2023, which is characterized by low variance and high competition levels, Luis Arraez's 0.354 batting average represents an extremely rare achievement. Yet paradoxically, it appears modest when compared to higher averages in historically weaker environments. 
 
