@@ -1,8 +1,3 @@
-% ==================================================================
-% Supplementary Materials Template (LaTeX)
-% Author: <Your Name>
-% Paper: <Paper Title>
-% ==================================================================
 \documentclass[12pt]{article}
 \usepackage[english]{babel}
 \usepackage{graphicx}
@@ -13,15 +8,7 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{enumerate}
-\usepackage{graphicx} % Allows including image
-\usepackage{hyperref}
 \usepackage{mathtools}
-\hypersetup{
-  linkcolor  = blue,
-  citecolor  = blue,
-  urlcolor   = blue,
-  colorlinks = true,
-} % color setup
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{float} % for "H" placement specifier
@@ -31,6 +18,35 @@
 \usepackage{array}
 \usepackage{subcaption}
 \usepackage{caption}
+
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+
+% ==== Cross-document referencing (MUST be before hyperref) ====
+\usepackage{xr-hyper}
+
+% Tell LaTeX which external document to read labels from
+% Make sure eck2023draft.aux is in the SAME folder
+\myexternaldocument{/Users/shenyan3/Documents/full_house_model/eck2023draft}
+% ==== Hyperref comes AFTER xr-hyper ====
+\usepackage{hyperref}
+\hypersetup{
+  linkcolor  = blue,
+  citecolor  = blue,
+  urlcolor   = blue,
+  colorlinks = true,
+}
 
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
@@ -56,7 +72,6 @@
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem{defn}[theorem]{Definition}
 \allowdisplaybreaks
-\bibliographystyle{plainnat}
 
 % Option B (comment A above and uncomment B below): biblatex
 %\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
@@ -122,7 +137,8 @@ Now define $l_n(x) = (n+1) - nx^{\frac{1}{n(n+1)}} - x^{-\frac{1}{n+1}}$ and see
 Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
 \end{proof}
 
-\section{Proof to Lemma: 4.4}
+\section{Proof to Lemma: \ref{lemma:wmax}} 
+\label{sec:wmax}
 
 \begin{proof}
 	
@@ -1086,8 +1102,8 @@ When $\frac{n_1}{N_1} \geq \frac{n_2}{N_2}$ and $k = j$, then
 
 $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ where $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the CDF of Beta$(\alpha, \beta)$ distribution. 
 
-\section{Proof to Theorem 4.5}
-
+\section{Proof to Theorem \ref{theorem:asymptotic}}
+\label{sec:proofplugin}
 \begin{proof}
 
 
@@ -1155,11 +1171,11 @@ $g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is n
 %1 & \hdots & 1 & 2\\
 %\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-Let $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ be consistent estimators of the population parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$, respectively, as defined in Section \ref{subsec: normal}. By replacing the population parameters in $\mathbf{w}$ and $\boldsymbol{\Sigma}$ with these estimators, we obtain the sample-level analogs $\hat{\mathbf{w}}$ and $\hat{\boldsymbol{\Sigma}}$. Specifically, we define:
+Let $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ be consistent estimators of the population parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$, respectively, as defined in Section \ref{subsec:normal}. By replacing the population parameters in $\mathbf{w}$ and $\boldsymbol{\Sigma}$ with these estimators, we obtain the sample-level analogs $\hat{\mathbf{w}}$ and $\hat{\boldsymbol{\Sigma}}$. Specifically, we define:
 \[
 \hat{\mathbf{w}} = \left(\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_1}, \dots, \frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_1}, 0, \dots, 0\right) \in \mathbb{R}^{n_1 + n_2 - 1},
 \]
-where the first $n_1$ entries correspond to the standardized mean difference, and the remaining $n_2 - 1$ entries are zero, reflecting the structure introduced in Section \ref{subsec: normal}.
+where the first $n_1$ entries correspond to the standardized mean difference, and the remaining $n_2 - 1$ entries are zero, reflecting the structure introduced in Section \ref{subsec:normal}.
 
 The estimated covariance matrix $\hat{\boldsymbol{\Sigma}}$ has the block form:
 \[
@@ -1168,7 +1184,7 @@ The estimated covariance matrix $\hat{\boldsymbol{\Sigma}}$ has the block form:
 \hat{\Sigma}_{21} & \hat{\Sigma}_{22}
 \end{bmatrix},
 \]
-where each submatrix is obtained by replacing the population parameters in $\boldsymbol{\Sigma}$ with their respective sample estimates. These submatrices retain the same structural forms as defined in Section \ref{subsec: normal}.
+where each submatrix is obtained by replacing the population parameters in $\boldsymbol{\Sigma}$ with their respective sample estimates. These submatrices retain the same structural forms as defined in Section \ref{subsec:normal}.
 
 %
 %\textcolor{red}{All of the above matrix estimates can be stated more precisely by embracing the fact that these matrix quantities are already defined in Section 4.2 and you are replacing population parameters by their estimators. The following difference in probabilities is unmotivated. You need to say something about it.}
@@ -1629,7 +1645,7 @@ $$\boldsymbol{\Sigma}^{-1} = \begin{bmatrix}
 \end{bmatrix}_{(n_2-1) \times (n_2-1)}
 \end{align*}
 
-Then by applying Lemma \ref{lemma:wmax}, we have 
+Then we have 
 
 \begin{align*}
 	\Phi(\mathbf{w}, \Sigma) \leq c^{n_1+n_2-1}
@@ -1877,6 +1893,42 @@ Finally,
 \end{align*}
 
 \end{proof}
+
+\section{Simulation Results for Theorem \ref{theorem:normalgeneral}}
+
+We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
+
+The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 2000. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
+$
+  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
+$
+is recorded. 
+
+The theoretical results are computed from the Theorem~\ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R
+
+The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|rrrrrrrr|r|r|}
+\hline
+$n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
+\hline
+10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.4000 & 0.4000099 \\
+10 & 20 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3970 & 0.3970305 \\
+10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3 & 0.5715 & 0.5714174 \\
+10 & 20 & 400 & 600 & 0 & 1 & 1.5 & 2 & 0.3645 & 0.3647783 \\
+10 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999245 \\
+20 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999803 \\
+10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3 & 0.4000 & 0.3995149 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.5 & 2 & 0.2970 & 0.2962431 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3750 & 0.3740938 \\
+10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.3990 & 0.4000059 \\
+\hline
+\end{tabular}
+\caption{Simulation Results for Normal Example. }
+\label{Tab:simulationnormal}
+\end{table}
 
 
 \bibliography{FHM.bib}

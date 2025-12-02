@@ -1,4 +1,7 @@
 \documentclass[12pt]{article}
+\usepackage{xr-hyper}
+\externaldocument{/Users/shenyan3/Documents/full_house_model/supplement}
+\usepackage{hyperref}
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{framed}
@@ -9,7 +12,6 @@
 \usepackage{amsfonts}
 \usepackage{enumerate}
 \usepackage{graphicx} % Allows including image
-\usepackage{hyperref}
 \usepackage{mathtools}
 \hypersetup{
   linkcolor  = blue,
@@ -26,7 +28,6 @@
 \usepackage{array}
 \usepackage{subcaption}
 \usepackage{caption}
-
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
@@ -492,7 +493,8 @@ defined with the following structure \\
 
 With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section.
 
-\begin{theorem} \label{theorem:normalgeneral}
+\begin{theorem} 
+\label{theorem:normalgeneral}
 Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
@@ -562,6 +564,7 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
 \end{proof}
 
+To validate the Theorem~\ref{theorem:normalgeneral} in the numerical simulation, we conducted Monte Carlo simulations across a range of parameter settings. The simulated paradox probabilities closely matched the theoretical values. Because the simulations serve only as a verification of the closed-form result and do not provide additional methodological insight, we present them in Supplementary Materials for completeness.
 
 We now show that plug-in estimates for normal distribution parameters $\mu_i$, $\sigma_i$, $i = 1,2$ allow for reliable estimate of the paradox probability \eqref{eq:paradoxnormal}. Our approach requires properties for matrices of the form 
  $$
@@ -610,7 +613,7 @@ then $c$ is strictly less than 1 and
 \end{lemma}
 
 \begin{proof}
-	The proof can be found in the supplementary materials. 
+	The proof can be found in the Supplementary Materials. 
 \end{proof}
 
 
@@ -626,42 +629,8 @@ where c is defined in the Lemma \ref{lemma:wmax}
 \end{theorem}
 
 \begin{proof}
-	The proof can be found in the supplementary materials. 
+	The proof can be found in the Supplementary Materials. 
 \end{proof}
-
-We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
-
-The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 2000. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
-$
-  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
-$
-is recorded. 
-
-The theoretical results are computed from the Theorem \ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R
-
-The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|rrrrrrrr|r|r|}
-\hline
-$n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
-\hline
-10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.4000 & 0.4000099 \\
-10 & 20 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3970 & 0.3970305 \\
-10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3 & 0.5715 & 0.5714174 \\
-10 & 20 & 400 & 600 & 0 & 1 & 1.5 & 2 & 0.3645 & 0.3647783 \\
-10 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999245 \\
-20 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999803 \\
-10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3 & 0.4000 & 0.3995149 \\
-20 & 40 & 400 & 600 & 0 & 0 & 1.5 & 2 & 0.2970 & 0.2962431 \\
-20 & 40 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3750 & 0.3740938 \\
-10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.3990 & 0.4000059 \\
-\hline
-\end{tabular}
-\caption{Simulation Results for Normal Example. }
-\label{Tab:simulationnormal}
-\end{table}
 
 \section{Examples}
 
