@@ -751,7 +751,7 @@ Thus,
 &\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
 	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
 	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
-	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
+	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-k+1)} \ dx\\
 	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
@@ -763,7 +763,7 @@ p
 &\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
 n_1 \\
 p
-\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
+\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(k, n_2-k+1)} \\ 
 &\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
 N_1 \\
 p
@@ -778,15 +778,15 @@ Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j}
 $$
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
-The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased or $n_2$ or $N_2$ are decreased with all other shape parameters held fixed \citep{askitis2021logarithmic}. Therefore, 
 $
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
 $
 whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
 \begin{align*}
-&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
+&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t \\ 
 &\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
-&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq t.
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq 0.
 \end{align*}
 Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
 \end{proof}
@@ -879,7 +879,6 @@ The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\math
 
 The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
 \end{proof}
-
 \bibliography{FHM.bib}
 \bibliographystyle{plainnat}
 
