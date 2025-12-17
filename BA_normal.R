@@ -79,3 +79,23 @@ career_kAB <- rbind(career_kAB_AVG_1st,
 
 mapped_batters_AVG_para <- career_kAB %>% 
   mutate(adj_AVG = ifelse(adj_comp < min_refAVG, min_refAVG, adj_comp))
+
+
+## get Arraez rankings
+library(fullhouse)
+batters_adjusted %>% 
+  filter(AB >= 320) %>% 
+  arrange(desc(BA)) %>% 
+  select(name, year, AB, BA) %>% 
+  slice(1:100) %>% 
+  as.data.frame()
+
+library(Lahman)
+foo = Batting %>% 
+  filter(AB >= 320) %>% 
+  mutate(BA = H/AB) %>% 
+  arrange(desc(BA)) %>% 
+  select(playerID, yearID, BA) 
+
+which(grepl("arraelu01", foo$playerID))
+

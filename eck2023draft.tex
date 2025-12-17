@@ -72,42 +72,42 @@
 
 \section{Introduction}
 
-Comparisons of performances across differing contexts, schools, regions, eras, institutions, and tasks, are central to education and psychometrics \citep{holland2012differential, bond2013applying}, labor economics \citep{nickell1999labor}, medicine, and sports analytics \citep{BRL99, SM13, SM16, winston2022mathletics, yan2025comparing}. These problems have led to the development of a variety of widely used modeling frameworks that estimate relative ability, including empirical-Bayes shrinkage \citep{efron1975data}, Bayesian hierarchical models \citep{raudenbush1986hierarchical, BRL99}, Bradley-Terry-Luce and paired comparisons models \citep{bradley1952rank, bradley1976science, bradley1984paired, david1988paired}, Elo-type dynamic rating systems \citep{elo1978rating, graepel2007bayesian}, Gaussian-process and state-space formulations \citep{chu2005gaussian, houlsby2012collaborative}, item-response models \citep{holland2012differential, bond2013applying}, and factor models \citep{bartholomew2011latent}, and domain-specific metrics \citep{baumer2014statistician, BB15, yu2016pantheon}.
+Comparisons of performances across differing contexts, schools, regions, eras, institutions, and tasks are central to education and psychometrics \citep{holland2012differential, bond2013applying}, labor economics \citep{nickell1999labor}, medicine, and sports analytics \citep{BRL99, SM13, SM16, winston2022mathletics, yan2025comparing}. These problems have led to the development of a variety of widely used modeling frameworks that estimate relative ability, including empirical-Bayes shrinkage \citep{efron1975data}, Bayesian hierarchical models \citep{raudenbush1986hierarchical, BRL99}, Bradley-Terry-Luce and paired comparisons models \citep{bradley1952rank, bradley1976science, bradley1984paired, david1988paired}, Elo-type dynamic rating systems \citep{elo1978rating, graepel2007bayesian}, Gaussian-process and state-space formulations \citep{chu2005gaussian, houlsby2012collaborative}, item-response and latent class models \citep{mcdonald1999test, embretson2000item, hagenaars2002applied, holland2012differential, bond2013applying}, factor models \citep{mcdonald1999test, bartholomew2011latent}, and domain-specific metrics \citep{baumer2014statistician, BB15, yu2016pantheon}.
 
 Despite their differences, these approaches share a common structural assumption: ability is inferred relative to a fixed or implicitly comparable set of observed competitors. While such models adjust outcomes within a given context, they do not explicitly account for changes in the size or structure of the eligible population, nor for context-specific distortions in how latent ability is transformed into observed outcomes. As a consequence, they may not be able to distinguish observed dominance from underlying aptitude when competition depth, selection mechanisms, or measurement conditions vary across contexts.
 
-These limitations give rise to a previously unquantified inferential target: the probability that cross-context comparisons reverse latent orderings. In particular, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have an observed $\R$-valued statistic $Y_{i,j}$ and an underlying latent $\R$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ has an observed $\R$-valued statistic $Y_{m,n}$,and an underlying latent $\R$-valued aptitude $X_{m,n}$. The probability of aptitude-achievement paradox is 
-$$
-\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right)
-$$
+These limitations give rise to a previously unquantified inferential target: the probability that cross-context comparisons reverse latent orderings. Specifically, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have an observed $\R$-valued statistic $Y_{i,j}$ and an underlying latent $\R$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ have an observed $\R$-valued statistic $Y_{m,n}$, and an underlying latent $\R$-valued aptitude $X_{m,n}$. The probability of aptitude-achievement paradox is 
+\begin{equation} \label{eq:paradoxgeneral}
+	\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right) 
+\end{equation}
 This quantity captures the structural risk that cross-context comparisons based on observed outcomes reverse the true latent ordering.
 
+The paradox cannot arise if a single, strictly increasing, context-invariant measurement map relates aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
 
-To address this limitation, we develop a general Full House Modeling (FHM) framework for cross-contextual evaluation, recently introduced for an application of comparing baseball players across eras \citep{yan2025comparing}. FHM separates latent aptitude from observed achievement by explicitly modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This framing makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude.
+A large class of methods quantifies how often observed orderings disagree with a target ordering, closely related to the phenomenon studied here. Classic examples include rank-discordance measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize the frequency of concordant and discordant pairs based on observed rankings. Because these indices operate entirely on observed outcomes, they neither place individuals on a common latent scale nor disentangle the effects of measurement non-invariance or selection, motivating models that make the measurement and selection processes explicit.
 
- 
-The paradox is structurally impossible if a single, strictly increasing, context-invariant measurement map aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness, transportability, and domain shift. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
+%Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and the Rasch model expect no differential item functioning (DIF) \citep{holland2012differential}, which means an item behaves differently for two (or more) groups of examinees who have the same underlying ability on the target construct. But it does not explicitly leverage the source population structure. Likewise, Bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. 
+Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying abilities from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are invariant to the specific items administered, under the assumption of no differential item functioning (DIF) \citep{holland2012differential}. However, such models do not explicitly leverage information about the size or structure of the source population from which individuals are drawn. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and capture population-level variation through random effects or dynamic evolution, without modeling variation in eligible population depth or selection into observation across contexts. In parallel, the causal bootstrap \citep{imbens2018causal} emphasizes that valid causal inference requires explicitly situating the observed sample within a larger source population, rather than treating the realized sample as the population of interest.
 
-A large class of methods measures how often observed orderings disagree with a target ordering-precisely the phenomenon at the heart of our cross-context paradox. At the most elementary level, discordance statistics summarize the share of ordered pairs whose observed outcomes align (or misalign) with a reference score or latent ordering. Classic measures include Kendall's $\tau$ \citep{kendall1938new} and Somers'D \citep{somers1962new}, which compute differences between the proportions of concordant and discordant pairs and offer adjustments for ties; Somers'D is asymmetric and treats one variable (e.g., a score) as the predictor of the other (e.g., an outcome), making it particularly natural for "does the score rank the outcomes correctly?" questions. These rank-based indices provide assumption-lean, effect-size-like summaries of reversal risk. However, because these indices operate on observed rankings, they neither place individuals on a common latent scale nor disentangle measurement non-invariance or selection, motivating models that make the measurement process explicit.
+To address these limitations, we develop a framework for cross-context comparison that explicitly accounts for population depth and selection mechanisms. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is developed here as a general approach for cross-contextual evaluation. This framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This formulation makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude.
 
-Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and the Rasch model expect no differential item functioning (DIF) \citep{holland2012differential}, which means an item behaves differently for two (or more) groups of examinees who have the same underlying ability on the target construct. But it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. 
+In this article, we formalize Full House Modeling and study the probability of aptitude--achievement paradoxes \eqref{eq:paradoxgeneral} arising in cross-context comparisons. We derive explicit paradox probabilities under two settings: first, when observed achievement is independent and identically distributed, and second, when observed achievement follows independent but context-specific normal distributions. We also establish bounds on paradox probabilities in more general settings and show that, under normality, these probabilities can be consistently estimated using plug-in methods. A sensitivity analysis reveals that paradox risk depends on ratios of eligible population sizes rather than on their absolute magnitudes.
 
-Full House Modeling offers a novel approach for comparing individuals across diverse contexts, initially developed through the analysis of baseball players across different eras \citep{yan2025comparing}. This analytical framework gained further historical significance \citep{burgos2025change}, which was subsequently explored and presented in a separate study. These analyses are transforming baseball analytics and are increasingly recognized within the broader baseball community. The applicability of Full House Modeling was further extended to investigate the influence of historical figures \citep{cohen2025contextualizing}. 
 
-In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts. The aptitude-achievement  paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. We provide explicit probabilities for these paradoxes in two scenarios: first, when observed achievement is independent and identically distributed (i.i.d.), and second, when observed statistics across contexts follow different normal distributions but remain independent. We also explore bounds for these paradoxes in more generalized settings and demonstrate that when observed achievement is normally distributed, paradox probabilities can be reliably estimated using a plug-in method. Based on the sensitivity analysis of the paradox probability, it depends on population size ratios not absolute population sizes.
+
 
 
 \section{Model Setting}
 
-We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We will suppose the every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude 
+We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We suppose that every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude 
 $X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$ as a determined and known system inclusion function for population $i$ where a 1 indicates inclusion and a 0 indicates exclusion. 
 %$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
-We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are one-to-one realizations of $X_{i,j}$, provided that $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
+We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are rank-preserving realizations of $X_{i,j}$, provided that $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
 
 Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger numbers will correspond to a notion of "better." Thus $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$, for example. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th highest value observed from the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
 %where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
-The key Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. Full House Modeling states this connection as
+The key feature of Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. Full House Modeling states this connection as
 \begin{equation} \label{eq:truepar}
 \begin{split}
   Y_{i, (j)} &= F_{Y_{i, (j)}}^{-1} \circ F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right), \\
@@ -122,23 +122,56 @@ where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}
 	Consider populations with sizes $N_i$ and system sizes $n_i$, $N_i \geq n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
-Note that Definition~\ref{def:fhm} fixes $F_X$ but allows $F_{Y_i}$ to vary across systems. 
+\textbf{Remark} The Full House Model induces structural missingness by construction: for any individual $j$ such that $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, we treat unobserved $Y_{i,j}$ values as not $\Prob$-measurable, reflecting the fact that they lie outside the observable $\sigma$-field generated by the system. This perspective allows selection mechanisms to be incorporated directly into probabilistic statements without imputing counterfactual outcomes. \\
 
-\vspace{12pt}\textbf{Remarks}:
-\begin{enumerate}
-	\item The definition of a Full House Model immediately implies structural missingness. Every $X_{i,j}$ such that $1_i(X_{i,j},\textbf{X}_{i,-j}) = 0$ will not have a corresponding $Y$ value. In the following sections we will consider probabilities involving both $X$ and $Y$ quantities. To handle this structural missingness, we will suppose that $Y_{i,j}$ values that are not observed are not $\Prob$-measurable.
-	%\item The probability integral transformation steps in \eqref{eq:truepar} involving $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ and $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ may be cumbersome to evaluate in practice. Instead one may replace $F_{X_{i, (r_{i,j})}} \left(X_{i, (r_{i,j})}\right)$ with $F_{U_{i,(r_{i,j})}} \circ F_X \left(X_{i, (r_{i,j})}\right)$ where $U_{i,(j)} \sim $ \,Beta$(r_{i,j},N_i-r_{i,j}+1)$, and may replace $F_{Y_{i,(j)}} \left(Y_{i,(j)} \right)$ with $F_{U_{i,(j)}} \circ F_{Y_i}\left(Y_{i,(j)} \right)$ where $U_{i,(j)} \sim $\, Beta$(j,n_i-j+1)$.
-\end{enumerate}
+Definition~\ref{def:fhm} assumes a common latent aptitude distribution $F_X$ across contexts, while allowing the observed achievement distributions $F_{Y_i}$ to vary by system. This reflects a modeling choice in which the process generating latent aptitude is taken to be context-neutral, whereas the expression and measurement of aptitude may differ across contexts.
 
 
 
+The probability integral transformations in \eqref{eq:truepar} involve the distribution functions of order statistics, namely $F_{X_{i,(r_{i,j})}}$ and $F_{Y_{i,(j)}}$, which may be cumbersome to evaluate directly. An equivalent and more convenient representation follows from the fact that, under continuity, the probability integral transform of an order statistic can be expressed through a Beta distribution. In particular,
+\begin{equation} \label{eq:betarepX}
+F_{X_{i,(r_{i,j})}}\!\left(X_{i,(r_{i,j})}\right)
+= F_{U_{i,(r_{i,j})}} \circ F_X\!\left(X_{i,(r_{i,j})}\right),
+\quad U_{i,(r_{i,j})} \sim \mathrm{Beta}\!\left(r_{i,j},\, N_i - r_{i,j} + 1\right),	
+\end{equation}
+and similarly,
+\begin{equation} \label{eq:betarepY}
+F_{Y_{i,(j)}}\!\left(Y_{i,(j)}\right)
+= F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right),
+\quad U_{i,(j)} \sim \mathrm{Beta}\!\left(j,\, n_i - j + 1\right).
+\end{equation}
+This representation allows the mapping in \eqref{eq:truepar} to be implemented using the base distributions $F_X$ and $F_{Y_i}$ together with known Beta distributions, avoiding the need to work explicitly with the distributions of order statistics. 
+
+The representations \eqref{eq:betarepX} and \eqref{eq:betarepY} yield both theoretical and practical advantages for implementing the Full House Modeling flow \eqref{eq:truepar}. Although FHM is conceptually formulated in terms of a latent aptitude distribution $F_X$, this distribution may be difficult or impossible to specify in many applications. The Beta representations allow latent aptitude to be recovered up to a monotone transformation without requiring explicit knowledge of $F_X$.
+
+Specifically, combining \eqref{eq:betarepX} and \eqref{eq:betarepY} yields
+\[
+X_{i,(r_{i,j})}
+= F_X^{-1}\!\left(
+F_{U_{i,(r_{i,j})}} \circ F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right)
+\right).
+\]
+Define
+\[
+W_{i,j}
+= F_{U_{i,(r_{i,j})}} \circ F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right).
+\]
+For any two cross-context observations $W_{i_1,j_1}$ and $W_{i_2,j_2}$ computed from observed achievements, monotonicity of $F_X$ implies
+\[
+W_{i_1,j_1} \ge W_{i_2,j_2}
+\;\;\Longrightarrow\;\;
+F_X^{-1}(W_{i_1,j_1}) \ge F_X^{-1}(W_{i_2,j_2}).
+\]
+
+Consequently, the ordering of latent aptitudes is invariant to the specification of $F_X$. While $F_X$ is required to recover absolute latent scales, it is a structural nuisance for ranking and comparative analysis. In practice, this allows Full House Modeling to be implemented via a mapping from observed achievement to latent aptitude ranks, even though the conceptual data-generating process flows from aptitude to achievement.
 
 
 
-\section{Paradoxes Under Identical Distributions}
+\section{Paradoxes Under Identical Achievement Distributions}
 \label{sec:samedist}
 
-In this section we will provide explicit aptitude-achievement paradox probability results in a Full House Modeling setting involving two populations with the additional specification that $F_{Y_i} = F_{Y}$, $i=1,2$ in Definition~\ref{def:fhm}. The following definition formally defines the notion of paradox used throughout this article.
+
+In this section, we derive explicit probabilities of the aptitude--achievement paradox, as defined in \eqref{eq:paradoxgeneral}, within a Full House Modeling framework involving two populations. We focus on the setting in which the observed achievement distributions are identical across contexts, that is, $F_{Y_i} = F_Y$ for $i = 1,2$ in Definition~\ref{def:fhm}. The following definition formalizes the notion of paradox used throughout the remainder of the article.
 
 \begin{defn}\label{def:paradox}
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations denoted by $i=1,2$. We say a aptitude-achievement paradox has occurred when both $X_{1,(r_{1,j})} > X_{2,(r_{2,k})}$ and  $Y_{1,(j)} < Y_{2,(k)}$ have occurred. The aptitude-achievement paradox probability is defined as
@@ -161,18 +194,6 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations, 
 \end{equation}
 where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot), g_{j,k}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} \circ F_{X_{2,(r_{2,k})}}^{-1} \circ F_{Y_{2, (k)}} (\cdot)$.
 \end{lemma}
-
-\begin{proof}
-Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
-$f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
-\begin{align*}
-  &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
-  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
-  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
-\end{align*}
-where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
-A similar technique can be applied to the second equation to obtain the result.
-\end{proof}
 
 Our first formal result provides conditions that allow for an explicit aptitude-achievement paradox probability result. Those conditions require the following definition.
 
@@ -224,56 +245,7 @@ The technical condition \eqref{eq:technical-condition} ensures that this integra
 \end{enumerate}
 
 
-\begin{proof}
-First, Lemma~\ref{lemma:rep} allows us to write
-$$
-	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
-$$
-where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
-%Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
-%\begin{align*}
-%  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
-%  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
-%  &= I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X (x),
-%\end{align*}
-%where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
-\begin{align*}
-	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
-	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
-	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \  d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
-	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
-\end{align*}
-Condition~\eqref{eq:technical-condition} states that 
-\begin{align*}
-	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
-	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
-\end{align*}
-Thus,
-\begin{align*}	
-&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
-	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
-	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
-	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
-	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
-&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
-&\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
-&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
-\end{align*}
-\end{proof}
+
 
 
 Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the aptitude-achievement paradox probability in such setting using a Full House Model with two populations with the specification that $F_{Y_1} = F_Y$ for $i=1,2$.
@@ -308,23 +280,7 @@ We now demonstrate a setting in which technical condition \eqref{eq:technical-co
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
-\begin{proof}
-Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
-$$
-  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
-$$
-The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
-$
-  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
-$
-whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
-\begin{align*}
-&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
-&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
-&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq t.
-\end{align*}
-Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
-\end{proof}
+
 
 
 \section{Paradox Under Different Distribution}
@@ -366,38 +322,6 @@ where $F_{Y_i}^{-1}(y)$ and $F_X^{-1}(x)$ exist. Further suppose that $Y_2$ is f
 \end{split}
 \end{equation}
 \end{prop}
-
-\begin{proof}
-First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
-$$
-  F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}} 
- \implies  
- x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right).
-$$ 
-By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we have 
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-	= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
-	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
-	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
-	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. \\
-\end{align*}
-Based on the Definition \ref{def:stodom}, we have
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
-	&\qquad \geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
-	&\qquad = \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2},
-\end{align*}
-and
-\begin{align*}
-	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
-	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
-	&\qquad \leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
-	&\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}.
-\end{align*}
-\end{proof}
 
 These bounds are a prescription under general distributions for achievement in Full House Modeling. However, we can still obtain explicit aptitude-achievement paradox probabilities when we specify $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$.
 
@@ -519,59 +443,6 @@ Moreover, we have that
 \end{equation}
 when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
 \end{theorem}
-
-%$\Phi\left(\frac{t-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \leq \Phi\left(\frac{t-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}$
-
-\begin{proof}
-Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
-\begin{align*}
-	g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1.
-\end{align*}
-Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remainder}. We have,
-\begin{align*}
-  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
-	&\qquad= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
-	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
-	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) + R.
-\end{align*}
-We continue with the left-hand side of the last equality,	
-\begin{align*}
-&\int_{-\infty}^{\infty} \left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}} \right] d F_{Y_2,(n_2)}(x) 
-= \int_0^1 \left[ F_{Y_1}\!\left( F_{Y_2}^{-1}(t^{1/n_2}) \right)^{n_1} - t^{N_1/N_2} \right] dt\\[6pt]
-&\qquad= \int_{0}^{1} \left( \Phi\!\left(\frac{\Phi^{-1}(t^{1/n_2})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}\right) \right)^{n_1} \, dt \;-\; \frac{N_2}{N_1 + N_2} \\[6pt]
-&\qquad= \int_{-\infty}^{+\infty} 
-\Phi\!\left(\frac{\sigma_2 x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} 
-\left( n_2 \Phi(x)^{n_2-1} \phi(x) \right)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[8pt]
-&\qquad= n_2 \int_{-\infty}^{+\infty}
-\mathbb{P}\!\left(
-\begin{array}{l}
-Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
-Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
-Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
-\end{array}
-\;\middle|\; X=x \right)
-\phi(x)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
-&\qquad= n_2 \,
-\mathbb{P}\!\left(
-\begin{array}{l}
-Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
-Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
-Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
-\end{array}
-\right)
-\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
-&\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w} = (
-\frac{\mu_2 - \mu_1}{\sigma_1},\dots,\frac{\mu_2 - \mu_1}{\sigma_1},
-0,\dots,0)
-\right) \;-\; \frac{N_2}{N_1 + N_2}.
-\end{align*}
-
-The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
-
-The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
-\end{proof}
 
 To validate the Theorem~\ref{theorem:normalgeneral} in the numerical simulation, we conducted Monte Carlo simulations across a range of parameter settings. The simulated paradox probabilities closely matched the theoretical values. Because the simulations serve only as a verification of the closed-form result and do not provide additional methodological insight, we present them in Supplementary Materials for completeness.
 
@@ -779,8 +650,7 @@ These phenomena of latent talent being misclassified, sorted, and repeatedly fil
 
 \subsection{Batting Averages in Major League Baseball}
 
-We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees in Theorem~\ref{theorem:asymptotic} to evaluate the contextual extremeness of observed outcomes in a real-world system where the underlying distribution of aptitude is not directly observable and evolves over time. Major League Baseball (MLB) offers a canonical example of such a system. Here, player skill (latent batting aptitude) is inferred only indirectly through season-level observed outcomes (batting averages), which are shaped by changing rules, population structures, and environmental variance. 
-
+We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees in Theorem~\ref{theorem:asymptotic} to evaluate the contextual extremeness of observed outcomes in a real-world system where the underlying distribution of aptitude is not directly observable and evolves over time. Major League Baseball (MLB) offers a canonical example of such a system. Here, player skill (latent batting aptitude) is inferred only indirectly through season-level observed outcomes (batting averages), which are shaped by changing population structures and environmental variance. See Figure~\ref{Fig:means-sd-full-time} presents smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871 to 2023.
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[scale=0.75]{means-sd-full-time.png}
@@ -791,9 +661,9 @@ We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees 
 
 In particular, MLB introduced a series of rule changes in 2023 intended to increase in-game action, including a restriction on defensive positioning designed to raise batting averages on balls in play (BABIP) \citep{castrovince2023mlb}. 
 
-First, the 2023 mean batting average for full-time players increased by 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample tests for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, the rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increased batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 since Josh Hamilton in 2010. 
+First, the 2023 mean batting average for full-time players increased by 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample tests for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, the rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increased batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350, a mark of excellence, since Josh Hamilton in 2010. 
 
-Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in this example to contextualize the effect of these rule changes. Here we assume that seasonal batting averages of full-time players are normally distributed. The true means and standard deviations of these distributions are unknown. Thus, we estimate them via plug-in sample mean and sample standard-deviation and invoke the reliability guarantees from Theorem~\ref{theorem:asymptotic}. Figure~\ref{Fig:means-sd-full-time} presents smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871 to 2023. Notably, both the average and variability of batting averages in 2023 are among the lowest observed in the dataset, indicating a historically suppressed environment for batting averages of full-time batters.
+Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in this example to contextualize the effect of these rule changes. Here we assume that seasonal batting averages of full-time players are normally distributed. The true means and standard deviations of these distributions are unknown. Thus, we estimate them via plug-in sample mean and sample standard-deviation and invoke the reliability guarantees from Theorem~\ref{theorem:asymptotic}. Notably, we see from Figure~\ref{Fig:means-sd-full-time} that both the average and variability of batting averages in 2023 are among the lowest observed in the dataset, indicating a historically suppressed environment for batting averages of full-time batters.
 
 \begin{figure}[t!]
 \begin{center}
@@ -803,65 +673,11 @@ Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in th
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-In this example we will investigate the paradox probability corresponding to maximum batting averages when comparing the 2023 season to all prior seasons. We will thus specify the 2023 season as system 1 and the comparison season, which ranges from 1871 to 2022, as system 2. Figure~\ref{Fig:paradox-prob-results} displays these estimated paradox probabilities \eqref{eq:paradoxnormal} where estimates are obtained using plug-in, sample means and standard deviations are substituted for population parameters. These estimators are $\sqrt{n}$-consistent so that the reliability results of Theorem~\ref{theorem:asymptotic} apply. For comparison, the figure also shows a smoothed empirical curve representing the proportion of seasons in which the maximum batting average exceeded Arraez's 2023 mark. We observe that the estimated paradox probabilities track closely with the empirical exceedance rate. Both quantities increase as we move backward in time, reinforcing the idea that earlier eras, with higher means, larger variances, and smaller populations, were more conducive to producing extreme individual batting averages, even when overall talent levels may have been lower.
+We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages when comparing the 2023 season to all prior seasons. We treat the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Figure~\ref{Fig:paradox-prob-results} displays the resulting paradox probabilities \eqref{eq:paradoxnormal}, estimated via plug-in using sample means and standard deviations. Because these estimators are $\sqrt{n}$-consistent, the reliability guarantees of Theorem~\ref{theorem:asymptotic} apply.
 
-\begin{figure}[ht!]
-\begin{center}
-	\includegraphics[scale=0.75]{uniform-qq.png}
-\end{center}
-\caption{Uniform Q-Q plot for extreme batting averages defined as $\widehat{F}(Y_{(n_i),i})^{n_i}$ where $i$ denotes the season, $n_i$ denotes the number of full-time players in season $i$, $Y_{(n_i),i}$ denotes the highest batting average for full-time players in season $i$, and $\widehat{F}$  is the distribution function of the normal distribution with sample mean and standard deviation estimators substituted for the population parameters.}
-\label{Fig:uniform-qq}
-\end{figure}
+For comparison, Figure~\ref{Fig:paradox-prob-results} also reports a smoothed empirical exceedance rate, defined as the proportion of historical seasons in which the maximum batting average exceeded Luis Arraez's 2023 mark. The estimated paradox probabilities closely track this empirical benchmark. Both quantities increase steadily as one moves backward in time, reflecting the fact that earlier eras---characterized by higher means, larger variances, and smaller effective populations---were structurally more conducive to producing extreme observed batting averages, even if underlying talent levels were lower.
 
-\cite{yan2025comparing} studied historical batting averages and era-adjusted batting averages through Full House Modeling for Luis Arraez's 2023 seasons and Jeff McNeil's MLB leading 2022 season in which he hit 0.326. They found that when one accounts for park and era effects then Arraez and McNeil had very similar performances, despite Arraez's large lead in raw batting average. These authors also found that assuming normality for batting averages among full-time players might not be appropriate \citep{yan2025fullhouse-supplement}. Even so, we evaluate $\widehat{F}(Y_{(n_i),i})^{n_i}$, the observed percentile of the distribution for the maximum batting average $Y_{(n_i),i}$ in season $i$. These percentiles are not uniformly distributed as seen in Figure~\ref{Fig:uniform-qq}. 
-
-Interestingly, the percentile corresponding to Luis Arraez's 2023 MLB leading batting average is largely without recent precedent. See Table~\ref{Tab:extreme-performers} for specifics. This table contains information from all seasons in which an MLB leading batter's extreme batting average percentile exceeds that of Luis Arraez in 2023. Notice that there is a significant drop off in the frequency of such seasons after Rogers Hornsby's modern day (post-1900) record 0.424 season from 1924. It is also interesting to note that the four most recent seasons in this table are from international players or players that would not have been allowed to play baseball had segregation continued (same with Rod Carew in 1977). Again, extreme performances were more common when the talent pool was more restricted and batting strategies and training methods were more variable, not when MLB expanded the number of teams \citep{Gould96, DE20, DE20b, yan2025fullhouse-supplement}. This table also includes a column for p-values from a Shapiro-Wilk test \citep{shapiro1965analysis} on the normality of batting average for full-time players. These results support the findings in \cite{yan2025fullhouse-supplement}. Moreover, the values $\widehat{F}(Y_{(n_i),i})^{n_i}$ do not follow a uniform distribution as indicated in Figure~\ref{Fig:uniform-qq}.
- 
-\begin{table}[H]\centering\begin{tabular}{rlcccc}  \hlineYear & Name & MLB leading BA & n & Shapiro Wilk p-value & Extreme Percentile \\   \hline1876 & Ross Barnes & 0.429 & 40 & 0.0043 & 0.9791 \\   1881 & Cap Anson & 0.399 & 42 & 0.3213 & 0.9665 \\   1884 & Fred Dunlap & 0.412 & 110 & 0.0066 & 0.9722 \\   1887 & Tip O'Neill & 0.435 & 112 & 0.0352 & 0.9848 \\   1901 & Nap Lajoie & 0.426 & 104 & 0.3360 & 0.9760 \\   1904 & Nap Lajoie & 0.376 & 104 & 0.0402 & 0.9861 \\   1905 & Cy Seymour & 0.377 & 112 & 0.0437 & 0.9602 \\   1908 & Honus Wagner & 0.354 & 115 & 0.0462 & 0.9614 \\   1909 & Ty Cobb & 0.377 & 111 & 0.0937 & 0.9673 \\   1910 & Nap Lajoie & 0.383 & 118 & 0.0082 & 0.9775 \\   1911 & Ty Cobb & 0.420 & 115 & 0.0416 & 0.9663 \\   1912 & Ty Cobb & 0.409 & 126 & 0.0001 & 0.9730 \\   1913 & Ty Cobb & 0.390 & 119 & 0.0132 & 0.9570 \\   1916 & Tris Speaker & 0.386 & 114 & 0.0003 & 0.9915 \\   1917 & Ty Cobb & 0.383 & 117 & 0.0890 & 0.9724 \\   1918 & Ty Cobb & 0.382 & 109 & 0.4605 & 0.9575 \\   1922 & George Sisler & 0.420 & 118 & 0.0174 & 0.9671 \\   1924 & Rogers Hornsby & 0.424 & 118 & 0.1749 & 0.9863 \\   1941 & Ted Williams & 0.406 & 110 & 0.0104 & 0.9946 \\   1957 & Ted Williams & 0.388 & 117 & 0.0534 & 0.9885 \\   1977 & Rod Carew & 0.388 & 196 & 0.2965 & 0.9935 \\   1980 & George Brett & 0.390 & 184 & 0.0400 & 0.9960 \\   1985 & Wade Boggs & 0.368 & 190 & 0.0417 & 0.9885 \\   1988 & Wade Boggs & 0.366 & 180 & 0.0573 & 0.9789 \\   1994 & Tony Gwynn & 0.394 & 153 & 0.0392 & 0.9631 \\   2002 & Barry Bonds & 0.370 & 209 & 0.0102 & 0.9647 \\   2004 & Ichiro Suzuki & 0.372 & 207 & 0.0622 & 0.9634 \\   2023 & Luis Arraez & 0.354 & 205 & 0.0055 & 0.9564 \\    \hline\end{tabular}
-\caption{Batting average performances that are at least as extreme as Luis Arraez in 2023. Extreme as defined by the value $\widehat{F}(Y_{(n_i),i})^{n_i}$ where $i$ denotes the season, $n_i$ denotes the number of full-time players in season $i$, $Y_{(n_i),i}$ denotes the highest batting average for full-time players in season $i$, and $\widehat{F}$ is the distribution function of the normal distribution with sample mean and standard deviation estimators substituted for the population parameters. This table also includes the year, name, and raw batting average of extreme performers. It also includes the number of full-time players (n), and a Shapiro Wilk p-value corresponding to a test against normality for the batting average distribution for full-time players.}
-\label{Tab:extreme-performers}\end{table}
-
-Despite the simplifying assumption of normality, the paradox probability analysis and associated diagnostics (Figures~\ref{Fig:paradox-prob-results} and \ref{Fig:uniform-qq}, Table~\ref{Tab:extreme-performers}) illustrate a key insight that under the empirical structure of 2023, which is characterized by low variance and high competition levels, Luis Arraez's 0.354 batting average represents an extremely rare achievement. Yet paradoxically, it appears modest when compared to higher averages in historically weaker environments. 
-
-This demonstrates a central tenet of Full House Modeling: observed records are shaped as much by the structure of the evaluation system as by individual aptitude. Paradox probabilities offer a formal measure of this distortion. Without such contextualization, modern performances may be systematically undervalued. In particular, the modern structure of MLB makes it increasingly unlikely that even players with exceptional latent ability will produce historically dominant observed outcomes.
-
-
-
-%Roadmap and results to discuss in this analysis:
-
-%\begin{center}
-%We have paradox probability results comparing the 2022 and 2023 seasons to all other seasons. The 2022-2023 probabilities are almost perfectly identical. However, the mean and sd for batting average of full-time players is slightly different.
-%\end{center}
-
-%What does the above mean? possible explanations and thoughts:
-
-%\begin{enumerate}
-%	\item MLB initiated rule changes between the 2022 and 2023 seasons with the goals of ...(improving entertainment value? increasing excitement? increasing more balls being put into play? increasing batting averages?) (need references).
-%	\item Luis Arraez led all batters in 2023 with a .354 batting average (first $>.350$ batting average since Josh Hamilton 2010). Jeff McNeil led all batters with a .326 batting average in 2022. Justin Turner led all batters the year before with an average of .328.
-%	\item In this sense, in addition to increasing stolen base attempts and successful steals, these rule changes have been successful. 
-%	\item Need to discuss that era-adjusted batting results which adjust for contextual factors including handedness-specific park factors show no change in batting talent (is batting talent the right word?) between McNeil and Arraez. 
-%	\item Thus, the rule changes have had a positive effect on player outcomes. The mean batting average increased with a reduction in variation. Is it fair to conclude that Arraez's season is a result of rule changes, or was it a fluke, or were the changes specifically beneficial to him and a small group of similar players, or some combination of the above? 
-%	\item In a different line of questions, does this show that there is potential yet-to-be realized long-term impact of these changes? 
-%	\item The paradox probabilities are about the same (increase in mean batting average + a reduction in variation nets out to similar extreme performance). The era-adjusted batting averages are also similar. Is it fair to say latent ability has not changed much and comparative analyses across eras did not change either when relevant contextual factors are taken into account. The only change seems to be on observed outcomes which, if this is all correct, means that rule changes had an instant, albeit relatively small from a historical perspective, positive effect
-%\end{enumerate}
-
-
-%In this analysis, we compute the probability of the paradox using the results from the Normal distribution example above and illustrate it in the application of Major League Baseball (MLB) since it is widely acknowledged that the batting average follows Normal distribution. %Specifically, we compute the probability that the top batting average in 2023 is lower than the top batting average in the other season, but the players who have the highest batting average in 2023 are more talented than those who have the highest batting average in the other season. 
-
-%In this analysis, we detail the considerations made for the batting average statistics that we era-adjust using the Full House Model \citep{DE20b}. Park factor adjustment is considered in this analysis and we apply the adjusted park index from \cite{SM16} to all ballparks from the 1871 season to the 2022 season. The batting average can be affected by the ballpark and we apply the park factor adjustment to this statistic, which accounts for the handedness of batters.
-
-%The Full House Model will only be applied to the statistics obtained by full-time players. We define the full-time hitter cutoff as the median PAs after screening out hitters who appeared in fewer than 75 PAs. This criterion is flexible enough to account for changing the number of games played over time as well as seasons shortened by labor strikes and pandemics.
-
-%In the 1994 and 1995\footnote{https://en.wikipedia.org/wiki/1994\%E2\%80\%9395\_Major\_League\_Baseball\_strike}, hitters and pitchers played fewer games per season than the regular season. To deal with extreme statistics from the small sample size, we employed a shrinkage method that adjusted the raw statistics toward a global average. Our shrinkage method follows a shrinkage of ballpark effect estimates motivated from \cite{SM16}. The details can be found in \cite{DE20b}.
-
-%We compute the talent scores for the batting average in each season using the (\ref{eq:trueparX}). Then the theoretical results from the Normal distribution example above can be applied to this example and compute the paradox probability of all the seasons from 1871 to 2022 compared with 2023. Fig \ref{Fig:AVG_prob} displays the tendency of the paradox probability of all the seasons from 1871 to 2022 compared with 2023.
-
-%\begin{figure}[H]
-%   \centering
-%   \includegraphics[scale = 0.2]{AVG_prob}
-%   \caption{The paradox probability of all the seasons from 1871 to 2022 compared with 2023}
-%\label{Fig:AVG_prob}
-%\end{figure}
+Under Full House Modeling, Arraez's 2023 performance ranks 68th all-time among full-time batters after accounting for population depth and contextual effects \citep{yan2025comparing, fullhouse2025}, in contrast to his raw observed rank of 341. This discrepancy illustrates how observed dominance can be distorted by changes in population structure and measurement environments. Paradox probabilities provide a formal way to quantify this distortion, clarifying why exceptional modern performances may appear historically unremarkable when evaluated without contextual adjustment.
 
 
 \section{Discussion}
@@ -878,6 +694,191 @@ Our findings align with a growing body of evidence that real-world evaluative sy
 
 By elevating probability paradox from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
 
+
+\section*{Supplementary Materials}
+
+The 
+
+
+\section*{Mathematical Appendix}
+
+This appendix contains proofs of mathematical results in Section~\ref{sec:samedist} and the general bounds in Section~\ref{sec:diffdist}. \\
+
+
+%%%% Proof of Lemma 3.2
+\begin{proof}[Proof of Lemma~\ref{lemma:rep}]
+Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
+$f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
+\begin{align*}
+  &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+\end{align*}
+where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+A similar technique can be applied to the second equation to obtain the result.
+\end{proof}
+
+
+%%%% Proof of Theorem 3.4
+\begin{proof}[Proof of Theorem~\ref{theorem:samedistgeneral}]
+First, Lemma~\ref{lemma:rep} allows us to write
+$$
+	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+$$
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
+%Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
+%\begin{align*}
+%  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
+%  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
+%  &= I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X (x),
+%\end{align*}
+%where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+\begin{align*}
+	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \  d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
+\end{align*}
+Condition~\eqref{eq:technical-condition} states that 
+\begin{align*}
+	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
+\end{align*}
+Thus,
+\begin{align*}	
+&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
+	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
+	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
+	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
+&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
+&\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
+&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
+\end{align*}
+\end{proof}
+
+
+%%%% Proof of Proposition 3.5
+\begin{proof}[Proof of Proposition~\ref{prop:condition}]
+Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
+$$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
+$$
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
+$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
+$
+whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
+\begin{align*}
+&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq t.
+\end{align*}
+Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
+\end{proof}
+
+
+
+%%%% Proof of Proposition 4.2
+\begin{proof}[Proof of Proposition~\ref{prop:weakstodom}]
+First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
+$$
+  F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}} 
+ \implies  
+ x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right).
+$$ 
+By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we have 
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
+	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. \\
+\end{align*}
+Based on the Definition \ref{def:stodom}, we have
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad = \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2},
+\end{align*}
+and
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}.
+\end{align*}
+\end{proof}
+
+
+
+%%%% Proof of Theorem 4.3
+\begin{proof}[Proof of Theorem~\ref{theorem:normalgeneral}]
+Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
+\begin{align*}
+	g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1.
+\end{align*}
+Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remainder}. We have,
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
+	&\qquad= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) + R.
+\end{align*}
+We continue with the left-hand side of the last equality,	
+\begin{align*}
+&\int_{-\infty}^{\infty} \left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}} \right] d F_{Y_2,(n_2)}(x) 
+= \int_0^1 \left[ F_{Y_1}\!\left( F_{Y_2}^{-1}(t^{1/n_2}) \right)^{n_1} - t^{N_1/N_2} \right] dt\\[6pt]
+&\qquad= \int_{0}^{1} \left( \Phi\!\left(\frac{\Phi^{-1}(t^{1/n_2})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}\right) \right)^{n_1} \, dt \;-\; \frac{N_2}{N_1 + N_2} \\[6pt]
+&\qquad= \int_{-\infty}^{+\infty} 
+\Phi\!\left(\frac{\sigma_2 x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} 
+\left( n_2 \Phi(x)^{n_2-1} \phi(x) \right)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[8pt]
+&\qquad= n_2 \int_{-\infty}^{+\infty}
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\;\middle|\; X=x \right)
+\phi(x)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2 \,
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\right)
+\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w} = (
+\frac{\mu_2 - \mu_1}{\sigma_1},\dots,\frac{\mu_2 - \mu_1}{\sigma_1},
+0,\dots,0)
+\right) \;-\; \frac{N_2}{N_1 + N_2}.
+\end{align*}
+
+The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
+
+The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
+\end{proof}
 
 \bibliography{FHM.bib}
 \bibliographystyle{plainnat}
