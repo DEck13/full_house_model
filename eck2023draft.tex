@@ -91,22 +91,19 @@ Traditional latent trait models \citep{bartholomew2011latent} focus on estimatin
 
 To address these limitations, we develop a framework for cross-context comparison that explicitly accounts for population depth and selection mechanisms. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is developed here as a general approach for cross-contextual evaluation. This framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This formulation makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude.
 
-In this article, we formalize Full House Modeling and study the probability of aptitude--achievement paradoxes \eqref{eq:paradoxgeneral} arising in cross-context comparisons. We derive explicit paradox probabilities under two settings: first, when observed achievement is independent and identically distributed, and second, when observed achievement follows independent but context-specific normal distributions. We also establish bounds on paradox probabilities in more general settings and show that, under normality, these probabilities can be consistently estimated using plug-in methods. A sensitivity analysis reveals that paradox risk depends on ratios of eligible population sizes rather than on their absolute magnitudes.
-
+In this article, we formalize Full House Modeling and study the probability of aptitude--achievement paradoxes \eqref{eq:paradoxgeneral} arising in cross-context comparisons. We derive explicit paradox probabilities in two settings: first, when observed achievement is independent and identically distributed, and second, when observed achievement follows independent but context-specific normal distributions. We also establish bounds on paradox probabilities in more general settings and show that, under normality, these probabilities can be consistently estimated using plug-in methods. A sensitivity analysis reveals that paradox risk depends on ratios of eligible population sizes rather than their absolute magnitudes. Proofs of main results appear in the Mathematical Appendix, with supplementary technical results provided in online Supplementary Materials.
 
 
 
 
 \section{Model Setting}
+\label{sec:modelsetting}
 
 We now motivate the structure of the Full House Model. Let $N_i$ denote the size of population $i$. We suppose that every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude 
-$X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$ as a determined and known system inclusion function for population $i$ where a 1 indicates inclusion and a 0 indicates exclusion. 
-%$g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$ indicates that individual $j$ is included in the $i$th system, and $g_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=0$ indicates that individual $j$ is not included in the $i$th system. 
-We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are rank-preserving realizations of $X_{i,j}$, provided that $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
+$X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We then define an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$ as a determined and known system inclusion function for population $i$ where a 1 indicates inclusion and a 0 indicates exclusion. We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, $n_i \leq N_i$. As we will see later, the observed $Y_{i,j}$ values are rank-preserving realizations of $X_{i,j}$, provided that $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right)=1$. Therefore $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$. 
 
-Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger numbers will correspond to a notion of "better." Thus $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$, for example. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the aptitude of the $j$th highest value observed from the system. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
+Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger numbers will correspond to a notion of "better." Thus $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$, for example. We now form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$ where $r_{i,j}$ indexes the rank of that individual's latent aptitude within the full population of size $N_i$. As an example, let $1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)})$, then the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
-%where we suppose that $Y_{i,1}, \ldots, Y_{i,n_i} \overset{iid}{\sim} F_{Y_i}$, $F_{Y_i}$ is continuous, and $n_i < N_i$ is the number of individuals included in system $i$. We denote $Y_{i,(j)}$ as the $j$th ordered statistic for system $i$.
 The key feature of Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. Full House Modeling states this connection as
 \begin{equation} \label{eq:truepar}
 \begin{split}
@@ -116,17 +113,14 @@ The key feature of Full House Modeling is the explicit connection between the el
 \end{equation}
 where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarise Full House Modeling in the definition below.
 
-
 \begin{defn} [Full House Model]
 \label{def:fhm}
 	Consider populations with sizes $N_i$ and system sizes $n_i$, $N_i \geq n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$ for all individuals such that $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
-\textbf{Remark} The Full House Model induces structural missingness by construction: for any individual $j$ such that $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, we treat unobserved $Y_{i,j}$ values as not $\Prob$-measurable, reflecting the fact that they lie outside the observable $\sigma$-field generated by the system. This perspective allows selection mechanisms to be incorporated directly into probabilistic statements without imputing counterfactual outcomes. \\
+\textbf{Remark} The Full House Model induces structural missingness by construction: for any individual $j$ such that $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, we treat unobserved $Y_{i,j}$ values are not measurable with respect to the observable probability space, reflecting the fact that they lie outside the observable $\sigma$-field generated by the system. This perspective allows selection mechanisms to be incorporated directly into probabilistic statements without imputing counterfactual outcomes. \\
 
 Definition~\ref{def:fhm} assumes a common latent aptitude distribution $F_X$ across contexts, while allowing the observed achievement distributions $F_{Y_i}$ to vary by system. This reflects a modeling choice in which the process generating latent aptitude is taken to be context-neutral, whereas the expression and measurement of aptitude may differ across contexts.
-
-
 
 The probability integral transformations in \eqref{eq:truepar} involve the distribution functions of order statistics, namely $F_{X_{i,(r_{i,j})}}$ and $F_{Y_{i,(j)}}$, which may be cumbersome to evaluate directly. An equivalent and more convenient representation follows from the fact that, under continuity, the probability integral transform of an order statistic can be expressed through a Beta distribution. In particular,
 \begin{equation} \label{eq:betarepX}
@@ -145,24 +139,20 @@ This representation allows the mapping in \eqref{eq:truepar} to be implemented u
 The representations \eqref{eq:betarepX} and \eqref{eq:betarepY} yield both theoretical and practical advantages for implementing the Full House Modeling flow \eqref{eq:truepar}. Although FHM is conceptually formulated in terms of a latent aptitude distribution $F_X$, this distribution may be difficult or impossible to specify in many applications. The Beta representations allow latent aptitude to be recovered up to a monotone transformation without requiring explicit knowledge of $F_X$.
 
 Specifically, combining \eqref{eq:betarepX} and \eqref{eq:betarepY} yields
-\[
-X_{i,(r_{i,j})}
-= F_X^{-1}\!\left(
+$$
+X_{i,(r_{i,j})} = F_X^{-1}\!\left(
 F_{U_{i,(r_{i,j})}} \circ F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right)
 \right).
-\]
+$$
 Define
-\[
-W_{i,j}
-= F_{U_{i,(r_{i,j})}} \circ F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right).
-\]
+$$
+W_{i,j} = F_{U_{i,(r_{i,j})}} \circ F_{U_{i,(j)}} \circ F_{Y_i}\!\left(Y_{i,(j)}\right).
+$$
 For any two cross-context observations $W_{i_1,j_1}$ and $W_{i_2,j_2}$ computed from observed achievements, monotonicity of $F_X$ implies
-\[
-W_{i_1,j_1} \ge W_{i_2,j_2}
-\;\;\Longrightarrow\;\;
-F_X^{-1}(W_{i_1,j_1}) \ge F_X^{-1}(W_{i_2,j_2}).
-\]
-
+$$
+  W_{i_1,j_1} \ge W_{i_2,j_2} \;\;\Longrightarrow\;\; 
+    F_X^{-1}(W_{i_1,j_1}) \ge F_X^{-1}(W_{i_2,j_2}).
+$$
 Consequently, the ordering of latent aptitudes is invariant to the specification of $F_X$. While $F_X$ is required to recover absolute latent scales, it is a structural nuisance for ranking and comparative analysis. In practice, this allows Full House Modeling to be implemented via a mapping from observed achievement to latent aptitude ranks, even though the conceptual data-generating process flows from aptitude to achievement.
 
 
@@ -227,23 +217,44 @@ p
 \end{theorem}
 
 
+%\noindent \textbf{Remarks}:
+%\begin{enumerate}
+%	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
+
+%The above is the upper bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the aptitude-achievement paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
+%	\item The distribution on $X$ is eliminated when calculating the aptitude-achievement paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
+%	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
+%$$
+%	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
+%$$
+%The technical condition \eqref{eq:technical-condition} ensures that this integral defines a non-negative probability in strong terms. We demonstrate with analytic and numeric arguments when \eqref{eq:technical-condition} is satisfied and the results of Theorem~\ref{theorem:samedistgeneral} therefore hold.
+%\end{enumerate}
+
 \noindent \textbf{Remarks}:
 \begin{enumerate}
-	\item The result of Theorem~\ref{theorem:samedistgeneral} is distribution free. It only depends on the sample sizes $n_i, N_i$, $i = 1,2$, the system inclusion function, and the indexes of the order statistics under comparison. The distribution on $Y$ is eliminated by Lemma~\ref{lemma:rep}. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. Thus, $F_{Y_{(j)}}(y) = I_{j,n_1-j+1} \circ F_Y (y)$. With this in mind, from Lemma~\ref{lemma:rep} we have that
+	\item The paradox probability in Theorem~\ref{theorem:samedistgeneral} is distribution free. Once the Full House Model is specified, the result depends only on the population sizes $N_i$, system sizes $n_i$, the system inclusion function, and the indices of the order statistics under comparison. As established in Section~\ref{sec:modelsetting}, the Beta representations \eqref{eq:betarepX}--\eqref{eq:betarepY} imply that the distributions of observed order statistics can be expressed independently of the underlying form of $F_Y$. Lemma~\ref{lemma:rep} leverages this structure to eliminate $F_Y$ entirely from the paradox probability calculation, 
 \begin{align*}
 	h_{j,k}(x) &= F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1} \circ \left(F_Y \circ F_Y^{-1}\right) \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x) \\
 	&= F_{X_{1,(r_{1,j})}}^{-1} \circ I_{j,n_1-j+1}  \circ I^{-1}_{k,n_2-k+1} \circ F_{X_{2,(r_{2,k})}} (x).
 \end{align*}
-The above is the upper bound of an integral with respect to $X$s in the proof of Theorem~\ref{theorem:samedistgeneral}. The influence of the distributional specification on $Y$ does not influence the calculation of the aptitude-achievement paradox probability result in Theorem~\ref{theorem:samedistgeneral}.
-	\item The distribution on $X$ is eliminated when calculating the aptitude-achievement paradox probability \eqref{eq:simpleparadox} in its Lemma~\ref{lemma:rep} representation, $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$. These calculations involve double integrals with respect to densities for $F_{X_{1,(r_{1,j})}}$ and $F_{X_{2,(r_{2,k})}}$. One integral evaluation and a reparameterization remove the specification of $F_X$ from the probability calculation as seen in the proof of Theorem~\ref{theorem:samedistgeneral}.
-	\item The steps mentioned in the last sentence of the previous remark allow the probability calculation for $\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right)$ to simplify to 
-$$
-	\int_0^1\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} (t) - I_{r_{1,j}, N_1 - r_{1,j}+1} \circ I_{r_{2,k}, N_2 - r_{2,k} + 1}^{-1}(t)\right\}^+ dt.
-$$
-The technical condition \eqref{eq:technical-condition} ensures that this integral defines a non-negative probability in strong terms. We demonstrate with analytic and numeric arguments when \eqref{eq:technical-condition} is satisfied and the results of Theorem~\ref{theorem:samedistgeneral} therefore hold.
-\end{enumerate}
 
+	\item Likewise, the latent aptitude distribution $F_X$ plays no role in the final expression for the paradox probability. Although Lemma~\ref{lemma:rep} expresses the event in terms of latent order statistics, 
+	$
+	  \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right).
+	$
+	the monotone coupling induced by Full House Modeling ensures that all integrals involving $F_X$ reduce to functions of Beta distributions and order indices. As shown in the proof of Theorem~\ref{theorem:samedistgeneral}, a change of variables removes dependence on $F_X$, rendering it a structural nuisance parameter for paradox probabilities.
+
+	\item Combining these observations, the paradox probability admits a closed-form expression involving only regularized incomplete beta functions. In particular, the probability simplifies to
+	$$
+	  \int_0^1\left\{
+		I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t)
+		-
+		I_{r_{1,j}, N_1-r_{1,j}+1} \circ I_{r_{2,k}, N_2-r_{2,k}+1}^{-1}(t)
+	  \right\}^{+}\, dt.
+	$$
+	The technical condition \eqref{eq:technical-condition} ensures that the integrand is nonnegative for all $t \in (0,1)$, guaranteeing that this expression defines a valid probability. In subsequent sections, we characterize when this condition holds and examine its empirical implications.
+\end{enumerate}
 
 
 
@@ -331,7 +342,8 @@ These bounds are a prescription under general distributions for achievement in F
 
 This section will develop explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} additionally specifies that $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We will focus on the case where the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. 
 
-The outline for our results is similar to that in Section~\ref{sec:samedist} where a technical condition is needed to prove the main result -- like condition~\eqref{eq:technical-condition} in Theorem~\ref{theorem:samedistgeneral} --and further results provide configurations of the sample sizes that satisfy the technical condition. However, in this setting with $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$, the technical condition leaves a remainder term in excess of a clean probability result, and further results will show that this remainder term is negligible. %Talk about plug-in
+The outline for our results is similar to that in Section~\ref{sec:samedist} where a technical condition is needed to prove the main result -- like condition~\eqref{eq:technical-condition} in Theorem~\ref{theorem:samedistgeneral} --and further results provide configurations of the sample sizes that satisfy the technical condition. However, in this setting with $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$, the corresponding technical condition yields an additional remainder term $R$ that prevents an exact closed-form expression. We show below that this remainder term is negligible under mild and interpretable conditions on population fractions and distributional parameters.
+
 
 Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
 $$
@@ -355,15 +367,16 @@ where $A := A(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ is the range of i
 \end{split}	
 \end{equation}
 where the second equality in \eqref{eq:A} follows from \eqref{eq:gnorm}. Continuing with the probability calculation above
-\begin{align*}
-	&\int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) = \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
-	&\qquad = \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x).
-\end{align*}
-The left-hand side can (and will) be further evaluated and leads to the desired explicit aptitude-achievement paradox probability. The right-hand side represents a remainder term $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$,
+\begin{align} \label{eq:paradecomp}
+	&\int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \nonumber \\
+	&= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \nonumber \\
+	&= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x).		
+\end{align}
+The left-hand side of \eqref{eq:paradecomp} can (and will) be further evaluated and leads to the desired explicit aptitude-achievement paradox probability. The right-hand side of \eqref{eq:paradecomp} represents a remainder term $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$,
 \begin{equation} \label{eq:remainder}
   R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
 \end{equation}
-where $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder term may seem unintuitive. However, we will now motivate a simple setting that allows for $R$ to be negligible when $n_2$ is moderately large. 
+where the set $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder term may seem unintuitive. However, we will now motivate a simple setting that allows for $R$ to be negligible when $n_2$ is moderately large. 
 
 From \eqref{eq:A} and \eqref{eq:remainder}, we have
 \begin{align*}
@@ -378,19 +391,20 @@ Now, when we specify that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ as in Propositi
     \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right) \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)\right)	 \\	
     &\qquad = \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right).
 \end{align*}
-A bit of algebra under the specification that $\sigma_1 \leq \sigma_2$ yields
+Under the assumption that $\sigma_1 \leq \sigma_2$, straightforward algebra yields
 $$
-  \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right) = \Prob\left(Y_{2,(n_2)} \leq \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1}\right).
+  \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)
+  = \Prob\left(Y_{2,(n_2)} \leq \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1}\right).
 $$
-A bit of algebra under the specification that $\mu_1 \leq \mu_2$ implies that 
+Under the additional assumption that $\mu_1 \leq \mu_2$, the right-hand side is bounded above by
 $$
-  \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1} \leq \mu_2.
+  \Prob\left(Y_{2,(n_2)} \leq \mu_2\right).
 $$
 Putting it all together, we have
 $$
   |R| \leq \Prob\left(Y_{2,(n_2)} \leq \mu_2\right) \leq \left(\frac{1}{2}\right)^{n_2},
 $$
-when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, we have a trivial bound on the remainder term which shows that it is negligible when $n_2$ is moderately large under a familiar sample size specification (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration, despite the remainder term \eqref{eq:remainder} being unintuitive. This argument will be necessary both for the statement and proof of our main result in this section. First some additional preliminaries.
+when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, although the remainder term $R$ in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by the left-hand side of \eqref{eq:paradecomp}with $R$ contributing only a negligible correction for moderately large $n_2$. We now introduce a multivariate normal representation that allows this principal term to be expressed in closed form.
 
 Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
 \begin{equation}\label{eq:Sigma}
@@ -444,51 +458,51 @@ Moreover, we have that
 when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
 \end{theorem}
 
-To validate the Theorem~\ref{theorem:normalgeneral} in the numerical simulation, we conducted Monte Carlo simulations across a range of parameter settings. The simulated paradox probabilities closely matched the theoretical values. Because the simulations serve only as a verification of the closed-form result and do not provide additional methodological insight, we present them in Supplementary Materials for completeness.
-
-We now show that plug-in estimates for normal distribution parameters $\mu_i$, $\sigma_i$, $i = 1,2$ allow for reliable estimate of the paradox probability \eqref{eq:paradoxnormal}. Our approach requires properties for matrices of the form 
- $$
-	\Sigma = \begin{bmatrix}
-		c+1 & c & \hdots & c\\
-		c & \ddots & \ddots & \vdots\\
-		\vdots & \ddots & \ddots & c\\
-		c & \hdots & c & c+1\\
-\end{bmatrix}_{n \times n}. 
+We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of the paradox probability \eqref{eq:paradoxnormal}. Our approach requires properties for matrices of the form 
+$$
+  \Sigma = \begin{bmatrix}
+	\rho+1 & \rho & \hdots & \rho\\
+	\rho & \ddots & \ddots & \vdots\\
+	\vdots & \ddots & \ddots & \rho\\
+	\rho & \hdots & \rho & \rho+1\\
+  \end{bmatrix}_{n \times n}. 
 $$
 These properties are
 \begin{equation} \label{eq:det}
-	\det(\Sigma) = cn+1,
+	\det(\Sigma) = \rho n + 1,
 \end{equation}
 and 
 \begin{equation} \label{eq:inverse}
-\Sigma^{-1} = \frac{1}{c \cdot n+1}\begin{bmatrix}
-c \cdot (n-1)+1 & -c & \hdots & -c\\
--c & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & -c\\
--c & \hdots & -c & c \cdot (n-1)+1\\
+\Sigma^{-1} = \frac{1}{\rho n + 1}
+\begin{bmatrix}
+\rho (n-1)+1 & -\rho & \hdots & -\rho\\
+-\rho & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & -\rho\\
+-\rho & \hdots & -\rho & \rho (n-1)+1\\
 \end{bmatrix}_{n \times n},
 \end{equation}
 where \eqref{eq:inverse} follows from an application of the Woodbury identity \citep{golub2013matrix}.  
 
 Before we state our result, we introduce the Lemma \ref{lemma:wmax}
 
+
 \begin{lemma} \label{lemma:wmax}
-
-Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. We denote the cumulative distribution function (CDF) of $\mathbf{W}$ by $\mathbf{\Phi}(\mathbf{w}; \boldsymbol{\Sigma})$, where $\mathbf{w} \in \mathbb{R}^{n}$ is the quantile vector at which the CDF is evaluated. 
-
-Define 
-	\begin{equation} \label{eq:wn}
+Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Let $\Phi_{\boldsymbol{\Sigma}}(\mathbf{w})$ denote the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$. Define $c := c_{n_1+n_2-1}$ as the maximal conditional one-dimensional Gaussian probability arising in the sequential factorization of the joint CDF, that is,
+\begin{equation} \label{eq:wn}
 \begin{split}
-	c &= \max \bigg\{ \Phi(W_{n_1+n_2-1} = w_{n_1+n_2-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n_1+n_2-2} = w_{n_1+n_2-2}), \\ 
-	&\Phi(W_{n_1+n_2-2} = w_{n_1+n_2-2} | W_1 = w_1, W_2 = w_2, \dots, W_{n_1+n_2-3} = w_{n_1+n_2-3}),	 \dots, \\
-  	&\Phi(W_2 = w_2| W_1 = w_1), \Phi(W_1 = w_1) \bigg\},
+  c = \max \bigg\{&
+  \Prob\!\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
+  &\Prob\!\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
+		\,\middle|\,
+		W_1=w_1,\dots,W_{n_1+n_2-3}=w_{n_1+n_2-3}\right),\\
+  &\dots,\, \Prob(W_2 \le w_2 \mid W_1=w_1),\, \Prob(W_1 \le w_1)
+\bigg\}.
 \end{split}
 \end{equation}
-
-then $c$ is strictly less than 1 and 
-
+Then $c \in (0,1)$ for all $n_1$, $n_2$, and 
 \begin{equation} \label{eq:wmax}
-	\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma}) \leq c^{n_1+n_2-1}
+	\Phi_{\boldsymbol{\Sigma}}(\mathbf{w})
+ \leq c^{n_1+n_2-1}
 \end{equation}
 \end{lemma}
 
@@ -499,18 +513,21 @@ then $c$ is strictly less than 1 and
 
 \begin{theorem}
 \label{theorem:asymptotic}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$ and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$ and $\sigma_2$. Then 	
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then 	
 	\begin{align*}
-		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right) \\ 
-	&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3})
+		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \hat{\mu_1}, \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) \\
+		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
+		&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3}),
 	\end{align*}
-%	where $c$ is defined in \eqref{eq:wn}. \textcolor{red}{The main issue is the definition of $w_{n, max}$. This quantity is stated in complete generality as a function with arbitrary entries. However, its main use is when the entries take a specific form as stated in the proof of this theorem. The general version is not well-defined as $w_{n, max}$ is a function of the entries themselves. The specific version of $w_{n, max}$ with either population parameters or their estimators plugged-in is well-defined. More work is needed to determine what happens to $w_{n, max}$ as $n \to \infty$ and the corresponding $\hat{w}_{n, max}$ as $n\to \infty$. I do not expect the argument to be deal-breaking as the estimators exhibit nice convergence properties and, with population parameters defined within the interior of the parameter space, will be away from the boundary as $n\to\infty$. Also note that your Theorem conclusion is that the difference in probabilities is $O_P(n_1^{\frac{3}{2}}n_2w_{n_1+n_2-2,max}^{n_1+n_2-3})$ whereas the end of the proof states that the difference goes to 0. These are two different things.}
-where c is defined in the Lemma \ref{lemma:wmax}
+where $c$ is defined in the Lemma \ref{lemma:wmax}.
 \end{theorem}
 
 \begin{proof}
 	The proof can be found in the Supplementary Materials. 
 \end{proof}
+
+
+
 
 \section{Examples}
 
@@ -697,7 +714,8 @@ By elevating probability paradox from an anecdotal concern to a model-based, est
 
 \section*{Supplementary Materials}
 
-The 
+The Supplementary Materials contain proofs of Lemma~\ref{lemma:wmax} and Theorem~\ref{theorem:asymptotic}, together with auxiliary Monte Carlo simulations provided solely for numerical intuition for Theorem~\ref{theorem:normalgeneral}.
+
 
 
 \section*{Mathematical Appendix}
