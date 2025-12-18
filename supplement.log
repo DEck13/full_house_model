@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  17 DEC 2025 12:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  18 DEC 2025 13:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -324,11 +324,10 @@ Package caption Info: New subtype `subtable' on input line 238.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/xr-hyper.sty
 Package: xr-hyper 2024-11-05 v7.01l eXternal References (DPC)
 )
-Package xr Info: IMPORTING LABELS FROM /Users/shenyan3/Documents/full_house_mod
-el/eck2023draft.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM eck2023draft.aux on input line 41.
 
-(/Users/shenyan3/Documents/full_house_model/eck2023draft.tex)
-(/Users/shenyan3/Documents/full_house_model/eck2023draft.aux)
+(eck2023draft.tex)
+(eck2023draft.aux)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
 
@@ -1007,23 +1006,17 @@ L3 programming layer <2025-01-18>
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `supplement.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `supplement.out':
-(rerunfilecheck)             Before: 451A6FDF6F53F326CAC6D9757A4BA2C6;715
-(rerunfilecheck)             After:  A4979909C281B763EFD153AF259E8C70;715.
+Package rerunfilecheck Info: File `supplement.out' has not changed.
+(rerunfilecheck)             Checksum: A4979909C281B763EFD153AF259E8C70;715.
  ) 
 Here is how much of TeX's memory you used:
- 24930 strings out of 473190
- 456138 string characters out of 5715801
- 946965 words of memory out of 5000000
+ 24929 strings out of 473190
+ 455708 string characters out of 5715801
+ 945150 words of memory out of 5000000
  47724 multiletter control sequences out of 15000+600000
  575795 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,87p,584b,614s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,22n,87p,584b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -1043,7 +1036,7 @@ e/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/
 25/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025
 /texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on supplement.pdf (27 pages, 346145 bytes).
+Output written on supplement.pdf (27 pages, 346143 bytes).
 PDF statistics:
  292 PDF objects out of 1000 (max. 8388607)
  222 compressed objects within 3 object streams

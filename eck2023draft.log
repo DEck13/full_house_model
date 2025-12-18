@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  17 DEC 2025 12:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  18 DEC 2025 13:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -26,8 +26,7 @@ File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/xr-hyper.sty
 Package: xr-hyper 2024-11-05 v7.01l eXternal References (DPC)
 )
-Package xr Info: IMPORTING LABELS FROM /Users/shenyan3/Documents/full_house_mod
-el/supplement.aux on input line 4.
+Package xr Info: IMPORTING LABELS FROM supplement.aux on input line 4.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
@@ -1023,11 +1022,6 @@ t line 92.
 
 
 [2]
-
-LaTeX Warning: Reference `eq:paradoxgeneral' on page 3 undefined on input line 
-94.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 125--126
 
  []
@@ -1035,23 +1029,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 125--126
 
 
 [3]
-
-LaTeX Warning: Reference `eq:betarepX' on page 4 undefined on input line 145.
-
-
-LaTeX Warning: Reference `eq:betarepY' on page 4 undefined on input line 145.
-
-
-LaTeX Warning: Reference `eq:betarepX' on page 4 undefined on input line 147.
-
-
-LaTeX Warning: Reference `eq:betarepY' on page 4 undefined on input line 147.
-
-
-LaTeX Warning: Reference `eq:paradoxgeneral' on page 4 undefined on input line 
-174.
-
-
 
 [4]
 Overfull \hbox (27.6281pt too wide) detected at line 226
@@ -1119,7 +1096,7 @@ Overfull \hbox (46.89505pt too wide) detected at line 506
 []
  []
 
-<fourplot.png, id=232, 1365.1pt x 905.3825pt>
+<fourplot.png, id=238, 1365.1pt x 905.3825pt>
 File: fourplot.png Graphic file (type png)
 <use fourplot.png>
 Package pdftex.def Info: fourplot.png  used on input line 527.
@@ -1127,7 +1104,7 @@ Package pdftex.def Info: fourplot.png  used on input line 527.
 
 
 [12]
-<cplot.png, id=250, 1365.1pt x 905.3825pt>
+<cplot.png, id=256, 1365.1pt x 905.3825pt>
 File: cplot.png Graphic file (type png)
 <use cplot.png>
 Package pdftex.def Info: cplot.png  used on input line 542.
@@ -1141,7 +1118,7 @@ Package pdftex.def Info: cplot.png  used on input line 542.
 Package natbib Warning: Citation `kerman2011closed' on page 15 undefined on inp
 ut line 619.
 
-<rFHMrounds.png, id=271, 598.235pt x 407.5225pt>
+<rFHMrounds.png, id=278, 598.235pt x 407.5225pt>
 File: rFHMrounds.png Graphic file (type png)
 <use rFHMrounds.png>
 Package pdftex.def Info: rFHMrounds.png  used on input line 625.
@@ -1165,7 +1142,7 @@ ut line 632.
 
 
 [15]
-<means-sd-full-time.png, id=285, 526.96875pt x 401.5pt>
+<means-sd-full-time.png, id=291, 526.96875pt x 401.5pt>
 File: means-sd-full-time.png Graphic file (type png)
 <use means-sd-full-time.png>
 Package pdftex.def Info: means-sd-full-time.png  used on input line 656.
@@ -1182,7 +1159,7 @@ nput line 664.
 
 
 [16 <./rFHMrounds.png>]
-<paradox-prob-results.png, id=300, 555.07375pt x 357.335pt>
+<paradox-prob-results.png, id=306, 555.07375pt x 357.335pt>
 File: paradox-prob-results.png Graphic file (type png)
 <use paradox-prob-results.png>
 Package pdftex.def Info: paradox-prob-results.png  used on input line 670.
@@ -1274,25 +1251,16 @@ L3 programming layer <2025-01-18>
  ***********
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `eck2023draft.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `eck2023draft.out':
-(rerunfilecheck)             Before: 8514E19C60CD045B4871E28BB6EAAD22;2366
-(rerunfilecheck)             After:  0B4CCEA6B0282ADD57129D15D29AC10B;2434.
+Package rerunfilecheck Info: File `eck2023draft.out' has not changed.
+(rerunfilecheck)             Checksum: 0B4CCEA6B0282ADD57129D15D29AC10B;2434.
  ) 
 Here is how much of TeX's memory you used:
- 25068 strings out of 473190
- 458398 string characters out of 5715801
- 870696 words of memory out of 5000000
- 47804 multiletter control sequences out of 15000+600000
+ 25066 strings out of 473190
+ 458067 string characters out of 5715801
+ 869329 words of memory out of 5000000
+ 47803 multiletter control sequences out of 15000+600000
  588013 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,22n,87p,1381b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1325,10 +1293,10 @@ st/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist
 onts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/cm-super/sftt1000.pfb>
-Output written on eck2023draft.pdf (23 pages, 786573 bytes).
+Output written on eck2023draft.pdf (23 pages, 786646 bytes).
 PDF statistics:
- 512 PDF objects out of 1000 (max. 8388607)
- 409 compressed objects within 5 object streams
+ 518 PDF objects out of 1000 (max. 8388607)
+ 415 compressed objects within 5 object streams
  81 named destinations out of 1000 (max. 500000)
  134 words of extra memory for PDF output out of 10000 (max. 10000000)
 
