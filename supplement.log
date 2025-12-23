@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  18 DEC 2025 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 DEC 2025 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,47 +860,56 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Warning: No \author given.
 
 
+Overfull \hbox (34.50192pt too wide) detected at line 165
+\OML/cmm/m/it/12 F[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 ) := [
+](\OML/cmm/m/it/12 W[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12
+ )\OML/cmm/m/it/12 ;  F[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]; [] ; w[]\OT1/cm
+r/m/n/12 ) := []  [] \OML/cmm/m/it/12 ;  j \OMS/cmsy/m/n/12 ^^U \OT1/cmr/m/n/12
+ 2\OML/cmm/m/it/12 ;
+ []
+
+
 
 [1
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-
-[2]
-Overfull \hbox (49.0665pt too wide) detected at line 222
+Overfull \hbox (49.0665pt too wide) detected at line 233
 []
  []
 
 
+
+[2]
 
 [3]
 
 [4]
+Underfull \hbox (badness 10000) in paragraph at lines 371--373
+
+ []
+
+
+Package natbib Warning: Citation `zhang2006schur' on page 5 undefined on input 
+line 396.
+
+
+Overfull \hbox (413.64276pt too wide) detected at line 481
+[]
+ []
+
+
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 360--362
-
- []
-
-
-Package natbib Warning: Citation `zhang2006schur' on page 6 undefined on input 
-line 385.
-
-
-Overfull \hbox (413.64276pt too wide) detected at line 470
-[]
- []
-
-
 
 [6]
-
-[7]
-Overfull \hbox (18.71526pt too wide) detected at line 626
+Overfull \hbox (18.71526pt too wide) detected at line 637
 []
  []
 
 
+
+[7]
 
 [8]
 
@@ -909,65 +918,66 @@ Overfull \hbox (18.71526pt too wide) detected at line 626
 [10]
 
 [11]
-
-[12]
-
-[13]
-
-[14]
-Overfull \hbox (46.89505pt too wide) detected at line 1199
+Overfull \hbox (46.89505pt too wide) detected at line 1230
 []
  []
 
 
-Package natbib Warning: Citation `zhang2006schur' on page 15 undefined on input
- line 1230.
+
+[12]
+
+Package natbib Warning: Citation `zhang2006schur' on page 13 undefined on input
+ line 1261.
+
+
+
+[13]
+
+[14]
+
+Package natbib Warning: Citation `petersen2008matrix' on page 15 undefined on i
+nput line 1361.
+
+
+Package natbib Warning: Citation `petersen2008matrix' on page 15 undefined on i
+nput line 1373.
 
 
 
 [15]
 
+Package natbib Warning: Citation `zhang2006schur' on page 16 undefined on input
+ line 1426.
+
+
+Overfull \hbox (45.23181pt too wide) detected at line 1434
+[][] \OT1/cmr/m/n/12 = [][] = []
+ []
+
+
+Overfull \hbox (60.92572pt too wide) detected at line 1531
+[]
+ []
+
+
+
 [16]
+Overfull \hbox (58.1068pt too wide) detected at line 1584
+[]
+ []
+
+
 
 [17]
-
-Package natbib Warning: Citation `petersen2008matrix' on page 18 undefined on i
-nput line 1330.
-
-
-Package natbib Warning: Citation `petersen2008matrix' on page 18 undefined on i
-nput line 1342.
+Overfull \hbox (23.51537pt too wide) detected at line 1621
+[]
+ []
 
 
 
 [18]
 
-Package natbib Warning: Citation `zhang2006schur' on page 19 undefined on input
- line 1395.
-
-
-Overfull \hbox (45.23181pt too wide) detected at line 1403
-[][] \OT1/cmr/m/n/12 = [][] = []
- []
-
-
-Overfull \hbox (60.92572pt too wide) detected at line 1500
-[]
- []
-
-
-
 [19]
-Overfull \hbox (58.1068pt too wide) detected at line 1553
-[]
- []
-
-
-Overfull \hbox (23.51537pt too wide) detected at line 1590
-[]
- []
-
-
 
 [20]
 
@@ -976,20 +986,13 @@ Overfull \hbox (23.51537pt too wide) detected at line 1590
 [22]
 
 [23]
-
-[24]
-
-[25]
-Overfull \hbox (46.89505pt too wide) detected at line 1895
+Overfull \hbox (46.89505pt too wide) detected at line 1926
 []
  []
 
 
-
-[26]
-
-Package natbib Warning: Citation `R-mvtnorm' on page 27 undefined on input line
- 1909.
+Package natbib Warning: Citation `R-mvtnorm' on page 24 undefined on input line
+ 1940.
 
 No file supplement.bbl.
 
@@ -997,7 +1000,9 @@ Package natbib Warning: There were undefined citations.
 
 
 
-[27] (./supplement.aux)
+[24]
+
+[25] (./supplement.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1006,40 +1011,54 @@ L3 programming layer <2025-01-18>
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `supplement.out' has not changed.
-(rerunfilecheck)             Checksum: A4979909C281B763EFD153AF259E8C70;715.
+
+Package rerunfilecheck Warning: File `supplement.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `supplement.out':
+(rerunfilecheck)             Before: A4979909C281B763EFD153AF259E8C70;715
+(rerunfilecheck)             After:  45A90765EB984E0AA53A1889C80937BF;519.
  ) 
 Here is how much of TeX's memory you used:
- 24929 strings out of 473190
- 455708 string characters out of 5715801
- 945150 words of memory out of 5000000
- 47724 multiletter control sequences out of 15000+600000
+ 24910 strings out of 473190
+ 455185 string characters out of 5715801
+ 954148 words of memory out of 5000000
+ 47711 multiletter control sequences out of 15000+600000
  575795 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,87p,584b,612s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on supplement.pdf (27 pages, 346143 bytes).
+ 84i,22n,87p,584b,570s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{section.5} has been referenced but does not exist, 
+replaced by a fixed one
+
+
+pdfTeX warning (dest): name{section.4} has been referenced but does not exist, 
+replaced by a fixed one
+
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
+ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loc
+al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
+ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on supplement.pdf (25 pages, 304772 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
- 222 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 204 compressed objects within 3 object streams
+ 38 named destinations out of 1000 (max. 500000)
  53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

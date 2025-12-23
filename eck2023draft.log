@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  18 DEC 2025 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  23 DEC 2025 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1022,7 +1022,7 @@ t line 92.
 
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
@@ -1031,20 +1031,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 125--126
 [3]
 
 [4]
-Overfull \hbox (27.6281pt too wide) detected at line 226
+Overfull \hbox (27.6281pt too wide) detected at line 216
 []
  []
 
 
 
 [5]
-Overfull \hbox (0.2441pt too wide) in paragraph at lines 239--240
-\T1/cmr/m/n/12 prob-a-bil-ity [] in its Lemma [][]3.2[][] rep-re-sen-ta-tion, $
-[] []$.
- []
+
+LaTeX Warning: Reference `sec:modelsetting' on page 6 undefined on input line 2
+35.
 
 
-Overfull \hbox (51.70258pt too wide) in paragraph at lines 254--255
+Overfull \hbox (51.70258pt too wide) in paragraph at lines 265--266
 [][]\T1/cmr/bx/n/12 Corollary 3.4.1. []\T1/cmr/m/it/12 Sup-pose that the con-di
 -tions of The-o-rem [][]3.4[][] hold. Sup-pose that $\OT1/cmr/m/n/12 1[](\OML/c
 mm/m/it/12 X[]; [][]\OT1/cmr/m/n/12 ) =
@@ -1053,14 +1052,14 @@ mm/m/it/12 X[]; [][]\OT1/cmr/m/n/12 ) =
 
 
 [6]
-Overfull \hbox (38.37625pt too wide) in paragraph at lines 267--268
+Overfull \hbox (38.37625pt too wide) in paragraph at lines 278--279
 [][]\T1/cmr/bx/n/12 Corollary 3.4.2. []\T1/cmr/m/it/12 Sup-pose that the con-di
 -tions of The-o-rem [][]3.4[][] hold. Sup-pose that $\OT1/cmr/m/n/12 1[](\OML/c
 mm/m/it/12 X[]; [][]\OT1/cmr/m/n/12 ) =
  []
 
 
-Overfull \hbox (73.337pt too wide) in paragraph at lines 311--312
+Overfull \hbox (73.337pt too wide) in paragraph at lines 322--323
 [][]\T1/cmr/bx/n/12 Proposition 4.2. []\T1/cmr/m/it/12 Sup-pose that the sys-te
 m in-clu-sion mech-a-nism has the prop-erty that $\OT1/cmr/m/n/12 1[] [] =
  []
@@ -1071,14 +1070,28 @@ m in-clu-sion mech-a-nism has the prop-erty that $\OT1/cmr/m/n/12 1[] [] =
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 322.
+(amsmath)                 on input line 333.
 
 
 
 [8]
 
+LaTeX Warning: Reference `eq:paradecomp' on page 9 undefined on input line 375.
+
+
+
+LaTeX Warning: Reference `eq:paradecomp' on page 9 undefined on input line 375.
+
+
+
+
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 401--403
+
+LaTeX Warning: Reference `eq:paradecomp' on page 10 undefined on input line 407
+.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 415--417
 
  []
 
@@ -1087,27 +1100,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 401--403
 [10]
 
 Package natbib Warning: Citation `golub2013matrix' on page 11 undefined on inpu
-t line 471.
+t line 484.
 
 
 
 [11]
-Overfull \hbox (46.89505pt too wide) detected at line 506
-[]
- []
-
-<fourplot.png, id=238, 1365.1pt x 905.3825pt>
+<fourplot.png, id=235, 1365.1pt x 905.3825pt>
 File: fourplot.png Graphic file (type png)
 <use fourplot.png>
-Package pdftex.def Info: fourplot.png  used on input line 527.
+Package pdftex.def Info: fourplot.png  used on input line 545.
 (pdftex.def)             Requested size: 469.75502pt x 311.55603pt.
 
 
 [12]
-<cplot.png, id=256, 1365.1pt x 905.3825pt>
+<cplot.png, id=252, 1365.1pt x 905.3825pt>
 File: cplot.png Graphic file (type png)
 <use cplot.png>
-Package pdftex.def Info: cplot.png  used on input line 542.
+Package pdftex.def Info: cplot.png  used on input line 560.
 (pdftex.def)             Requested size: 469.75502pt x 311.55603pt.
 
 
@@ -1116,109 +1125,109 @@ Package pdftex.def Info: cplot.png  used on input line 542.
 [14 <./cplot.png>]
 
 Package natbib Warning: Citation `kerman2011closed' on page 15 undefined on inp
-ut line 619.
+ut line 637.
 
-<rFHMrounds.png, id=278, 598.235pt x 407.5225pt>
+<rFHMrounds.png, id=273, 598.235pt x 407.5225pt>
 File: rFHMrounds.png Graphic file (type png)
 <use rFHMrounds.png>
-Package pdftex.def Info: rFHMrounds.png  used on input line 625.
+Package pdftex.def Info: rFHMrounds.png  used on input line 643.
 (pdftex.def)             Requested size: 358.94377pt x 244.51538pt.
 
 Package natbib Warning: Citation `waters2014grade' on page 15 undefined on inpu
-t line 632.
+t line 650.
 
 
 Package natbib Warning: Citation `alvero2020ai' on page 15 undefined on input l
-ine 632.
+ine 650.
 
 
 Package natbib Warning: Citation `baker2022algorithmic' on page 15 undefined on
- input line 632.
+ input line 650.
 
 
 Package natbib Warning: Citation `walton2009latent' on page 15 undefined on inp
-ut line 632.
+ut line 650.
 
 
 
 [15]
-<means-sd-full-time.png, id=291, 526.96875pt x 401.5pt>
+<means-sd-full-time.png, id=287, 526.96875pt x 401.5pt>
 File: means-sd-full-time.png Graphic file (type png)
 <use means-sd-full-time.png>
-Package pdftex.def Info: means-sd-full-time.png  used on input line 656.
+Package pdftex.def Info: means-sd-full-time.png  used on input line 674.
 (pdftex.def)             Requested size: 395.22559pt x 301.12425pt.
 
 
 Package natbib Warning: Citation `castrovince2023mlb' on page 16 undefined on i
-nput line 662.
+nput line 680.
 
 
 Package natbib Warning: Citation `castrovince2023mlb' on page 16 undefined on i
-nput line 664.
+nput line 682.
 
 
 
 [16 <./rFHMrounds.png>]
-<paradox-prob-results.png, id=306, 555.07375pt x 357.335pt>
+<paradox-prob-results.png, id=302, 555.07375pt x 357.335pt>
 File: paradox-prob-results.png Graphic file (type png)
 <use paradox-prob-results.png>
-Package pdftex.def Info: paradox-prob-results.png  used on input line 670.
+Package pdftex.def Info: paradox-prob-results.png  used on input line 688.
 (pdftex.def)             Requested size: 416.30428pt x 268.00058pt.
 
 
 [17 <./means-sd-full-time.png>]
 
 Package natbib Warning: Citation `yan2025comparing' on page 18 undefined on inp
-ut line 680.
+ut line 698.
 
 
 Package natbib Warning: Citation `fullhouse2025' on page 18 undefined on input 
-line 680.
+line 698.
 
 
 
 [18 <./paradox-prob-results.png>]
 
 Package natbib Warning: Citation `bartholomew2011latent' on page 19 undefined o
-n input line 687.
+n input line 705.
 
 
 Package natbib Warning: Citation `imbens2018causal' on page 19 undefined on inp
-ut line 689.
+ut line 707.
 
 
 Package natbib Warning: Citation `bond2013applying' on page 19 undefined on inp
-ut line 689.
+ut line 707.
 
 
-Package natbib Warning: Citation `BRL99' on page 19 undefined on input line 689
+Package natbib Warning: Citation `BRL99' on page 19 undefined on input line 707
 .
 
 
 Package natbib Warning: Citation `waters2014grade' on page 19 undefined on inpu
-t line 693.
+t line 711.
 
 
 Package natbib Warning: Citation `alvero2020ai' on page 19 undefined on input l
-ine 693.
+ine 711.
 
 
 Package natbib Warning: Citation `baker2022algorithmic' on page 19 undefined on
- input line 693.
+ input line 711.
 
 
 Package natbib Warning: Citation `walton2009latent' on page 19 undefined on inp
-ut line 693.
+ut line 711.
 
 
 
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 705--706
+Underfull \hbox (badness 10000) in paragraph at lines 724--725
 
  []
 
 
-Overfull \hbox (56.90665pt too wide) detected at line 743
+Overfull \hbox (56.90665pt too wide) detected at line 762
 []
  []
 
@@ -1227,14 +1236,14 @@ Overfull \hbox (56.90665pt too wide) detected at line 743
 [20]
 
 Package natbib Warning: Citation `askitis2021logarithmic' on page 21 undefined 
-on input line 781.
+on input line 800.
 
 
 
 [21]
 
 [22]
-Overfull \hbox (37.35101pt too wide) detected at line 876
+Overfull \hbox (37.35101pt too wide) detected at line 895
 []
  []
 
@@ -1251,19 +1260,22 @@ L3 programming layer <2025-01-18>
  ***********
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `eck2023draft.out' has not changed.
 (rerunfilecheck)             Checksum: 0B4CCEA6B0282ADD57129D15D29AC10B;2434.
  ) 
 Here is how much of TeX's memory you used:
- 25066 strings out of 473190
- 458067 string characters out of 5715801
- 869329 words of memory out of 5000000
- 47803 multiletter control sequences out of 15000+600000
+ 25064 strings out of 473190
+ 457998 string characters out of 5715801
+ 870191 words of memory out of 5000000
+ 47800 multiletter control sequences out of 15000+600000
  588013 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,87p,1381b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,22n,87p,1381b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -1293,10 +1305,10 @@ st/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist
 onts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/cm-super/sftt1000.pfb>
-Output written on eck2023draft.pdf (23 pages, 786646 bytes).
+Output written on eck2023draft.pdf (23 pages, 787327 bytes).
 PDF statistics:
- 518 PDF objects out of 1000 (max. 8388607)
- 415 compressed objects within 5 object streams
- 81 named destinations out of 1000 (max. 500000)
+ 517 PDF objects out of 1000 (max. 8388607)
+ 414 compressed objects within 5 object streams
+ 82 named destinations out of 1000 (max. 500000)
  134 words of extra memory for PDF output out of 10000 (max. 10000000)
 
