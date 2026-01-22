@@ -147,19 +147,19 @@ This supplementary materials includes proofs of technical results and additional
 Notice that the cumulative distribution function of a multivariate normal
 vector admits a sequential representation in terms of conditional univariate
 normal distribution functions. In particular, for
-$\mathbf{W} = (W_1,\dots,W_n)^\top \sim \mathcal{N}(\mathbf{0},\boldsymbol{\Sigma})$,
+$\mathbf{W} = (W_1,\dots,W_n)^\top \sim \mathcal{N}(\mathbf{0},\Sigma)$,
 there exist conditional CDFs $F_j(\cdot)$ such that
 \begin{equation}\label{eq:seriescondi}
-\mathbf{\Phi}(\mathbf{w}, \boldsymbol{\Sigma})
+\mathbf{F}_{\mathbf{W}}(\mathbf{w})
 = \prod_{j=1}^n
 F_j(w_1,\dots,w_j),
 \end{equation}
 where
 \[
-F_1(w_1) := \Pr(W_1 \le w_1),
+F_1(w_1) := \Prob(W_1 \le w_1),
 \qquad
 F_j(w_1,\dots,w_j)
-:= \Pr\!\left(W_j \le w_j \mid
+:= \Prob\left(W_j \le w_j \mid
 W_1=w_1,\dots,W_{j-1}=w_{j-1}\right),
 \quad j \ge 2,
 \]
@@ -178,20 +178,20 @@ $$W_k \mid W_1=w_1, \ldots, W_{k-1}=w_{k-1} \sim \mathcal{N}\left(\mu_k, \sigma_
 
 with 
 
-$$\mu_k=\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}$$
+$$\mu_k=\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}$$
 
-$$\sigma_k^2=\boldsymbol{\Sigma}_{k, k}-\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \boldsymbol{\Sigma}_{1:(k-1), k}$$
+$$\sigma_k^2=\Sigma_{k, k}-\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \Sigma_{1:(k-1), k}$$
 
 Here:
-$\boldsymbol{\Sigma}_{k, 1:(k-1)}$ is a $1 \times(k-1)$ row vector: the covariances between $W_k$ and $W_1, \ldots, W_{k-1}$
-$\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}$ is a $(k-1) \times(k-1)$ covariance matrix, 
-$\boldsymbol{\Sigma}_{k, k}$ is the $k$th element on the diagonal of the covariance matrix $\boldsymbol{\Sigma}$, and $\mathbf{w}_{1:(k-1)}=\left(w_1, \ldots, w_{k-1}\right)^T$.
+$\Sigma_{k, 1:(k-1)}$ is a $1 \times(k-1)$ row vector: the covariances between $W_k$ and $W_1, \ldots, W_{k-1}$
+$\Sigma_{1:(k-1), 1:(k-1)}$ is a $(k-1) \times(k-1)$ covariance matrix, 
+$\Sigma_{k, k}$ is the $k$th element on the diagonal of the covariance matrix $\Sigma$, and $\mathbf{w}_{1:(k-1)}=\left(w_1, \ldots, w_{k-1}\right)^T$.
 
 Then we will show the the parameters $\mu$ and $\sigma^2$ of the conditional univariate normal distribution in the set of Equation (\ref{eq:wn}) are finite. 
 
 When $k \leq n_1$, by applying the Equation (\ref{eq:inverse})
 \begin{align*}
-	\mu_k&=\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
+	\mu_k&=\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
 	&= \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}\\
  \vdots \\
@@ -233,7 +233,7 @@ When $k \leq n_1$, by applying the Equation (\ref{eq:inverse})
 \end{align*}
 
 \begin{align*}
-	\sigma_k^2&=\boldsymbol{\Sigma}_{k, k}-\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \boldsymbol{\Sigma}_{1:(k-1), k}\\
+	\sigma_k^2&=\Sigma_{k, k}-\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \Sigma_{1:(k-1), k}\\
 	&= \frac{\sigma_2^2}{\sigma_1^2}+1 - \begin{bmatrix}
 \frac{\sigma_2^2}{\sigma_1^2}\\
  \vdots \\
@@ -261,7 +261,7 @@ When $k \leq n_1$, by applying the Equation (\ref{eq:inverse})
 \end{align*}
 
 Then \begin{align*}
-	&\qquad\Phi(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
+	&\qquad\Prob(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
 	&= \Phi\Bigg(\frac{\frac{\mu_2-\mu_1}{\sigma_1} - \frac{\frac{\sigma_2^2(\mu_2-\mu_1)}{\sigma_1^3}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{\frac{\sigma_2^2}{\sigma_1^2}+1 -  \frac{\frac{\sigma_2^4}{\sigma_1^4}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
 	&= \Phi\Bigg(\frac{\frac{\mu_2-\mu_1}{\sigma_1}(1 - \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1})}{\sqrt{1+\frac{\sigma_2^2}{\sigma_1^2}(1 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}})}\Bigg)\\
 	&= \Phi\Bigg(\frac{\frac{\frac{\mu_2-\mu_1}{\sigma_1}}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{1+\frac{\frac{\sigma_2^2}{\sigma_1^2}}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
@@ -275,10 +275,10 @@ where $\Phi(x)$ is the cumulative distribution function of standard normal distr
 
 Therefore, for $k \leq n_1$, $c_k < 1$.
 
-When $k = n_1 + 1$, the only difference from the case $k \leq n_1$ is that $\boldsymbol{\Sigma}_{k,\,1:(k-1)}$ is different. We can then apply a similar method as in the case $k \leq n_1$ to compute $\mu_k$ and $\sigma_k$.
+When $k = n_1 + 1$, the only difference from the case $k \leq n_1$ is that $\Sigma_{k,\,1:(k-1)}$ is different. We can then apply a similar method as in the case $k \leq n_1$ to compute $\mu_k$ and $\sigma_k$.
 
 \begin{align*}
-	\mu_k&=\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
+	\mu_k&=\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
 	&= \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1}\\
  \vdots \\
@@ -320,7 +320,7 @@ When $k = n_1 + 1$, the only difference from the case $k \leq n_1$ is that $\bol
 \end{align*}
 
 \begin{align*}
-	\sigma_k^2&=\boldsymbol{\Sigma}_{k, k}-\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \boldsymbol{\Sigma}_{1:(k-1), k}\\
+	\sigma_k^2&=\Sigma_{k, k}-\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \Sigma_{1:(k-1), k}\\
 	&= 2 - \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1}\\
  \vdots \\
@@ -348,7 +348,7 @@ When $k = n_1 + 1$, the only difference from the case $k \leq n_1$ is that $\bol
 \end{align*}
 
 Then \begin{align*}
-	&\qquad\Phi(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
+	&\qquad\Prob(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
 	&= \Phi\Bigg(\frac{0 - \frac{\frac{\sigma_2(\mu_2-\mu_1)}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}{\sqrt{2 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
 	& = \Phi\Bigg(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+1 -  \frac{\frac{\sigma_2^2}{\sigma_1^2}(k-1)}{\frac{\sigma_2^2}{\sigma_1^2}(k-1)+1}}}\Bigg)\\
 	& = \Phi\Bigg(-\frac{\frac{\sigma_2(\mu_2 - \mu_1)(k-1)}{\sigma_2^2(k-1)+\sigma_1^2}}{\sqrt{1+\frac{\sigma_2^2}{\sigma_2^2(k-1)+\sigma_1^2}}}\Bigg)\\
@@ -361,10 +361,10 @@ where $\phi(x)$ is the cumulative distribution function of standard normal distr
 
 Therefore, for $k = n_1 + 1$, $c_k < 1$.
 
-When $k > n_1+1$, we first compute $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1}$. Based on the structure of $\boldsymbol{\Sigma}$ in Equation (\ref{eq:Sigma}), the $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}$ can be decomposed into 
+When $k > n_1+1$, we first compute $\Sigma_{1:(k-1), 1:(k-1)}^{-1}$. Based on the structure of $\Sigma$ in Equation (\ref{eq:Sigma}), the $\Sigma_{1:(k-1), 1:(k-1)}$ can be decomposed into 
 
 \begin{equation}\label{eq:Sigma_k}
-\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)} = \begin{bmatrix}
+\Sigma_{1:(k-1), 1:(k-1)} = \begin{bmatrix}
 	D_{11} & D_{12}\\
 	D_{21} & D_{22}\\
 \end{bmatrix}
@@ -396,7 +396,7 @@ D_{11} = \begin{bmatrix}
 By applying the Equation (\ref{eq:inverse}) and Schur complement \citep{zhang2006schur}, 
 
 \begin{equation}\label{eq:Sigma_k_inverse}
-\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} = \begin{bmatrix}
+\Sigma_{1:(k-1), 1:(k-1)}^{-1} = \begin{bmatrix}
 	E_{11} & E_{12}\\
 	E_{21} & E_{22}\\
 \end{bmatrix},
@@ -536,7 +536,7 @@ k-n_1-1 & -1 & \hdots & -1\\
 \end{bmatrix}_{n_1 \times (k-n_1-1)}
 \end{align*}
 
-Since $\boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}$ is a symmetric matrix, then $E_{12} = E_{21}^T$. Thus, 
+Since $\Sigma_{1:(k-1), 1:(k-1)}$ is a symmetric matrix, then $E_{12} = E_{21}^T$. Thus, 
 
 \begin{align*}
 	&E_{21} = -D_{22}^{-1}D_{21}(D_{11} - D_{12}D_{22}^{-1}D_{21})^{-1} \\
@@ -639,7 +639,7 @@ k-n_1-1 & -1 & \hdots & -1\\
 Then
 
 \begin{align*}
-	\mu_k&=\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
+	\mu_k&=\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \mathbf{w}_{1:(k-1)}\\
 	&= \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1}\\
  \vdots \\
@@ -751,7 +751,7 @@ Then
 \end{align*}
 
 \begin{align*}
-	\sigma_k^2&=\boldsymbol{\Sigma}_{k, k}-\boldsymbol{\Sigma}_{k, 1:(k-1)} \boldsymbol{\Sigma}_{1:(k-1), 1:(k-1)}^{-1} \boldsymbol{\Sigma}_{1:(k-1), k}\\
+	\sigma_k^2&=\Sigma_{k, k}-\Sigma_{k, 1:(k-1)} \Sigma_{1:(k-1), 1:(k-1)}^{-1} \Sigma_{1:(k-1), k}\\
 	&= 2 - \begin{bmatrix}
 \frac{\sigma_2}{\sigma_1}\\
  \vdots \\
@@ -928,7 +928,7 @@ Then
 \end{align*}
 
 Then \begin{align*}
-	&\qquad\Phi(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
+	&\qquad\Prob(W_k \leq w_k | W_1 = w_1, W_2 = w_2, \dots, W_{k-1} = w_{k-1})\\
 	&= \Phi\Bigg(\frac{0 - \frac{\frac{\mu_2 - \mu_1}{\sigma_1}\frac{\sigma_2}{\sigma_1}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}}\Bigg)\\
 	&= \Phi\Bigg(-\frac{\frac{\frac{(\mu_2 - \mu_1)\sigma_2}{\sigma_1^2}\frac{n_1}{k-n_1}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{(k-n_1)^2}}{\frac{\sigma_2^2}{\sigma_1^2}\frac{n_1}{k-n_1}+1}}}\Bigg)\\
 	&= \Phi\Bigg(-\frac{\frac{(\mu_2 - \mu_1)\sigma_2n_1}{\sigma_2^2n_1+\sigma_1^2(k-n_1)}}{\sqrt{2 - \frac{k-n_1}{k - n_1+1} - \frac{\sigma_2^2n_1}{\sigma_2^2n_1(k-n_1)+\sigma_1^2(k-n_1)^2}}}\Bigg)\\
@@ -943,8 +943,8 @@ Therefore, for all $k$, $c_k < 1$. Moreover, we show the parameters $\mu$ and $\
 Now \begin{equation}
 \begin{split}
   c &= \max \bigg\{
-  \Prob\!\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
-  &\Prob\!\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
+  \Prob\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
+  &\Prob\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
 		\,\middle|\,
 		W_1=w_1,\dots,W_{n_1+n_2-3}=w_{n_1+n_2-3}\right),\\
   &\dots,\, \Prob(W_2 \le w_2 \mid W_1=w_1),\, \Prob(W_1 \le w_1)
@@ -964,8 +964,8 @@ Now \begin{equation}
 %
 %Let $$c_{max} = \max_{k = 2, \dots, n_1+n_2-1}c_k, $$ then $c_{max} < 1$.
 %
-%We can rewrite $\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma})$ \begin{align*}
-%	\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma})  &= \Phi(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}) \times \\
+%We can rewrite $\mathbf{\Phi}(\mathbf{W}, \Sigma)$ \begin{align*}
+%	\mathbf{\Phi}(\mathbf{W}, \Sigma)  &= \Phi(W_n = w_n | W_1 = w_1, W_2 = w_2, \dots, W_{n-1} = w_{n-1}) \times \\
 %  &\Phi(W_{n-1} = w_{n-1} | W_1 = w_1, W_2 = w_2, \dots, W_{n-2} = w_{n-2}) \times \dots \times \\
 %  &\Phi(W_2 = w_2| W_1 = w_1) \times \Phi(W_1 = w_1)\\
 %  &= \Phi(W_1 = w_1) \times \Pi_{k = 2}^{n_1+n_2-1}c_k 
@@ -997,9 +997,9 @@ Now \begin{equation}
 Since all terms in the set above are the cumulative distribution functions of univariate normal distribution and $\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)$ , then $c$ is strictly less than 1. 
 
 \begin{equation} \label{eq:wmax}
-	\mathbf{\Phi}(\mathbf{W}, \boldsymbol{\Sigma}) \leq c^{n_1+n_2-1}
+	\mathbf{F}_{\mathbf{W}}(\mathbf{w}) \leq c^{n_1+n_2-1}
 \end{equation}
-
+where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\Sigma$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
 \end{proof}
 
 %\section{Recursion}
@@ -1142,11 +1142,11 @@ Since all terms in the set above are the cumulative distribution functions of un
 
 %Notice that \textcolor{red}{This setup is defined earlier and does not need to be written down again. You need to actually read Section 4.2 and use the equation referencing that I previously setup.}
 %
-%$$\Phi(\mathbf{w}, \Sigma) = F_{\mathbf{W}}(\mathbf{W} = \mathbf{w}), \mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$$
+%$$\Phi(\mathbf{w}, \Sigma) = F_{\mathbf{W}}(\mathbf{W} = \mathbf{w}), \mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \Sigma)$$
 %
 %$$\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)$$
 %
-%$$\boldsymbol{\Sigma} = \begin{bmatrix}
+%$$\Sigma = \begin{bmatrix}
 %	\Sigma_{11} & \Sigma_{12}\\
 %	\Sigma_{21} & \Sigma_{22}\\
 %\end{bmatrix}$$
@@ -1179,7 +1179,7 @@ Since all terms in the set above are the cumulative distribution functions of un
 
 %Supposed $$\hat{\mathbf{w}} = (\frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, \dots, \frac{\hat{\mu_2} - \hat{\mu_1}}{\hat{\sigma_1}}, 0, \dots, 0)$$
 %
-%$$\hat{\boldsymbol{\Sigma}} = \begin{bmatrix}
+%$$\hat{\Sigma} = \begin{bmatrix}
 %	\hat{\Sigma}_{11} & \hat{\Sigma}_{12}\\
 %	\hat{\Sigma}_{21} & \hat{\Sigma}_{22}\\
 %\end{bmatrix}$$
@@ -1204,32 +1204,33 @@ Since all terms in the set above are the cumulative distribution functions of un
 %1 & \hdots & 1 & 2\\
 %\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-Let $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ be consistent estimators of the population parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$, respectively, as defined in Section \ref{subsec:normal}. By replacing the population parameters in $\mathbf{w}$ and $\boldsymbol{\Sigma}$ with these estimators, we obtain the sample-level analogs $\hat{\mathbf{w}}$ and $\hat{\boldsymbol{\Sigma}}$. Specifically, we define:
+Let $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ be consistent estimators of the population parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$, respectively, as defined in Section \ref{subsec:normal}. By replacing the population parameters in $\mathbf{w}$ and $\Sigma$ with these estimators, we obtain the sample-level analogs $\hat{\mathbf{w}}$ and $\hat{\Sigma}$. Specifically, we define:
 \[
 \hat{\mathbf{w}} = \left(\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_1}, \dots, \frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_1}, 0, \dots, 0\right) \in \mathbb{R}^{n_1 + n_2 - 1},
 \]
 where the first $n_1$ entries correspond to the standardized mean difference, and the remaining $n_2 - 1$ entries are zero, reflecting the structure introduced in Section \ref{subsec:normal}.
 
-The estimated covariance matrix $\hat{\boldsymbol{\Sigma}}$ has the block form:
+The estimated covariance matrix $\hat{\Sigma}$ has the block form:
 \[
-\hat{\boldsymbol{\Sigma}} = \begin{bmatrix}
+\hat{\Sigma} = \begin{bmatrix}
 \hat{\Sigma}_{11} & \hat{\Sigma}_{12} \\
 \hat{\Sigma}_{21} & \hat{\Sigma}_{22}
 \end{bmatrix},
 \]
-where each submatrix is obtained by replacing the population parameters in $\boldsymbol{\Sigma}$ with their respective sample estimates. These submatrices retain the same structural forms as defined in Section \ref{subsec:normal}.
+where each submatrix is obtained by replacing the population parameters in $\Sigma$ with their respective sample estimates. These submatrices retain the same structural forms as defined in Section \ref{subsec:normal}.
 
 %
 %\textcolor{red}{All of the above matrix estimates can be stated more precisely by embracing the fact that these matrix quantities are already defined in Section 4.2 and you are replacing population parameters by their estimators. The following difference in probabilities is unmotivated. You need to say something about it.}
 
 Based on the Equation (\ref{eq:paradoxnormal}), we can rewrite
-
 \begin{align*}
 	& \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \hat{\mu_1}. \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) - \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} | \mu_1. \mu_2, \sigma_1, \sigma_2\right)\\
-	&= n_2(\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma))
+	&= n_2(\Phi(\mathbf{\hat{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma)),
 \end{align*}
 
-Consider the term $\Phi(\hat{\mathbf{w}}, \hat{\boldsymbol{\Sigma}}) - \Phi(\mathbf{w}, \boldsymbol{\Sigma})$. We perform a Taylor expansion of this expression with respect to the parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$.
+where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ and $\Phi(\mathbf{w}, \Sigma)$ both denote the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\Sigma$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$. For notational convenience, We use $\Phi(\mathbf{w}, \Sigma)$ throughout the proof. 
+
+Consider the term $\Phi(\hat{\mathbf{w}}, \hat{\Sigma}) - \Phi(\mathbf{w}, \Sigma)$. We perform a Taylor expansion of this expression with respect to the parameters $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$.
 
 %\textcolor{red}{What is the following? Where does it come from? Where is this going? It is unmotivated.}
 
@@ -1251,7 +1252,7 @@ Then for the first derivative term $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\par
 By applying Leibniz rule and without loss of generality, we compute the $\frac{\partial\Phi(\mathbf{w}, \Sigma)}{\partial w_1}$
 
 \begin{align*}
-	\frac{\partial \Phi(\mathbf{w}; \boldsymbol{\Sigma})}{\partial w_1}  &= \frac{\partial}{\partial w_1}\int_{-\infty}^{w_1}\dots\int_{-\infty}^{w_{n_1+n_2-1}} f_\mathbf{W}(z_1, \dots, z_{n_1+n_2-1}) dz_{n_1+n_2-1} \dots  dz_1\\
+	\frac{\partial \Phi(\mathbf{w}; \Sigma)}{\partial w_1}  &= \frac{\partial}{\partial w_1}\int_{-\infty}^{w_1}\dots\int_{-\infty}^{w_{n_1+n_2-1}} f_\mathbf{W}(z_1, \dots, z_{n_1+n_2-1}) dz_{n_1+n_2-1} \dots  dz_1\\
 	&= \int_{-\infty}^{w_2}\dots\int_{-\infty}^{w_{n_1+n_2-1}} f_\mathbf{W}(w_1, z_2, \dots, z_{n_1+n_2-1}) dz_{n_1+n_2-1} \dots  dz_2\\
 	&= \int_{-\infty}^{w_2}\dots\int_{-\infty}^{w_{n_1+n_2-1}} f_{W_1}(w_1) \cdot f_{\mathbf{\tilde{W}}}(\tilde{w})dz_{n_1+n_2-1} \dots  dz_2\\
 	&= \phi(w_1)\Phi(\tilde{\mathbf{w}}, \tilde{\Sigma})
@@ -1264,15 +1265,15 @@ $$\tilde{\mathbf{w}} = (w_2, \dots, w_{n_1+n_2-1}) - (\frac{\sigma_2^2}{\sigma_1
 
 $\tilde{\mathbf{w}}$ is a vector with the first $n_1-1$ elements is $\frac{\mu_2- \mu_1}{\sigma_1} -\frac{\mu_2- \mu_1}{\sigma_1} \frac{\sigma_2^2}{\sigma_1^2 + \sigma_2^2}$ and the last $n_2-1$ elements are $- \frac{(\mu_2- \mu_1)\sigma_2}{\sigma_1^2 + \sigma_2^2}$.
 
-$$\tilde{\boldsymbol{\Sigma}} = \boldsymbol{\Sigma}_{-1, -1} - \boldsymbol{\Sigma}_{-1, 1} \boldsymbol{\Sigma}_{1, 1}^{-1}\boldsymbol{\Sigma}_{1, -1} $$
-where $\boldsymbol{\Sigma}_{-1, -1}$ denotes the submatrix of $\boldsymbol{\Sigma}$ obtained by removing the first row and the first column, 
-$\boldsymbol{\Sigma}_{-1, 1}$ denotes the column vector obtained by removing the first element from the first column of $\boldsymbol{\Sigma}$, 
-$\boldsymbol{\Sigma}_{1, -1}$ denotes the row vector obtained by removing the first element from the first row of $\boldsymbol{\Sigma}$, 
-and $\boldsymbol{\Sigma}_{1, 1}$ denotes the top-left scalar element of $\boldsymbol{\Sigma}$.
+$$\tilde{\Sigma} = \Sigma_{-1, -1} - \Sigma_{-1, 1} \Sigma_{1, 1}^{-1}\Sigma_{1, -1} $$
+where $\Sigma_{-1, -1}$ denotes the submatrix of $\Sigma$ obtained by removing the first row and the first column, 
+$\Sigma_{-1, 1}$ denotes the column vector obtained by removing the first element from the first column of $\Sigma$, 
+$\Sigma_{1, -1}$ denotes the row vector obtained by removing the first element from the first row of $\Sigma$, 
+and $\Sigma_{1, 1}$ denotes the top-left scalar element of $\Sigma$.
 
-Let denote the form of the matrix $\tilde{\boldsymbol{\Sigma}}$: 
+Let denote the form of the matrix $\tilde{\Sigma}$: 
 
-$$\tilde{\boldsymbol{\Sigma}} = \begin{bmatrix}
+$$\tilde{\Sigma} = \begin{bmatrix}
 	\tilde{\Sigma}_{11} & \tilde{\Sigma}_{12}\\
 	\tilde{\Sigma}_{21} & \tilde{\Sigma}_{22}\\
 \end{bmatrix}$$
@@ -1423,9 +1424,9 @@ A_{12}^{T} = A_{21} = \begin{bmatrix}
 \end{bmatrix}_{(n_2-1) \times n_1}, A_{22} = \begin{bmatrix}
 0\end{bmatrix}_{(n_2-1) \times (n_2-1)}$$
 
-and by applying Schur complement \citep{zhang2006schur}, we have %\textcolor{red}{Need to reference Schur complement from an authoritative source. Need to mention why we need $\Sigma^{-1}$}, 
+and by applying Schur complement \citep{zhang2006schur}, we have %\textcolor{red}{Need to reference Schur complement from an authoritative source. Need to mention why we need $\Sigma^{-1}$Sigma}, 
 
-$$\boldsymbol{\Sigma}^{-1} = \begin{bmatrix}
+$$\Sigma^{-1} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
 	\Sigma_{21} & \Sigma_{22}\\
 \end{bmatrix}^{-1} = \begin{bmatrix}
@@ -1457,7 +1458,7 @@ where $\Sigma_{11}$, $\Sigma_{12}$, $\Sigma_{21}$, and $\Sigma_{22}$ are defined
 
 By applying Equation (\ref{eq:inverse}), we have %\textcolor{red}{Lemma not needed. Just reference the displayed equations above. Also, you do not need to define $\Sigma$. That quantity has already been defined!}
 
-$$\boldsymbol{\Sigma}^{-1} = \begin{bmatrix}
+$$\Sigma^{-1} = \begin{bmatrix}
 	B_{11} & B_{12}\\
 	B_{21} & B_{22}\\
 \end{bmatrix}$$
@@ -1941,7 +1942,7 @@ The theoretical results are computed from the Theorem~\ref{theorem:normalgeneral
 
 The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
 
-\begin{table}[ht]
+\begin{table}[H]
 \centering
 \begin{tabular}{|rrrrrrrr|r|r|}
 \hline

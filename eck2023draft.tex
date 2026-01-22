@@ -67,7 +67,7 @@
 
 
 \begin{abstract}
-
+We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ the Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a principled foundation for fairer and more interpretable cross-context comparisons.
 \end{abstract}
 
 \section{Introduction}
@@ -505,10 +505,10 @@ Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma}
 \end{equation}
 Then $c \in (0,1)$ for all $n_1$, $n_2$, and 
 \begin{equation} \label{eq:wmax}
-	\Phi_{\boldsymbol{\Sigma}}(\mathbf{w})
+	\mathbf{F}_{\mathbf{W}}(\mathbf{w})
  \leq c^{n_1+n_2-1},
 \end{equation}
-where $\Phi_{\boldsymbol{\Sigma}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
+where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
 \end{lemma}
 
 \begin{proof}
