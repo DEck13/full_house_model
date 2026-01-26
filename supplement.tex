@@ -73,18 +73,24 @@
 \newtheorem{defn}[theorem]{Definition}
 \allowdisplaybreaks
 
+\usepackage{setspace}
+\doublespacing
+
 % Option B (comment A above and uncomment B below): biblatex
 %\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
 %\addbibresource{supp.bib}
 
 % ---------- Title block ----------
-\title{Supplementary Materials for A Formal Investigation of Paradoxes Between Latent Aptitude and Observed Achievement via Full House Methodology}
+\title{Supplementary Materials for ``A Formal Investigation of Paradoxes Between Latent Aptitude and Observed Achievement via Full House Methodology''}
+\date{}
 
 % Optional footnote-style affiliations
 \newcommand{\affil}[2]{\par\noindent\textsuperscript{#1}\,\textit{#2}}
 
 \begin{document}
 \maketitle
+
+\tableofcontents
 
 This supplementary materials includes proofs of technical results and additional numerical examples supporting conclusions from Section 4 the main manuscript. 
 
@@ -139,7 +145,196 @@ This supplementary materials includes proofs of technical results and additional
 %Thus, $l_n(x)$ is an increasing function for $x \in (0,1)$ and $\sup_{x \in (0,1)}l_n(x) = 0$. Therefore, $l_n(x) < 0$ for $x \in (0,1)$. Thus, $g_n(x)$ is an decreasing function, and $g_n(x)\to1$ as $x\to1$. We can see that $g_n(x) \in (1,+\infty)$ for $x \in (0,1)$. Thus $A_{n,j} = (0,x^*_{n,j}]$ where $x^*_{n,j}$ is such that $g_n(x^*_{n,j}) = (\frac{n}{n-j})^j$. Putting it all together, $f_{n,j}(0) = f_{n,j}(1) = 0$ and this implies that $I_{n-j, j+1}(\xn) \geq I_{n-j+1, j+1}(\xnone)$ for all $x \in (0,1)$.
 %\end{proof}
 
-\section{Proof to Lemma \ref{lemma:wmax}} 
+
+%%%% Proof of Lemma 3.2
+\section{Proof of Lemma~\ref{lemma:rep}}
+
+\begin{proof}
+Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
+$f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
+\begin{align*}
+  &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k}))}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+\end{align*}
+where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+A similar technique can be applied to the second equation to obtain the result.
+\end{proof}
+
+
+%%%% Proof of Theorem 3.4
+\section{Proof of Theorem~\ref{theorem:samedistgeneral}} 
+
+\begin{proof}
+First, Lemma~\ref{lemma:rep} allows us to write
+$$
+	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+$$
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
+%Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
+%\begin{align*}
+%  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
+%  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
+%  &= I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X (x),
+%\end{align*}
+%where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+\begin{align*}
+	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \  d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
+\end{align*}
+Condition~\eqref{eq:technical-condition} states that 
+\begin{align*}
+	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
+\end{align*}
+Thus,
+\begin{align*}	
+&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
+	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
+	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
+	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
+&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
+&\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
+n_1 \\
+p
+\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
+&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
+N_1 \\
+p
+\end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
+\end{align*}
+\end{proof}
+
+
+
+%%%% Proof of Proposition 3.5
+\section{Proof of Proposition~\ref{prop:condition}}
+
+\begin{proof}
+Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
+$$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
+$$
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
+$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
+$
+whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
+\begin{align*}
+&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq t.
+\end{align*}
+Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
+\end{proof}
+
+
+
+%%%% Proof of Proposition 4.2
+\section{Proof of Proposition~\ref{prop:weakstodom}}
+
+\begin{proof}
+First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
+$$
+  F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}} 
+ \implies  
+ x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right).
+$$ 
+By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we have 
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
+	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. \\
+\end{align*}
+Based on the Definition \ref{def:stodom}, we have
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad = \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2},
+\end{align*}
+and
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}.
+\end{align*}
+\end{proof}
+
+
+
+%%%% Proof of Theorem 4.3
+\section{Proof of Theorem~\ref{theorem:normalgeneral}}
+
+\begin{proof}
+Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
+\begin{align*}
+	g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1.
+\end{align*}
+Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remainder}. We have,
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
+	&\qquad= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) + R.
+\end{align*}
+We continue with the left-hand side of the last equality,	
+\begin{align*}
+&\int_{-\infty}^{\infty} \left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}} \right] d F_{Y_2,(n_2)}(x) 
+= \int_0^1 \left[ F_{Y_1}\!\left( F_{Y_2}^{-1}(t^{1/n_2}) \right)^{n_1} - t^{N_1/N_2} \right] dt\\[6pt]
+&\qquad= \int_{0}^{1} \left( \Phi\!\left(\frac{\Phi^{-1}(t^{1/n_2})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}\right) \right)^{n_1} \, dt \;-\; \frac{N_2}{N_1 + N_2} \\[6pt]
+&\qquad= \int_{-\infty}^{+\infty} 
+\Phi\!\left(\frac{\sigma_2 x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} 
+\left( n_2 \Phi(x)^{n_2-1} \phi(x) \right)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[8pt]
+&\qquad= n_2 \int_{-\infty}^{+\infty}
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\;\middle|\; X=x \right)
+\phi(x)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2 \,
+\mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\right)
+\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w} = (
+\frac{\mu_2 - \mu_1}{\sigma_1},\dots,\frac{\mu_2 - \mu_1}{\sigma_1},
+0,\dots,0)
+\right) \;-\; \frac{N_2}{N_1 + N_2}.
+\end{align*}
+
+The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. The first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0.
+
+The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
+\end{proof}
+
+
+
+\section{Proof of Lemma \ref{lemma:wmax}} 
 \label{sec:wmax}
 
 \begin{proof}
@@ -1135,7 +1330,7 @@ where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution 
 %
 %$g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ where $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the CDF of Beta$(\alpha, \beta)$ distribution. 
 
-\section{Proof to Theorem \ref{theorem:asymptotic}}
+\section{Proof of Theorem \ref{theorem:asymptotic}}
 \label{sec:proofplugin}
 \begin{proof}
 
@@ -1928,7 +2123,11 @@ Finally,
 
 \end{proof}
 
-\section{Simulation Results for Theorem \ref{theorem:normalgeneral}}
+
+
+\section{Simulations}
+
+\subsection{Simulation Results for Theorem \ref{theorem:normalgeneral}}
 
 We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Directly paradox probabilities from these theorems are compared with Monte Carlo paradox probabilities in a variety of settings. Each of these settings will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
 
@@ -1938,7 +2137,7 @@ $
 $
 is recorded. 
 
-The theoretical results are computed from the Theorem~\ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R
+The theoretical results are computed from the Theorem~\ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R.
 
 The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
 
@@ -1965,7 +2164,29 @@ $n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Si
 \end{table}
 
 
+
+\subsection{Ratio of $N_2$ and $N_1$}
+
+Here we investigate the effect of the ratio between $N_2$ and $N_1$ on the paradox probability. Let $c = \frac{N_2}{N_1} $, and vary $c$ from 0.1 to 1 in increments of 0.1. In each simulation, we fix $n_1 = 60$ and $n_2 = 40$, and vary $N_1$ from 100 to 2000. We repeat this simulation 10000 times and report the average paradox probability. 
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=\textwidth]{cplot.png}
+    \caption{Effect of the ratio between $N_2$ and $N_1$ on the paradox probability}
+    \label{Fig:ratioeffect}
+\end{figure}
+
+Figure~\ref{Fig:ratioeffect} presents the results illustrating the effect of the ratio between $N_2$ and $N_1 $ on the paradox probability under different settings. As shown in the figure, the paradox probability decreases as $c $ increases, which is reasonable since $\mathbb{P}\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) $ decreases as $N_2 $ increases. 
+
+Importantly, Figure~\ref{Fig:ratioeffect} also demonstrates that the paradox probability remains constant when the ratio between $N_2$ and $N_1$ is fixed. This implies that it is unnecessary to focus on the exact values of $N_1$ and $N_2$ when computing the paradox probability; rather, the ratio $N_2/N_1$ alone determines its value.
+
+
+
 \bibliography{FHM.bib}
+
+
+
+
 
 
 \end{document}
