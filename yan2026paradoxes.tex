@@ -70,7 +70,7 @@
 
 
 \begin{abstract}
-We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ the Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a principled foundation for fairer and more interpretable cross-context comparisons.
+We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a principled foundation for fairer and more interpretable cross-context comparisons.
 \end{abstract}
 
 \section{Introduction}
@@ -279,7 +279,7 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations, 
 
 
 
-\section{Paradox Under Different Distribution}
+\section{Paradox Under Different Distributions}
 \label{sec:diffdist}
 
 In this section we will provide aptitude-achievement paradox probability results in a Full House Modeling setting involving two populations when we relax the specification that $F_{Y_1} = F_{Y_2}$ in Definition~\ref{def:fhm}. We first provide bounds for aptitude-achievement paradox probability in general settings. We then provide explicit aptitude-achievement paradox probability results when $Y_1$ and $Y_2$ are normally distributed with different means and variances.
@@ -315,13 +315,9 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations $
 
 Proposition~\ref{prop:weakstodom} provides bounds on the paradox probability under general achievement distributions. However, we can still obtain explicit aptitude-achievement paradox probabilities when we specify $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$.
 
-
 \subsection{Normal distributions}
 \label{subsec:normal}
-
-This section will develop explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} additionally specifies that $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We will focus on the case where the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. 
-
-The outline for our results is similar to that in Section~\ref{sec:samedist} where a technical condition is needed to prove the main result -- like condition~\eqref{eq:technical-condition} in Theorem~\ref{theorem:samedistgeneral} --and further results provide configurations of the sample sizes that satisfy the technical condition. However, in this setting with $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$, the corresponding technical condition yields an additional remainder term $R$ that prevents an exact closed-form expression. We show below that this remainder term is negligible under mild and interpretable conditions on population fractions and distributional parameters.
+This section develops explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} specifies $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We focus on systems where $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. The outline is similar to Section~\ref{sec:samedist}: a technical condition is needed to prove the main result, and further results provide configurations satisfying this condition. However, with $Y_i \sim N(\mu_i,\sigma_i^2)$, the technical condition yields a remainder term that prevents an exact closed-form expression. We show that this remainder is negligible under mild conditions on population fractions and distributional parameters.
 
 
 Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
@@ -355,9 +351,7 @@ The left-hand side of \eqref{eq:paradecomp} can (and will) be further evaluated 
 \begin{equation} \label{eq:remainder}
   R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
 \end{equation}
-where the set $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder term may seem unintuitive. However, we will now motivate a simple setting that allows for $R$ to be negligible when $n_2$ is moderately large. 
-
-From \eqref{eq:A} and \eqref{eq:remainder}, we have
+where the set $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder $R$ is negligible when $n_2$ is moderately large, as we now show. From \eqref{eq:A} and \eqref{eq:remainder}, we have
 \begin{align*}
   |R| &= \left|\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\right|\\
   &\leq \int_{A^c} \left|F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right|d F_{Y_2, (n_2)}(x) \\
@@ -383,9 +377,9 @@ Putting it all together, we have
 $
   |R| \leq \Prob\left(Y_{2,(n_2)} \leq \mu_2\right) \leq \left(\frac{1}{2}\right)^{n_2},
 $
-when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, although the remainder term in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by the left-hand side of \eqref{eq:paradecomp}with $R$ contributing only a negligible correction for moderately large $n_2$. We now introduce a multivariate normal representation that allows this principal term to be expressed in closed form.
+when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, although the remainder term in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by the left-hand side of \eqref{eq:paradecomp}with $R$ contributing only a negligible correction for moderately large $n_2$. 
 
-Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
+We now introduce a multivariate normal representation that allows this principal term to be expressed in closed form. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ and covariance matrix 
 \begin{equation}\label{eq:Sigma}
 \boldsymbol{\Sigma} = \begin{bmatrix}
 	\Sigma_{11} & \Sigma_{12}\\
@@ -421,7 +415,7 @@ With this structure we now provide an explicit aptitude-achievement paradox prob
 
 \begin{theorem} 
 \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -436,7 +430,7 @@ Moreover, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$,
 \end{equation}
 \end{theorem}
 
-We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of the paradox probability \eqref{eq:paradoxnormal}. Our approach requires standard properties of equicorrelated covariance matrices. 
+We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. Our approach requires standard properties of equicorrelated covariance matrices. 
 For matrices of the form $\Sigma = \rho \mathbf{1}\mathbf{1}^T + I_n$ (where 
 $\mathbf{1}$ is the vector of ones), we have $\det(\Sigma) = \rho n + 1$ and the 
 inverse follows from the Woodbury identity \citep{golub2013matrix}. The explicit 
@@ -482,23 +476,19 @@ Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma}
 \bigg\}.
 \end{split}
 \end{equation}
-Then $c \in (0,1)$ for all $n_1$, $n_2$, and 
-\begin{equation} \label{eq:wmax}
-	\mathbf{F}_{\mathbf{W}}(\mathbf{w})
- \leq c^{n_1+n_2-1},
-\end{equation}
-where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
+Then $c \in (0,1)$ for all $n_1$, $n_2$, and $\mathbf{F}_{\mathbf{W}}(\mathbf{w})
+ \leq c^{n_1+n_2-1}$, where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
 \end{lemma}
 
 
 
 \begin{theorem}
 \label{theorem:asymptotic}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $1 = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, with $c$ defined as in the Lemma \ref{lemma:wmax}, we have
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, with $c$ defined as in the Lemma \ref{lemma:wmax}, we have
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \hat{\mu_1}, \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) \\
 		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
-		&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}.c^{n_1+n_2-3}).
+		&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3}).
 	\end{align*}
 \end{theorem}
 
@@ -557,7 +547,7 @@ In the next iteration, all observations will be combined and then sorted in desc
 \label{sec:rFHMbestgroup}
 
 Here we consider a recursive Full House Modeling setup described in Section~\ref{sec:rFHMsetup} in which the recursion stops at the first iteration when $X_{(N)}$ is assigned label $m$. Here we specify that $N = 100,000$, $m=200$, $n_i = 500$, $i = 1,\ldots,m$. We will assume that $X_j \overset{iid}{\sim} \text{Pareto}(1.16)$, $j = 1,\ldots,N$. And we will assume that $Y_{i,j} \overset{iid}{\sim} N(\mu_i,\sigma_i)$, $j = 1,\ldots,n_i$ and $i = 1,\ldots,m$. We will specify that the $\mu_i$s as a set of 200 equally spaced values between 60 and 80 with $\mu_i$ increasing in $i$, ie $\mu_i = 60 - 20/199 + 20i/199$, $i=1,\ldots,m$. %These values will be assigned to the index $i$ in increasing order, meaning that $\mu_1$ will be the smallest value $(60)$ and $\mu_m$ will be the largest value $(80)$. 
-We will fix $\sigma_i = \sigma$ and consider $\sigma \in \{0.5,1,2\}$. These simulation will be repeated 500 times.
+We will fix $\sigma_i = \sigma$ and consider $\sigma \in \{0.5,1,2\}$. These simulations will be repeated 500 times.
 
 To illustrate the procedure, consider a simplified scenario in which all $X_{(j)}$ values are realized at their median value. With this simplification, $Y_{i,(r_{i,(j)})}$ in \eqref{eq:iteration} is approximately $F_{Y_{i,j}}^{-1}( (r_{i,(j)} - 1/3)/(n_i + 1/3))$ \citep{kerman2011closed}. And we have that $Y_{i,(n_{i})} - Y_{i+1,(n_{i+1}-1)} > \mu_{i+1} - \mu_{i}$ for all considered values of $\sigma$. The individual with latent ability $X_{(N)}$ will consistently attain the value $Y_{i,(n_{i})}$, regardless of their assigned group. Consequently, this individual's position among the $m$ groups will improve as the simulation advances. 
 
@@ -570,9 +560,6 @@ Results can be seen in Figure~\ref{Fig:rFHMrounds}. These Monte Carlo simulation
 \caption{The number of rounds that it takes for $X_{(N)}$ to be assigned label $m$ in a recursive Full House Modeling framework in Section~\ref{sec:rFHMsetup} with specifications in Section~\ref{sec:rFHMbestgroup}.}
 \label{Fig:rFHMrounds}
 \end{figure}
-
-
-
 
 While the setting is stylized and assumes fixed latent aptitude, it illustrates how structural features of evaluative systems, not just randomness, can delay recognition of true potential. Whereas the paradox probability quantifies cross-sectional reversal risk, recursive Full House Modeling captures temporal persistence: the hitting time measures how many rounds elapse before latent aptitude and observed achievement align. These findings resonate with a growing empirical literature on bias and distortion in algorithmic and educational evaluation systems, which we discuss further in the Discussion.
 
@@ -593,56 +580,20 @@ We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees 
 
 The 2023 season saw an increase in mean batting average for full-time players of 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample test for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increase batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 (a mark of excellence) since Josh Hamilton in 2010. 
 
-Now we turn to applying the results of Theorem~\ref{theorem:normalgeneral} in this example to contextualize these changes. Here we assume that seasonal batting averages of full-time players are normally distributed. The true means and standard deviations of these distributions are unknown. Thus, we estimate them via plug-in sample mean and sample standard-deviation and invoke the reliability guarantees from Theorem~\ref{theorem:asymptotic}. Notably, we see from Figure~\ref{Fig:means-sd-full-time} that both the average and variability of batting averages in 2023 are among the lowest observed in the dataset, indicating a historically suppressed environment for batting averages of full-time batters.
+We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages, treating the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Seasonal batting averages of full-time players are assumed normally distributed, with means and standard deviations estimated via plug-in; the reliability guarantees of Theorem~\ref{theorem:asymptotic} apply. Figure~\ref{Fig:means-sd-full-time} shows that both the average and variability of batting averages in 2023 are among the lowest observed, indicating a historically suppressed environment. Moreover, with our specifications, $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and talent pool estimates from \cite{yan2025comparing} yield $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, so the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible.
+
 
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[scale=0.75]{paradox-prob-results.png}
 \end{center}
-\caption{Comparison of paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871-2022. The blue line shows estimated paradox probabilities via plug-in using Theorem~\ref{theorem:normalgeneral}. The black dashed line displays a smoothed empirical exceedance rate for Arraez's 2023 batting average.}
+\caption{Comparison of paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows estimated paradox probabilities via plug-in using Theorem~\ref{theorem:normalgeneral}. The black dashed line displays a smoothed empirical exceedance rate for Arraez's 2023 batting average.}
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages when comparing the 2023 season to all prior seasons. We treat the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Figure~\ref{Fig:paradox-prob-results} displays the resulting paradox probabilities \eqref{eq:paradoxnormal}, estimated via plug-in using sample means and standard deviations. Because these estimators are $\sqrt{n}$-consistent, the reliability guarantees of Theorem~\ref{theorem:asymptotic} apply. For comparison, Figure~\ref{Fig:paradox-prob-results} also reports a smoothed empirical exceedance rate, defined as the proportion of historical seasons in which the maximum batting average exceeded Luis Arraez's 2023 mark. The estimated paradox probabilities closely track this empirical benchmark. Both quantities increase steadily as one moves backward in time, reflecting the fact that earlier eras---characterized by higher means, larger variances, and smaller effective populations---were structurally more conducive to producing extreme observed batting averages, even if underlying talent levels were lower.
+Figure~\ref{Fig:paradox-prob-results} displays the resulting paradox probabilities alongside a smoothed empirical exceedance rate, the proportion of historical seasons in which the maximum batting average exceeded Arraez's 2023 mark. The estimated paradox probabilities closely track this benchmark. Both quantities increase as one moves backward in time, reflecting that earlier eras were structurally more conducive to extreme observed batting averages due to higher means, larger variances, and smaller effective populations.
 
 Under Full House Modeling, Arraez's 2023 performance ranks 68th all-time among full-time batters after accounting for population depth and contextual effects \citep{yan2025comparing, fullhouse2025}, in contrast to his raw observed rank of 341. This discrepancy illustrates how observed dominance can be distorted by changes in population structure and measurement environments. Paradox probabilities provide a formal way to quantify this distortion, clarifying why exceptional modern performances may appear historically unremarkable when evaluated without contextual adjustment.
-
-
-\section{Discussion}
-
-The aptitude-achievement paradox arises when an individual from one context demonstrates higher latent aptitude but simultaneously lower observed achievement than an individual from another context. Although widely encountered in education, labor economics, psychometrics, medicine, and sports analytics, measuring the frequency of this paradox under realistic data-generating regimes is nontrivial. In this article, we formalize the Full House Methodology and investigate the probabilities of observing paradoxes between latent aptitude and observed achievement in comparative analysis of individuals across contexts.
-
-% Full House Modeling provides a direct comparison of individuals' latent aptitudes and observed achievements across different contexts, which is a novel contribution to latent trait modeling. While traditional latent trait models  \citep{bartholomew2011latent} often focus on estimating underlying traits from observed categorical data , our approach specifically quantifies the probability of paradoxical outcomes in comparative settings. 
- %%%%In contrast to the Rasch model, which assumes a specific probabilistic form governing the relationship between ability and difficulty \citep{bond2013applying}, Full House Modeling does not rely on a fixed functional form such as the logistic curve. Instead, it employs nonparametric estimation of observed achievements, thereby offering greater flexibility. 
-Full House Modeling formalizes the comparison of individuals' performance across distinct contexts based on the large source population size $N$, thereby offering a more nuanced understanding of individual differences and the impact of contextual factors on observed outcomes. In parallel, the causal bootstrap \citep{imbens2018causal} highlights that valid causal inference similarly requires situating the observed sample within large source population to properly account for sampling uncertainty. By comparison, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and that comparisons of item difficulties are independent of the sample of individuals tested, but it does not explicitly leverage the source population structure. Likewise, the bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal or group-level random effects rather than through an explicit embedding into a large source population. Full House Modeling enhances broader statistical modeling practices by providing a framework for robust comparative analysis, particularly in situations where direct, context-independent comparisons are challenging.
-
-We derive closed-form expressions for the paradox probability in two regimes: (i) when observed achievements are i.i.d., and (ii) when context-specific summaries are independent normals with distinct means and variances. The probability rises with population-size asymmetry (large $N_1$, small $N_2$) and sampling asymmetry (small $n_1$, large $n_2$). Moreover, for a fixed population-size ratio $N_2/N_1$, it is unchanged by proportional rescaling of the sample sizes $(n_1,n_2)$. We also develop bounds for more general settings and show that, when observed achievement is normal, a plug-in estimator yields reliable paradox-probability estimates.
-
-%Our findings align with a growing body of evidence that real-world evaluative systems routinely substitute \emph{proxies} for the constructs they claim to measure, with consequential distortion. The GRADE algorithm of \cite{waters2014grade} shows how admissions workflows may privilege machine-learned surrogates over nuanced information (e.g., personal statements), reinforcing pre-existing filters. Relatedly, \cite{alvero2020ai} document that seemingly innocuous features (e.g., the word ``baseball'') can act as strong demographic signals, raising concerns about \emph{indirect inference} in which protected or contextual attributes are inferred through correlated proxies. A broader survey by \cite{baker2022algorithmic} warns that such systems may conceal ``unknown unknowns,'' particularly for under-examined subpopulations. Complementing these mechanism-level concerns, the meta-analytic evidence in \cite{walton2009latent} demonstrates that outcome-based measures (grades, test scores) can systematically understate the aptitude of marginalized groups through identity-contingent dynamics.
-
-This work is a theoretical clarification of Full House Modeling and provides the definition and solutions for an inferential target, the aptitude-achievement paradox, that extend beyond the baseball motivations in \cite{yan2025comparing}. In doing so, it is important to note the baseball origins of this work, as articulated by Stephen Jay Gould in his 1996 book \emph{Full House: The Spread of Excellence from Plato to Darwin} (p. 122), from which this framework takes its name: ``Baseball is a truly remarkable system for statisticians, manifesting two properties devoutly to be wished, but not often encountered, in actual data: an institution that has worked by the same rules for a century, and has compiled complete data (nothing major missing) on all measurable aspects of its history.'' In this way, baseball, with its century of consistent rules and comprehensive measurement, served as an ideal proving ground for developing the Full House framework in \cite{yan2025comparing}. Gould concluded his reflection on baseball's statistical regularity with the admission that his sense of calculating ``something quite general about the nature of systems'' was ``just a feeling, not a proof.'' Here, our work offers more than a feeling, providing rigorous proofs that yield explicit and easy-to-calculate aptitude-achievement paradox probabilities.
-
-Beyond baseball, the recursive Full House Modeling example in Section~\ref{sec:rFHMbestgroup} speaks to broader concerns in educational evaluation and admissions. When students transition across institutions of varying selectivity, from less selective undergraduate programs to more selective graduate programs, or vice versa, observed performance metrics may systematically misrepresent underlying aptitude due to differences in both competition depth and measurement environments. This framework provides a principled way to quantify such distortions, though substantial work remains to characterize the specific selection mechanisms and measurement properties that govern real educational pipelines. We hope this methodology informs more equitable evaluation practices across educational and professional contexts where cross-institutional comparisons are routine but poorly understood.
-
-By elevating aptitude-achievement paradoxes from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
-
-
-%\section*{Acknowledgements}
-
-%We are grateful to ... and many others for helpful comments, great discussions, and inspiration. We acknowledge the use of ChatGPT-5.2 and Claude 4.5 to aid with proofreading and writing clarity. 
-
-
-\section*{Supplementary Materials}
-
-The Supplementary Materials contain proofs of mathematical results, together with auxiliary Monte Carlo simulations provided solely for numerical intuition for Theorem~\ref{theorem:normalgeneral}.
-
-
-\bibliography{FHM.bib}
-\bibliographystyle{plainnat}
-
-
-\end{document}
-
 
 
 \section{Discussion}
@@ -658,4 +609,25 @@ We derive closed-form expressions for paradox probabilities under Full House dat
 Beyond baseball, the recursive Full House Modeling example in Section~\ref{sec:rFHMbestgroup} speaks to broader concerns in educational evaluation and admissions. When students transition across institutions of varying selectivity, from less selective undergraduate programs to more selective graduate programs, or vice versa, observed performance metrics may systematically misrepresent underlying aptitude due to differences in both competition depth and measurement environments. The framework developed here provides a principled way to quantify such distortions, though substantial work remains to characterize the specific selection mechanisms and measurement properties that govern real educational pipelines. Our hope is that this methodology can eventually inform more equitable evaluation practices across educational and professional contexts where cross-institutional comparisons are routine but poorly understood.
 
 By elevating aptitude-achievement paradoxes from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
+
+
+\section*{Acknowledgements}
+
+We are grateful to ... and many others for helpful comments, great discussions, and inspiration. We acknowledge the use of ChatGPT-5.2 and Claude 4.5 to aid with proofreading and writing clarity. 
+
+
+\section*{Supplementary Materials}
+
+The Supplementary Materials contain proofs of mathematical results, together with auxiliary Monte Carlo simulations provided solely for numerical intuition for Theorem~\ref{theorem:normalgeneral}.
+
+
+\bibliography{FHM.bib}
+\bibliographystyle{plainnat}
+
+
+\end{document}
+
+
+
+
 

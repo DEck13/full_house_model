@@ -90,9 +90,11 @@
 \begin{document}
 \maketitle
 
-\tableofcontents
+
 
 This supplementary materials includes proofs of technical results and additional numerical examples supporting conclusions from Section 4 the main manuscript. 
+
+\tableofcontents
 
 %\section{Monotonicity}
 %
@@ -146,8 +148,10 @@ This supplementary materials includes proofs of technical results and additional
 %\end{proof}
 
 
+\section{Proofs}
+
 %%%% Proof of Lemma 3.2
-\section{Proof of Lemma~\ref{lemma:rep}}
+\subsection{Proof of Lemma~\ref{lemma:rep}}
 
 \begin{proof}
 Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
@@ -163,7 +167,7 @@ A similar technique can be applied to the second equation to obtain the result.
 
 
 %%%% Proof of Theorem 3.4
-\section{Proof of Theorem~\ref{theorem:samedistgeneral}} 
+\subsection{Proof of Theorem~\ref{theorem:samedistgeneral}} 
 
 \begin{proof}
 First, Lemma~\ref{lemma:rep} allows us to write
@@ -219,7 +223,7 @@ p
 
 
 %%%% Proof of Proposition 3.5
-\section{Proof of Proposition~\ref{prop:condition}}
+\subsection{Proof of Proposition~\ref{prop:condition}}
 
 \begin{proof}
 Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $x \in (0,1)$, that
@@ -242,7 +246,7 @@ Technical condition \eqref{eq:technical-condition} holds and the conclusion of T
 
 
 %%%% Proof of Proposition 4.2
-\section{Proof of Proposition~\ref{prop:weakstodom}}
+\subsection{Proof of Proposition~\ref{prop:weakstodom}}
 
 \begin{proof}
 First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
@@ -279,7 +283,7 @@ and
 
 
 %%%% Proof of Theorem 4.3
-\section{Proof of Theorem~\ref{theorem:normalgeneral}}
+\subsection{Proof of Theorem~\ref{theorem:normalgeneral}}
 
 \begin{proof}
 Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
@@ -334,7 +338,7 @@ The bound on the remainder \eqref{eq:remainder-bound} follows from the argument 
 
 
 
-\section{Proof of Lemma \ref{lemma:wmax}} 
+\subsection{Proof of Lemma \ref{lemma:wmax}} 
 \label{sec:wmax}
 
 \begin{proof}
@@ -1330,7 +1334,7 @@ where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution 
 %
 %$g_{n_1, k} \circ g_{n_2, j}^{-1}(t) - g_{N_1, k} \circ g_{N_2, j}^{-1}(t)$ is non-negative when $t \in (0,1),$ where $g_{n,i}(x) = I_x(i, n-i+1)$, $I_x(\alpha, \beta)$ is the CDF of Beta$(\alpha, \beta)$ distribution. 
 
-\section{Proof of Theorem \ref{theorem:asymptotic}}
+\subsection{Proof of Theorem \ref{theorem:asymptotic}}
 \label{sec:proofplugin}
 \begin{proof}
 
@@ -2143,7 +2147,7 @@ The results are tabulated in Table~\ref{Tab:simulationnormal}. These results sho
 
 \begin{table}[H]
 \centering
-\begin{tabular}{|rrrrrrrr|r|r|}
+\begin{tabular}{rrrrrrrr|r|r}
 \hline
 $n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
 \hline
