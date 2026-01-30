@@ -89,7 +89,6 @@ The paradox cannot arise if a single, strictly increasing, context-invariant mea
 
 A large class of methods quantifies how often observed orderings disagree with a target ordering, closely related to the phenomenon studied here. Classic examples include rank-discordance measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize the frequency of concordant and discordant pairs based on observed rankings. Because these indices operate entirely on observed outcomes, they neither place individuals on a common latent scale nor disentangle the effects of measurement non-invariance or selection, motivating models that make the measurement and selection processes explicit.
 
-%Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying traits from observed categorical data. One of the example of traditional latent trait models, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are independent of the specific items administered, and the Rasch model expect no differential item functioning (DIF) \citep{holland2012differential}, which means an item behaves differently for two (or more) groups of examinees who have the same underlying ability on the target construct. But it does not explicitly leverage the source population structure. Likewise, Bayesian hierarchical modeling \citep{BRL99} with the application in comparison of individuals' latent aptitudes typically captures population-level variation through seasonal random effects. 
 Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying abilities from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are invariant to the specific items administered, under the assumption of no differential item functioning (DIF) \citep{holland2012differential}. However, such models do not explicitly leverage information about the size or structure of the source population from which individuals are drawn. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and capture population-level variation through random effects or dynamic evolution, without modeling variation in eligible population depth or selection into observation across contexts. In parallel, the causal bootstrap \citep{imbens2018causal} emphasizes that valid causal inference requires explicitly situating the observed sample within a larger source population, rather than treating the realized sample as the population of interest.
 
 To address these limitations, we develop a framework for cross-context comparison that explicitly accounts for population depth and selection mechanisms. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is developed here as a general approach for cross-contextual evaluation. This framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This formulation makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude.
@@ -139,8 +138,6 @@ F_{Y_{i,(j)}}\!\left(Y_{i,(j)}\right)
 \end{equation}
 This allows \eqref{eq:truepar} to be computed via $F_X$, $F_{Y_i}$, and known Beta distributions, bypassing explicit order-statistic calculations. The representations \eqref{eq:betarepX} and \eqref{eq:betarepY} yield an additional advantage: although $F_X$ may be difficult to specify, latent aptitude can be recovered up to monotone transformation without explicit knowledge of $F_X$.
 
-%The representations \eqref{eq:betarepX} and \eqref{eq:betarepY} yield additional both theoretical and practical advantages for implementing the Full House Modeling flow \eqref{eq:truepar}. Although FHM is conceptually formulated in terms of a latent aptitude distribution $F_X$, this distribution may be difficult or impossible to specify in many applications. The Beta representations allow latent aptitude to be recovered up to a monotone transformation without requiring explicit knowledge of $F_X$.
-
 Combining \eqref{eq:betarepX} and \eqref{eq:betarepY} yields
 $$
 X_{i,(r_{i,j})} = F_X^{-1}\!\left(
@@ -157,7 +154,6 @@ so the ordering of latent aptitudes is invariant to $F_X$. Thus $F_X$ is a struc
 
 \section{Paradoxes Under Identical Achievement Distributions}
 \label{sec:samedist}
-
 
 In this section, we derive explicit probabilities of the aptitude--achievement paradox, as defined in \eqref{eq:paradoxgeneral}, within a Full House Modeling framework involving two populations. We focus on the setting in which the observed achievement distributions are identical across contexts, that is, $F_{Y_i} = F_Y$ for $i = 1,2$ in Definition~\ref{def:fhm}. The following definition formalizes the notion of paradox used throughout the remainder of the article.
 
@@ -194,7 +190,6 @@ $$
 $$
 where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
-
 
 
 \begin{theorem} \label{theorem:samedistgeneral}
@@ -241,9 +236,6 @@ p
 	The technical condition \eqref{eq:technical-condition} ensures that the integrand is nonnegative for all $t \in (0,1)$, guaranteeing that this expression defines a valid probability. In subsequent sections, we characterize when this condition holds and examine its empirical implications.
 \end{enumerate}
 
-
-
-
 Often it is of interest to compare the individuals with the highest aptitudes in their respective populations. Below we state the aptitude-achievement paradox probability in such setting using a Full House Model with two populations with the specification that $F_{Y_i} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
@@ -257,7 +249,7 @@ Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppo
 \end{align*}
 \end{corollary}
 
-A similar result holds for individuals with the lowest latent aptitudes in the population.
+Intuitively, this is the difference between two `lottery' probabilities: the probability that individual 2 wins the observed achievement comparison (first term) minus the probability that individual 2 wins the latent aptitude comparison (second term). The paradox probability is positive precisely when the sampling ratio favors individual 2 more than the population ratio does. A similar result holds for individuals with the lowest latent aptitudes in the population.
 
 \begin{corollary} \label{corollary:samedistbottom}
 Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold. Suppose that $1_j(X_{j,(N_j)}, \textbf{X}_{j,-(N_j)}) = 1$, $j=1,2$. Then,
@@ -277,13 +269,10 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations, 
 \end{prop}
 
 
-
-
 \section{Paradox Under Different Distributions}
 \label{sec:diffdist}
 
 In this section we will provide aptitude-achievement paradox probability results in a Full House Modeling setting involving two populations when we relax the specification that $F_{Y_1} = F_{Y_2}$ in Definition~\ref{def:fhm}. We first provide bounds for aptitude-achievement paradox probability in general settings. We then provide explicit aptitude-achievement paradox probability results when $Y_1$ and $Y_2$ are normally distributed with different means and variances.
-
 
 \subsection{General bounds}
 
@@ -313,12 +302,12 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations $
 \end{equation}
 \end{prop}
 
-Proposition~\ref{prop:weakstodom} provides bounds on the paradox probability under general achievement distributions. However, we can still obtain explicit aptitude-achievement paradox probabilities when we specify $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$.
+Proposition~\ref{prop:weakstodom} provides bounds on the paradox probability under general achievement distributions. For example, when $Y_i \sim N(\mu_i, \sigma^2)$, $i = 1,2$, with $\mu_1 < \mu_2$ and common variance, $\varepsilon$ can be bounded explicitly as a function of $(\mu_2 - \mu_1)/\sigma$. Beyond such bounds, we can obtain explicit aptitude-achievement paradox probabilities when $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$, allowing variances to differ across contexts.
+
 
 \subsection{Normal distributions}
 \label{subsec:normal}
 This section develops explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} specifies $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We focus on systems where $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. The outline is similar to Section~\ref{sec:samedist}: a technical condition is needed to prove the main result, and further results provide configurations satisfying this condition. However, with $Y_i \sim N(\mu_i,\sigma_i^2)$, the technical condition yields a remainder term that prevents an exact closed-form expression. We show that this remainder is negligible under mild conditions on population fractions and distributional parameters.
-
 
 Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
 $$
@@ -435,32 +424,7 @@ For matrices of the form $\Sigma = \rho \mathbf{1}\mathbf{1}^T + I_n$ (where
 $\mathbf{1}$ is the vector of ones), we have $\det(\Sigma) = \rho n + 1$ and the 
 inverse follows from the Woodbury identity \citep{golub2013matrix}. The explicit 
 form of $\Sigma^{-1}$ is given in the proof of Theorem~\ref{theorem:asymptotic} 
-(Supplementary Materials).
-%Our approach requires properties for matrices of the form 
-%$$
-%  \Sigma = \begin{bmatrix}
-%	\rho+1 & \rho & \hdots & \rho\\
-%	\rho & \ddots & \ddots & \vdots\\
-%	\vdots & \ddots & \ddots & \rho\\
-%	\rho & \hdots & \rho & \rho+1\\
- % \end{bmatrix}_{n \times n}. 
-%$$
-%These properties are
-%\begin{equation} \label{eq:det}
-%	\det(\Sigma) = \rho n + 1,
-%\end{equation}
-%and 
-%\begin{equation} \label{eq:inverse}
-%\Sigma^{-1} = \frac{1}{\rho n + 1}
-%\begin{bmatrix}
-%\rho (n-1)+1 & -\rho & \hdots & -\rho\\
-%-\rho & \ddots & \ddots & \vdots\\
-%\vdots & \ddots & \ddots & -\rho\\
-%-\rho & \hdots & -\rho & \rho (n-1)+1\\
-%\end{bmatrix}_{n \times n},
-%\end{equation}
-%where \eqref{eq:inverse} follows from an application of the Woodbury identity \citep{golub2013matrix}.  
-Before we state our result, we introduce the Lemma \ref{lemma:wmax}
+(Supplementary Materials).Before we state our result, we introduce the Lemma \ref{lemma:wmax}
 
 
 \begin{lemma} \label{lemma:wmax}
@@ -480,8 +444,6 @@ Then $c \in (0,1)$ for all $n_1$, $n_2$, and $\mathbf{F}_{\mathbf{W}}(\mathbf{w}
  \leq c^{n_1+n_2-1}$, where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
 \end{lemma}
 
-
-
 \begin{theorem}
 \label{theorem:asymptotic}
 Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, with $c$ defined as in the Lemma \ref{lemma:wmax}, we have
@@ -498,9 +460,9 @@ Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify t
 
 \subsection{Sensitivity Analysis for Theorem \ref{theorem:samedistgeneral}}
 
-Under the setting of Theorem~\ref{theorem:samedistgeneral}, we will specify $X_1 \overset{d}{=} X_2 \overset{d}{=} X$, $Y_1 \overset{d}{=} Y_2 \overset{d}{=} Y$, where $X \sim \text{Pareto}(\alpha)$ and $Y \sim \mathcal{N}(0,1)$. Without loss of generality, we set $j = n_1 - 1$ and  $k = n_2 - 1$ , corresponding to the selection of the second-best performer in the paradox probability, as defined in Definition~\ref{def:paradox}.
+Under the setting of Theorem~\ref{theorem:samedistgeneral}, we will specify $X_1 \overset{d}{=} X_2 \overset{d}{=} X$, $Y_1 \overset{d}{=} Y_2 \overset{d}{=} Y$, where $X \sim \text{Pareto}(\alpha)$ and $Y \sim \mathcal{N}(0,1)$. Without loss of generality, we set $j = n_1 - 1$ and  $k = n_2 - 1$, corresponding to the selection of the second-best performer in the aptitude-achievement paradox probability, as defined in Definition~\ref{def:paradox}.
 
-In each simulation, we randomly sample $n_1$ and $n_2$ observations from the distribution of $Y$, and compute their latent aptitudes using Equation~\eqref{eq:truepar}. Based on these values, we directly calculate the paradox probability according to Definition~\ref{def:paradox}. We repeat this simulation 10000 times and report the average paradox probability.
+In each simulation, we randomly sample $n_1$ and $n_2$ observations from the distribution of $Y$, and compute their latent aptitudes using Equation~\eqref{eq:truepar}. Based on these values, we directly calculate paradox probabilities according to Definition~\ref{def:paradox}. We repeat this simulation 10000 times and report the average.
 
 \begin{figure}[t!]
     \centering
@@ -509,25 +471,24 @@ In each simulation, we randomly sample $n_1$ and $n_2$ observations from the dis
     \label{Fig:sensitivity}
 \end{figure}
 
-Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:sensitivity} (A), we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000.  In Figure~\ref{Fig:sensitivity} (B), we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:sensitivity} (C), we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_2$ from 20 to 200 and $N_1$ from 200 to 2000. In Figure~\ref{Fig:sensitivity} (D), we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_2$ from 200 to 2000 and $n_1$ from 20 to 200.
+Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the aptitude-achievement paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:sensitivity} (A), we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000.  In Figure~\ref{Fig:sensitivity} (B), we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:sensitivity} (C), we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_2$ from 20 to 200 and $N_1$ from 200 to 2000. In Figure~\ref{Fig:sensitivity} (D), we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_2$ from 200 to 2000 and $n_1$ from 20 to 200.
 
-As shown in Figure~\ref{Fig:sensitivity} (A), a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) \to 1$. Similarly, in Figure~\ref{Fig:sensitivity} (B), a small $n_1$ combined with a large $n_2$ leads to a higher paradox probability since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right) \to 1$.
+As shown in Figure~\ref{Fig:sensitivity} (A), a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) \to 1$. Similarly, in Figure~\ref{Fig:sensitivity} (B), a small $n_1$ combined with a large $n_2$ leads to a higher aptitude-achievement paradox probability since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right) \to 1$.
 
 
 \subsection{Ratio of $N_2$ and $N_1$}
 
-Here we investigate the effect of the ratio between $N_2$ and $N_1$ on the paradox probability. Let $c = \frac{N_2}{N_1} $, and vary $c$ from 0.1 to 1 in increments of 0.1. In each simulation, we fix $n_1 = 60$ and $n_2 = 40$, and vary $N_1$ from 100 to 2000. We repeat this simulation 10000 times and report the average paradox probability. 
+Here we investigate the effect of the ratio between $N_2$ and $N_1$ on aptitude-achievement paradox probabilities under the specifications of Corollary~\ref{corollary:samedisttop}. Let $c=\frac{N_2}{N_1}$, and vary $c$ from 0.1 to 1 in increments of 0.1. In each simulation, we fix $n_1 = 60$ and $n_2 = 40$, and vary $N_1$ from 100 to 2000. We repeat this simulation 10000 times and report the average paradox probability. 
 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\textwidth]{cplot.png}
-    \caption{Effect of the ratio between $N_2$ and $N_1$ on the paradox probability}
+    \caption{Effect of the ratio between $N_2$ and $N_1$ on aptitude-achievement paradox probabilities under the specifications of Corollary~\ref{corollary:samedisttop}.}
     \label{Fig:ratioeffect}
 \end{figure}
 
-Figure~\ref{Fig:ratioeffect} presents the results illustrating the effect of the ratio between $N_2$ and $N_1 $ on the paradox probability under different settings. As shown in the figure, the paradox probability decreases as $c $ increases, which is reasonable since $\mathbb{P}\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) $ decreases as $N_2 $ increases. 
+Figure~\ref{Fig:ratioeffect} presents the results. As shown in the figure, the paradox probability decreases as $c $ increases, which is reasonable since $\mathbb{P}\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right)$ decreases as $N_2 $ increases. Importantly, Figure~\ref{Fig:ratioeffect} also demonstrates that the paradox probability remains constant when the ratio between $N_2$ and $N_1$ is fixed. This implies that it is unnecessary to focus on the exact values of $N_1$ and $N_2$ when computing the paradox probability; rather, the ratio $N_2/N_1$ alone determines its value.
 
-Importantly, Figure~\ref{Fig:ratioeffect} also demonstrates that the paradox probability remains constant when the ratio between $N_2$ and $N_1$ is fixed. This implies that it is unnecessary to focus on the exact values of $N_1$ and $N_2$ when computing the paradox probability; rather, the ratio $N_2/N_1$ alone determines its value.
 
 
 
@@ -551,7 +512,7 @@ We will fix $\sigma_i = \sigma$ and consider $\sigma \in \{0.5,1,2\}$. These sim
 
 To illustrate the procedure, consider a simplified scenario in which all $X_{(j)}$ values are realized at their median value. With this simplification, $Y_{i,(r_{i,(j)})}$ in \eqref{eq:iteration} is approximately $F_{Y_{i,j}}^{-1}( (r_{i,(j)} - 1/3)/(n_i + 1/3))$ \citep{kerman2011closed}. And we have that $Y_{i,(n_{i})} - Y_{i+1,(n_{i+1}-1)} > \mu_{i+1} - \mu_{i}$ for all considered values of $\sigma$. The individual with latent ability $X_{(N)}$ will consistently attain the value $Y_{i,(n_{i})}$, regardless of their assigned group. Consequently, this individual's position among the $m$ groups will improve as the simulation advances. 
 
-Results can be seen in Figure~\ref{Fig:rFHMrounds}. These Monte Carlo simulations reveal that it typically takes several rounds before the individual with the top aptitude belongs to the group that allows for the highest performances. On average, with $\sigma$ set to 0.5, 1, and 2, it takes 2.61, 4.19, and 7.46 rounds, respectively, for the individual with the top aptitude to join the highest-performing group (respective standard errors: 0.05, 0.09, 0.18).
+Results can be seen in Figure~\ref{Fig:rFHMrounds}. These Monte Carlo simulations reveal that it typically takes several rounds before the individual with the top aptitude belongs to the group that allows for the highest performances. On average, with $\sigma$ set to 0.5, 1, and 2, it takes 2.61, 4.19, and 7.46 rounds, respectively, for the individual with the top aptitude to join the highest-performing group (respective standard errors: 0.05, 0.09, 0.18). Deriving the distribution of this hitting time analytically under explicit FHM assumptions, and characterizing how it depends on $\sigma$ and grouping structure, remains an open problem. 
 
 \begin{figure}[t!]
 \begin{center}
@@ -562,6 +523,7 @@ Results can be seen in Figure~\ref{Fig:rFHMrounds}. These Monte Carlo simulation
 \end{figure}
 
 While the setting is stylized and assumes fixed latent aptitude, it illustrates how structural features of evaluative systems, not just randomness, can delay recognition of true potential. Whereas the paradox probability quantifies cross-sectional reversal risk, recursive Full House Modeling captures temporal persistence: the hitting time measures how many rounds elapse before latent aptitude and observed achievement align. These findings resonate with a growing empirical literature on bias and distortion in algorithmic and educational evaluation systems, which we discuss further in the Discussion.
+
 
 
 
@@ -580,8 +542,7 @@ We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees 
 
 The 2023 season saw an increase in mean batting average for full-time players of 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample test for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increase batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 (a mark of excellence) since Josh Hamilton in 2010. 
 
-We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages, treating the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Seasonal batting averages of full-time players are assumed normally distributed, with means and standard deviations estimated via plug-in; the reliability guarantees of Theorem~\ref{theorem:asymptotic} apply. Figure~\ref{Fig:means-sd-full-time} shows that both the average and variability of batting averages in 2023 are among the lowest observed, indicating a historically suppressed environment. Moreover, with our specifications, $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and talent pool estimates from \cite{yan2025comparing} yield $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, so the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible.
-
+We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages, treating the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Seasonal batting averages of full-time players are assumed normally distributed, with means and standard deviations estimated via plug-in; the reliability guarantees of Theorem~\ref{theorem:asymptotic} apply. Figure~\ref{Fig:means-sd-full-time} shows that both the average and variability of batting averages in 2023 are among the lowest observed, indicating a historically suppressed environment. Moreover, with our specifications we have that $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, so the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible. The talent pool estimates $N_i$ are taken from \cite{yan2025comparing}, which includes sensitivity analyses showing that qualitative conclusions are robust to reasonable perturbations of these estimates.
 
 \begin{figure}[t!]
 \begin{center}
@@ -609,6 +570,7 @@ We derive closed-form expressions for paradox probabilities under Full House dat
 Beyond baseball, the recursive Full House Modeling example in Section~\ref{sec:rFHMbestgroup} speaks to broader concerns in educational evaluation and admissions. When students transition across institutions of varying selectivity, from less selective undergraduate programs to more selective graduate programs, or vice versa, observed performance metrics may systematically misrepresent underlying aptitude due to differences in both competition depth and measurement environments. The framework developed here provides a principled way to quantify such distortions, though substantial work remains to characterize the specific selection mechanisms and measurement properties that govern real educational pipelines. Our hope is that this methodology can eventually inform more equitable evaluation practices across educational and professional contexts where cross-institutional comparisons are routine but poorly understood.
 
 By elevating aptitude-achievement paradoxes from an anecdotal concern to a model-based, estimable quantity, our framework clarifies when cross-context comparisons are trustworthy, when they are fragile, and how to report that fragility responsibly. This closes the loop between principled latent measurement, realistic selection processes, and interpretable comparative claims.
+
 
 
 \section*{Acknowledgements}
