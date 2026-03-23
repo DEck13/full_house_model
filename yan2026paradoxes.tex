@@ -399,7 +399,6 @@ defined with the following structure \\
 \end{split}
 \end{align}
 
-
 With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section.
 
 \begin{theorem} 
@@ -419,42 +418,85 @@ Moreover, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$,
 \end{equation}
 \end{theorem}
 
-We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. Our approach requires standard properties of equicorrelated covariance matrices. 
-For matrices of the form $\Sigma = \rho \mathbf{1}\mathbf{1}^T + I_n$ (where 
-$\mathbf{1}$ is the vector of ones), we have $\det(\Sigma) = \rho n + 1$ and the 
-inverse follows from the Woodbury identity \citep{golub2013matrix}. The explicit 
-form of $\Sigma^{-1}$ is given in the proof of Theorem~\ref{theorem:asymptotic} 
-(Supplementary Materials).Before we state our result, we introduce the Lemma \ref{lemma:wmax}
+We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. 
+%Our approach requires standard properties of equicorrelated covariance matrices. 
+%For matrices of the form $\Sigma = \rho \mathbf{1}\mathbf{1}^T + I_n$ (where 
+%$\mathbf{1}$ is the vector of ones), we have $\det(\Sigma) = \rho n + 1$ and the 
+%inverse follows from the Woodbury identity \citep{golub2013matrix}. The explicit 
+%form of $\Sigma^{-1}$ is given in the proof of Theorem~\ref{theorem:asymptotic} 
+%(Supplementary Materials).Before we state our result, we introduce the Proposition \ref{Prop:upper}
 
+%\begin{prop} \label{Prop:upper}
+%	Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that as $n_1, n_2 \to \infty$. If the relative growth rate of the dimensions satisfies the condition:$$\lim_{n_1, n_2 \to \infty} \frac{\ln n_2}{\ln n_1} > \left( \frac{\sigma_1}{\sigma_2} \right)^2,$$ then 
+%	
+%	 
+%$$
+%F_{\mathbf{W}}(\mathbf{w}) \approx \Phi(-\sqrt{2 \ln (n_2-1)}) \sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}} = \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \left( \frac{1}{n_2-1} + o(\frac{1}{n_2}) \right)
+%$$
+%where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$ as defined above. $\Phi(z)$ denotes the cumulative distribution function of a standard normal distribution and $Z_0$ follows standard normal distribution. 
+%\end{prop}
 
-\begin{lemma} \label{lemma:wmax}
-Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Define $c := c_{n_1+n_2-1}$ as the maximal conditional one-dimensional Gaussian probability arising in the sequential factorization of the joint CDF, that is,
-\begin{equation} \label{eq:wn}
-\begin{split}
-  c = \max \bigg\{&
-  \Prob\!\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
-  %&\Prob\!\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
-	%	\,\middle|\,
-	%	W_1=w_1,\dots,W_{n_1+n_2-3}=w_{n_1+n_2-3}\right),\\
-  &\dots,\, \Prob(W_2 \le w_2 \mid W_1=w_1),\, \Prob(W_1 \le w_1)
-\bigg\}.
-\end{split}
-\end{equation}
-Then $c \in (0,1)$ for all $n_1$, $n_2$, and $\mathbf{F}_{\mathbf{W}}(\mathbf{w})
- \leq c^{n_1+n_2-1}$, where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$.
-\end{lemma}
+%\begin{lemma} \label{lemma:wmax}
+%Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then 
+%
+%\[
+%\mathbf F_{\mathbf W}(\mathbf w)
+%\le \min\Big\{
+%\mathbb E[\Phi(-\frac{\sigma_2}{\sigma_1}Z_0+\frac{\mu_2-\mu_1}{\sigma_1})^{n_1}],
+%\mathbb E[\Phi(-Z_0)^{n_2-1}]
+%\Big\},
+%\]
+%
+%%Define $c := c_{n_1+n_2-1}$ as the maximal conditional one-dimensional Gaussian probability arising in the sequential factorization of the joint CDF, that is,
+%%\begin{equation} \label{eq:wn}
+%%\begin{split}
+%%  c = \max \bigg\{&
+%%  \Prob\!\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
+%%  %&\Prob\!\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
+%%	%	\,\middle|\,
+%%	%	W_1=w_1,\dots,W_{n_1+n_2-3}=w_{n_1+n_2-3}\right),\\
+%%  &\dots,\, \Prob(W_2 \le w_2 \mid W_1=w_1),\, \Prob(W_1 \le w_1)
+%%\bigg\}.
+%%\end{split}
+%%\end{equation}
+%%Then $c \in (0,1)$ for all $n_1$, $n_2$, and $\mathbf{F}_{\mathbf{W}}(\mathbf{w})
+%% \leq c^{n_1+n_2-1}$, 
+%where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$ as defined above. $\Phi(z)$ denotes the cumulative distribution function of a standard normal distribution and $Z_0$ follows standard normal distribution.
+%\end{lemma}
 
 \begin{theorem}
 \label{theorem:asymptotic}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, with $c$ defined as in the Lemma \ref{lemma:wmax}, we have
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that, as $n_1,n_2 \to \infty$, the relative growth rates of the dimensions satisfy
+$$
+\lim_{n_1,n_2 \to \infty} \frac{\ln n_2}{\ln n_1}
+>
+\left(\frac{\sigma_1}{\sigma_2}\right)^2.
+$$
+
+In addition, assume that
+$$
+\frac{n_1}{N_1} \le \frac{n_2}{N_2}, \quad \sigma_1 \le \sigma_2, \quad \mu_1 \le \mu_2.
+$$
+Furthermore, suppose that the estimators $\hat{\mu}_1, \hat{\mu}_2, \hat{\sigma}_1, \hat{\sigma}_2$ of $\mu_1, \mu_2, \sigma_1, \sigma_2$ also preserve these inequalities, 
+$$
+\hat{\sigma}_1 \le \hat{\sigma}_2,
+\quad
+\hat{\mu}_1 \le \hat{\mu}_2.
+$$
+
+
+
+%Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, %with $c$ defined as in the Lemma \ref{lemma:wmax}, 
+%xwith the assumption in the Proposition \ref{Prop:upper}
+we have
 	\begin{align*}
 		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \hat{\mu_1}, \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) \\
 		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
-		&=  O_P(n_1^{\frac{1}{2}}n_2c^{n_1+n_2-3} + n_1n_2^{\frac{1}{2}}c^{n_1+n_2-3}).
+		&=  O_P(\frac{1}{\sqrt{\ln n_2}}).
 	\end{align*}
 \end{theorem}
 
-
+%This choice of parameter should cover the sample-size consistent estimator. 
 
 \section{Examples}
 
