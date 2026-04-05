@@ -6,5 +6,5 @@
 \contentsline {subsection}{\numberline {1.4}Proof of Proposition~\ref {prop:weakstodom}}{4}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}Proof of Theorem~\ref {theorem:normalgeneral}}{5}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Proof of Theorem \ref {theorem:asymptotic}}{7}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Simulations}{9}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{9}{subsection.2.1}%
+\contentsline {section}{\numberline {2}Simulations}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{10}{subsection.2.1}%

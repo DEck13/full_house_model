@@ -2517,14 +2517,72 @@ $$
 F_{\mathbf{W}}(\mathbf{w}) \approx \Phi(-\sqrt{2 \ln (n_2-1)}) \sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}} = \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \left( \frac{1}{n_2-1} + o(\frac{1}{n_2}) \right)
 $$
 
-Therefore, the asymptotic paradox probability in equation (\ref{eq:paradoxnormal}): 
+Let $\mathbf{W^*} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma^*})$ and covariance matrix 
+\begin{equation}\label{eq:Sigma}
+\boldsymbol{\Sigma^*} = \begin{bmatrix}
+	\Sigma_{11}^* & \Sigma_{12}^*\\
+	\Sigma_{21}^* & \Sigma_{22}^*\\
+\end{bmatrix},
+\end{equation}
+defined with the following structure \\
+\begin{align}\label{eq:Sigmastructure}
+\begin{split}
+\Sigma_{11}^* = \begin{bmatrix}
+\frac{\sigma_4^2}{\sigma_3^2}+1 & \frac{\sigma_4^2}{\sigma_3^2} & \hdots & \frac{\sigma_2^2}{\sigma_3^2} \\
+\frac{\sigma_4^2}{\sigma_3^2} & \ddots & \ddots  & \vdots \\
+\vdots & \ddots & \ddots & \frac{\sigma_4^2}{\sigma_3^2} \\
+\frac{\sigma_4^2}{\sigma_3^2} & \dots & \frac{\sigma_4^2}{\sigma_3^2} & \frac{\sigma_4^2}{\sigma_3^2}+1 \\
+\end{bmatrix}_{n_1 \times n_1} \;\;
+&\Sigma_{12}^{T*} = \Sigma_{21}^* = \begin{bmatrix}
+\frac{\sigma_4}{\sigma_3} & \hdots & \hdots & \frac{\sigma_4}{\sigma_3}\\
+\vdots & \ddots &  & \vdots\\
+\vdots &  & \ddots & \vdots\\
+\frac{\sigma_4}{\sigma_3} & \hdots &\hdots & \frac{\sigma_4}{\sigma_3}\\
+\end{bmatrix}_{(n_2-1) \times n_1} \\
+&\Sigma_{22}^* = \begin{bmatrix}
+2 & 1 & \hdots & 1\\
+1 & \ddots & \ddots & \vdots\\
+\vdots & \ddots & \ddots & 1\\
+1 & \hdots & 1 & 2\\
+\end{bmatrix}_{(n_2-1) \times (n_2-1)}.
+\end{split}
+\end{align}
+
+and $\mathbf{w}^* = (\frac{\mu_4 - \mu_3}{\sigma_3}, \dots, \frac{\mu_4 - \mu_3}{\sigma_3}, 0, \dots, 0)$, where the first $n_1$ elements of $\mathbf{w}^*$ are $\frac{\mu_4 - \mu_3}{\sigma_3}$ and the last $n_2-1$ elements are 0.
+
+Then the $\mathbf F_{\mathbf W^*}(\mathbf w^*)$ is
 
 \begin{align*}
-		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \hat{\mu_1}, \hat{\mu_2}, \hat{\sigma_1}, \hat{\sigma_2} \right) \\
-		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
-		&= n_2(F_{\mathbf{W}}(\mathbf{w}) - F_{\mathbf{\hat{W}}}(\mathbf{\hat{w}})) \to 0
-\end{align*} as $n_1, n_2 \to \infty. $ 
+	\mathbf F_{\mathbf W^*}(\mathbf w^*) &= \mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1} + \frac{\sigma_4}{\sigma_3}Z_0 \le \frac{\mu_4 - \mu_3}{\sigma_3},\, \dots,\,
+Z_{n_1} + \frac{\sigma_4}{\sigma_3}Z_0 \le \frac{\mu_4 - \mu_3}{\sigma_3},\\[3pt]
+Z_{n_1+1}+ Z_0 \le 0,\, \dots,\, Z_{n_1+n_2-1}+Z_0 \le 0
+\end{array}
+\right) \\
+&= \mathbb{P}\!\left(
+\begin{array}{l}
+Z_{1} \le \frac{\mu_4 - \mu_1}{\sigma_3} - \frac{\sigma_4}{\sigma_3}Z_0,\, \dots,\,
+Z_{n_1} \le \frac{\mu_4 - \mu_1}{\sigma_3} - \frac{\sigma_4}{\sigma_3}Z_0,\\[3pt]
+Z_{n_1+1}\le - Z_0 ,\, \dots,\, Z_{n_1+n_2-1} \le -Z_0
+\end{array}
+\right) \\
+\end{align*}
 
+Since the $\mu_3$, $\mu_4$, $\sigma_3$, and $\sigma_4$ satisfy the same assumptions as $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ in the theorem statement, and applying the same technique for $\mathbf F_{\mathbf W}(\mathbf w)$, we have
+
+$$
+F_{\mathbf{W}^*}(\mathbf{w}^*) \approx \Phi(-\sqrt{2 \ln (n_2-1)}) \sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}} = \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \left( \frac{1}{n_2-1} + o(\frac{1}{n_2}) \right)
+$$
+
+Consider the difference between paradox probabilities using two sets of different parameters, and 
+
+\begin{align*}
+		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_3, \mu_4, \sigma_3, \sigma_4 \right) \\
+		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
+		&= n_2(F_{\mathbf{W^*}}(\mathbf{w^*}) - F_{\mathbf{W}}(\mathbf{w})) + (R^* - R)\to 0
+\end{align*} as $n_1, n_2 \to \infty. $ 
+where $R^* := R(\mu_3,\mu_4,\sigma_3,\sigma_4, n_1,n_2,N_1,N_2)$ and $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ are defined in (\ref{eq:remainder})
 \end{proof}
 
 
