@@ -170,18 +170,11 @@ A similar technique can be applied to the second equation to obtain the result.
 \subsection{Proof of Theorem~\ref{theorem:samedistgeneral}} 
 
 \begin{proof}
-First, Lemma~\ref{lemma:rep} allows us to write
+By Lemma~\ref{lemma:rep},
 $$
 	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
 $$
-where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. We can rewrite $h_{j,k}(\cdot)$ into a form that will allow for specific computation involving Beta distributions. To see this, consider the distribution $F_{Y_{(j)}}$ for some $j = 1,\ldots,n_1$. The random variable $Y_{(j)} = F_Y^{-1} \circ U_{(j)}$ where $U_{(j)} \sim \text{Beta}(j,n_1-j+1)$. 
-%Thus, $F_{Y_{(j)}}(y) = g_{n,j} \circ F_Y (y)$,
-%\begin{align*}
-%  P\left(X_{2,(r_{2,k})} < x\right) &= P\left(U_{(r_{2,k})} < F_X(x)\right) \\ 
-%  &= \frac{1}{B(r_{2,k},N_{2}-r_{2,k}+1)}\int_0^{F_X(x)}u^{r_{2,k}-1}(1-u)^{N_2-r_{2,k}} du	\\
-%  &= I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X (x),
-%\end{align*}
-%where we write $g_{n,j}(x) = I_{j, n-j+1}(x)$ for ease of notation. This expression of distribution functions allows us to write 
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Under the assumption $F_{Y_1}=F_{Y_2}=F_Y$, the distributions of the order statistics admit Beta representations, which allow us to express the mapping $h_{j,k}$ in terms of regularized incomplete beta functions.
 \begin{align*}
 	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
 	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \ f_{X_{2,(r_{2,k})}}(x) \ dx \\
@@ -190,7 +183,7 @@ where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y
 	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \  d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
 	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
 \end{align*}
-Condition~\eqref{eq:technical-condition} states that 
+This representation holds without additional assumptions. The positive-part operator appears because the integrand may change sign. Under condition~\eqref{eq:technical-condition}, the integrand is nonnegative, hence
 \begin{align*}
 	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
 	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
@@ -198,25 +191,22 @@ Condition~\eqref{eq:technical-condition} states that
 Thus,
 \begin{align*}	
 &\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
-	&\qquad= \int_0^1 I_{j, n_1-j+1}(x) \ dI_{k, n_2-k+1}(x)- \int_0^1I_{ r_{1,j}, N_1- r_{1,j}+1}(x) \ dI_{ r_{2,k}, N_2- r_{2,k}+1}(x)\\
-	&\qquad= \int_0^1 I_x(j, n_1 -j+1) \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\ 
-	&\qquad\qquad- \int_0^1 I_x(r_{1,j}, N_1-r_{1,j}+1) \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(k, N_2-k+1)} \ dx\\
-	&\qquad =\int_0^1 \sum_{p=j}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right) x^p(1-x)^{n_1-p} \frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \ dx \\
-&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right) x^p(1-x)^{N_1-p} \frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \ dx\\ 
-&\qquad = \sum_{p=j}^{n_1}\left(\begin{array}{l}
-n_1 \\
-p
-\end{array}\right)\frac{B(k+p, n_2+n_1-p-k+1)}{B(j, n_2-k+1)} \\ 
-&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\left(\begin{array}{l}
-N_1 \\
-p
-\end{array}\right)\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
+	&\qquad= \int_0^1 I_{j, n_1 - j + 1}(x)\, dI_{k, n_2 - k + 1}(x)
+- \int_0^1 I_{r_{1,j}, N_1 - r_{1,j} + 1}(x)\, dI_{r_{2,k}, N_2 - r_{2,k} + 1}(x)\\
+&\qquad= \int_0^1 I_{j, n_1 - j + 1}(x)\,
+\frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \, dx \\
+&\qquad\qquad- \int_0^1 I_{r_{1,j}, N_1-r_{1,j}+1}(x)\,
+\frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \, dx\\
+&\qquad = \int_0^1 \sum_{p=j}^{n_1}\binom{n_1}{p}
+x^p(1-x)^{n_1-p}
+\frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \, dx \\
+&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\binom{N_1}{p}
+x^p(1-x)^{N_1-p}
+\frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \, dx\\ 
+&\qquad = \sum_{p=j}^{n_1}\binom{n_1}{p}
+\frac{B(k+p, n_2+n_1-p-k+1)}{B(k, n_2-k+1)} \\
+&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\binom{N_1}{p}
+\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
 \end{align*}
 \end{proof}
 
