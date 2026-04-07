@@ -150,6 +150,114 @@ This supplementary materials includes proofs of technical results and additional
 
 \section{Proofs}
 
+
+\subsection{Proof of Theroem 2.2}
+\begin{proof}
+Fix a population $i$ and suppress the index $i$.
+
+\medskip
+
+\noindent
+\textbf{Step 1: Reduction to order statistics.}
+
+Since $F_X$ is continuous, the latent variables are almost surely distinct, and the order statistics
+\[
+X_{(1)} < \cdots < X_{(N)}
+\]
+are well-defined. By rank-based selection, the observed system consists of indices $j$ such that $r_j \in \mathcal{R}$, yielding observed pairs
+\[
+(Y_{(j)}, X_{(r_j)}), \quad j = 1,\dots,n.
+\]
+
+By assumption, for each observed rank $j$ there exists a strictly increasing measurable function $\psi_j$ such that
+\[
+Y_{(j)} = \psi_j(X_{(r_j)}) \quad \text{a.s.}
+\]
+
+\medskip
+
+\noindent
+\textbf{Step 2: Identification via distribution functions.}
+
+Fix $j$. Since $\psi_j$ is strictly increasing, it is invertible on its image. For any $y \in \mathbb{R}$,
+\[
+\mathbb{P}(Y_{(j)} \le y)
+= \mathbb{P}(\psi_j(X_{(r_j)}) \le y)
+= \mathbb{P}(X_{(r_j)} \le \psi_j^{-1}(y)).
+\]
+Hence,
+\[
+F_{Y_{(j)}}(y)
+= F_{X_{(r_j)}}(\psi_j^{-1}(y)),
+\]
+which implies
+\[
+F_{Y_{(j)}}(\psi_j(x)) = F_{X_{(r_j)}}(x)
+\quad \text{for } F_{X_{(r_j)}}\text{-a.e. } x.
+\]
+
+\medskip
+
+\noindent
+\textbf{Step 3: Quantile representation.}
+
+Since $F_X$ is continuous, the distribution of the order statistic $X_{(r_j)}$ is also continuous and strictly increasing on the interior of its support, hence admits a well-defined generalized inverse. Likewise, $F_{Y_{(j)}}$ is continuous and strictly increasing. Thus both admit well-defined inverses.
+
+
+
+Let $u = F_{X_{(r_j)}}(x)$. Then
+\[
+F_{Y_{(j)}}(\psi_j(x)) = u,
+\]
+so
+\[
+\psi_j(x)
+= F_{Y_{(j)}}^{-1}(u)
+= F_{Y_{(j)}}^{-1}\!\big(F_{X_{(r_j)}}(x)\big)
+\]
+for $F_{X_{(r_j)}}$-almost every $x$. Therefore,
+\[
+Y_{(j)} 
+= F_{Y_{(j)}}^{-1} \circ F_{X_{(r_j)}}(X_{(r_j)})
+\quad \text{a.s.}
+\]
+
+\medskip
+
+\noindent
+\textbf{Step 4: Uniqueness.}
+
+Let $U = F_{X_{(r_j)}}(X_{(r_j)}) \sim \mathrm{Unif}(0,1)$ by the probability integral transform, and define
+\[
+g(u) := \psi_j\!\big(F_{X_{(r_j)}}^{-1}(u)\big).
+\]
+Then $g$ is strictly increasing and $g(U) \sim F_{Y_{(j)}}$. By the fact that if $U\sim\mathrm{Unif}(0,1)$ and $g$ is increasing, then the distribution of $g(U)$ uniquely determines $g$ almost everywhere, implying $g(u)=F^{-1}_{Y{(j)}}(u)$ a.e., it follows that
+\[
+g(u) = F_{Y_{(j)}}^{-1}(u)
+\quad \text{for a.e. } u \in (0,1),
+\]
+and hence
+\[
+\psi_j(x)
+= F_{Y_{(j)}}^{-1}\!\big(F_{X_{(r_j)}}(x)\big)
+\quad \text{for } F_{X_{(r_j)}}\text{-a.e. } x.
+\]
+
+Thus, the strictly increasing coupling is unique up to null sets.
+
+\medskip
+
+\noindent
+\textbf{Step 5: Conclusion.}
+
+The representation holds for each observed rank $j$, and uniqueness implies that the joint distribution of $(X,Y)$ coincides with that induced by the Full House Model.
+\end{proof}
+
+
+
+
+
+
 %%%% Proof of Lemma 3.2
 \subsection{Proof of Lemma~\ref{lemma:rep}}
 
@@ -220,7 +328,7 @@ Specification of $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$ implies that $r_{i,j}
 $$
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
-The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased \citep{askitis2021logarithmic}, or $n_2$ or $N_1$ are decreased. Therefore, 
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased. This follows from the monotonicity of the inverse incomplete beta function in its parameters \citep{askitis2021logarithmic}, together with the fact that stochastic dominance is preserved under monotone transformations. Therefore,
 $
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
 $
