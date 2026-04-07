@@ -85,13 +85,15 @@ These limitations give rise to a previously unquantified inferential target: the
 \end{equation}
 This quantity captures the structural risk that cross-context comparisons based on observed outcomes reverse the true latent ordering.
 
-The \textcolor{orange}{aptitude-achievement paradox in Eq \ref{eq:paradoxgeneral}} cannot arise if a single, strictly increasing, context-invariant measurement map relates aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
+The aptitude-achievement paradox in Eq \ref{eq:paradoxgeneral} cannot arise if a single, strictly increasing, context-invariant measurement map relates aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
 
 A large class of methods quantifies how often observed orderings disagree with a target ordering, closely related to the phenomenon studied here. Classic examples include rank-discordance measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize the frequency of concordant and discordant pairs based on observed rankings. Because these indices operate entirely on observed outcomes, they neither place individuals on a common latent scale nor disentangle the effects of measurement non-invariance or selection, motivating models that make the measurement and selection processes explicit.
 
 Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying abilities from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are invariant to the specific items administered, under the assumption of no differential item functioning (DIF) \citep{holland2012differential}. However, such models do not explicitly leverage information about the size or structure of the source population from which individuals are drawn. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and capture population-level variation through random effects or dynamic evolution, without modeling variation in eligible population depth or selection into observation across contexts. In parallel, the causal bootstrap \citep{imbens2018causal} emphasizes that valid causal inference requires explicitly situating the observed sample within a larger source population, rather than treating the realized sample as the population of interest.
 
-To address these limitations, we develop a framework for cross-context comparison that explicitly accounts for population depth and selection mechanisms. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is developed here as a general approach for cross-contextual evaluation. This framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This formulation makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude.
+To address these limitations, we develop a framework for cross-context comparison that explicitly accounts for population depth and selection mechanisms. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is developed here as a general approach for cross-contextual evaluation. This framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism by which individuals are selected or observed, and (iii) the context-specific mapping from latent aptitude to observable performance. Under FHM, individuals are drawn from a common latent ability distribution, while contexts differ in population depth and in how aptitude is filtered and measured. This formulation makes explicit the structural mechanisms through which observed performance can be inflated or suppressed independently of true underlying aptitude. We model measurement as a rank-preserving transformation of latent aptitude within each context.
+
+Full House Modeling is a general framework. Its assumptions are most naturally satisfied in settings characterized by strong selection into the observed system. In elite competition environments, where observed individuals represent the upper tail of a larger latent population, selection can often be credibly approximated by top-$n$ inclusion rules, yielding tractable theoretical results and clean empirical interpretability. In less selective settings, the selection mechanism requires more careful specification, and we regard the development of FHM under richer selection models as an important direction for future work. Comparisons of athletes across eras provide a canonical illustration of the favorable regime: entry into professional leagues is highly competitive and closely approximates selection of the most talented individuals from a large underlying population, making the top-$n$ assumption both transparent and defensible. Our application to Major League Baseball is motivated by this alignment between the framework's assumptions and the structure of the domain.
 
 In this article, we formalize Full House Modeling and study the probability of aptitude--achievement paradoxes \eqref{eq:paradoxgeneral} arising in cross-context comparisons. We derive explicit paradox probabilities in two settings: first, when observed achievement is independent and identically distributed, and second, when observed achievement follows independent but context-specific normal distributions. We also establish bounds on paradox probabilities in more general settings and show that, under normality, these probabilities can be consistently estimated using plug-in methods. A sensitivity analysis reveals that paradox risk depends on ratios of eligible population sizes rather than their absolute magnitudes. Proofs of mathematical results are provided in online Supplementary Materials.
 
@@ -128,11 +130,11 @@ where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}
 	Consider populations with sizes $N_i$ and system sizes $n_i$, $N_i \geq n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, for the individuals included in the system, that is, those for which $1_i(\cdot,\cdot)=1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
-
+The Full House Model defines a joint distribution over $(X,Y)$ together with a selection mechanism $1_i(\cdot,\cdot)$ as follows. Latent variables $X$ are drawn i.i.d.\ from $F_X$, and the selection mechanism $1_i(X_{i,j}, \mathbf{X}_{i,-j})$ determines inclusion in the observed system. Conditional on inclusion, observed outcomes $Y$ are generated via a rank-preserving monotone coupling with $X$. In particular, the dependence between $X$ and $Y$ is induced through a quantile-matching transformation of their order statistics, ensuring that higher latent aptitude corresponds to higher observed achievement within each system. The stochasticity in the Full House Model arises entirely from the latent population $X$, while both selection and observed outcomes are deterministic functionals of $X$.
 
 The Full House Model induces structural missingness by construction: for any individual $j$ such that $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, when $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, we treat $Y_{i,j}$ as not defined within the observable probability space. For example,
 $$
-  \mathbb P\big(X_{i,j}\in A,\; Y_{i,j}\in B,\; S_{i,j}=1\big)
+  \mathbb P\big(X_{i,j}\in A,\; Y_{i,j}\in B,\; 1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 1\big)
 $$
 is well-defined for Borel sets \(A,B\subset \mathbb R\), whereas no value is assigned to $Y_{i,j}$ on $\{1_i(X_{i,j}, \mathbf{X}_{i,-j})=0\}$. This perspective allows selection mechanisms to be incorporated into probabilistic statements without imputing counterfactual outcomes.
 
@@ -299,9 +301,7 @@ We now demonstrate a setting in which technical condition \eqref{eq:technical-co
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
-The proof for the Lemma \ref{lemma:rep}, Theorem \ref{theorem:samedistgeneral} and Proposition \ref{prop:condition} can be found in the supplement. 
-
-
+The conditions in Proposition~\ref{prop:condition} suggest that the technical condition is driven by the relative comparison of sampling and population ratios. In particular, the requirement $\frac{n_1}{n_2} \le 1$ and $\frac{N_2}{N_1} \le 1$ indicates that sampling distortion dominates population distortion in a coordinatewise sense. We conjecture that this condition can be relaxed to the single inequality $\frac{n_1}{n_2}\cdot\frac{N_2}{N_1} \le 1$. Establishing this generalization would provide a sharper characterization of when the technical condition \eqref{eq:technical-condition} holds. A proof of this result remains an open problem.
 
 
 \section{Paradox Under Different Distributions}
@@ -446,7 +446,7 @@ defined with the following structure \\
 \end{split}
 \end{align}
 
-With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section.
+With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section. %We focus on the case of top-ranked individuals, which admits a tractable representation under normality. This setting captures one of the most common comparison of interest in practice and allows for a closed-form approximation. Extensions to general order statistics appear substantially more complex and are left for future work.
 
 \begin{theorem} 
 \label{theorem:normalgeneral}
@@ -684,6 +684,68 @@ The Supplementary Materials contain proofs of mathematical results, together wit
 \bibliography{FHM.bib}
 \bibliographystyle{plainnat}
 
+
+The representation in \eqref{eq:truepar} may appear as a modeling choice. The following result shows that, under natural invariance and rank-based assumptions, this construction is in fact essentially unavoidable.
+
+\begin{theorem}[Characterization of Full House Modeling]
+\label{thm:FHM-characterization}
+Consider a class of models generating paired variables $(X_{i,j}, Y_{i,j})$ under the following conditions:
+
+\begin{enumerate}
+\item \textbf{Latent exchangeability.} For each population $i$, the latent variables $X_{i,1}, \dots, X_{i,N_i}$ are i.i.d.\ draws from a continuous distribution $F_X$.
+
+\item \textbf{Rank-based selection.} Inclusion in the observed system is determined by a measurable function of latent ranks:
+\[
+1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 1 \;\;\Longleftrightarrow\;\; r_{i,j} \in \mathcal{R}_i,
+\]
+for some subset $\mathcal{R}_i \subset \{1,\dots,N_i\}$.
+
+\item \textbf{Rank preservation.} For individuals included in the system, observed outcomes are strictly increasing functions of latent aptitude:
+\[
+X_{i,(r)} > X_{i,(s)} \;\;\Longrightarrow\;\; Y_{i,(r)} > Y_{i,(s)}.
+\]
+
+\item \textbf{Distributional invariance.} The joint model is invariant under strictly increasing transformations of latent aptitude, i.e., for any strictly increasing function $h$,
+\[
+\{X_{i,j}, Y_{i,j}\} \;\stackrel{d}{=}\; \{h(X_{i,j}), Y_{i,j}\}.
+\]
+\end{enumerate}
+
+Then, for each population $i$ and each observed rank $j$, there exists a representation
+\[
+Y_{i,(j)} = F_{Y_{i,(j)}}^{-1} \circ F_{X_{i,(r_{i,j})}}\!\left(X_{i,(r_{i,j})}\right),
+\]
+that is, the observed outcomes arise from a quantile-matching (rank-preserving) transformation of latent aptitude.
+
+Moreover, any model satisfying (1)--(4) is equivalent, in distribution of $(X,Y)$ pairs among selected individuals, to a Full House Model as defined in Definition~\ref{def:fhm}.
+\end{theorem}
+
+
+\begin{proof}[Proof sketch]
+The argument proceeds in three steps.
+
+\textbf{Step 1: Reduction to ranks.}
+By exchangeability and continuity of $F_X$, the latent sample induces a uniform distribution over ranks. Thus, conditional on selection, all relevant information about $X_{i,(r)}$ is captured by its rank $r$.
+
+\textbf{Step 2: Monotone representation.}
+Rank preservation implies that, for selected individuals, $Y_{i,(j)}$ is a strictly increasing function of $X_{i,(r_{i,j})}$. Hence there exists a measurable, strictly increasing function $\psi_i$ such that
+\[
+Y_{i,(j)} = \psi_i\!\left(X_{i,(r_{i,j})}\right).
+\]
+
+\textbf{Step 3: Invariance implies quantile coupling.}
+Distributional invariance under strictly increasing transformations of $X$ implies that $\psi_i$ cannot depend on the scale of $X$, but only on its relative position within the population. Therefore $\psi_i$ must act through the cumulative distribution function:
+\[
+\psi_i(x) = \tilde{\psi}_i(F_{X_{i,(r_{i,j})}}(x)).
+\]
+Matching marginal distributions of $Y_{i,(j)}$ then uniquely determines $\tilde{\psi}_i$ as the inverse CDF of $Y_{i,(j)}$, yielding
+\[
+Y_{i,(j)} = F_{Y_{i,(j)}}^{-1}\!\left(F_{X_{i,(r_{i,j})}}(X_{i,(r_{i,j})})\right).
+\]
+
+\textbf{Step 4: Equivalence.}
+This representation coincides with the Full House Model construction in Definition~\ref{def:fhm}. Since all models satisfying (1)--(4) admit this representation, they are equivalent in distribution over observed $(X,Y)$ pairs.
+\end{proof}
 
 \end{document}
 
