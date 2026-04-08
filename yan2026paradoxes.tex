@@ -106,17 +106,13 @@ In this article, we derive explicit expressions for the paradox probability unde
 \label{sec:modelsetting}
 
 
-We now motivate the structure of the Full House Model.  Let $N_i$ denote the size of population $i$. We distinguish between a \emph{population}, consisting of all individuals $N_i$ in context $i$, and a \emph{system}, which denotes the subset of individuals whose outcomes are observed or recorded. The system is determined by a selection mechanism that maps the full population into an observed sample of size $n_i$. We suppose that every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude $X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We formalize the selection mechanism through an indicator function $1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$, where a value of 1 indicates inclusion in the observed system and a value of 0 indicates exclusion. This function may depend on the individual's aptitude relative to others in the population.
+We now motivate the structure of the Full House Model.  Let $N_i$ denote the size of population $i$. We distinguish between a \emph{population}, consisting of all individuals $N_i$ in context $i$, and a \emph{system}, which denotes the subset of individuals whose outcomes are observed or recorded. The system is determined by a selection mechanism that maps the full population into an observed sample of size $n_i$. We suppose that every individual $k = 1,\ldots, N_i$ has an underlying latent $\R$-valued aptitude $X_{i,1}, \ldots, X_{i,N_i} \overset{iid}{\sim} F_{X}$. Let $\textbf{X}_{i,-j}$ be the vector of all latent aptitudes not including the component $j$. We formalize the selection mechanism through an indicator function $S_{i,j} = 1_{i}\left(X_{i,j},\textbf{X}_{i,-j}\right)$, where $S_{i,j} = 1$ indicates inclusion in the observed system and a value of $S_{i,j} = 0$ indicates exclusion. This function may depend on the individual's aptitude relative to others in the population.
 
 We now suppose that an individual $j$ included in system $i$ has an observed $\R$-valued statistic $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, with $n_i \leq N_i$. Under Full House Modeling, the observed values $Y_{i,j}$ are assumed to preserve the ranking induced by the latent aptitudes among the selected individuals.
 
 Let $X_{i,(j)}$ and $Y_{i,(j)}$ denote the $j$th order statistic for system $i$. Here, larger values correspond to higher aptitude or achievement, so that $X_{i,(j)} > X_{i,(k)}$ whenever $j>k$. We form $(Y,X)$ pairs of random variables for each individual included in the system. These pairs are of the form $(Y_{i,(j)}, X_{i,(r_{i,j})})$, where $r_{i,j}$ indexes the rank of that individual's latent aptitude within the full population of size $N_i$.
 
-As an example, consider the selection rule
-$
-  1_{i}\left(X_{i,j}, \textbf{X}_{i,-j}\right) = 1(X_{i,j} \geq X_{i,(N_i-n_i+1)}),
-$
-which selects the top $n_i$ individuals in population $i$. In this case, the pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
+As an example, consider the selection rule $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \ge X_{i,(N_i-n_i+1)}$, which selects the top $n_i$ individuals in population $i$. In this case, the pairs take the form $(Y_{i,(j)}, X_{i,(N_i - n_i + j)})$ for $j = 1,\ldots,n_i$.
 
 The key feature of Full House Modeling is the explicit connection between the elements forming the $(Y_{i,(j)}, X_{i,(r_{i,j})})$ pairs. This construction can be understood as a rank-preserving transformation between latent aptitude and observed achievement. Based on the probability integral transformation, Full House Modeling specifies this connection as
 \begin{equation} \label{eq:truepar}
@@ -125,20 +121,24 @@ The key feature of Full House Modeling is the explicit connection between the el
   X_{i, (r_{i,j})} &= F_{X_{i, (r_{i,j})}}^{-1} \circ F_{Y_{i,(j)}} \left(Y_{i,(j)} \right),
 \end{split}
 \end{equation}
-where $1_i(X_{i, (r_{i,j})}, \textbf{X}_{i, -(r_{i,j})}) = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarize Full House Modeling in the following definition.
+where $S_{i,j} = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarize Full House Modeling in the following definition.
 
 \begin{defn} [Full House Model]
 \label{def:fhm}
-	Consider populations with sizes $N_i$ and system sizes $n_i$, $N_i \geq n_i$. Let a system inclusion function $1_i(\cdot,\cdot)$ be specified. Let $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots, n_i$. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, for the individuals included in the system, that is, those for which $1_i(\cdot,\cdot)=1$. Then the Full House Model generates $Y_{i,(j)}$ values following \eqref{eq:truepar} where $F_{Y_i}$ and $F_X$ are continuous and invertible.
+Consider populations indexed by $i$ with sizes $N_i$ and system sizes $n_i$, where $N_i \geq n_i$. Let latent variables $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$, and define the selection indicators
+$$
+  S_{i,j} := 1_i(X_{i,j}, \mathbf{X}_{i,-j}),
+$$
+where $S_{i,j}=1$ indicates inclusion in the observed system. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, denote observed outcomes for the selected individuals. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, corresponding to the individuals for which $S_{i,j}=1$. Then the Full House Model generates $Y_{i,(j)}$ values according to \eqref{eq:truepar}, where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
-The Full House Model defines a joint distribution over $(X,Y)$ together with a selection mechanism $1_i(\cdot,\cdot)$ as follows. Latent variables $X$ are drawn i.i.d.\ from $F_X$, and the selection mechanism $1_i(X_{i,j}, \mathbf{X}_{i,-j})$ determines inclusion in the observed system. Conditional on inclusion, observed outcomes $Y$ are generated via a rank-preserving monotone coupling with $X$. In particular, the dependence between $X$ and $Y$ is induced through a quantile-matching transformation of their order statistics, ensuring that higher latent aptitude corresponds to higher observed achievement within each system. The stochasticity in the Full House Model arises entirely from the latent population $X$, while both selection and observed outcomes are deterministic functionals of $X$.
+The Full House Model defines a joint distribution over $(X,Y)$ together with selection indicators $S_{i,j}$. Latent variables $X$ are drawn i.i.d.\ from $F_X$, and the selection indicators $S_{i,j}$ determine inclusion in the observed system. Conditional on inclusion, observed outcomes $Y$ are generated via a rank-preserving monotone coupling with $X$. In particular, the dependence between $X$ and $Y$ is induced through a quantile-matching transformation of their order statistics, ensuring that higher latent aptitude corresponds to higher observed achievement within each system. The stochasticity in the Full House Model arises entirely from the latent population $X$, while both selection and observed outcomes are deterministic functionals of $X$.
 
-The Full House Model induces structural missingness by construction: for any individual $j$ such that $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, when $1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 0$, we treat $Y_{i,j}$ as not defined within the observable probability space. For example,
+The Full House Model induces structural missingness by construction: for any individual $j$ such that $S_{i,j} = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, we treat $Y_{i,j}$ as a random variable defined only on the event $\{S_{i,j}=1\}$. For example,
 $$
-  \mathbb P\big(X_{i,j}\in A,\; Y_{i,j}\in B,\; 1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 1\big)
+  \mathbb P\big(X_{i,j}\in A,\; Y_{i,j}\in B,\; S_{i,j} = 1\big)
 $$
-is well-defined for Borel sets \(A,B\subset \mathbb R\), whereas no value is assigned to $Y_{i,j}$ on $\{1_i(X_{i,j}, \mathbf{X}_{i,-j})=0\}$. This perspective allows selection mechanisms to be incorporated into probabilistic statements without imputing counterfactual outcomes.
+is well-defined for Borel sets \(A,B\subset \mathbb R\), whereas $Y_{i,j}$ is not defined on $\{S_{i,j} = 0\}$. This perspective allows selection mechanisms to be incorporated into probabilistic statements without imputing counterfactual outcomes.
 
 Definition~\ref{def:fhm} assumes a common latent aptitude distribution $F_X$ across contexts, while allowing the observed achievement distributions $F_{Y_i}$ to vary by system. This reflects a modeling choice in which the process generating latent aptitude is taken to be context-neutral, whereas the expression and measurement of aptitude may differ across contexts.
 
@@ -170,51 +170,19 @@ F_X^{-1}(W_{i_1,j_1}) \ge F_X^{-1}(W_{i_2,j_2}).
 $$
 Thus the ordering of latent aptitudes is invariant to $F_X$, and $F_X$ acts as a structural nuisance parameter for comparative analysis. In practice, Full House Modeling can therefore be implemented via observed-to-rank mappings without requiring explicit specification of the latent distribution.
 
-
-
-
 The representation in \eqref{eq:truepar} may appear as a modeling choice. The following result shows that, under natural invariance and rank-based assumptions, this construction is in fact essentially unavoidable.
-
-
 
 \begin{theorem}[Characterization of Full House Coupling]
 \label{thm:FHM-characterization-clean}
-Fix a population $i$ and suppose the following conditions hold:
+Fix a population $i$. Let $X_{i,1},\dots,X_{i,N_i}$ be i.i.d.\ from a continuous distribution $F_X$. Suppose there exists a set $\mathcal{R}_i \subset \{1,\dots,N_i\}$ such that $S_{i,j} = 1 \;\Longleftrightarrow\; r_{i,j} \in \mathcal{R}_i$, where $r_{i,j}$ is the rank of $X_{i,j}$ among $(X_{i,1},\dots,X_{i,N_i})$. 
 
-\begin{enumerate}
-\item \textbf{Latent exchangeability.}
-The latent variables $X_{i,1}, \dots, X_{i,N_i}$ are i.i.d.\ draws from a continuous distribution $F_X$ on $\mathbb{R}$.
-
-\item \textbf{Rank-based selection.}
-There exists a set $\mathcal{R}_i \subset \{1,\dots,N_i\}$ such that
-\[
-1_i(X_{i,j}, \mathbf{X}_{i,-j}) = 1 
-\;\Longleftrightarrow\; 
-r_{i,j} \in \mathcal{R}_i,
-\]
-where $r_{i,j}$ denotes the rank of $X_{i,j}$ among $(X_{i,1},\dots,X_{i,N_i})$.
-
-\item \textbf{Deterministic rank-preserving coupling.}
-For each observed rank $j$, there exists a measurable strictly increasing function 
-$\psi_{i,j}:\mathbb{R}\to\mathbb{R}$ such that
-\[
-Y_{i,(j)} = \psi_{i,j}\!\big(X_{i,(r_{i,j})}\big)
+For each observed rank $j$, suppose there exists a measurable strictly increasing function $\psi_{i,j}:\mathbb{R}\to\mathbb{R}$ such that $Y_{i,(j)} = \psi_{i,j}\!\big(X_{i,(r_{i,j})}\big)$ a.s., and assume $F_{Y_{i,(j)}}$ is continuous. Then, for each observed rank $j$,
+$$
+Y_{i,(j)} = F_{Y_{i,(j)}}^{-1} \circ F_{X_{i,(r_{i,j})}}\!\left(X_{i,(r_{i,j})}\right)
 \quad \text{a.s.}
-\]
-\end{enumerate}
-
-Assume additionally that each $F_{Y_{i,(j)}}$ is continuous. Then, for each observed rank $j$, the coupling is uniquely determined (up to null sets) by the marginal distributions and satisfies
-\[
-Y_{i,(j)} 
-= F_{Y_{i,(j)}}^{-1} \circ F_{X_{i,(r_{i,j})}}
-\!\left(X_{i,(r_{i,j})}\right)
-\quad \text{a.s.}
-\]
-
-Moreover, this is the unique (a.s.) strictly increasing function $\psi_{i,j}$ mapping $X_{i,(r_{i,j})}$ to $Y_{i,(j)}$. Consequently, the joint distribution of the observed $(X,Y)$ pairs coincides with that generated by the Full House Model in Definition~\ref{def:fhm}.
+$$
+Moreover, this representation is unique up to null sets and coincides with that induced by the Full House Model in Definition~\ref{def:fhm}.
 \end{theorem}
-
-
 
 
 \section{Paradoxes Under Identical Achievement Distributions}
@@ -229,10 +197,8 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations d
 \end{equation}	
 \end{defn}
 
-As a simple illustration, consider the case in which the observed individuals in population $i$ are exactly those with the top $n_i$ latent aptitude values, so that $r_{i,t}=N_i-n_i+t$, for $t=1,\dots,n_i$. In particular, if we take $j=n_1$ and $k=n_2$, then $Y_{1,(n_1)}$ and $Y_{2,(n_2)}$ are the largest observed achievements in the two populations, and their corresponding latent aptitudes are
-$$
-X_{1,(r_{1,n_1})}=X_{1,(N_1)}, \qquad X_{2,(r_{2,n_2})}=X_{2,(N_2)}.
-$$
+As a simple illustration, consider the case in which the observed individuals in population $i$ are exactly those with the top $n_i$ latent aptitude values, so that $r_{i,t}=N_i-n_i+t$, for $t=1,\dots,n_i$. In particular, if we take $j=n_1$ and $k=n_2$, then $Y_{1,(n_1)}$ and $Y_{2,(n_2)}$ are the largest observed achievements in the two populations, and their corresponding latent aptitudes are $X_{1,(r_{1,n_1})}=X_{1,(N_1)}$ and $X_{2,(r_{2,n_2})}=X_{2,(N_2)}$.
+
 If, moreover, $Y_{1,(n_1)}<Y_{2,(n_2)}$ a.s., then the achievement inequality in \eqref{eq:simpleparadox} holds automatically, so the aptitude--achievement paradox event reduces to $\{X_{1,(N_1)} > X_{2,(N_2)}\}$. Hence in this case,
 $$
 \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})},\, Y_{1,(j)} < Y_{2,(k)}\right)
@@ -320,7 +286,7 @@ so the dependence on $F_Y$ cancels.
 A natural case of interest is the comparison of individuals with extreme latent aptitudes across populations. The following corollary provides a closed-form expression for the paradox probability in this setting under a Full House Model with $F_{Y_i} = F_Y$ for $i=1,2$.
 
 \begin{corollary} \label{corollary:samedisttop}
-Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and that the system inclusion function satisfies $1_i(X_{i,(N_i)}, \mathbf{X}_{i,-(N_i)}) = 1, i=1,2$, that is, the highest-aptitude individual in each population is included in the observed system. Then,
+Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and that the selection indicators satisfy $S_{i,(N_i)} = 1$ for $i=1,2$, that is, the highest-aptitude individual in each population is included in the observed system. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
   = \begin{cases}
@@ -333,7 +299,7 @@ Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and th
 Intuitively, this is the difference between two `lottery' probabilities: the probability that individual 2 wins the observed achievement comparison (first term) minus the probability that individual 2 wins the latent aptitude comparison (second term). The paradox probability is positive precisely when the sampling ratio favors individual 2 more than the population ratio does. An analogous result holds for comparisons of individuals with the lowest latent aptitudes:
 
 \begin{corollary} \label{corollary:samedistbottom}
-Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and that the system inclusion function satisfies $1_i(X_{i,(1)}, \mathbf{X}_{i,-(1)}) = 1, i=1,2$, that is, the lowest-aptitude individual in each population is included in the observed system. Then,
+Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and that the selection indicators satisfy $S_{i,(1)} = 1$ for $i=1,2$, that is, the lowest-aptitude individual in each population is included in the observed system. Then,
 \begin{align*}
 	&\Prob\left(X_{1,(1)} > X_{2,(1)}, Y_{1,(1)} < Y_{2,(1)}\right) 
   = \begin{cases}
@@ -346,7 +312,7 @@ Suppose that the conditions of Theorem~\ref{theorem:samedistgeneral} hold and th
 We now demonstrate a setting in which technical condition \eqref{eq:technical-condition} holds. This setting is based on a configuration of $(n_i, N_i)$ for $i=1,2$ under the assumption that the systems are populated with individuals from the source populations who have the highest aptitudes.
 
 \begin{prop} \label{prop:condition}
-Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and let the system inclusion function be $1_i(X_{i,j} \geq X_{i,(N_i - n_i + 1)})$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and suppose that the selection indicators satisfy $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \ge X_{i,(N_i - n_i + 1)}$ for $i=1,2$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
 The conditions in Proposition~\ref{prop:condition} suggest that the technical condition is driven by the relative comparison of sampling and population ratios. In particular, the requirement $\frac{n_1}{n_2} \le 1$ and $\frac{N_2}{N_1} \le 1$ indicates that sampling distortion dominates population distortion in a coordinatewise sense. We conjecture that this condition can be relaxed to the single inequality $\frac{n_1}{n_2}\cdot\frac{N_2}{N_1} \le 1$. Establishing this generalization would provide a sharper characterization of when the technical condition \eqref{eq:technical-condition} holds. A proof of this result remains an open problem.
@@ -378,7 +344,7 @@ The condition $F_{Y_2}(y)\le F_{Y_1}(y)$, for all $y$ is exactly the usual first
 Under first-order $\varepsilon$-weak stochastic dominance, we derive a general lower and upper bound on the aptitude-achievement paradox probability when $F_{Y_1}\neq F_{Y_2}$.
 
 \begin{prop} \label{prop:weakstodom}
-Consider the Full House Model in Definition~\ref{def:fhm} with two populations $i=1,2$. Suppose that the system inclusion mechanism has the property that $1_{i}\left(X_{i,(N_i)},\textbf{X}_{i,-(N_i)}\right) = 1$. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. Then,
+Consider the Full House Model in Definition~\ref{def:fhm} with two populations $i=1,2$. Suppose that the selection indicators satisfy $S_{i,(N_i)} = 1$. Further suppose that $Y_2$ is first order $\varepsilon$-weakly stochastically dominant over $Y_1$ for some $\varepsilon > 0$ and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$. Then,
 \begin{equation} \label{eq:paradox2}
 \begin{split}
   &\frac{n_2}{n_1 + n_2} - \frac{N_2}{N_1 + N_2} \leq \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -393,7 +359,7 @@ Proposition~\ref{prop:weakstodom} provides bounds on the paradox probability und
 
 \subsection{Normal distributions}
 \label{subsec:normal}
-This section develops explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} specifies $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We focus on systems where $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. The outline is similar to Section~\ref{sec:samedist}: a technical condition is needed to prove the main result, and further results provide configurations satisfying this condition. However, with $Y_i \sim N(\mu_i,\sigma_i^2)$, the technical condition yields a remainder term that prevents an exact closed-form expression. We show that this remainder is negligible under mild conditions on population fractions and distributional parameters.
+This section develops explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} specifies $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We focus on systems where $S_{i,(N_i)} = 1$ for $i = 1,2$. The outline is similar to Section~\ref{sec:samedist}: a technical condition is needed to prove the main result, and further results provide configurations satisfying this condition. However, with $Y_i \sim N(\mu_i,\sigma_i^2)$, the technical condition yields a remainder term that prevents an exact closed-form expression. We show that this remainder is negligible under mild conditions on population fractions and distributional parameters.
 
 Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
 $$
@@ -489,7 +455,7 @@ With this structure we now provide an explicit aptitude-achievement paradox prob
 
 \begin{theorem} 
 \label{theorem:normalgeneral}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the selection indicators satisfy $S_{i,(N_i)} = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then,  
 \begin{equation} \label{eq:paradoxnormal}
 \begin{split}
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
@@ -505,83 +471,17 @@ Moreover, when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$,
 \end{theorem}
 
 We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. 
-%Our approach requires standard properties of equicorrelated covariance matrices. 
-%For matrices of the form $\Sigma = \rho \mathbf{1}\mathbf{1}^T + I_n$ (where 
-%$\mathbf{1}$ is the vector of ones), we have $\det(\Sigma) = \rho n + 1$ and the 
-%inverse follows from the Woodbury identity \citep{golub2013matrix}. The explicit 
-%form of $\Sigma^{-1}$ is given in the proof of Theorem~\ref{theorem:asymptotic} 
-%(Supplementary Materials).Before we state our result, we introduce the Proposition \ref{Prop:upper}
-
-%\begin{prop} \label{Prop:upper}
-%	Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume that as $n_1, n_2 \to \infty$. If the relative growth rate of the dimensions satisfies the condition:$$\lim_{n_1, n_2 \to \infty} \frac{\ln n_2}{\ln n_1} > \left( \frac{\sigma_1}{\sigma_2} \right)^2,$$ then 
-%	
-%	 
-%$$
-%F_{\mathbf{W}}(\mathbf{w}) \approx \Phi(-\sqrt{2 \ln (n_2-1)}) \sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}} = \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \left( \frac{1}{n_2-1} + o(\frac{1}{n_2}) \right)
-%$$
-%where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$ as defined above. $\Phi(z)$ denotes the cumulative distribution function of a standard normal distribution and $Z_0$ follows standard normal distribution. 
-%\end{prop}
-
-%\begin{lemma} \label{lemma:wmax}
-%Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\boldsymbol{0}, \boldsymbol{\Sigma})$ be a multivariate normal random vector with mean vector $\boldsymbol{0}$ and covariance matrix $\boldsymbol{\Sigma}$ as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Then 
-%
-%\[
-%\mathbf F_{\mathbf W}(\mathbf w)
-%\le \min\Big\{
-%\mathbb E[\Phi(-\frac{\sigma_2}{\sigma_1}Z_0+\frac{\mu_2-\mu_1}{\sigma_1})^{n_1}],
-%\mathbb E[\Phi(-Z_0)^{n_2-1}]
-%\Big\},
-%\]
-%
-%%Define $c := c_{n_1+n_2-1}$ as the maximal conditional one-dimensional Gaussian probability arising in the sequential factorization of the joint CDF, that is,
-%%\begin{equation} \label{eq:wn}
-%%\begin{split}
-%%  c = \max \bigg\{&
-%%  \Prob\!\left(W_{n_1+n_2-1} \le w_{n_1+n_2-1}\,\middle|\, W_1=w_1,\dots,W_{n_1+n_2-2}=w_{n_1+n_2-2}\right),\\
-%%  %&\Prob\!\left(W_{n_1+n_2-2} \le w_{n_1+n_2-2}
-%%	%	\,\middle|\,
-%%	%	W_1=w_1,\dots,W_{n_1+n_2-3}=w_{n_1+n_2-3}\right),\\
-%%  &\dots,\, \Prob(W_2 \le w_2 \mid W_1=w_1),\, \Prob(W_1 \le w_1)
-%%\bigg\}.
-%%\end{split}
-%%\end{equation}
-%%Then $c \in (0,1)$ for all $n_1$, $n_2$, and $\mathbf{F}_{\mathbf{W}}(\mathbf{w})
-%% \leq c^{n_1+n_2-1}$, 
-%where $\mathbf{F}_{\mathbf{W}}(\mathbf{w})$ denotes the cumulative distribution function of a mean-zero multivariate normal random vector with covariance matrix $\boldsymbol{\Sigma}$, evaluated at $\mathbf{w} \in \mathbb{R}^{n_1+n_2-1}$ as defined above. $\Phi(z)$ denotes the cumulative distribution function of a standard normal distribution and $Z_0$ follows standard normal distribution.
-%\end{lemma}
 
 \begin{theorem}
 \label{theorem:asymptotic}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the system inclusion mechanism has the property that $1_i(X_{i,(N_i)}, \textbf{X}_{i,-(N_i)}) = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume the parameters $n_1$, $n_2$, $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ satisfy the assumptions in Theorem \ref{theorem:normalgeneral}, and as $n_1,n_2 \to \infty$, the relative growth rates of the dimensions satisfy
+Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the selection indicators satisfy $S_{i,(N_i)} = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume the parameters $n_1$, $n_2$, $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ satisfy the assumptions in Theorem \ref{theorem:normalgeneral}, and as $n_1,n_2 \to \infty$, the relative growth rates of the dimensions satisfy
 $$
 \lim_{n_1,n_2 \to \infty} \frac{\ln n_2}{\ln n_1}
 >
 \left(\frac{\sigma_1}{\sigma_2}\right)^2.
 $$
 
-In addition, the $\mu_3$, $\mu_4$, $\sigma_3$, and $\sigma_4$ satisfy the same assumptions as $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ above, 
-
-%
-%In addition, assume that
-%$$
-%\frac{n_1}{N_1} \le \frac{n_2}{N_2}, \quad \sigma_1 \le \sigma_2, \quad \mu_1 \le \mu_2.
-%$$
-%Furthermore, suppose that the estimators $\hat{\mu}_1, \hat{\mu}_2, \hat{\sigma}_1, \hat{\sigma}_2$ of $\mu_1, \mu_2, \sigma_1, \sigma_2$ also preserve these inequalities, 
-%$$
-%\hat{\sigma}_1 \le \hat{\sigma}_2,
-%\quad
-%\hat{\mu}_1 \le \hat{\mu}_2,
-%\quad
-%\lim_{n_1,n_2 \to \infty} \frac{\ln n_2}{\ln n_1}
-%>
-%\left(\frac{\hat{\sigma_1}}{\hat{\sigma_2}}\right)^2.
-%$$
-%
-
-
-%Suppose that $\hat{\mu}_1$, $\hat{\mu}_2$, $\hat{\sigma}_1$, and $\hat{\sigma}_2$ are, respectively, root sample-size consistent estimators of $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$. Then, %with $c$ defined as in the Lemma \ref{lemma:wmax}, 
-%xwith the assumption in the Proposition \ref{Prop:upper}
-then we have
+In addition, the $\mu_3$, $\mu_4$, $\sigma_3$, and $\sigma_4$ satisfy the same assumptions as $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ above, then we have
 	\begin{align*}
 		\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_3, \mu_4, \sigma_3, \sigma_4 \right) \\
 		\qquad- 
@@ -592,6 +492,8 @@ as $n_1, n_2 \to \infty. $
 \end{theorem}
 
 %This choice of parameter should cover the sample-size consistent estimator. 
+
+
 
 \section{Examples}
 
@@ -714,7 +616,7 @@ By elevating aptitude-achievement paradoxes from an anecdotal concern to a model
 
 \section*{Acknowledgements}
 
-We are grateful to ... and many others for helpful comments, great discussions, and inspiration. We acknowledge the use of ChatGPT-5.2 and Claude 4.5 to aid with proofreading and writing clarity. 
+We are grateful to G\"ok\c{c}e Dayan\i kl\i, Karl Oskar Ekvall, Eren C K\i z\i lda\u{g}, Jingbo Liu, Susu Zhang and many others for helpful comments, great discussions, and inspiration. We acknowledge the use of ChatGPT and Claude to aid with proofreading and writing clarity. 
 
 
 \section*{Supplementary Materials}
