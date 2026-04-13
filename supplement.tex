@@ -376,6 +376,18 @@ The bound on the remainder \eqref{eq:remainder-bound} follows from the argument 
 \end{proof}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 %%%% Proof of Theorem 4.4
 \subsection{Proof of Theorem \ref{theorem:asymptotic}}
 \label{sec:proofplugin}
@@ -551,6 +563,224 @@ $n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Si
 
 
 
+
+
+\begin{theorem}[Asymptotic stability under plug-in estimation]
+\label{theorem:asymptotic-clean}
+Assume a Full House Model as in Definition~\ref{def:fhm} and suppose that $Y_i \sim N(\mu_i,\sigma_i^2)$, $i=1,2$. Assume that the selection indicators satisfy $S_{i,(N_i)} = 1$ for $i=1,2$. Let the paradox probability be given by Theorem~\ref{theorem:normalgeneral}.
+
+Let $\hat{\mu}_i$ and $\hat{\sigma}_i$ be estimators satisfying
+\[
+\hat{\mu}_i - \mu_i = O_P(n_i^{-1/2}), 
+\qquad
+\hat{\sigma}_i - \sigma_i = O_P(n_i^{-1/2}),
+\quad i=1,2.
+\]
+
+Suppose that $n_1,n_2 \to \infty$ with
+\[
+\frac{\ln n_2}{\ln n_1} > \left(\frac{\sigma_1}{\sigma_2}\right)^2,
+\]
+and that $\frac{n_1}{N_1} \le \frac{n_2}{N_2}$, $\sigma_1 \le \sigma_2$, and $\mu_1 \le \mu_2$.
+
+Then the plug-in estimator of the paradox probability is consistent, i.e.
+\[
+P(\hat{\theta}) - P(\theta) \xrightarrow{P} 0,
+\]
+where $\theta = (\mu_1,\mu_2,\sigma_1,\sigma_2)$.
+\end{theorem}
+
+\subsection{Proof of Theorem~\ref{theorem:asymptotic-clean}}
+
+\begin{proof}
+By Theorem~\ref{theorem:normalgeneral}, the paradox probability admits the decomposition
+\[
+P(\theta)
+=
+n_2 F_{\mathbf W}(\mathbf w(\theta)) - \frac{N_2}{N_1+N_2} + R(\theta),
+\]
+where $R(\theta)$ is the remainder term defined in \eqref{eq:remainder}. Let $\hat{\theta}$ denote the plug-in estimators. Then
+\[
+P(\hat{\theta}) - P(\theta)
+=
+n_2\Big(F_{\mathbf W}(\mathbf w(\hat{\theta})) - F_{\mathbf W}(\mathbf w(\theta))\Big)
++ \big(R(\hat{\theta}) - R(\theta)\big).
+\]
+We analyze the two terms separately.
+
+\medskip
+
+\noindent\textbf{Step 1: Control of the remainder term.}
+
+From \eqref{eq:remainder-bound}, under the stated assumptions,
+\[
+|R(\theta)| \le \left(\frac{1}{2}\right)^{n_2}.
+\]
+Since this bound depends only on $(n_1,n_2)$, it also holds for $R(\hat{\theta})$ for sufficiently large samples. Therefore,
+\[
+|R(\hat{\theta}) - R(\theta)|
+\le 2\left(\frac{1}{2}\right)^{n_2}
+\;\longrightarrow\; 0.
+\]
+
+\medskip
+
+\noindent\textbf{Step 2: Reduction to a Gaussian tail event.}
+
+From the representation of $F_{\mathbf W}$ established in the proof of Theorem~\ref{theorem:normalgeneral}, we may write
+\[
+F_{\mathbf W}(\mathbf w(\theta))
+=
+\Prob\!\left(
+M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;
+M_{n_2-1} \le -Z_0
+\right),
+\]
+where $Z_0, Z_1, \ldots$ are independent standard normal random variables, and
+\[
+M_{n_1} = \max_{1 \le j \le n_1} Z_j, 
+\qquad
+M_{n_2-1} = \max_{1 \le j \le n_2-1} Z_{n_1+j}.
+\]
+
+Let $a_n = \sqrt{2\ln n}$. It is well known that for any fixed $C>0$,
+\[
+\Prob\big(|M_n - a_n| > C\big) \to 0.
+\]
+Hence,
+\[
+M_{n_1} = a_{n_1} + O_P(1), 
+\qquad
+M_{n_2-1} = a_{n_2} + O_P(1).
+\]
+
+Define
+\begin{align*}
+A_n 
+&:= \left\{
+M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;
+M_{n_2-1} \le -Z_0
+\right\},\\
+B_n 
+&:= \left\{
+a_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0 + C,\;
+a_{n_2} \le -Z_0 + C
+\right\}.
+\end{align*}
+
+By concentration of maxima,
+\[
+\Prob(A_n \triangle B_n) \to 0,
+\]
+and therefore $\Prob(A_n) = \Prob(B_n) + o(1)$.
+
+The two constraints in $B_n$ can be written as
+\[
+Z_0 \le \frac{\frac{\mu_2 - \mu_1}{\sigma_1} - a_{n_1} + C}{\sigma_2/\sigma_1},
+\qquad
+Z_0 \le -a_{n_2} + C.
+\]
+
+Under the growth condition
+\[
+\frac{\ln n_2}{\ln n_1} > \left(\frac{\sigma_1}{\sigma_2}\right)^2,
+\]
+we have
+\[
+a_{n_1}\frac{\sigma_1}{\sigma_2} = o(a_{n_2}),
+\]
+so the first constraint is asymptotically weaker. Hence
+\[
+\Prob(B_n \triangle \{Z_0 \le -a_{n_2} + C\}) \to 0.
+\]
+
+It follows that
+\[
+F_{\mathbf W}(\mathbf w(\theta))
+=
+\Prob(Z_0 \le -\sqrt{2\ln n_2} + C) + o(1).
+\]
+
+Using standard Gaussian tail asymptotics, uniformly for fixed $C$,
+\[
+\Prob(Z_0 \le -x + C) = \Phi(-x)(1 + o(1)),
+\]
+we conclude that
+\[
+F_{\mathbf W}(\mathbf w(\theta))
+=
+\Phi(-\sqrt{2\ln n_2})(1 + o(1)).
+\]
+
+\medskip
+
+\noindent\textbf{Step 3: Stability under parameter perturbations.}
+
+The mapping $\theta \mapsto \mathbf w(\theta)$ is smooth, so
+\[
+\|\mathbf w(\hat{\theta}) - \mathbf w(\theta)\|
+=
+O_P(n_1^{-1/2} + n_2^{-1/2}).
+\]
+
+From Step 2, $F_{\mathbf W}(\mathbf w(\theta))$ is asymptotically equivalent to a one-dimensional Gaussian tail probability with threshold $x = \sqrt{2\ln n_2}$. Small perturbations of $\theta$ induce perturbations $\delta = O_P(n_1^{-1/2} + n_2^{-1/2})$ in this threshold.
+
+Since $n_i^{-1/2} = o(\sqrt{\ln n_2})$, we may apply the expansion
+\[
+\Phi(-x + \delta) - \Phi(-x)
+=
+\phi(x)\delta + o(\delta \phi(x)),
+\quad x \to \infty.
+\]
+
+Thus,
+\[
+F_{\mathbf W}(\mathbf w(\hat{\theta})) - F_{\mathbf W}(\mathbf w(\theta))
+=
+O_P\!\left(
+\phi(\sqrt{2\ln n_2}) (n_1^{-1/2} + n_2^{-1/2})
+\right).
+\]
+
+\medskip
+
+\noindent\textbf{Step 4: Tail evaluation.}
+
+Using
+\[
+\phi(\sqrt{2\ln n_2})
+=
+\frac{1}{\sqrt{2\pi}} e^{-\ln n_2}
+=
+O\!\left(\frac{1}{n_2}\right),
+\]
+we obtain
+\[
+F_{\mathbf W}(\mathbf w(\hat{\theta})) - F_{\mathbf W}(\mathbf w(\theta))
+=
+O_P\!\left(
+\frac{1}{n_2}(n_1^{-1/2} + n_2^{-1/2})
+\right).
+\]
+
+Multiplying by $n_2$,
+\[
+n_2\Big(F_{\mathbf W}(\mathbf w(\hat{\theta})) - F_{\mathbf W}(\mathbf w(\theta))\Big)
+=
+O_P(n_1^{-1/2} + n_2^{-1/2})
+\;\longrightarrow\; 0.
+\]
+
+\medskip
+
+\noindent\textbf{Step 5: Conclusion.}
+
+Combining Steps 1 and 4 yields
+\[
+P(\hat{\theta}) - P(\theta) \xrightarrow{P} 0,
+\]
+as claimed.
+\end{proof}
 
 
 
