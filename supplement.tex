@@ -625,87 +625,129 @@ Since this bound depends only on $(n_1,n_2)$, it also holds for $R(\hat{\theta})
 
 \medskip
 
-\noindent\textbf{Step 2: Reduction to a Gaussian tail event.}
 
-From the representation of $F_{\mathbf W}$ established in the proof of Theorem~\ref{theorem:normalgeneral}, we may write
+\noindent\textbf{Step 2: Asymptotic evaluation via conditioning.}
+
+From the representation established in the proof of Theorem~\ref{theorem:normalgeneral}, we have
 \[
 F_{\mathbf W}(\mathbf w(\theta))
 =
 \Prob\!\left(
-M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;
-M_{n_2-1} \le -Z_0
+M_{n_1} \le T_1(Z_0),\;
+M_{n_2-1} \le T_2(Z_0)
 \right),
 \]
-where $Z_0, Z_1, \ldots$ are independent standard normal random variables, and
+where
 \[
-M_{n_1} = \max_{1 \le j \le n_1} Z_j, 
+T_1(Z_0) = \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,
 \qquad
-M_{n_2-1} = \max_{1 \le j \le n_2-1} Z_{n_1+j}.
+T_2(Z_0) = -Z_0,
 \]
+and $Z_0, Z_1, Z_2, \dots$ are independent standard normal random variables.
 
-Let $a_n = \sqrt{2\ln n}$. It is well known that for any fixed $C>0$,
-\[
-\Prob\big(|M_n - a_n| > C\big) \to 0.
-\]
-Hence,
-\[
-M_{n_1} = a_{n_1} + O_P(1), 
-\qquad
-M_{n_2-1} = a_{n_2} + O_P(1).
-\]
-
-Define
-\begin{align*}
-A_n 
-&:= \left\{
-M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;
-M_{n_2-1} \le -Z_0
-\right\},\\
-B_n 
-&:= \left\{
-a_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0 + C,\;
-a_{n_2} \le -Z_0 + C
-\right\}.
-\end{align*}
-
-By concentration of maxima,
-\[
-\Prob(A_n \triangle B_n) \to 0,
-\]
-and therefore $\Prob(A_n) = \Prob(B_n) + o(1)$.
-
-The two constraints in $B_n$ can be written as
-\[
-Z_0 \le \frac{\frac{\mu_2 - \mu_1}{\sigma_1} - a_{n_1} + C}{\sigma_2/\sigma_1},
-\qquad
-Z_0 \le -a_{n_2} + C.
-\]
-
-Under the growth condition
-\[
-\frac{\ln n_2}{\ln n_1} > \left(\frac{\sigma_1}{\sigma_2}\right)^2,
-\]
-we have
-\[
-a_{n_1}\frac{\sigma_1}{\sigma_2} = o(a_{n_2}),
-\]
-so the first constraint is asymptotically weaker. Hence
-\[
-\Prob(B_n \triangle \{Z_0 \le -a_{n_2} + C\}) \to 0.
-\]
-
-It follows that
+Conditioning on $Z_0$ and using independence of the maxima, we obtain
 \[
 F_{\mathbf W}(\mathbf w(\theta))
 =
-\Prob(Z_0 \le -\sqrt{2\ln n_2} + C) + o(1).
+\mathbb{E}\Big[
+\Prob(M_{n_1} \le T_1(Z_0)) \cdot \Prob(M_{n_2-1} \le T_2(Z_0))
+\Big].
+\]
+Since $\Prob(M_n \le t) = \Phi(t)^n$, this becomes
+\[
+F_{\mathbf W}(\mathbf w(\theta))
+=
+\mathbb{E}\Big[
+\Phi(T_1(Z_0))^{n_1} \cdot \Phi(-Z_0)^{\,n_2-1}
+\Big].
 \]
 
-Using standard Gaussian tail asymptotics, uniformly for fixed $C$,
+\medskip
+
+We analyze this expectation asymptotically. Let $a_{n_2} := \sqrt{2\ln n_2}$. We decompose the expectation according to the value of $Z_0$.
+
+\medskip
+
+\noindent\emph{(i) Upper tail region: $Z_0 \ge -a_{n_2} + C$.}
+
+In this region, $\Phi(-Z_0) \le \Phi(a_{n_2} - C) < 1$, and standard Gaussian tail bounds imply that
 \[
-\Prob(Z_0 \le -x + C) = \Phi(-x)(1 + o(1)),
+\Phi(-Z_0)^{n_2-1} \le \exp(-c n_2^\delta)
 \]
-we conclude that
+for some constants $c,\delta > 0$. Hence the contribution of this region is negligible.
+
+\medskip
+
+\noindent\emph{(ii) Lower tail region: $Z_0 \le -a_{n_2} - C$.}
+
+In this region, $\Phi(-Z_0) \to 1$, so $\Phi(-Z_0)^{n_2-1} \to 1$, but
+\[
+\Prob(Z_0 \le -a_{n_2} - C) \le \Phi(-a_{n_2} - C)
+= O\!\left(\frac{1}{n_2} e^{-C a_{n_2}}\right),
+\]
+which is exponentially small. Thus this region also contributes negligibly.
+
+\medskip
+
+\noindent\emph{(iii) Transition region: $Z_0 = -a_{n_2} + O(1)$.}
+
+This region dominates the expectation. Write $Z_0 = -a_{n_2} + u$ with $u = O(1)$. Then
+\[
+\Phi(-Z_0)^{n_2-1}
+=
+\Phi(a_{n_2} - u)^{n_2-1}
+\to \exp(-e^{u}),
+\]
+by classical extreme-value asymptotics for Gaussian maxima.
+
+For the first factor, we have
+\[
+T_1(Z_0)
+=
+\frac{\mu_2 - \mu_1}{\sigma_1}
++ \frac{\sigma_2}{\sigma_1}(a_{n_2} - u),
+\]
+so that $T_1(Z_0) \to \infty$ uniformly in this region. Using Gaussian tail bounds,
+\[
+1 - \Phi(T_1(Z_0)) \le \exp\!\left(-\frac{T_1(Z_0)^2}{2}\right),
+\]
+and hence
+\[
+\Phi(T_1(Z_0))^{n_1}
+=
+1 - o(1),
+\]
+provided
+\[
+n_1 \exp\!\left(-\frac{T_1(Z_0)^2}{2}\right) \to 0.
+\]
+This holds under the condition
+\[
+\frac{\ln n_2}{\ln n_1} > \left(\frac{\sigma_1}{\sigma_2}\right)^2.
+\]
+
+\medskip
+
+Combining the three regions, we obtain
+\[
+F_{\mathbf W}(\mathbf w(\theta))
+=
+\mathbb{E}\big[\Phi(-Z_0)^{n_2-1}\big] + o(1).
+\]
+Then
+\[
+\mathbb{E}\big[\Phi(-Z_0)^{n_2-1}\big]
+=
+\mathbb{E}\big[\Prob(M_{n_2-1} \le -Z_0 \mid Z_0)\big]
+=
+\Prob(M_{n_2-1} \le -Z_0).
+\]
+
+and standard extreme-value theory yields
+\[
+M_{n_2-1} = \sqrt{2\ln n_2} + O_P(1).
+\]
+Therefore,
 \[
 F_{\mathbf W}(\mathbf w(\theta))
 =
