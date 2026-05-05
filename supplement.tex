@@ -353,7 +353,7 @@ where $Z_i \overset{iid}{\sim} N(0,1)$, $i=0,\ldots,n_1+n_2+1$. Define $M_{n_1} 
 \begin{equation} \label{eq:probmax}
 F_{\mathbf W}(\mathbf w) = \Prob\left(M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0 \;\;\text{and}\;\; M_{n_2-1} \le -Z_0\right).	
 \end{equation}
-From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, the first inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
+From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, after rearranging, the first inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
 $$
 \sqrt{2 \ln n_1} \lesssim \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0.
 $$
@@ -361,11 +361,7 @@ Rearranging yields the approximate constraint
 $$
 Z_0 \lesssim \frac{\frac{\mu_2 - \mu_1}{\sigma_1} - \sqrt{2 \ln n_1}}{\sigma_2/\sigma_1}.
 $$
-Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, the second inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
-$$
-  \sqrt{2 \ln (n_2-1)} \lesssim -Z_0.
-$$
-Rearranging yields the approximate constraint
+Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, after rearranging, the second inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
 $$
 Z_0 \lesssim -\sqrt{2 \ln (n_2-1)}.
 $$
