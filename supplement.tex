@@ -125,12 +125,11 @@ $$
 	= F_{Y_{(j)}}^{-1}\!\big(F_{X_{(r_j)}}(x)\big)
 $$
 for $F_{X_{(r_j)}}$-almost every $x$. Therefore,
-\begin{equation} \label{eq:FHM}
+$$
 Y_{(j)} = F_{Y_{(j)}}^{-1} \circ F_{X_{(r_j)}}(X_{(r_j)})
 	\quad \text{a.s.}	
-\end{equation}
-
-We now verify the uniqueness of \eqref{eq:FHM}. Let $U = F_{X_{(r_j)}}(X_{(r_j)}) \sim \mathrm{Unif}(0,1)$ by the probability integral transform, and define
+$$
+We now verify the uniqueness of the above. Let $U = F_{X_{(r_j)}}(X_{(r_j)}) \sim \mathrm{Unif}(0,1)$ by the probability integral transform, and define
 $$
   g(u) := \psi_j\!\big(F_{X_{(r_j)}}^{-1}(u)\big).
 $$
@@ -253,7 +252,7 @@ By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we hav
 	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
 	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
 	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. \\
+	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. 
 \end{align*}
 Based on the Definition \ref{def:stodom}, we have
 \begin{align*}
@@ -286,9 +285,9 @@ Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remai
   &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
 	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
-	&\qquad= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
-	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \\
-	&\qquad= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) + R.
+	&\qquad= \int_{A}\left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} \left[F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) - \int_{A^c} \left[F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty}\left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) + R.
 \end{align*}
 We continue with the left-hand side of the last equality,	
 \begin{align*}
@@ -329,10 +328,39 @@ The bound on the remainder \eqref{eq:remainder-bound} follows from the argument 
 
 
 %%%% Proof of Theorem 4.4
-\subsection{Proof of Theorem \ref{theorem:asymptotic}}
-\label{sec:proofplugin}
+\subsection{Proof of Theorem \ref{theorem:plugin}}
 \begin{proof}
-From the last equality in the proof of Theorem~\ref{theorem:normalgeneral} we can write
+From \eqref{eq:paradoxnormal} we have
+$$
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = n_2F_{\mathbf{W}}(\mathbf{w}) - \frac{N_2}{N_1 + N_2} + R,
+$$
+and we estimate the above with 
+$$
+  \widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = n_2\widehat F_{\mathbf{W}}(\mathbf{w}) - \frac{N_2}{N_1 + N_2} + \widehat R,
+$$
+where $\widehat F_{\mathbf{W}}(\mathbf{w})$ and $\widehat R$ are obtained by replacing $\mu_i,\sigma_i$ with estimators $\hat\mu_i,\hat\sigma_i$, $i=1,2$.
+
+By Theorem~\ref{theorem:normalgeneral}, $|R| \leq \left(\frac{1}{2}\right)^{n_2}$ under the conditions $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. These conditions are satisfied in our setting.
+%where 
+%$$
+%  R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
+%$$
+%and 
+%$$
+%A = \left\{ x \in \mathbb{R} : \Phi\!\left(\frac{x-\mu_2}
+%		{\sigma_2}\right)^{\frac{n_2}{N_2}} \le
+%	\Phi\!\left(\frac{x-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}
+%	\right\}.
+%$$
+%From Theorem~\ref{theorem:normalgeneral}, we can bound $R$ as
+%$$
+%  |R| \leq \left(\frac{1}{2}\right)^{n_2},
+%$$
+ %when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
+Let $E = \{\hat\sigma_1 > \hat\sigma_2\} \cup \{\hat\mu_1 > \hat\mu_2\}$. Then $|\widehat R| \leq \left(\frac{1}{2}\right)^{n_2}$ on $E^c$. Our convergence of probability conditions guarantee that $\Prob(E^c)\to 1$ as $n_1,n_2 \to\infty$.
+
+
+Now we show convergence of $\widehat F_{\mathbf W}(\mathbf w)$. From the last equality in the proof of Theorem~\ref{theorem:normalgeneral} we can write
 \begin{align*}
 	F_{\mathbf W}(\mathbf w) &= \Prob\!\left(
 \begin{array}{l}
@@ -350,122 +378,118 @@ Z_{n_1+1}\le - Z_0 ,\, \dots,\, Z_{n_1+n_2-1} \le -Z_0
 \right) \\
 \end{align*}
 where $Z_i \overset{iid}{\sim} N(0,1)$, $i=0,\ldots,n_1+n_2+1$. Define $M_{n_1} = \max\{Z_1, Z_2, \dots, Z_{n_1}\}$, $M_{n_2-1} = \max\{Z_{n_1+1}, Z_{n_1+2}, \dots, Z_{n_1+n_2-1}\}$, then we can write
-\begin{equation} \label{eq:probmax}
-F_{\mathbf W}(\mathbf w) = \Prob\left(M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0 \;\;\text{and}\;\; M_{n_2-1} \le -Z_0\right).	
-\end{equation}
-From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, after rearranging, the first inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
+$$ 
+F_{\mathbf W}(\mathbf w) = \Prob\left(M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;\; M_{n_2-1} \le -Z_0\right).	
 $$
-\sqrt{2 \ln n_1} \lesssim \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0.
+From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, after rearranging, the inequality $M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1}$ is approximately equivalent (up to $O_P(1)$ fluctuations) to
+$
+\sqrt{2 \ln n_1} \leq \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0.
+$
+Rearranging yields
 $$
-Rearranging yields the approximate constraint
+Z_0 \leq \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}.
 $$
-Z_0 \lesssim \frac{\frac{\mu_2 - \mu_1}{\sigma_1} - \sqrt{2 \ln n_1}}{\sigma_2/\sigma_1}.
-$$
-Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, after rearranging, the second inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
-$$
-Z_0 \lesssim -\sqrt{2 \ln (n_2-1)}.
-$$
+Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, after rearranging, the inequality $M_{n_2-1} \le -Z_0$ is approximately equivalent to
+$
+Z_0 \leq -\sqrt{2 \ln (n_2-1)}.
+$
 Then, as $n_1, n_2 \to \infty$, we have
-\begin{equation} \label{eq:cdf-tail}
-F_{\mathbf W}(\mathbf w) = \Prob\left(Z_0 \le \frac{\frac{\mu_2 - \mu_1}{\sigma_1} - \sqrt{2 \ln n_1}}{\frac{\sigma_2}{\sigma_1}}, Z_0 \le -\sqrt{2 \ln (n_2-1)}\right).	
-\end{equation}
-Under the condition 
 $$
-\frac{\ln n_2}{\ln n_1} > \left(\frac{\sigma_1}{\sigma_2}\right)^2,
-$$
-a direct rearrangement shows that
-$$
-\frac{\frac{\mu_2 - \mu_1}{\sigma_1} - \sqrt{2\ln n_1}}{\sigma_2/\sigma_1}
-\;\ge\;
--\sqrt{2\ln n_2}
-$$
-for all sufficiently large $n_1,n_2$. Thus, for all sufficiently large $n_1,n_2$,\eqref{eq:cdf-tail} can be written as 
-$$
-  \Prob \left(Z_0 \leq -\sqrt{2 \ln (n_2-1)}\right)(1 + o(1)).
-$$
-Using Mills' ratio for Gaussian tails, $\Phi(-x) \sim \frac{\phi(x)}{x}$ as $x \to \infty$, we obtain
-$$
-F_{\mathbf{W}}(\mathbf{w}) 
-	\sim \Phi(-\sqrt{2 \ln (n_2-1)})
-	\sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}}
-	= \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \cdot \frac{1}{n_2-1}.
-$$
-Therefore,
-$$
-n_2 F_{\mathbf{W}}(\mathbf{w})
-	\sim \frac{1}{\sqrt{4\pi \ln (n_2-1)}}.
+F_{\mathbf W}(\mathbf w) = \Prob\left(Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}, \; \; Z_0 \le -\sqrt{2 \ln (n_2-1)}\right).	
 $$
 
+%A few things can happen:
+%\begin{enumerate}
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
+%\end{enumerate}
 
 
+Define
+$$
+C := \frac{\mu_2-\mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2\log n_1},
+	\qquad B := -\sqrt{2\log(n_2-1)},
+$$
+and similarly
+$$
+\widehat C = \frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\log n_1}.
+$$
+Two asymptotic regimes arise depending on whether \(C\le B\) or \(C\ge B\).
+Under the consistency conditions [need to define and then argue], the plug-in estimator selects the same regime with probability tending to one.
 
-Let $\mathbf{W^*} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma^*})$ and covariance matrix 
-\begin{equation}\label{eq:Sigma}
-\boldsymbol{\Sigma^*} = \begin{bmatrix}
-	\Sigma_{11}^* & \Sigma_{12}^*\\
-	\Sigma_{21}^* & \Sigma_{22}^*\\
-\end{bmatrix},
-\end{equation}
-defined with the following structure \\
-\begin{align}\label{eq:Sigmastructure}
-\begin{split}
-\Sigma_{11}^* = \begin{bmatrix}
-\frac{\sigma_4^2}{\sigma_3^2}+1 & \frac{\sigma_4^2}{\sigma_3^2} & \hdots & \frac{\sigma_2^2}{\sigma_3^2} \\
-\frac{\sigma_4^2}{\sigma_3^2} & \ddots & \ddots  & \vdots \\
-\vdots & \ddots & \ddots & \frac{\sigma_4^2}{\sigma_3^2} \\
-\frac{\sigma_4^2}{\sigma_3^2} & \dots & \frac{\sigma_4^2}{\sigma_3^2} & \frac{\sigma_4^2}{\sigma_3^2}+1 \\
-\end{bmatrix}_{n_1 \times n_1} \;\;
-&\Sigma_{12}^{T*} = \Sigma_{21}^* = \begin{bmatrix}
-\frac{\sigma_4}{\sigma_3} & \hdots & \hdots & \frac{\sigma_4}{\sigma_3}\\
-\vdots & \ddots &  & \vdots\\
-\vdots &  & \ddots & \vdots\\
-\frac{\sigma_4}{\sigma_3} & \hdots &\hdots & \frac{\sigma_4}{\sigma_3}\\
-\end{bmatrix}_{(n_2-1) \times n_1} \\
-&\Sigma_{22}^* = \begin{bmatrix}
-2 & 1 & \hdots & 1\\
-1 & \ddots & \ddots & \vdots\\
-\vdots & \ddots & \ddots & 1\\
-1 & \hdots & 1 & 2\\
-\end{bmatrix}_{(n_2-1) \times (n_2-1)}.
-\end{split}
-\end{align}
 
-and $\mathbf{w}^* = (\frac{\mu_4 - \mu_3}{\sigma_3}, \dots, \frac{\mu_4 - \mu_3}{\sigma_3}, 0, \dots, 0)$, where the first $n_1$ elements of $\mathbf{w}^*$ are $\frac{\mu_4 - \mu_3}{\sigma_3}$ and the last $n_2-1$ elements are 0.
-
-Then the $\mathbf F_{\mathbf W^*}(\mathbf w^*)$ is
-
+First, consider the asymptotic regime $C \leq B$ where
+$$
+F_{\mathbf W}(\mathbf w) = \Prob(Z_0 \le C)\bigl(1+o(1)\bigr)
+  = \Phi(C)\bigl(1+o(1)\bigr).
+$$
+Since $C \to -\infty$, Mills' ratio $\Phi(-x)\sim \phi(x)/x$ gives
+$$
+\Phi(C) \;\sim\; \frac{1}{\sqrt{2\pi}\,|C|}\,
+\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\mu_2-\mu_1}{\sigma_2} - \tfrac{\sigma_1}{\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right).
+$$
+Let $\widehat F_{\mathbf W}(\mathbf w)$ be obtained by replacing $\mu_i,\sigma_i$ with consistent estimators $\hat\mu_i,\hat\sigma_i$, and define
+$$
+\widehat C := \frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}.
+$$
+%Repeating the argument leading to \eqref{eq:phiC-mills} with $\widehat C$ in place of $C$,
+Replacing $C$ with $\widehat C$ yields
+$$
+\widehat F_{\mathbf W}(\mathbf w) \;\sim\; \frac{1}{\sqrt{2\pi}\,|\widehat C|}\,
+\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \tfrac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right),
+$$
+and therefore
+$$
+\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} 
+\;\sim\; \frac{|C|}{|\widehat C|}\,
+\exp\!\left(-\tfrac{1}{2}\bigl(\widehat C^{\,2} - C^{2}\bigr)\right).
+$$
+Writing out the squares,
 \begin{align*}
-	\mathbf F_{\mathbf W^*}(\mathbf w^*) &= \Prob\!\left(
-\begin{array}{l}
-Z_{1} + \frac{\sigma_4}{\sigma_3}Z_0 \le \frac{\mu_4 - \mu_3}{\sigma_3},\, \dots,\,
-Z_{n_1} + \frac{\sigma_4}{\sigma_3}Z_0 \le \frac{\mu_4 - \mu_3}{\sigma_3},\\[3pt]
-Z_{n_1+1}+ Z_0 \le 0,\, \dots,\, Z_{n_1+n_2-1}+Z_0 \le 0
-\end{array}
-\right) \\
-&= \Prob\!\left(
-\begin{array}{l}
-Z_{1} \le \frac{\mu_4 - \mu_3}{\sigma_3} - \frac{\sigma_4}{\sigma_3}Z_0,\, \dots,\,
-Z_{n_1} \le \frac{\mu_4 - \mu_3}{\sigma_3} - \frac{\sigma_4}{\sigma_3}Z_0,\\[3pt]
-Z_{n_1+1}\le - Z_0 ,\, \dots,\, Z_{n_1+n_2-1} \le -Z_0
-\end{array}
-\right) \\
+\widehat C^{\,2} - C^{2}
+&= \underbrace{\left[\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\right)^2
+-
+\left(\tfrac{\mu_2-\mu_1}{\sigma_2}\right)^2\right]}_{o_P(1)} \\[4pt]
+&\quad + (2\ln n_1)\!\left[\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right] 
+- 2\sqrt{2\ln n_1}\!\left[\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right].
 \end{align*}
+The first bracket is $o_P(1)$ under any consistent estimator. The remaining two terms grow with $n_1$ at rates $\ln n_1$ and $\sqrt{\ln n_1}$, so they govern the asymptotic behavior of $\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} $.
 
-Since the $\mu_3$, $\mu_4$, $\sigma_3$, and $\sigma_4$ satisfy the same assumptions as $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ in the theorem statement, and applying the same technique for $\mathbf F_{\mathbf W}(\mathbf w)$, we have
 
+Provided $\hat\sigma_1/\hat\sigma_2\xrightarrow{P}\sigma_1/\sigma_2$, the prefactor $|C|/|\widehat C|$ tends to $1$ in probability. Combined with the exponent expansion, 
 $$
-F_{\mathbf{W}^*}(\mathbf{w}^*) \approx \Phi(-\sqrt{2 \ln (n_2-1)}) \sim \frac{\phi(\sqrt{2 \ln (n_2-1)})}{\sqrt{2 \ln (n_2-1)}} = \frac{1}{\sqrt{4\pi \ln (n_2-1)}} \left( \frac{1}{n_2-1} + o(\frac{1}{n_2}) \right)
-$$
-
-Consider the difference between paradox probabilities using two sets of different parameters, and 
+  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} \xrightarrow{P}1
+$$ 
+whenever the assumed conditions,
 \begin{align*}
-		&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_3, \mu_4, \sigma_3, \sigma_4 \right) \\
-		&\qquad- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \\ 
-		&= n_2(F_{\mathbf{W^*}}(\mathbf{w^*}) - F_{\mathbf{W}}(\mathbf{w})) + (R^* - R)\to 0
-\end{align*} as $n_1, n_2 \to \infty. $ 
-where $R^* := R(\mu_3,\mu_4,\sigma_3,\sigma_4, n_1,n_2,N_1,N_2)$ and $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ are defined in (\ref{eq:remainder})
-\end{proof}
+(2\ln n_1)\,\left|\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right| 
+&\;\xrightarrow{\;P\;}\; 0, \\[4pt]
+\sqrt{2\ln n_1}\,\left|\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right| 
+&\;\xrightarrow{\;P\;}\; 0, 
+\end{align*}
+are satisfied. 
 
+Now consider the regime $B\le C$. In this case we have $F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o(1))$. Since $B=-\sqrt{2\log(n_2-1)}$, Mills' ratio yields
+$$
+F_{\mathbf W}(\mathbf w) \sim 
+	\frac{1}{\sqrt{4\pi\log(n_2-1)}}\cdot\frac1{n_2-1}.
+$$
+Under consistency of the plug-in estimators, $\widehat C-C \xrightarrow{P}0$, so whenever the inequality $B<C$ holds asymptotically with nonvanishing separation, the plug-in estimator selects the same regime with probability tending to one. Consequently, $\widehat F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o_P(1))$, and hence
+$$
+  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)}
+	\xrightarrow{P}1.
+$$
+Thus, 
+\begin{align*}
+  &\widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &\qquad= n_2\widehat F_{\mathbf W}(\mathbf w) - \frac{N_2}{N_1 + N_2} + \widehat R - \left(n_2 F_{\mathbf W}(\mathbf w) - \frac{N_2}{N_1 + N_2} + R\right) \\
+  &\qquad = n_2\left(\widehat F_{\mathbf W}(\mathbf w) - F_{\mathbf W}(\mathbf w)\right) + \left(\widehat R - R\right)
+  \xrightarrow{P}0,	
+\end{align*}
+noting that $\widehat F_{\mathbf W}(\mathbf w) = o_P\left(F_{\mathbf W}(\mathbf w)\right)$ and $n_2F_{\mathbf W}(\mathbf w) = O_P(1)$.
+\end{proof}
 
 
 \section{Simulations}
@@ -514,185 +538,10 @@ $n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Si
 \bibliography{FHM.bib}
 
 
-\begin{theorem}[Plug-in consistency]
-\label{theorem:plugin}
-Assume the setting of Theorem~\ref{theorem:normalgeneral}, and let $\widehat F_{\mathbf W}(\mathbf w)$ denote the plug-in estimator obtained by replacing \(\mu_i,\sigma_i\) with estimators \(\hat\mu_i,\hat\sigma_i\), \(i=1,2\). Suppose
-$\hat\mu_i \xrightarrow{P} \mu_i$, $\hat\sigma_i \xrightarrow{P} \sigma_i$, $i=1,2$, and additionally
-\begin{align}
-(2\log n_1)
-\left|
-\frac{\hat\sigma_1^2}{\hat\sigma_2^2}
--
-\frac{\sigma_1^2}{\sigma_2^2}
-\right|
-&\xrightarrow{P}0,
-\label{eq:plugin_sigma}
-\\[4pt]
-\sqrt{2\log n_1}
-\left|
-\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
-\frac{\hat\sigma_1}{\hat\sigma_2}
--
-\frac{\mu_2-\mu_1}{\sigma_2}
-\frac{\sigma_1}{\sigma_2}
-\right|
-&\xrightarrow{P}0.
-\label{eq:plugin_mu}
-\end{align}
-
-If the asymptotically dominant extreme-value regime is uniquely identified, then
-\[
-\frac{\widehat F_{\mathbf W}(\mathbf w)}
-{F_{\mathbf W}(\mathbf w)}
-\xrightarrow{P}1.
-\]
-
-Consequently,
-\[
-\frac{
-n_2\widehat F_{\mathbf W}(\mathbf w)-\frac{N_2}{N_1+N_2}
-}{
-n_2F_{\mathbf W}(\mathbf w)-\frac{N_2}{N_1+N_2}
-}
-\xrightarrow{P}1.
-\]
-\end{theorem}
-
-
-%%%% Proof of plug-in / complementary-regime theorem
-\subsection{Proof of Theorem [Plug-in / Theorem 4.5]}
-\label{sec:proofplugin-asymp}
-\begin{proof}
-From the last equality in the proof of Theorem~\ref{theorem:normalgeneral} we can write
-\begin{align*}
-	F_{\mathbf W}(\mathbf w) &= \Prob\!\left(
-\begin{array}{l}
-Z_{1} + \frac{\sigma_2}{\sigma_1}Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
-Z_{n_1} + \frac{\sigma_2}{\sigma_1}Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
-Z_{n_1+1}+ Z_0 \le 0,\, \dots,\, Z_{n_1+n_2-1}+Z_0 \le 0
-\end{array}
-\right) \\
-&= \Prob\!\left(
-\begin{array}{l}
-Z_{1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1}Z_0,\, \dots,\,
-Z_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1}Z_0,\\[3pt]
-Z_{n_1+1}\le - Z_0 ,\, \dots,\, Z_{n_1+n_2-1} \le -Z_0
-\end{array}
-\right) \\
-\end{align*}
-where $Z_i \overset{iid}{\sim} N(0,1)$, $i=0,\ldots,n_1+n_2+1$. Define $M_{n_1} = \max\{Z_1, Z_2, \dots, Z_{n_1}\}$, $M_{n_2-1} = \max\{Z_{n_1+1}, Z_{n_1+2}, \dots, Z_{n_1+n_2-1}\}$, then we can write
-\begin{equation} \label{eq:probmax}
-F_{\mathbf W}(\mathbf w) = \Prob\left(M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;\; M_{n_2-1} \le -Z_0\right).	
-\end{equation}
-From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, after rearranging, the first inequality in \eqref{eq:probmax} is approximately equivalent (up to $O_P(1)$ fluctuations) to
-$
-\sqrt{2 \ln n_1} \leq \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0.
-$
-Rearranging yields
-$$
-Z_0 \leq \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}.
-$$
-Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, after rearranging, the second inequality in \eqref{eq:probmax} is approximately equivalent to
-$
-Z_0 \leq -\sqrt{2 \ln (n_2-1)}.
-$
-Then, as $n_1, n_2 \to \infty$, we have
-\begin{equation} \label{eq:cdf-tail}
-F_{\mathbf W}(\mathbf w) = \Prob\left(Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}, \; \; Z_0 \le -\sqrt{2 \ln (n_2-1)}\right).	
-\end{equation}
 
 
 
-%A few things can happen:
-%\begin{enumerate}
-%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
-%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
-%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
-%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
-%\end{enumerate}
 
-
-Define
-$$
-C := \frac{\mu_2-\mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2\log n_1},
-	\qquad B := -\sqrt{2\log(n_2-1)},
-$$
-and similarly
-$$
-\widehat C = \frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\log n_1}.
-$$
-Two asymptotic regimes arise depending on whether \(C\le B\) or \(C\ge B\).
-Under the consistency conditions [need to define and then argue], the plug-in estimator selects the same regime with probability tending to one.
-
-
-First, consider the asymptotic regime $C \leq B$ where
-$$
-F_{\mathbf W}(\mathbf w) = \Prob(Z_0 \le C)\bigl(1+o(1)\bigr)
-  = \Phi(C)\bigl(1+o(1)\bigr).
-$$
-Since $C \to -\infty$, Mills' ratio $\Phi(-x)\sim \phi(x)/x$ gives
-\begin{equation}\label{eq:phiC-mills}
-\Phi(C) \;\sim\; \frac{1}{\sqrt{2\pi}\,|C|}\,
-\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\mu_2-\mu_1}{\sigma_2} - \tfrac{\sigma_1}{\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right).
-\end{equation}
-Let $\widehat F_{\mathbf W}(\mathbf w)$ be obtained by replacing $\mu_i,\sigma_i$ with consistent estimators $\hat\mu_i,\hat\sigma_i$, and define
-$$
-\widehat C := \frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}.
-$$
-Repeating the argument leading to \eqref{eq:phiC-mills} with $\widehat C$ in place of $C$,
-$$
-\widehat F_{\mathbf W}(\mathbf w) \;\sim\; \frac{1}{\sqrt{2\pi}\,|\widehat C|}\,
-\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \tfrac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right),
-$$
-and therefore
-\begin{equation}\label{eq:ratio-form}
-\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} 
-\;\sim\; \frac{|C|}{|\widehat C|}\,
-\exp\!\left(-\tfrac{1}{2}\bigl(\widehat C^{\,2} - C^{2}\bigr)\right).
-\end{equation}
-Writing out the squares,
-\begin{align*}
-\widehat C^{\,2} - C^{2}
-&= \underbrace{\left[\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\right)^2
--
-\left(\tfrac{\mu_2-\mu_1}{\sigma_2}\right)^2\right]}_{o_P(1)} \\[4pt]
-&\quad + (2\ln n_1)\!\left[\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right] 
-- 2\sqrt{2\ln n_1}\!\left[\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right].
-\end{align*}
-The first bracket is $o_P(1)$ under any consistent estimator. The remaining two terms grow with $n_1$ at rates $\ln n_1$ and $\sqrt{\ln n_1}$, so they govern the asymptotic behavior of \eqref{eq:ratio-form}.
-
-\paragraph{Sufficient conditions for plug-in consistency.}
-Provided $\hat\sigma_1/\hat\sigma_2\xrightarrow{P}\sigma_1/\sigma_2$, the prefactor $|C|/|\widehat C|$ in \eqref{eq:ratio-form} tends to $1$ in probability. Combined with the exponent expansion, $\widehat F_{\mathbf W}(\mathbf w)/F_{\mathbf W}(\mathbf w)\xrightarrow{P}1$ whenever
-\begin{align}
-(2\ln n_1)\,\left|\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right| 
-&\;\xrightarrow{\;P\;}\; 0, \label{eq:cond-sigma}\\[4pt]
-\sqrt{2\ln n_1}\,\left|\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right| 
-&\;\xrightarrow{\;P\;}\; 0. \label{eq:cond-mu}
-\end{align}
-
-Now consider the regime \(B\le C\). In this case the minimum in
-\eqref{eq:cdf-tail} is attained by \(B\), and therefore
-\[
-F_{\mathbf W}(\mathbf w)
-=
-\Phi(B)(1+o(1)).
-\]
-Since \(B=-\sqrt{2\log(n_2-1)}\),
-Mills' ratio yields
-\[
-F_{\mathbf W}(\mathbf w)
-\sim
-\frac{1}{\sqrt{4\pi\log(n_2-1)}}\cdot\frac1{n_2-1}.
-\]
-
-Under consistency of the plug-in estimators, $\widehat C-C \xrightarrow{P}0$, so whenever the inequality \(B<C\) holds asymptotically with nonvanishing separation, the plug-in estimator selects the same regime with probability tending to one. Consequently, $\widehat F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o_P(1))$, and hence
-$$
-  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)}
-	\xrightarrow{P}1.
-$$
-
-
-\end{proof}
 
 
 

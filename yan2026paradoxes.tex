@@ -459,22 +459,39 @@ where $R$ is defined in \eqref{eq:remainder}, $F_{\mathbf{W}}$ is the distributi
 We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. 
 
 \begin{theorem}
-\label{theorem:asymptotic}
-Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify that $Y_i \sim N(\mu_i,\sigma_i^2)$, and suppose that the selection indicators satisfy $S_{i,(N_i)} = 1$ for $i = 1,2$. Let $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. Assume the sample sizes and parameters $n_i$, $N_i$, $\mu_i$, and $\sigma_i$, $i=1,2$ satisfy the assumptions in Theorem \ref{theorem:normalgeneral}, and, as $n_1,n_2 \to \infty$, the relative growth rates of the dimensions satisfy
+\label{theorem:plugin}
+Assume the setting of Theorem~\ref{theorem:normalgeneral} with $\sigma_1 < \sigma_2$, and $\mu_1 < \mu_2$, and let $\widehat F_{\mathbf W}(\mathbf w)$ and $\widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)$, respectively, denote the plug-in estimator of $F_{\mathbf W}(\mathbf w)$ and the paradox probability in \eqref{eq:paradoxnormal} obtained by replacing $\mu_i,\sigma_i$ with estimators $\hat\mu_i,\hat\sigma_i$, $i=1,2$. Suppose
+$\hat\mu_i \xrightarrow{P} \mu_i$, $\hat\sigma_i \xrightarrow{P} \sigma_i$, $i=1,2$, and additionally
+\begin{align}
+(2\log n_1)
+\left|
+\frac{\hat\sigma_1^2}{\hat\sigma_2^2}
+-
+\frac{\sigma_1^2}{\sigma_2^2}
+\right|
+&\xrightarrow{P}0,
+\label{eq:plugin_sigma}
+\\[4pt]
+\sqrt{2\log n_1}
+\left|
+\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+\frac{\hat\sigma_1}{\hat\sigma_2}
+-
+\frac{\mu_2-\mu_1}{\sigma_2}
+\frac{\sigma_1}{\sigma_2}
+\right|
+&\xrightarrow{P}0.
+\label{eq:plugin_mu}
+\end{align}
+Then, 
 $$
-\lim_{n_1,n_2 \to \infty} \frac{\ln n_2}{\ln n_1}
->
-\left(\frac{\sigma_1}{\sigma_2}\right)^2.
+  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} \xrightarrow{P}1
 $$
-
-In addition, the $\mu_3$, $\mu_4$, $\sigma_3$, and $\sigma_4$ satisfy the same assumptions as $\mu_1$, $\mu_2$, $\sigma_1$, and $\sigma_2$ above, then the difference between the corresponding paradox probabilities converges to zero, 
-	\begin{align*}
-		\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_3, \mu_4, \sigma_3, \sigma_4 \right) \\
-		\qquad- 
-		\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)} \mid \mu_1, \mu_2, \sigma_1, \sigma_2\right) \to 0
-		%&=  O_P(\frac{1}{\sqrt{\ln n_2}}).
-	\end{align*}
-as $n_1, n_2 \to \infty. $ 
+and
+$$
+  \widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)
+   \xrightarrow{P}0.
+$$
 \end{theorem}
 
 %This choice of parameter should cover the sample-size consistent estimator. 
