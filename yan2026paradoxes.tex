@@ -73,32 +73,136 @@
 We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a formal framework for quantifying structural reversals in cross-context comparisons under explicit models of population depth, selection, and measurement.
 \end{abstract}
 
+
+\subsection*{Highest-Priority Revision Checklist for JRSS-B Submission}
+
+These revisions are aimed at improving both:
+\begin{enumerate}
+    \item overall fit with the stated JRSS-B scope, and
+    \item reviewer perception of contribution density and methodological importance.
+\end{enumerate}
+
+\subsubsection*{Tier 1: Highest Priority Revisions}
+\begin{enumerate}
+    \item \textbf{Compress the application sections.}
+    \begin{itemize}
+        \item Retain only the most compelling illustrations of:
+        \begin{itemize}
+            \item paradox probabilities,
+            \item latent-observed reversals,
+            \item and empirical interpretability.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Tier 2: Important Revisions}
+
+\begin{enumerate}
+    \item \textbf{Sharpen the inferential framing in Section 4.}
+    \begin{itemize}
+        \item Emphasize:
+        \begin{itemize}
+            \item computational tractability,
+            \item operational estimation,
+            \item and practical implementation.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Tighten the asymptotic rigor in Theorem 4.5.}
+    \begin{itemize}
+        \item Reduce heuristic EVT-style arguments where possible.
+    \end{itemize}
+
+    \item \textbf{Reduce defensive discussion of assumptions.}
+    \begin{itemize}
+        \item Shorten repeated caveats regarding:
+        \begin{itemize}
+            \item rank preservation,
+            \item idealization,
+            \item and selection assumptions.
+        \end{itemize}
+        \item Replace apologetic framing with concise scope clarification.
+    \end{itemize}
+
+    \item \textbf{Remove or reduce conjectural discussion.}
+    \begin{itemize}
+        \item In particular, consider moving the conjecture following Proposition~3.5 to the Discussion or Supplementary Materials.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Tier 3: Secondary but Valuable Revisions}
+
+\begin{enumerate}
+    \item \textbf{Shorten the Discussion section considerably.}
+    \begin{itemize}
+        \item Avoid re-running the Introduction.
+        \item Focus on:
+        \begin{itemize}
+            \item broader methodological implications,
+            \item selective observation,
+            \item and future directions.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Reduce repeated philosophical exposition.}
+    \begin{itemize}
+        \item Compress repeated conceptual discussion of:
+        \begin{itemize}
+            \item aptitude vs.\ achievement,
+            \item population depth,
+            \item and contextual comparison.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Potentially revise the title toward a more methodological/statistical foundations framing.}
+    \begin{itemize}
+        \item Current title emphasizes ``paradoxes'' and may sound overly conceptual.
+        \item Consider framing around:
+        \begin{itemize}
+            \item selective observation,
+            \item latent-observed ranking reversals,
+            \item or comparative inference.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+
+
 \section{Introduction}
 
-Comparisons of performances across differing contexts, schools, regions, eras, institutions, and tasks are central to education and psychometrics \citep{holland2012differential, bond2013applying}, labor economics \citep{nickell1999labor}, medicine, and sports analytics \citep{BRL99, SM13, SM16, winston2022mathletics, yan2025comparing}. These problems have led to the development of a variety of widely used modeling frameworks that estimate relative ability, including empirical-Bayes shrinkage \citep{efron1975data}, Bayesian hierarchical models \citep{raudenbush1986hierarchical, BRL99}, Bradley-Terry-Luce and paired comparisons models \citep{bradley1952rank, bradley1976science, bradley1984paired, david1988paired}, Elo-type dynamic rating systems \citep{elo1978rating, graepel2007bayesian}, Gaussian-process and state-space formulations \citep{chu2005gaussian, houlsby2012collaborative}, item-response and latent class models \citep{mcdonald1999test, embretson2000item, hagenaars2002applied, holland2012differential, bond2013applying}, factor models \citep{mcdonald1999test, bartholomew2011latent}, and domain-specific metrics \citep{baumer2014statistician, BB15, yu2016pantheon}.
+Comparisons of outcomes across differing contexts, schools, regions, eras, institutions, and tasks are central to education and psychometrics \citep{holland2012differential, bond2013applying}, labor economics \citep{nickell1999labor}, medicine, and sports analytics \citep{BRL99, SM13, SM16, winston2022mathletics, yan2025comparing}. These problems have led to the development of a variety of widely used modeling frameworks that estimate relative ability, including empirical-Bayes shrinkage \citep{efron1975data}, Bayesian hierarchical models \citep{raudenbush1986hierarchical, BRL99}, Bradley-Terry-Luce and paired comparisons models \citep{bradley1952rank, bradley1976science, bradley1984paired, david1988paired}, Elo-type dynamic rating systems \citep{elo1978rating, graepel2007bayesian}, Gaussian-process and state-space formulations \citep{chu2005gaussian, houlsby2012collaborative}, item-response and latent class models \citep{mcdonald1999test, embretson2000item, hagenaars2002applied, holland2012differential, bond2013applying}, factor models \citep{mcdonald1999test, bartholomew2011latent}, and domain-specific metrics \citep{baumer2014statistician, BB15, yu2016pantheon}.
 
 Despite their differences, these approaches share a common structural feature: ability is inferred relative to a fixed or implicitly comparable set of observed competitors. While such models adjust outcomes within a given context, they do not typically explicitly account for changes in the size or structure of the eligible population, nor for context-specific distortions in how latent ability is expressed through observed outcomes. Consequently, when competition depth, selection mechanisms, or measurement conditions vary across contexts, observed dominance may not reliably reflect the corresponding latent ordering.
 
-These limitations give rise to a new inferential target: the probability that cross-context comparisons reverse latent orderings. Specifically, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have observed $\mathbb{R}$-valued achievement $Y_{i,j}$ and latent $\mathbb{R}$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ have observed achievement $Y_{m,n}$ and latent aptitude $X_{m,n}$. The probability of an aptitude-achievement paradox is
+These limitations give rise to a new inferential target: the probability that cross-context comparisons reverse latent aptitude orderings. Specifically, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have observed $\mathbb{R}$-valued achievement $Y_{i,j}$ and latent $\mathbb{R}$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ have observed achievement $Y_{m,n}$ and latent aptitude $X_{m,n}$. The probability of an aptitude-achievement paradox is
 \begin{equation} \label{eq:paradoxgeneral}
 	\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right).
 \end{equation}
 This quantity captures the structural risk that comparisons based on observed outcomes reverse the corresponding latent ordering across contexts.
 
-Such reversals cannot occur if aptitude is mapped to achievement through a common strictly increasing measurement mechanism and if selection into observation is ignorable. In practice, however, measurement systems often differ across contexts, and observed individuals are typically selected through non-random processes shaped by institutional, competitive, or environmental constraints. As a result, observed dominance may reflect differences in selection intensity or measurement conditions rather than differences in underlying aptitude. Existing methods provide limited tools for quantifying the frequency of such reversals under explicit models of aptitude, selection, and measurement.
+Such reversals arise naturally when measurement systems differ across contexts or when observation occurs through non-random selection mechanisms shaped by institutional, competitive, or environmental constraints. Existing methods provide limited tools for quantifying the frequency of these reversals.
 
-A large class of methods studies disagreement between observed orderings and target rankings. Classic examples include Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize concordance and discordance between observed rankings. However, these approaches operate entirely on observed outcomes and do not explicitly model latent aptitude, population depth, or selection into observation.
+Related work has studied disagreement between observed rankings and target orderings through measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, while latent-trait and comparative ability models---including Rasch models \citep{bond2013applying}, Bayesian hierarchical formulations \citep{raudenbush1986hierarchical, BRL99}, and Elo-type rating systems \citep{elo1978rating, graepel2007bayesian}---infer underlying ability from observed outcomes. However, these approaches generally operate relative to the observed comparison pool and do not explicitly model how differences in eligible population depth, selection intensity, or measurement environments distort the relationship between latent aptitude and observed achievement.
 
-Traditional latent trait models \citep{bartholomew2011latent} instead focus on estimating underlying ability from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individual abilities are invariant to the specific items administered under assumptions excluding differential item functioning (DIF) \citep{holland2012differential}. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and account for heterogeneity through random effects or temporal evolution, without explicitly modeling variation in eligible population depth or selection across contexts.
+To address these limitations, we develop a structural framework for cross-context comparison that explicitly models population depth, selective observation, and context-specific measurement processes. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is formalized here for comparative analysis across heterogeneous contexts. Under FHM, individuals are drawn from a common latent aptitude distribution, while contexts differ in (i) the size of the eligible population, (ii) the mechanism through which individuals are selected into observation, and (iii) the mapping from latent aptitude to observed achievement. We model measurement through context-specific rank-preserving transformations between latent aptitude and observed achievement.
 
-To address these limitations, we develop a structural framework for cross-context comparison that explicitly models population depth, selection into observation, and context-specific measurement processes. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is formalized here for comparative analysis across heterogeneous contexts. The framework separates latent aptitude from observed achievement by modeling how three features jointly shape observed rankings: (i) the size of the eligible population in each context, (ii) the mechanism through which individuals are selected into observation, and (iii) the context-specific mapping from latent aptitude to observed performance. Under FHM, individuals are drawn from a common latent aptitude distribution, while contexts differ in population depth and in the mechanisms through which aptitude is selected and measured. This formulation makes explicit how observed rankings may differ from latent aptitude orderings due to differences in selection intensity and measurement structure across contexts. We model measurement as a rank-preserving transformation of latent aptitude within each context.
+In this paper, we develop the theory of FHM under rank-based selection mechanisms, particularly top-$n$ selection, where tractable results are available. These assumptions are most natural in highly selective settings where observed individuals represent the upper tail of a larger latent population. Comparisons of athletes across eras provide a canonical example, since entry into professional leagues closely approximates selection of the most talented individuals from large underlying populations.
+
+\citet{yan2025comparing} introduced Full House Modeling as an operational methodology for cross-era comparison in baseball analytics. The present paper develops the first formal statistical theory for this framework. In particular, our contributions are as follows:
+\begin{itemize}
+    \item We formalize the aptitude-achievement paradox as an explicit inferential target for cross-context comparison and study its probability under selective observation.
+    \item We develop the probabilistic foundations of Full House Modeling, including a characterization result showing that the induced latent-observed coupling is the unique rank-preserving monotone transformation consistent with the model assumptions.
+    \item Under identical observed achievement distributions across contexts, we derive explicit and distribution-free paradox probabilities and characterize their dependence on population and sampling structure.
+    \item Under heterogeneous achievement distributions, we derive general bounds and obtain tractable asymptotic approximations in Gaussian settings, including explicit remainder bounds and plug-in consistency results.
+    \item We show through theoretical analysis and sensitivity experiments that paradox probabilities depend primarily on ratios of eligible population sizes and sampling fractions rather than their absolute magnitudes.
+\end{itemize}
+
+Proofs of mathematical results are provided in the Supplementary Materials.
 
 
+%A large class of methods studies disagreement between observed orderings and target rankings. Classic examples include Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize concordance and discordance between observed rankings. However, these approaches operate entirely on observed outcomes and do not explicitly model latent aptitude, population depth, or selection into observation.
 
-Full House Modeling provides a structural rank-preserving framework for studying latent-observed reversals under selective observation. %a general conceptual framework. 
-In this paper, we develop its theory under rank-based selection mechanisms, particularly top-$n$ selection, where tractable results are available. These assumptions are most naturally satisfied in settings characterized by strong selection into the observed system, where observed individuals represent the upper tail of a larger latent population. In such environments, selection can often be credibly approximated by top-$n$ inclusion rules. In less selective settings, the selection mechanism requires more careful specification, and extending Full House Modeling to richer selection models is an important direction for future work. Comparisons of athletes across eras provide a canonical illustration of this regime. Entry into professional leagues is highly competitive and closely approximates selection of the most talented individuals from a large underlying population, making the top-$n$ assumption both transparent and defensible. Our application to Major League Baseball is motivated by this alignment between the framework's assumptions and the structure of the domain.
-
-While \citet{yan2025comparing} introduced Full House Modeling in an applied setting, its statistical properties have not previously been formalized. This paper develops a general theory for cross-context comparison under Full House Modeling centered on a new estimand: the probability that observed outcomes reverse the latent ordering of individuals across systems. We show that this paradox probability is identified within the Full House structural model, derive explicit and distribution-free expressions when observed achievement distributions are identical across contexts, and obtain explicit formulas, bounds, and asymptotic approximations when achievement distributions differ, including normal settings with reliable plug-in estimation. A sensitivity analysis further suggests that paradox risk depends primarily on ratios of eligible population sizes rather than their absolute magnitudes. Proofs of mathematical results are provided in the Supplementary Materials.
+%Traditional latent trait models \citep{bartholomew2011latent} instead focus on estimating underlying ability from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individual abilities are invariant to the specific items administered under assumptions excluding differential item functioning (DIF) \citep{holland2012differential}. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and account for heterogeneity through random effects or temporal evolution, without explicitly modeling variation in eligible population depth or selection across contexts.
 
 
 %These limitations give rise to a previously unquantified inferential target: the probability that cross-context comparisons reverse latent orderings. Specifically, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have an observed $\R$-valued statistic $Y_{i,j}$ and an underlying latent $\R$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ have an observed $\R$-valued statistic $Y_{m,n}$, and an underlying latent $\R$-valued aptitude $X_{m,n}$. The probability of aptitude-achievement paradox is 
@@ -106,6 +210,8 @@ While \citet{yan2025comparing} introduced Full House Modeling in an applied sett
 %	\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right) 
 %\end{equation}
 %This quantity captures the structural risk that cross-context comparisons based on observed outcomes reverse the true latent ordering.
+
+%Such reversals cannot occur if aptitude is mapped to achievement through a common strictly increasing measurement mechanism and if selection into observation is ignorable. In practice, however, measurement systems often differ across contexts, and observed individuals are typically selected through non-random processes shaped by institutional, competitive, or environmental constraints. As a result, observed dominance may reflect differences in selection intensity or measurement conditions rather than differences in underlying aptitude. Existing methods provide limited tools for quantifying the frequency of such reversals under explicit models of aptitude, selection, and measurement.
 
 %The aptitude-achievement paradox in Eq \ref{eq:paradoxgeneral} cannot arise if a single, strictly increasing, context-invariant measurement map relates aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
 
@@ -329,7 +435,7 @@ We now demonstrate a setting in which technical condition \eqref{eq:technical-co
 Consider the Full House Model in Definition~\ref{def:fhm} with two populations, where $F_{Y_i} = F_{Y}$ for $i=1,2$, and suppose that the selection indicators satisfy $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \ge X_{i,(N_i - n_i + 1)}$ for $i=1,2$. Denote by $I$ the regularized incomplete beta function. Suppose that $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$, and set $k = j$. Under these assumptions, we conclude that technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.	
 \end{prop}
 
-The conditions in Proposition~\ref{prop:condition} suggest that the technical condition is driven by the relative comparison of sampling and population ratios. In particular, the requirement $\frac{n_1}{n_2} \le 1$ and $\frac{N_2}{N_1} \le 1$ indicates that sampling distortion dominates population distortion in a coordinatewise sense. We conjecture that this condition can be relaxed to the single inequality $\frac{n_1}{n_2}\cdot\frac{N_2}{N_1} \le 1$. Establishing this generalization would provide a sharper characterization of when the technical condition \eqref{eq:technical-condition} holds. A proof of this result remains an open problem.
+The conditions in Proposition~\ref{prop:condition} suggest that the technical condition is driven by the relative comparison of sampling and population ratios. In particular, the requirement $\frac{n_1}{n_2} \le 1$ and $\frac{N_2}{N_1} \le 1$ indicates that sampling distortion dominates population distortion in a coordinatewise sense. %We conjecture that this condition can be relaxed to the single inequality $\frac{n_1}{n_2}\cdot\frac{N_2}{N_1} \le 1$. Establishing this generalization would provide a sharper characterization of when the technical condition \eqref{eq:technical-condition} holds. A proof of this result remains an open problem.
 
 
 \section{Paradox Under Different Distributions}
@@ -503,7 +609,7 @@ $$
 $$
 \end{theorem}
 
-\textbf{Remark}: The rates in Theorem~\ref{theorem:plugin} arise from the logarithmic scaling in the extreme-value approximation and are relatively weak. In particular, they are satisfied whenever
+\textbf{Remark}: The rates in Theorem~\ref{theorem:plugin} arise from the logarithmic scaling appearing in Gaussian extreme-value approximations (see \cite{embrechts2013modelling}) and are relatively weak. In particular, they are satisfied whenever
 $$
 \hat\mu_i - \mu_i = O_P(n_i^{-1/2}),
 \qquad
@@ -513,7 +619,9 @@ as holds for standard plug-in estimators such as maximum likelihood estimators, 
 
 
 
-\section{Examples}
+\section{Empirical Illustrations}
+
+We briefly illustrate the interpretability and operational estimation of paradox probabilities under several representative configurations.
 
 \subsection{Sensitivity Analysis for Theorem \ref{theorem:samedistgeneral}}
 
@@ -550,28 +658,51 @@ Figure~\ref{Fig:ratioeffect} presents the results. As shown in the figure, the p
 
 \subsection{Batting Averages in Major League Baseball}
 
-We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees in Theorem~\ref{theorem:asymptotic} to evaluate the contextual extremeness of observed outcomes in a real-world system where the underlying distribution of aptitude is not directly observable and evolves over time. Major League Baseball (MLB) offers a canonical example of such a system. Here, player skill (latent batting aptitude) is inferred only indirectly through season-level observed outcomes (batting averages), which are shaped by changing population structures and environmental variance. In particular, MLB introduced a series of rule changes in 2023 intended to increase in-game action, including a restriction on defensive positioning designed to raise batting averages on balls in play (BABIP) \citep{castrovince2023mlb}. Figure~\ref{Fig:means-sd-full-time} presents smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871 to 2023.
+We illustrate Theorem~\ref{theorem:normalgeneral} and the plug-in guarantees of Theorem~\ref{theorem:plugin} using Major League Baseball (MLB), a setting in which latent batting aptitude is indirectly observed through season-level batting averages and where both population structure and measurement environments vary substantially across eras. Figure~\ref{Fig:means-sd-full-time} displays smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871--2023.
+
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[scale=0.75]{means-sd-full-time.png}
 \end{center}
-\caption{Seasonal means and standard deviations of batting averages for full-time players from 1871-2023. Smoothing is applied to both trends.}
+\caption{Seasonal means and standard deviations of batting averages for full-time players from 1871--2023. Smoothing is applied to both trends.}
 \label{Fig:means-sd-full-time}
-\end{figure} 
+\end{figure}
 
-The 2023 season saw an increase in mean batting average for full-time players of 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample test for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increase batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 (a mark of excellence) since Josh Hamilton in 2010. 
-
-We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages, treating the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Seasonal batting averages of full-time players are assumed normally distributed, with means and standard deviations estimated via plug-in; the reliability guarantees of Theorem~\ref{theorem:plugin} apply. Figure~\ref{Fig:means-sd-full-time} shows that both the average and variability of batting averages in 2023 are among the lowest observed, indicating a historically suppressed environment. Moreover, with our specifications we have that $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, so the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible. The talent pool estimates $N_i$ are taken from \cite{yan2025comparing}, which includes sensitivity analyses showing that qualitative conclusions are robust to reasonable perturbations of these estimates.
+We treat the 2023 season as system~1 and each season from 1871--2022 as system~2. Seasonal batting averages for full-time players are modeled as Gaussian with means and standard deviations estimated via plug-in; the consistency guarantees of Theorem~\ref{theorem:plugin} therefore apply. Figure~\ref{Fig:means-sd-full-time} shows that the 2023 offensive environment exhibited both relatively low mean batting average and reduced variability compared with many historical eras. Under our specifications, we additionally have $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, implying that the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible. Talent-pool estimates $N_i$ are taken from \citet{yan2025comparing}, which includes sensitivity analyses demonstrating robustness to reasonable perturbations of these estimates.
 
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[scale=0.75]{paradox-prob-results.png}
 \end{center}
-\caption{Comparison of paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows estimated paradox probabilities via plug-in using Theorem~\ref{theorem:normalgeneral}. The black dashed line displays a smoothed empirical exceedance rate for Arraez's 2023 batting average.}
+\caption{Comparison of estimated paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows plug-in paradox probability estimates from Theorem~\ref{theorem:normalgeneral}; the dashed black line shows a smoothed empirical exceedance rate for Luis Arraez's 2023 batting average.}
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-Importantly, the estimated paradox probabilities closely track empirical exceedance patterns across eras (Figure~\ref{Fig:paradox-prob-results}), indicating that the proposed framework captures the structural forces governing discrepancies in cross-era rankings rather than merely reproducing descriptive trends. In particular, the framework explains why certain modern performances, such as Arraez's 2023 batting average, may appear modest in raw historical comparisons while nevertheless corresponding to exceptionally high latent aptitude after accounting for differences in population depth and measurement environment. Under Full House Modeling, Arraez's 2023 season ranks 68th all-time among full-time batters after these adjustments \citep{yan2025comparing, fullhouse2025}, compared to a raw observed rank of 341. This gap illustrates how observed rankings can be systematically distorted by changes in population structure and measurement conditions, and how the paradox probability provides a formal quantitative measure of this distortion.
+Figure~\ref{Fig:paradox-prob-results} shows that estimated paradox probabilities closely track empirical exceedance patterns across eras, indicating that the proposed framework captures structural differences in competitive depth and measurement environment rather than merely reproducing descriptive trends. In particular, the framework explains why Luis Arraez's 2023 batting average may appear modest under raw historical comparison while nevertheless corresponding to unusually high latent aptitude after accounting for population depth and contextual variation. Under Full House Modeling, Arraez's 2023 season ranks 68th all-time among full-time batters after adjustment \citep{yan2025comparing, fullhouse2025}, compared with a raw observed rank of 341. This gap illustrates how cross-context comparisons based solely on observed outcomes can induce substantial latent-observed ranking reversals, precisely the phenomenon quantified by the paradox probability.
+
+
+%We now apply Theorem~\ref{theorem:normalgeneral} and the reliability guarantees in Theorem~\ref{theorem:asymptotic} to evaluate the contextual extremeness of observed outcomes in a real-world system where the underlying distribution of aptitude is not directly observable and evolves over time. Major League Baseball (MLB) offers a canonical example of such a system. Here, player skill (latent batting aptitude) is inferred only indirectly through season-level observed outcomes (batting averages), which are shaped by changing population structures and environmental variance. In particular, MLB introduced a series of rule changes in 2023 intended to increase in-game action, including a restriction on defensive positioning designed to raise batting averages on balls in play (BABIP) \citep{castrovince2023mlb}. Figure~\ref{Fig:means-sd-full-time} presents smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871 to 2023.
+%\begin{figure}[t!]
+%\begin{center}
+%	\includegraphics[scale=0.75]{means-sd-full-time.png}
+%\end{center}
+%\caption{Seasonal means and standard deviations of batting averages for full-time players from 1871-2023. Smoothing is applied to both trends.}
+%\label{Fig:means-sd-full-time}
+%\end{figure} 
+
+%The 2023 season saw an increase in mean batting average for full-time players of 0.0057 (corresponding to an additional hit about every four baseball games) with a reduction in variability. A two-sample test for differences in batting averages among full-time players from the 2023 and 2022 seasons has a p-value of 0.039. Thus, rule changes seemed to be effective in yielding increased batting averages\footnote{Technically, \cite{castrovince2023mlb} referred to MLB's desire to increase batting averages on balls in play (BABIP) while this analysis focused on batting averages. BABIP increased by 0.0061 from 2022 to 2023.} Moreover, the 2023 MLB batting leader Luis Arraez had a 0.354 batting average which was the first batting average to exceed .350 (a mark of excellence) since Josh Hamilton in 2010. 
+
+%We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabilities for extreme batting averages, treating the 2023 season as system~1 and each season from 1871 to 2022 as system~2. Seasonal batting averages of full-time players are assumed normally distributed, with means and standard deviations estimated via plug-in; the reliability guarantees of Theorem~\ref{theorem:plugin} apply. Figure~\ref{Fig:means-sd-full-time} shows that both the average and variability of batting averages in 2023 are among the lowest observed, indicating a historically suppressed environment. Moreover, with our specifications we have that $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, so the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible. The talent pool estimates $N_i$ are taken from \cite{yan2025comparing}, which includes sensitivity analyses showing that qualitative conclusions are robust to reasonable perturbations of these estimates.
+
+%\begin{figure}[t!]
+%\begin{center}
+%	\includegraphics[scale=0.75]{paradox-prob-results.png}
+%\end{center}
+%\caption{Comparison of paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows estimated paradox probabilities via plug-in using Theorem~\ref{theorem:normalgeneral}. The black dashed line displays a smoothed empirical exceedance rate for Arraez's 2023 batting average.}
+%\label{Fig:paradox-prob-results}
+%\end{figure}
+
+%Importantly, the estimated paradox probabilities closely track empirical exceedance patterns across eras (Figure~\ref{Fig:paradox-prob-results}), indicating that the proposed framework captures the structural forces governing discrepancies in cross-era rankings rather than merely reproducing descriptive trends. In particular, the framework explains why certain modern performances, such as Arraez's 2023 batting average, may appear modest in raw historical comparisons while nevertheless corresponding to exceptionally high latent aptitude after accounting for differences in population depth and measurement environment. Under Full House Modeling, Arraez's 2023 season ranks 68th all-time among full-time batters after these adjustments \citep{yan2025comparing, fullhouse2025}, compared to a raw observed rank of 341. This gap illustrates how observed rankings can be systematically distorted by changes in population structure and measurement conditions, and how the paradox probability provides a formal quantitative measure of this distortion.
 
 
 
