@@ -361,61 +361,61 @@ where, from the definition of $g$ in Lemma~\ref{lemma:rep} applied to our curren
 \begin{equation} \label{eq:gnorm}
 	  g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1,
 \end{equation}
-and $\Phi$ defines the cumulative distribution function of the standard normal distribution. From here, we have that
-\begin{align*}
-	&\Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-	&\qquad= \int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x),
-%	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-\end{align*}
-where $A := A(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ is the set of values of $x$ for which the inner integral is nonempty, 
-\begin{equation}\label{eq:A}
-	A = \left\{ x \in \mathbb{R} : F_{Y_1}^{-1}\!\left(F_{Y_2}(x)^{\frac{n_2 N_1}{N_2 n_1}}\right) \le x
-	\right\}.
+and $\Phi$ defines the cumulative distribution function of the standard normal distribution. Integrating over the joint order-statistic distribution yields
+\begin{align}
+\Prob\left(g_{n_1,n_2}(Y_{2,(n_2)}) < Y_{1,(n_1)} < Y_{2,(n_2)}\right)
+	= I + R,
+\label{eq:main-decomp}
+\end{align}
+where
+\begin{equation} \label{eq:integral}
+ I := \int_{-\infty}^{\infty} 
+   \left(F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right) \,dF_{Y_2,(n_2)}(x),
 \end{equation}
-Equivalently,
+and
+\begin{equation} \label{eq:remainder}
+  R := - \int_{A^c} 
+    \left(F_{Y_1}(x)^{n_1}-F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right) \,dF_{Y_2,(n_2)}(x),
+\end{equation}
+with
+\begin{equation}\label{eq:A}
+  A = \left\{x : F_{Y_1}^{-1} \!\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)
+	\le x \right\}.
+\end{equation}
+Under the Gaussian specification,
 $$
 	A = \left\{ x \in \mathbb{R} : \Phi\!\left(\frac{x-\mu_2}
 		{\sigma_2}\right)^{\frac{n_2}{N_2}} \le
 	\Phi\!\left(\frac{x-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}
-	\right\},
+	\right\}.
 $$
-Continuing with the probability calculation above, we have that
-\begin{align} \label{eq:paradecomp}
-	&\int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \nonumber \\
-	&= \int_{A} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) \nonumber \\
-	&= \int_{-\infty}^{\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x) - \int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x).		
-\end{align}
-The left-hand side of \eqref{eq:paradecomp} can (and will) be further evaluated and leads to the desired explicit aptitude-achievement paradox probability. The right-hand side of \eqref{eq:paradecomp} represents a remainder term $R := R(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$,
-\begin{equation} \label{eq:remainder}
-  R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
+%From here, we have that
+%\begin{align*}
+%	&\Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+%	&\qquad= \int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x),
+%%%	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+%\end{align*}
+%where $A := A(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ is the set of values of $x$ for which the inner integral is nonempty, 
+%\begin{equation}\label{eq:A}
+%	A = \left\{ x \in \mathbb{R} : F_{Y_1}^{-1}\!\left(F_{Y_2}(x)^{\frac{n_2 N_1}{N_2 n_1}}\right) \le x
+%	\right\}.
+%\end{equation}
+The following lemma shows that the remainder term is negligible under mild parameter restrictions.
+
+
+\begin{lemma}
+\label{lemma:Rbound}
+Assume the setting leading to the decomposition
+\eqref{eq:main-decomp}, and let $R$ denote the corresponding
+remainder term \eqref{eq:remainder}. If
+$\frac{n_1}{N_1}\le\frac{n_2}{N_2}$, $\sigma_1\le\sigma_2$, and $\mu_1\le\mu_2$,
+then
+\begin{equation} \label{eq:remainder-bound}
+  |R| \leq \left(\frac{1}{2}\right)^{n_2}.
 \end{equation}
-where the set $A$ in \eqref{eq:remainder} is defined in \eqref{eq:A}. The remainder $R$ is negligible when $n_2$ is moderately large, as we now show. From \eqref{eq:A} and \eqref{eq:remainder}, we have
-\begin{align*}
-  |R| &= \left|\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\right|\\
-  &\leq \int_{A^c} \left|F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right|d F_{Y_2, (n_2)}(x) \\
-    &\leq \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right).
-\end{align*}
-Now, when we specify that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ as in Proposition~\ref{prop:weakstodom}, we have 
-\begin{align*}
-    &\Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right) 
-    & \leq 
-    \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right) \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)\right)	 \\	
-    &\qquad = \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right).
-\end{align*}
-Under the assumption that $\sigma_1 \leq \sigma_2$, straightforward algebra yields
-$$
-  \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)
-  = \Prob\left(Y_{2,(n_2)} \leq \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1}\right).
-$$
-Under the additional assumption that $\mu_1 \leq \mu_2$, the right-hand side is bounded above by
-$
-  \Prob\left(Y_{2,(n_2)} \leq \mu_2\right).
-$
-Putting it all together, we have
-$
-  |R| \leq \Prob\left(Y_{2,(n_2)} \leq \mu_2\right) \leq \left(\frac{1}{2}\right)^{n_2},
-$
-when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. Therefore, although the remainder term in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by the left-hand side of \eqref{eq:paradecomp} with $R$ contributing only a negligible correction for moderately large $n_2$. 
+\end{lemma}
+
+Therefore, although the remainder term in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by \eqref{eq:integral} with $R$ contributing only a negligible correction for moderately large $n_2$. 
 
 
 We now introduce a multivariate normal representation allowing a closed-form expression of the principal term. Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\mathbf{0}, \boldsymbol{\Sigma})$, with block covariance matrix
@@ -434,7 +434,7 @@ where
 \qquad
 \Sigma_{22} = I_{n_2-1} + J_{n_2-1}.
 \end{align}
-where $I_k$ denotes the $ \times k$ identity matrix and $J_k = \mathbf{1}_k \mathbf{1}_k^\top$ denotes the $k \times k$ matrix of ones. With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section. %We focus on the case of top-ranked individuals, which admits a tractable representation under normality. This setting captures one of the most common comparison of interest in practice and allows for a closed-form approximation. Extensions to general order statistics appear substantially more complex and are left for future work.
+where $I_k$ denotes the $k \times k$ identity matrix and $J_k = \mathbf{1}_k \mathbf{1}_k^\top$ denotes the $k \times k$ matrix of ones. With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section. %We focus on the case of top-ranked individuals, which admits a tractable representation under normality. This setting captures one of the most common comparison of interest in practice and allows for a closed-form approximation. Extensions to general order statistics appear substantially more complex and are left for future work.
 
 
 
@@ -448,45 +448,32 @@ Assume a Full House Model in Definition~\ref{def:fhm} and additionally specify t
 \begin{equation} \label{eq:paradoxnormal}
 \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = n_2F_{\mathbf{W}}(\mathbf{w}) - \frac{N_2}{N_1 + N_2} + R,	
 \end{equation}
-where $R$ is defined in \eqref{eq:remainder}, $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. Moreover, we have that 
-\begin{equation} \label{eq:remainder-bound}
-  |R| \leq \left(\frac{1}{2}\right)^{n_2},
-\end{equation}
- when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
+where $R$ is defined in \eqref{eq:remainder}, $F_{\mathbf{W}}$ is the distribution function of $\mathbf{W}$, and the first $n_1$ elements of $\mathbf{w}$ are $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. Moreover, if $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$, then $|R| \leq \left(\frac{1}{2}\right)^{n_2}$.
 \end{theorem}
 % $\mathbf{w} = (\frac{\mu_2 - \mu_1}{\sigma_1}, \dots, \frac{\mu_2 - \mu_1}{\sigma_1}, 0, \dots, 0)$,
 
-We now show that plug-in estimators of the normal distribution parameters $\mu_i$ and $\sigma_i$, $i=1,2$, yield reliable estimates of aptitude-achievement paradox probabilities \eqref{eq:paradoxnormal}. 
+We now show that plug-in estimators obtained by replacing $\mu_i$ and $\sigma_i$, $i=1,2$, with consistent estimators yield asymptotically valid estimates of the paradox probability in \eqref{eq:paradoxnormal}.
 
 \begin{theorem}
 \label{theorem:plugin}
-Assume the setting of Theorem~\ref{theorem:normalgeneral} with $\sigma_1 < \sigma_2$, and $\mu_1 < \mu_2$, and let $\widehat F_{\mathbf W}(\mathbf w)$ and $\widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)$, respectively, denote the plug-in estimator of $F_{\mathbf W}(\mathbf w)$ and the paradox probability in \eqref{eq:paradoxnormal} obtained by replacing $\mu_i,\sigma_i$ with estimators $\hat\mu_i,\hat\sigma_i$, $i=1,2$. Suppose
-$\hat\mu_i \xrightarrow{P} \mu_i$, $\hat\sigma_i \xrightarrow{P} \sigma_i$, $i=1,2$, and additionally
-\begin{align}
-(2\log n_1)
-\left|
-\frac{\hat\sigma_1^2}{\hat\sigma_2^2}
--
-\frac{\sigma_1^2}{\sigma_2^2}
-\right|
-&\xrightarrow{P}0,
-\label{eq:plugin_sigma}
-\\[4pt]
-\sqrt{2\log n_1}
-\left|
-\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+Assume the setting of Theorem~\ref{theorem:normalgeneral} with $\sigma_1 < \sigma_2$, and $\mu_1 < \mu_2$, and let $\widehat F_{\mathbf W}(\mathbf w)$ and $\widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)$, respectively, denote the plug-in estimator of $F_{\mathbf W}(\mathbf w)$ and the paradox probability in \eqref{eq:paradoxnormal} obtained by replacing $\mu_i,\sigma_i$ with consistent estimators $\hat\mu_i,\hat\sigma_i$, $i=1,2$. Suppose
+\begin{align*}
 \frac{\hat\sigma_1}{\hat\sigma_2}
 -
-\frac{\mu_2-\mu_1}{\sigma_2}
 \frac{\sigma_1}{\sigma_2}
-\right|
-&\xrightarrow{P}0.
-\label{eq:plugin_mu}
-\end{align}
+=
+o_P\!\left(\frac{1}{\log n_1}\right),
+\qquad
+\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+-
+\frac{\mu_2-\mu_1}{\sigma_2}
+=
+o_P\!\left(\frac{1}{\sqrt{\log n_1}}\right).
+\end{align*}
 Then, 
-$$
+$
   \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} \xrightarrow{P}1
-$$
+$
 and
 $$
   \widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)
@@ -495,6 +482,13 @@ $$
 \end{theorem}
 
 %This choice of parameter should cover the sample-size consistent estimator. 
+\textbf{Remark}: The rates in Theorem~\ref{theorem:plugin} arise from the logarithmic scaling in the extreme-value approximation and are relatively weak. In particular, they are satisfied whenever
+$$
+\hat\mu_i - \mu_i = O_P(n_i^{-1/2}),
+\qquad
+\hat\sigma_i - \sigma_i = O_P(n_i^{-1/2}),
+$$
+as holds for standard plug-in estimators such as maximum likelihood estimators, provided that $n_2 = O(n_1)$.
 
 
 
@@ -594,11 +588,9 @@ We now apply Theorem~\ref{theorem:normalgeneral} to quantify paradox probabiliti
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-%Figure~\ref{Fig:paradox-prob-results} displays the resulting paradox probabilities alongside a smoothed empirical exceedance rate, the proportion of historical seasons in which the maximum batting average exceeded Arraez's 2023 mark. The estimated paradox probabilities closely track this benchmark. Both quantities increase as one moves backward in time, reflecting that earlier eras were structurally more conducive to extreme observed batting averages due to higher means, larger variances, and smaller effective populations.
-
 Importantly, the estimated paradox probabilities closely track empirical exceedance patterns across eras (Figure~\ref{Fig:paradox-prob-results}). This agreement indicates that the proposed framework is not merely descriptive, but captures the structural forces governing discrepancies in cross-era rankings. In particular, it explains why certain modern performances, such as Arraez's 2023 batting average, while appearing modest in raw historical comparisons, correspond to exceptionally high latent aptitude once differences in population depth and measurement environment are taken into account.
 
-Under Full House Modeling, Arraez's 2023 performance ranks 68th all-time among full-time batters after adjusting for population depth and contextual effects \citep{yan2025comparing, fullhouse2025}, in contrast to his raw observed rank of 341. This gap illustrates how observed rankings can be systematically distorted by changes in population structure and measurement conditions. The paradox probability provides a formal, quantitative measure of this distortion, clarifying when cross-context comparisons based on observed outcomes are likely to be misleading.
+%Under Full House Modeling, Arraez's 2023 performance ranks 68th all-time among full-time batters after adjusting for population depth and contextual effects \citep{yan2025comparing, fullhouse2025}, in contrast to his raw observed rank of 341. This gap illustrates how observed rankings can be systematically distorted by changes in population structure and measurement conditions. The paradox probability provides a formal, quantitative measure of this distortion, clarifying when cross-context comparisons based on observed outcomes are likely to be misleading.
 
 
 \section{Discussion}

@@ -272,7 +272,40 @@ and
 
 
 
-%%%% Proof of Theorem 4.3
+%%%% Proof of Lemma 4.3
+\subsection{Proof of Lemma \ref{lemma:Rbound}}
+\begin{proof}
+From \eqref{eq:A} and \eqref{eq:remainder}, we have
+\begin{align*}
+  |R| &= \left|\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\right|\\
+  &\leq \int_{A^c} \left|F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right|d F_{Y_2, (n_2)}(x) \\
+    &\leq \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right).
+\end{align*}
+Now, when we specify that $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$ as in Proposition~\ref{prop:weakstodom}, we have 
+\begin{align*}
+    &\Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right)^{\frac{n_2}{N_2}} \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}\right) 
+    & \leq 
+    \Prob\left(\Phi\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2}\right) \geq \Phi\left(\frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)\right)	 \\	
+    &\qquad = \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right).
+\end{align*}
+Under the assumption that $\sigma_1 \leq \sigma_2$, straightforward algebra yields
+$$
+  \Prob\left(\frac{Y_{2,(n_2)}-\mu_2}{\sigma_2} \geq \frac{Y_{2,(n_2)} - \mu_1}{\sigma_1}\right)
+  = \Prob\left(Y_{2,(n_2)} \leq \left(\frac{\mu_2}{\sigma_2} - \frac{\mu_1}{\sigma_1}\right)\left(\frac{1}{\sigma_2} - \frac{1}{\sigma_1}\right)^{-1}\right).
+$$
+Under the additional assumption that $\mu_1 \leq \mu_2$, the right-hand side is bounded above by
+$
+  \Prob\left(Y_{2,(n_2)} \leq \mu_2\right).
+$
+Putting it all together, we have
+$
+  |R| \leq \Prob\left(Y_{2,(n_2)} \leq \mu_2\right) \leq \left(\frac{1}{2}\right)^{n_2},
+$
+when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.	
+\end{proof}
+
+
+%%%% Proof of Theorem 4.4
 \subsection{Proof of Theorem~\ref{theorem:normalgeneral}}
 
 \begin{proof}
@@ -318,16 +351,16 @@ Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
 \;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
 &\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w}\right) \;-\; \frac{N_2}{N_1 + N_2},
 \end{align*}
-where the first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}.
+where the first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}. 
 
-The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
+The bound on the remainder \eqref{eq:remainder-bound} follows from Lemma \ref{lemma:Rbound}.
 \end{proof}
 
 
 
 
 
-%%%% Proof of Theorem 4.4
+%%%% Proof of Theorem 4.5
 \subsection{Proof of Theorem \ref{theorem:plugin}}
 \begin{proof}
 From \eqref{eq:paradoxnormal} we have
@@ -462,14 +495,22 @@ Provided $\hat\sigma_1/\hat\sigma_2\xrightarrow{P}\sigma_1/\sigma_2$, the prefac
 $$
   \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} \xrightarrow{P}1
 $$ 
-whenever the assumed conditions,
+whenever the conditions,
 \begin{align*}
 (2\ln n_1)\,\left|\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right| 
 &\;\xrightarrow{\;P\;}\; 0, \\[4pt]
 \sqrt{2\ln n_1}\,\left|\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right| 
 &\;\xrightarrow{\;P\;}\; 0, 
 \end{align*}
-are satisfied. 
+are satisfied. The first consistency condition above is assumed by noting that 
+$$
+  \frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}} = \left(\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\sigma_1}{\sigma_2}\right)\left(\frac{\hat\sigma_1}{\hat\sigma_2} + \frac{\sigma_1}{\sigma_2}\right),
+$$
+where 
+$$
+  \left(\frac{\hat\sigma_1}{\hat\sigma_2} + \frac{\sigma_1}{\sigma_2}\right) = O_P(1).
+$$ 
+The second follows from the assumed consistency conditions together with the first condition.
 
 Now consider the regime $B\le C$. In this case we have $F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o(1))$. Since $B=-\sqrt{2\log(n_2-1)}$, Mills' ratio yields
 $$
