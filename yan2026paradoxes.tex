@@ -70,101 +70,8 @@
 
 
 \begin{abstract}
-We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a formal framework for quantifying structural reversals in cross-context comparisons under explicit models of population depth, selection, and measurement.
+We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and introduce its probability as an explicit inferential target. To study this quantity, we employ Full House Modeling, a framework that derives latent aptitude from observed achievement by embedding observed samples within larger source populations. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. An application to Major League Baseball contextualizes historically extreme batting performances, showing how modern achievements may appear less exceptional after accounting for population depth and measurement environments. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a formal framework for quantifying structural reversals in cross-contextual comparisons.
 \end{abstract}
-
-
-\subsection*{Highest-Priority Revision Checklist for JRSS-B Submission}
-
-These revisions are aimed at improving both:
-\begin{enumerate}
-    \item overall fit with the stated JRSS-B scope, and
-    \item reviewer perception of contribution density and methodological importance.
-\end{enumerate}
-
-\subsubsection*{Tier 1: Highest Priority Revisions}
-\begin{enumerate}
-    \item \textbf{Compress the application sections.}
-    \begin{itemize}
-        \item Retain only the most compelling illustrations of:
-        \begin{itemize}
-            \item paradox probabilities,
-            \item latent-observed reversals,
-            \item and empirical interpretability.
-        \end{itemize}
-    \end{itemize}
-\end{enumerate}
-
-\subsubsection*{Tier 2: Important Revisions}
-
-\begin{enumerate}
-    \item \textbf{Sharpen the inferential framing in Section 4.}
-    \begin{itemize}
-        \item Emphasize:
-        \begin{itemize}
-            \item computational tractability,
-            \item operational estimation,
-            \item and practical implementation.
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Tighten the asymptotic rigor in Theorem 4.5.}
-    \begin{itemize}
-        \item Reduce heuristic EVT-style arguments where possible.
-    \end{itemize}
-
-    \item \textbf{Reduce defensive discussion of assumptions.}
-    \begin{itemize}
-        \item Shorten repeated caveats regarding:
-        \begin{itemize}
-            \item rank preservation,
-            \item idealization,
-            \item and selection assumptions.
-        \end{itemize}
-        \item Replace apologetic framing with concise scope clarification.
-    \end{itemize}
-
-    \item \textbf{Remove or reduce conjectural discussion.}
-    \begin{itemize}
-        \item In particular, consider moving the conjecture following Proposition~3.5 to the Discussion or Supplementary Materials.
-    \end{itemize}
-\end{enumerate}
-
-\subsubsection*{Tier 3: Secondary but Valuable Revisions}
-
-\begin{enumerate}
-    \item \textbf{Shorten the Discussion section considerably.}
-    \begin{itemize}
-        \item Avoid re-running the Introduction.
-        \item Focus on:
-        \begin{itemize}
-            \item broader methodological implications,
-            \item selective observation,
-            \item and future directions.
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Reduce repeated philosophical exposition.}
-    \begin{itemize}
-        \item Compress repeated conceptual discussion of:
-        \begin{itemize}
-            \item aptitude vs.\ achievement,
-            \item population depth,
-            \item and contextual comparison.
-        \end{itemize}
-    \end{itemize}
-
-    \item \textbf{Potentially revise the title toward a more methodological/statistical foundations framing.}
-    \begin{itemize}
-        \item Current title emphasizes ``paradoxes'' and may sound overly conceptual.
-        \item Consider framing around:
-        \begin{itemize}
-            \item selective observation,
-            \item latent-observed ranking reversals,
-            \item or comparative inference.
-        \end{itemize}
-    \end{itemize}
-\end{enumerate}
 
 
 
@@ -178,46 +85,23 @@ These limitations give rise to a new inferential target: the probability that cr
 \begin{equation} \label{eq:paradoxgeneral}
 	\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right).
 \end{equation}
-This quantity captures the structural risk that comparisons based on observed outcomes reverse the corresponding latent ordering across contexts.
-
-Such reversals arise naturally when measurement systems differ across contexts or when observation occurs through non-random selection mechanisms shaped by institutional, competitive, or environmental constraints. Existing methods provide limited tools for quantifying the frequency of these reversals.
+This quantity captures the structural risk that comparisons based on observed outcomes reverse the corresponding latent ordering across contexts. Such reversals arise naturally when measurement systems differ across contexts or when observation occurs through non-random selection mechanisms. Existing methods provide limited tools for quantifying the frequency of these reversals.
 
 Related work has studied disagreement between observed rankings and target orderings through measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, while latent-trait and comparative ability models---including Rasch models \citep{bond2013applying}, Bayesian hierarchical formulations \citep{raudenbush1986hierarchical, BRL99}, and Elo-type rating systems \citep{elo1978rating, graepel2007bayesian}---infer underlying ability from observed outcomes. However, these approaches generally operate relative to the observed comparison pool and do not explicitly model how differences in eligible population depth, selection intensity, or measurement environments distort the relationship between latent aptitude and observed achievement.
 
-To address these limitations, we develop a structural framework for cross-context comparison that explicitly models population depth, selective observation, and context-specific measurement processes. This framework, which we refer to as Full House Modeling (FHM), was initially proposed in an applied setting comparing baseball players across eras \citep{yan2025comparing}, and is formalized here for comparative analysis across heterogeneous contexts. Under FHM, individuals are drawn from a common latent aptitude distribution, while contexts differ in (i) the size of the eligible population, (ii) the mechanism through which individuals are selected into observation, and (iii) the mapping from latent aptitude to observed achievement. We model measurement through context-specific rank-preserving transformations between latent aptitude and observed achievement.
+To address these limitations, we formalize Full House Modeling (FHM), a structural framework for cross-context comparison that explicitly incorporates differences in eligible population size, selective observation, and measurement environments. Within FHM, individuals are drawn from a common latent aptitude distribution, while observed achievement is generated through context-specific rank-preserving transformations and selection mechanisms. This structure permits explicit probabilistic analysis of aptitude-achievement reversals and, in several settings, yields paradox probabilities determined entirely by order-statistic structure and sampling geometry.
 
-In this paper, we develop the theory of FHM under rank-based selection mechanisms, particularly top-$n$ selection, where tractable results are available. These assumptions are most natural in highly selective settings where observed individuals represent the upper tail of a larger latent population. Comparisons of athletes across eras provide a canonical example, since entry into professional leagues closely approximates selection of the most talented individuals from large underlying populations.
-
-\citet{yan2025comparing} introduced Full House Modeling as an operational methodology for cross-era comparison in baseball analytics. The present paper develops the first formal statistical theory for this framework. In particular, our contributions are as follows:
+We develop the theory of FHM primarily under rank-based selection, especially top-$n$ sampling, where tractable results are available. These assumptions are particularly natural in highly selective settings such as professional sports, where observed competitors represent the upper tail of a much larger latent population. \citet{yan2025comparing} introduced Full House Modeling as an operational methodology for cross-era comparison in baseball analytics. The present paper develops the first formal statistical theory for this framework. In particular, our contributions are as follows:
 \begin{itemize}
     \item We formalize the aptitude-achievement paradox as an explicit inferential target for cross-context comparison and study its probability under selective observation.
     \item We develop the probabilistic foundations of Full House Modeling, including a characterization result showing that the induced latent-observed coupling is the unique rank-preserving monotone transformation consistent with the model assumptions.
     \item Under identical observed achievement distributions across contexts, we derive explicit and distribution-free paradox probabilities and characterize their dependence on population and sampling structure.
-    \item Under heterogeneous achievement distributions, we derive general bounds and obtain tractable asymptotic approximations in Gaussian settings, including explicit remainder bounds and plug-in consistency results.
+	\item Under heterogeneous achievement distributions, we derive general bounds and obtain explicit Gaussian representations with exponentially controlled remainder terms and consistent plug-in estimation procedures.
     \item We show through theoretical analysis and sensitivity experiments that paradox probabilities depend primarily on ratios of eligible population sizes and sampling fractions rather than their absolute magnitudes.
 \end{itemize}
 
 Proofs of mathematical results are provided in the Supplementary Materials.
 
-
-%A large class of methods studies disagreement between observed orderings and target rankings. Classic examples include Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize concordance and discordance between observed rankings. However, these approaches operate entirely on observed outcomes and do not explicitly model latent aptitude, population depth, or selection into observation.
-
-%Traditional latent trait models \citep{bartholomew2011latent} instead focus on estimating underlying ability from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individual abilities are invariant to the specific items administered under assumptions excluding differential item functioning (DIF) \citep{holland2012differential}. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and account for heterogeneity through random effects or temporal evolution, without explicitly modeling variation in eligible population depth or selection across contexts.
-
-
-%These limitations give rise to a previously unquantified inferential target: the probability that cross-context comparisons reverse latent orderings. Specifically, an individual drawn from a deeper or more competitive population may possess higher latent aptitude yet exhibit lower observed achievement than a counterpart from a shallower or more weakly filtered context. We term this phenomenon the aptitude-achievement paradox. Formally, let individual $j$ in context $i$ have an observed $\R$-valued statistic $Y_{i,j}$ and an underlying latent $\R$-valued aptitude $X_{i,j}$, and let individual $n$ in context $m$ have an observed $\R$-valued statistic $Y_{m,n}$, and an underlying latent $\R$-valued aptitude $X_{m,n}$. The probability of aptitude-achievement paradox is 
-%\begin{equation} \label{eq:paradoxgeneral}
-%	\Prob\left(X_{i,j} > X_{m,n}, Y_{i,j} < Y_{m,n}\right) 
-%\end{equation}
-%This quantity captures the structural risk that cross-context comparisons based on observed outcomes reverse the true latent ordering.
-
-%Such reversals cannot occur if aptitude is mapped to achievement through a common strictly increasing measurement mechanism and if selection into observation is ignorable. In practice, however, measurement systems often differ across contexts, and observed individuals are typically selected through non-random processes shaped by institutional, competitive, or environmental constraints. As a result, observed dominance may reflect differences in selection intensity or measurement conditions rather than differences in underlying aptitude. Existing methods provide limited tools for quantifying the frequency of such reversals under explicit models of aptitude, selection, and measurement.
-
-%The aptitude-achievement paradox in Eq \ref{eq:paradoxgeneral} cannot arise if a single, strictly increasing, context-invariant measurement map relates aptitude to achievement and if selection into tasks is ignorable. In practice, however, both measurement heterogeneity (non-invariance, differential item functioning) and non-ignorable selection (who attempts which tasks, faces which opponents, receives which treatment) are pervasive. These features can reverse cross-context rankings even when the latent ranking is unambiguous, echoing classic reversal phenomena such as Simpson's \citep{simpson1951interpretation} and Lord's paradoxes \citep{lord1967paradox} while implicating modern concerns about fairness. What practitioners lack is a principled way to quantify how often such reversals should occur under an explicit model of aptitude, measurement, and selection.
-
-%A large class of methods quantifies how often observed orderings disagree with a target ordering, closely related to the phenomenon studied here. Classic examples include rank-discordance measures such as Kendall's $\tau$ \citep{kendall1938new} and Somers' $D$ \citep{somers1962new}, which summarize the frequency of concordant and discordant pairs based on observed rankings. Because these indices operate entirely on observed outcomes, they neither place individuals on a common latent scale nor disentangle the effects of measurement non-invariance or selection, motivating models that make the measurement and selection processes explicit.
-
-%Traditional latent trait models \citep{bartholomew2011latent} focus on estimating underlying abilities from observed categorical or discrete outcomes. For example, the Rasch model \citep{bond2013applying} ensures that comparisons of individuals' abilities are invariant to the specific items administered, under the assumption of no differential item functioning (DIF) \citep{holland2012differential}. However, such models do not explicitly leverage information about the size or structure of the source population from which individuals are drawn. Likewise, Bayesian hierarchical and state-space models for latent ability---including Elo-type rating systems \citep{BRL99, elo1978rating, graepel2007bayesian}---typically condition on the observed competitive or testing pool and capture population-level variation through random effects or dynamic evolution, without modeling variation in eligible population depth or selection into observation across contexts. In parallel, the causal bootstrap \citep{imbens2018causal} emphasizes that valid causal inference requires explicitly situating the observed sample within a larger source population, rather than treating the realized sample as the population of interest.
 
 
 \section{Model Setting}
@@ -246,9 +130,7 @@ where $S_{i,j} = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible.
 Consider populations indexed by $i$ with sizes $N_i$ and system sizes $n_i$, where $N_i \geq n_i$. Let latent variables $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$, and define the selection indicators $S_{i,j} := 1_i(X_{i,j}, \mathbf{X}_{i,-j})$, where $S_{i,j}=1$ indicates inclusion in the observed system. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, denote observed outcomes for the selected individuals. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, corresponding to the individuals for which $S_{i,j}=1$. Then the Full House Model generates $Y_{i,(j)}$ values according to \eqref{eq:truepar}, where $F_{Y_i}$ and $F_X$ are continuous and invertible.
 \end{defn}
 
-The Full House Model defines a joint distribution over $(X,Y)$ together with selection indicators $S_{i,j}$. Latent variables $X$ are drawn i.i.d.\ from $F_X$, and the selection indicators $S_{i,j}$ determine inclusion in the observed system. Conditional on inclusion, observed outcomes $Y$ are generated via a rank-preserving monotone coupling with $X$. In particular, the dependence between $X$ and $Y$ is induced through a quantile-matching transformation of their order statistics, ensuring that higher latent aptitude corresponds to higher observed achievement within each system. %The stochasticity in the Full House Model arises entirely from the latent population $X$, while both selection and observed outcomes are deterministic functionals of $X$.
-Conditional on the latent population and the selection mechanism, observed outcomes are generated through a deterministic rank-preserving coupling.
-
+The Full House Model defines a joint distribution over $(X,Y)$ together with selection indicators $S_{i,j}$. Latent variables $X$ are drawn i.i.d.\ from $F_X$, and the selection indicators $S_{i,j}$ determine inclusion in the observed system. Conditional on inclusion, observed outcomes $Y$ are generated via a rank-preserving monotone coupling with $X$. In particular, the dependence between $X$ and $Y$ is induced through a quantile-matching transformation of their order statistics, ensuring that higher latent aptitude corresponds to higher observed achievement within each system. 
 
 The Full House Model induces structural missingness by construction: for any individual $j$ such that $S_{i,j} = 0$, the corresponding observed statistic $Y_{i,j}$ is undefined. In subsequent sections, we consider probabilities involving both latent and observed quantities. To formalize this setting, we treat $Y_{i,j}$ as a random variable defined only on the event $\{S_{i,j}=1\}$. For example, $\Prob\big(X_{i,j}\in A,\; Y_{i,j}\in B,\; S_{i,j} = 1\big)$ is well-defined for Borel sets \(A,B\subset \mathbb R\), whereas $Y_{i,j}$ is not defined on $\{S_{i,j} = 0\}$. This perspective allows selection mechanisms to be incorporated into probabilistic statements without imputing counterfactual outcomes.
 
@@ -296,14 +178,6 @@ $$
 Moreover, this representation is unique up to null sets and coincides with that induced by the Full House Model in Definition~\ref{def:fhm}.
 \end{theorem}
 
-\subsection{Interpretation and scope of the rank-preserving assumption}
-
-The coupling in Definition~\ref{def:fhm} is intentionally structural rather than measurement-error based. Under Full House Modeling, observed outcomes are generated through a rank-preserving transformation of latent aptitude among selected individuals, so that stochasticity enters through the latent population and the selection mechanism rather than through additive observational noise. The framework is not intended as a literal noiseless measurement model. Rather, the framework is intended as an idealized abstraction of settings in which observed rankings primarily reflect latent ordering after strong selection into the observed system.
-
-This abstraction is most plausible in highly selective environments, where observed individuals represent the upper tail of a much larger latent population and observed outcomes are designed to discriminate among top performers. Professional sports provide a canonical example: although season-level outcomes contain substantial variability, long-run elite performance is strongly constrained by selection into the league itself. In such settings, rank-preserving approximations provide a tractable framework for studying how population depth and selection interact with observed achievement.
-
-More generally, Full House Modeling should be viewed as a structural model for latent-observed comparison under selective observation, rather than as a literal generative model for noisy repeated measurements. Extending the framework to incorporate stochastic measurement error, imperfect ranking preservation, or probabilistic selection mechanisms is an important direction for future work.
-
 
 \section{Paradoxes Under Identical Achievement Distributions}
 \label{sec:samedist}
@@ -346,7 +220,7 @@ $$
 \end{lemma}
 
 
-Our first formal result shows that, under a monotonicity condition on the Beta-induced distortions, the paradox probability admits a closed-form expression.
+Our first formal result shows that the paradox probability admits a closed-form expression when the distortion induced by observed-system ranking dominates the corresponding latent-population distortion.
  
 \begin{defn}
 \label{def:ribf}
@@ -356,7 +230,6 @@ $$
 $$
 where $B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ is the beta coefficient.
 \end{defn}
-
 
 
 \begin{theorem} \label{theorem:samedistgeneral}
@@ -479,9 +352,11 @@ Proposition~\ref{prop:weakstodom} provides bounds on the paradox probability und
 
 \subsection{Normal distributions}
 \label{subsec:normal}
+
+
 This section develops explicit aptitude-achievement paradox probabilities \eqref{eq:simpleparadox} when a Full House Model in Definition~\ref{def:fhm} specifies $Y_i \sim N(\mu_i,\sigma_i^2)$, $i = 1,2$. We focus on systems where $S_{i,(N_i)} = 1$ for $i = 1,2$. The outline is similar to Section~\ref{sec:samedist} in the sense that a technical condition is needed to prove the main result, and further results provide configurations satisfying this condition. However, with $Y_i \sim N(\mu_i,\sigma_i^2)$, the technical condition yields a remainder term that prevents an exact closed-form expression. We show that this remainder is negligible under mild conditions on population fractions and distributional parameters.
 
-Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} will provide a representation more conducive to formal integration needed to prove our main result. Only this time we will use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to represent the aptitude-achievement paradox probability as 
+Similar to the proof of Theorem~\ref{theorem:samedistgeneral}, Lemma~\ref{lemma:rep} provides a representation conducive to the integration required for the present analysis. In the Gaussian setting, we use \eqref{eq:pararep2} in Lemma~\ref{lemma:rep} to express the aptitude-achievement paradox probability as
 $$
  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right),
 $$
@@ -517,17 +392,6 @@ $$
 	\Phi\!\left(\frac{x-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}
 	\right\}.
 $$
-%From here, we have that
-%\begin{align*}
-%	&\Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
-%	&\qquad= \int_{A} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x),
-%%%	&= \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
-%\end{align*}
-%where $A := A(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$ is the set of values of $x$ for which the inner integral is nonempty, 
-%\begin{equation}\label{eq:A}
-%	A = \left\{ x \in \mathbb{R} : F_{Y_1}^{-1}\!\left(F_{Y_2}(x)^{\frac{n_2 N_1}{N_2 n_1}}\right) \le x
-%	\right\}.
-%\end{equation}
 The following lemma shows that the remainder term is negligible under mild parameter restrictions.
 
 
@@ -544,7 +408,6 @@ then
 \end{lemma}
 
 Therefore, although the remainder term in \eqref{eq:remainder} arises from the restriction of the integration domain to $A$, it is exponentially small in $n_2$ under a familiar ordering of population fractions (see Proposition~\ref{prop:weakstodom}) and a simple parametric configuration. Consequently, the aptitude--achievement paradox probability is well approximated by the unrestricted integral given by \eqref{eq:integral} with $R$ contributing only a negligible correction for moderately large $n_2$. 
-
 
 We now introduce a multivariate normal representation allowing a closed-form expression of the principal term. Let $\mathbf{W} \sim \mathcal{N}_{n_1+n_2-1}(\mathbf{0}, \boldsymbol{\Sigma})$, with block covariance matrix
 \begin{equation}\label{eq:Sigma}
@@ -564,11 +427,7 @@ where
 \end{align}
 where $I_k$ denotes the $k \times k$ identity matrix and $J_k = \mathbf{1}_k \mathbf{1}_k^\top$ denotes the $k \times k$ matrix of ones. With this structure we now provide an explicit aptitude-achievement paradox probability, the main result of this section. %We focus on the case of top-ranked individuals, which admits a tractable representation under normality. This setting captures one of the most common comparison of interest in practice and allows for a closed-form approximation. Extensions to general order statistics appear substantially more complex and are left for future work.
 
-
-
-This setup yields an aptitude-achievement paradox result when cross-system achievement follows different normal distributions. The result is essentially closed form under parametric specification and a ratio sample size condition that allow the remainder term \eqref{eq:remainder} to be bounded above by a term decaying exponentially in $n_2$.
-
-
+The following theorem provides an essentially closed-form expression for the aptitude-achievement paradox probability under Gaussian achievement distributions, with a remainder term that decays exponentially in $n_2$ under natural ratio and parameter conditions. The ordering conditions encode a setting in which system 1 is more selective relative to its underlying population, while system 2 is more favorable in observed achievement, producing the configuration most conducive to aptitude-achievement reversals.
 
 \begin{theorem} 
 \label{theorem:normalgeneral}
