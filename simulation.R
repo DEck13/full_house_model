@@ -78,3 +78,865 @@ tail(res3[(res3$N1 - res3$N2) > (res3$n1 - res3$n2), ], 100)
 
 res3[((res3$N1 - res3$N2) > (res3$n1 - res3$n2)) & !res3$ans, ]
 
+library(mvtnorm)
+library(tidyverse)
+library(doParallel)
+library(Pareto)
+
+set.seed(13)
+n1 = 100
+n2 = 200
+N1 = 2000
+N2 = 3000
+sigma1 = 1
+sigma2 = 2
+mu1 = -1
+mu2 = 1
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+    
+    Y1 <- sort(rnorm(n1, mean = mu1, sd = sigma1))
+    Y2 <- sort(rnorm(n2, mean = mu2, sd = sigma2))
+    
+    order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+      p <- pnorm(q, mean = mean, sd = sd)
+      pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+    }
+    
+    order_pnorm_vec <- function(q, mean = 0, sd = 1){
+      q <- sort(q) 
+      n <- length(q)
+      unlist(lapply(1:n, function(j){
+        order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+      }))
+    }
+    
+    u1 <- order_pnorm_vec(Y1, mean = mu1, sd = sigma1)
+    u2 <- order_pnorm_vec(Y2, mean = mu2, sd = sigma2)
+    
+    order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+      n <- length(u)
+      if(length(npop) == 1) npop <- rep(npop, n)
+      unlist(lapply(1:n, function(j){
+        qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+      }))
+    }
+    
+    # try it out on the percentiles obtained from order_norm_vec
+    X1 <- order_Pareto_vec(u1, npop = N1)
+    X2 <- order_Pareto_vec(u2, npop = N2)
+    return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+  }
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+result <- simu(n1 = n1, n2 = n1, N1 = N1, N2 = N2, n1j = 0, n2k = 0, size = 100000)
+mean(result)/100000
+
+# --- Sigma_11 ---
+Sigma11 <- matrix(sigma2^2 / sigma1^2, n1, n1)
+diag(Sigma11) <- (sigma2^2 / sigma1^2) + 1
+
+# --- Sigma_22 ---
+Sigma22 <- matrix(1, n2 - 1, n2 - 1)
+diag(Sigma22) <- 2
+
+# --- Sigma_21 and Sigma_12 ---
+Sigma21 <- matrix(sigma2 / sigma1, n2 - 1, n1)
+Sigma12 <- t(Sigma21)
+
+# --- Combine blocks into Sigma ---
+Sigma <- rbind(
+  cbind(Sigma11, Sigma12),
+  cbind(Sigma21, Sigma22)
+)
+
+upper <- c(rep((mu2-mu1)/sigma1, n1), rep(0, n2-1))
+true_r <- replicate(100000, 
+                    n2*pmvnorm(lower = -Inf, upper = upper, mean = rep(0, n1+n2-1), sigma = Sigma) - N2/(N1+N2))
+mean(true_r)
+
+####### simulation ########
+
+simu_paradox <- function(n1, n2, N1, N2, 
+                         mu1, mu2, sigma1, sigma2, 
+                         n1j, n2k){
+  
+  Y1 <- sort(rnorm(n1, mean = mu1, sd = sigma1))
+  Y2 <- sort(rnorm(n2, mean = mu2, sd = sigma2))
+  
+  order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+    p <- pnorm(q, mean = mean, sd = sd)
+    pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+  }
+  
+  order_pnorm_vec <- function(q, mean = 0, sd = 1){
+    q <- sort(q) 
+    n <- length(q)
+    unlist(lapply(1:n, function(j){
+      order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+    }))
+  }
+  
+  u1 <- order_pnorm_vec(Y1, mean = mu1, sd = sigma1)
+  u2 <- order_pnorm_vec(Y2, mean = mu2, sd = sigma2)
+  
+  order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+    n <- length(u)
+    if(length(npop) == 1) npop <- rep(npop, n)
+    unlist(lapply(1:n, function(j){
+      qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+    }))
+  }
+  
+  # try it out on the percentiles obtained from order_norm_vec
+  X1 <- order_Pareto_vec(u1, npop = N1)
+  X2 <- order_Pareto_vec(u2, npop = N2)
+  return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+}
+
+simu_config <- function(n1, n2, N1, N2,
+                        mu1, mu2, sigma1, sigma2,
+                        n1j = 0, n2k = 0,
+                        size = 10000, cores = 4) {
+  
+  res <- do.call(rbind, mclapply(
+    1:size,
+    function(xx) {
+      simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,
+                        mu1 = mu1, mu2 = mu2,
+                        sigma1 = sigma1, sigma2 = sigma2,
+                        n1j = n1j, n2k = n2k)
+    },
+    mc.cores = cores
+  ))
+  
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+true_r_config <- function(n1, n2, N1, N2,
+                          mu1, mu2, sigma1, sigma2) {
+  
+  # --- Sigma_11 ---
+  Sigma11 <- matrix(sigma2^2 / sigma1^2, n1, n1)
+  diag(Sigma11) <- (sigma2^2 / sigma1^2) + 1
+  
+  # --- Sigma_22 ---
+  Sigma22 <- matrix(1, n2 - 1, n2 - 1)
+  diag(Sigma22) <- 2
+  
+  # --- Sigma_21 and Sigma_12 ---
+  Sigma21 <- matrix(sigma2 / sigma1, n2 - 1, n1)
+  Sigma12 <- t(Sigma21)
+  
+  # --- Combine blocks ---
+  Sigma <- rbind(
+    cbind(Sigma11, Sigma12),
+    cbind(Sigma21, Sigma22)
+  )
+  
+  upper <- c(rep((mu2 - mu1) / sigma1, n1),
+             rep(0, n2 - 1))
+  
+  val <- n2 * pmvnorm(
+    lower = -Inf,
+    upper = upper,
+    mean  = rep(0, n1 + n2 - 1),
+    sigma = Sigma
+  ) - N2 / (N1 + N2)
+  
+  as.numeric(val)
+}
+
+# candidate values
+n1_vec     <- c(10, 20)
+n2_vec     <- c(20, 40)
+N1_vec     <- c(200, 400)
+N2_vec     <- c(300, 600)
+mu1_vec    <- c(-1, 0)
+mu2_vec    <- c(0, 1)
+sigma1_vec <- c(1, 1.5)
+sigma2_vec <- c(2, 3)
+
+param_grid <- expand.grid(
+  n1 = n1_vec,
+  n2 = n2_vec,
+  N1 = N1_vec,
+  N2 = N2_vec,
+  mu1 = mu1_vec,
+  mu2 = mu2_vec,
+  sigma1 = sigma1_vec,
+  sigma2 = sigma2_vec
+)
+
+# enforce constraints: n1/N1 <= n2/N2, sigma1 <= sigma2, mu1 <= mu2
+valid_idx <- with(param_grid,
+                  (n1 / N1 <= n2 / N2) &
+                    (sigma1 <= sigma2) &
+                    (mu1 <= mu2))
+
+param_valid <- param_grid[valid_idx, ]
+nrow(param_valid)
+
+## number of Monte Carlo reps for each config
+MC_size <- 20000  # you can increase later if needed
+
+results_list <- vector("list", nrow(param_valid))
+
+for (i in seq_len(nrow(param_valid))) {
+  cat("Running config", i, "of", nrow(param_valid), "...\n")
+  p <- param_valid[i, ]
+  
+  emp_prob <- simu_config(
+    n1 = p$n1, n2 = p$n2,
+    N1 = p$N1, N2 = p$N2,
+    mu1 = p$mu1, mu2 = p$mu2,
+    sigma1 = p$sigma1, sigma2 = p$sigma2,
+    n1j = 0, n2k = 0,
+    size = MC_size, cores = 4
+  )
+  
+  true_val <- replicate(MC_size, true_r_config(
+    n1 = p$n1, n2 = p$n2,
+    N1 = p$N1, N2 = p$N2,
+    mu1 = p$mu1, mu2 = p$mu2,
+    sigma1 = p$sigma1, sigma2 = p$sigma2
+  ))
+  
+  results_list[[i]] <- c(p, paradox_prob = emp_prob/MC_size,
+                         true_r = mean(true_val))
+}
+
+sim_results <- do.call(rbind, results_list)
+sim_results <- as.data.frame(sim_results)
+
+print(sim_results)
+
+set.seed(13)
+library(tidyverse)
+library(doParallel)
+library(Pareto)
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+    
+    Y1 <- sort(rnorm(n1))
+    Y2 <- sort(rnorm(n2))
+    
+    order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+      p <- pnorm(q, mean = mean, sd = sd)
+      pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+    }
+    
+    order_pnorm_vec <- function(q, mean = 0, sd = 1){
+      q <- sort(q) 
+      n <- length(q)
+      unlist(lapply(1:n, function(j){
+        order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+      }))
+    }
+    
+    u1 <- order_pnorm_vec(Y1)
+    u2 <- order_pnorm_vec(Y2)
+    
+    order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+      n <- length(u)
+      if(length(npop) == 1) npop <- rep(npop, n)
+      unlist(lapply(1:n, function(j){
+        qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+      }))
+    }
+    
+    # try it out on the percentiles obtained from order_norm_vec
+    X1 <- order_Pareto_vec(u1, npop = N1)
+    X2 <- order_Pareto_vec(u2, npop = N2)
+    return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+  }
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+
+res <- c()
+c = 0.5
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.5 <- res
+
+res <- c()
+c = 1
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_1 <- res
+
+res <- c()
+c = 0.2
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.2 <- res
+
+res <- c()
+c = 0.1
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.1 <- res
+
+res <- c()
+c = 0.3
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.3 <- res
+
+res <- c()
+c = 0.4
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.4 <- res
+
+res <- c()
+c = 0.6
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.6 <- res
+
+res <- c()
+c = 0.7
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.7 <- res
+
+res <- c()
+c = 0.8
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.8 <- res
+
+res <- c()
+c = 0.9
+for (N1 in seq(100,2000,100)) {
+  result <- replicate(10, simu(n1 = 60, n2 = 40, N1 = N1, N2 = N1*c, n1j = 1, n2k = 1, size = 1000))
+  res <- c(res, mean(result)/1000)
+}
+res_0.9 <- res
+
+library(ggplot2)
+library(dplyr)
+
+res <- rbind(res_0.1, res_0.2, res_0.3, res_0.4, res_0.5, res_0.6, res_0.7, res_0.8, res_0.9, res_1)
+res <- as.data.frame(res)
+res$c <- paste0("c = ", seq(0.1, 1.0, by = 0.1))
+
+df_long <- res %>%
+  pivot_longer(
+    cols = -c,                   # All columns except 'c' are values
+    names_to = "x",              # Create 'x' column from original column names
+    values_to = "value"          # Store actual values in 'value'
+  ) %>%
+  mutate(x = as.numeric(gsub("V", "", x)))
+df_long$x <- as.numeric(df_long$x)*100
+
+ggplot(df_long, aes(x = x, y = value, color = c, fill = c)) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.2) +  # smoothed line and band
+  labs(title = "Smoothed Vectors with Confidence Bands",
+       x = "N1", y = "Prob", color = "c", fill = "c") +
+  theme_minimal()
+
+set.seed(13)
+
+library(tidyverse)
+library(parallel)
+library(Pareto)
+library(ggplot2)
+library(dplyr)
+
+# ============================================================
+# 1. Simulation function
+# ============================================================
+
+simu <- function(n1, n2, N1, N2, n1j, n2k, size, mc.cores = 7) {
+  
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k) {
+    
+    Y1 <- sort(rnorm(n1))
+    Y2 <- sort(rnorm(n2))
+    
+    order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4) {
+      p <- pnorm(q, mean = mean, sd = sd)
+      pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+    }
+    
+    order_pnorm_vec <- function(q, mean = 0, sd = 1) {
+      q <- sort(q)
+      n <- length(q)
+      
+      unlist(lapply(1:n, function(j) {
+        order_pnorm(
+          q[j],
+          k = j,
+          n = n,
+          mean = mean,
+          sd = sd
+        )
+      }))
+    }
+    
+    u1 <- order_pnorm_vec(Y1)
+    u2 <- order_pnorm_vec(Y2)
+    
+    order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4) {
+      n <- length(u)
+      if (length(npop) == 1) npop <- rep(npop, n)
+      
+      unlist(lapply(1:n, function(j) {
+        qPareto(
+          qbeta(u[j], j + npop[j] - n, n + 1 - j),
+          t = t,
+          alpha = alpha
+        )
+      }))
+    }
+    
+    X1 <- order_Pareto_vec(u1, npop = N1)
+    X2 <- order_Pareto_vec(u2, npop = N2)
+    
+    return(c(
+      Y1[n1 - n1j],
+      Y2[n2 - n2k],
+      X1[n1 - n1j],
+      X2[n2 - n2k]
+    ))
+  }
+  
+  res <- do.call(
+    rbind,
+    mclapply(
+      1:size,
+      function(xx) {
+        simu_paradox(
+          n1 = n1,
+          n2 = n2,
+          N1 = N1,
+          N2 = N2,
+          n1j = n1j,
+          n2k = n2k
+        )
+      },
+      mc.cores = mc.cores
+    )
+  )
+  
+  res <- as.data.frame(res)
+  colnames(res) <- c("Y1", "Y2", "X1", "X2")
+  
+  paradox_count <- nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2, ])
+  
+  return(paradox_count)
+}
+
+
+# ============================================================
+# 2. Wrapper for one achiever rank
+# ============================================================
+# rank = 1 means largest achiever
+# rank = 2 means 2nd largest achiever
+# rank = 6 means 6th largest achiever
+
+run_one_rank <- function(rank,
+                         n1 = 60,
+                         n2 = 40,
+                         N1_grid = seq(100, 2000, 100),
+                         c_grid = seq(0.1, 1.0, by = 0.1),
+                         size = 1000,
+                         nrep = 10,
+                         mc.cores = 7) {
+  
+  # Convert achiever rank to your original indexing
+  # largest: n1j = 0
+  # 2nd largest: n1j = 1
+  # 3rd largest: n1j = 2
+  offset <- rank - 1
+  
+  output <- list()
+  
+  counter <- 1
+  
+  for (c_val in c_grid) {
+    
+    for (N1 in N1_grid) {
+      
+      N2 <- N1 * c_val
+      
+      result <- replicate(
+        nrep,
+        simu(
+          n1 = n1,
+          n2 = n2,
+          N1 = N1,
+          N2 = N2,
+          n1j = offset,
+          n2k = offset,
+          size = size,
+          mc.cores = mc.cores
+        )
+      )
+      
+      prob <- mean(result) / size
+      
+      output[[counter]] <- data.frame(
+        rank = rank,
+        achiever = paste0(rank, ordinal_suffix(rank), " largest achiever"),
+        c = c_val,
+        c_label = paste0("c = ", c_val),
+        N1 = N1,
+        N2 = N2,
+        prob = prob
+      )
+      
+      counter <- counter + 1
+    }
+  }
+  
+  bind_rows(output)
+}
+
+
+# Helper function for nicer labels
+ordinal_suffix <- function(x) {
+  if (x == 1) return("st")
+  if (x == 2) return("nd")
+  if (x == 3) return("rd")
+  return("th")
+}
+
+
+# ============================================================
+# 3. Run simulations for 1st to 6th largest achievers
+# ============================================================
+
+N1_grid <- seq(100, 2000, 100)
+c_grid <- seq(0.1, 1.0, by = 0.1)
+
+all_results <- bind_rows(
+  lapply(1:6, function(r) {
+    cat("Running simulation for rank =", r, "\n")
+    
+    run_one_rank(
+      rank = r,
+      n1 = 60,
+      n2 = 40,
+      N1_grid = N1_grid,
+      c_grid = c_grid,
+      size = 1000,
+      nrep = 10,
+      mc.cores = 7
+    )
+  })
+)
+
+
+# ============================================================
+# 4. Make 2 x 3 plot
+# ============================================================
+
+p <- ggplot(all_results, aes(x = N1, y = prob, color = c_label, fill = c_label)) +
+  geom_smooth(
+    method = "loess",
+    se = TRUE,
+    alpha = 0.2,
+    linewidth = 0.9
+  ) +
+  facet_wrap(~ achiever, nrow = 2, ncol = 3) +
+  labs(
+    title = "Paradox Probability for 1st to 6th Largest Achievers",
+    x = expression(N[1]),
+    y = "Paradox Probability",
+    color = expression(c == N[2] / N[1]),
+    fill = expression(c == N[2] / N[1])
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.position = "right",
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
+  )
+
+print(p)
+
+
+# Optional: save the figure
+ggsave(
+  filename = "paradox_probability_1st_to_6th_achievers.png",
+  plot = p,
+  width = 14,
+  height = 8,
+  dpi = 300
+)
+
+# ============================================================
+# 4. Make 2 x 2 plot for 1st to 4th largest achievers only
+# ============================================================
+
+plot_results <- all_results %>%
+  filter(rank %in% 1:4)
+
+p <- ggplot(plot_results, aes(x = N1, y = prob, color = c_label, fill = c_label)) +
+  geom_smooth(
+    method = "loess",
+    se = TRUE,
+    alpha = 0.2,
+    linewidth = 0.9
+  ) +
+  facet_wrap(~ achiever, nrow = 2, ncol = 2) +
+  labs(
+    title = "Paradox Probability for 1st to 4th Largest Achievers",
+    x = expression(N[1]),
+    y = "Paradox Probability",
+    color = expression(c == N[2] / N[1]),
+    fill = expression(c == N[2] / N[1])
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.position = "right",
+    plot.title = element_text(size = 15, face = "bold", hjust = 0.5)
+  )
+
+print(p)
+
+ggsave(
+  filename = "paradox_probability_1st_to_4th_achievers.png",
+  plot = p,
+  width = 10,
+  height = 8,
+  dpi = 300
+)
+
+set.seed(13)
+library(tidyverse)
+library(doParallel)
+library(Pareto)
+simu <- function(n1, n2, N1, N2, n1j, n2k, size){
+  simu_paradox <- function(n1, n2, N1, N2, n1j, n2k){
+    
+    Y1 <- sort(rnorm(n1))
+    Y2 <- sort(rnorm(n2))
+    
+    order_pnorm <- function(q = 0, mean = 0, sd = 1, k = 1, n = 1e4){
+      p <- pnorm(q, mean = mean, sd = sd)
+      pbinom(k - 1, prob = p, size = n, lower.tail = FALSE)
+    }
+    
+    order_pnorm_vec <- function(q, mean = 0, sd = 1){
+      q <- sort(q) 
+      n <- length(q)
+      unlist(lapply(1:n, function(j){
+        order_pnorm(q[j], k = j, n = n, mean = mean, sd = sd)
+      }))
+    }
+    
+    u1 <- order_pnorm_vec(Y1)
+    u2 <- order_pnorm_vec(Y2)
+    
+    order_Pareto_vec <- function(u, t = 1, alpha = 1.16, npop = 1e4){
+      n <- length(u)
+      if(length(npop) == 1) npop <- rep(npop, n)
+      unlist(lapply(1:n, function(j){
+        qPareto(qbeta(u[j], j + npop[j]-n, n + 1 - j), t = t, alpha = alpha)
+      }))
+    }
+    
+    # try it out on the percentiles obtained from order_norm_vec
+    X1 <- order_Pareto_vec(u1, npop = N1)
+    X2 <- order_Pareto_vec(u2, npop = N2)
+    return(c(Y1[n1-n1j], Y2[n2-n2k], X1[n1-n1j], X2[n2-n2k]))
+  }
+  res <- do.call(rbind, mclapply(1:size, function(xx){
+    simu_paradox(n1 = n1, n2 = n2, N1 = N1, N2 = N2,n1j = n1j, n2k = n2k)
+  }, mc.cores = 7)) 
+  res <- as.data.frame(res)
+  colnames(res) <- c('Y1', 'Y2', 'X1', 'X2')
+  return(nrow(res[res$Y1 < res$Y2 & res$X1 > res$X2,]))
+}
+
+## n1 and n2 fixed
+res <- matrix(0, nrow = 10, ncol = 10)
+for (N1 in seq(200,2000,200)) {
+  for (N2 in seq(200,2000,200)) {
+    result <- replicate(10, simu(n1 = 40, n2 = 60, N1 = N1, N2 = N2, n1j = 1, n2k = 1, size = 1000))
+    res[N1/200, N2/200] <- mean(result)/1000
+  }
+}
+
+library(ggplot2)
+library(reshape2)  # for melting the matrix
+library(viridis)
+library(akima)       
+# Convert matrix to long format
+df <- melt(res)
+colnames(df) <- c('N1', 'N2', 'prob')
+df$N1 <- df$N1*200
+df$N2 <- df$N2*200
+
+interp_out <- with(df, akima::interp(
+  x = N1, y = N2, z = prob,
+  nx = 300, ny = 300    
+))
+
+smooth_df_1 <- data.frame(
+  N1   = rep(interp_out$x, times = length(interp_out$y)),
+  N2   = rep(interp_out$y, each  = length(interp_out$x)),
+  prob = as.vector(interp_out$z)
+)
+
+## N1 and N2 fixed
+res <- matrix(0, nrow = 10, ncol = 10)
+for (n1 in seq(20,200,20)) {
+  for (n2 in seq(20,200,20)) {
+    result <- replicate(10, simu(n1 = n1, n2 = n2, N1 = 1e3, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+    res[n1/20, n2/20] <- mean(result)/1000
+  }
+}
+
+# Convert matrix to long format
+df <- melt(res)
+colnames(df) <- c('n1', 'n2', 'prob')
+df$n1 <- df$n1*20
+df$n2 <- df$n2*20
+interp_out <- with(df, akima::interp(
+  x = n1, y = n2, z = prob,
+  nx = 300, ny = 300    
+))
+
+smooth_df_2 <- data.frame(
+  n1   = rep(interp_out$x, times = length(interp_out$y)),
+  n2   = rep(interp_out$y, each  = length(interp_out$x)),
+  prob = as.vector(interp_out$z)
+)
+
+## n1 and N2 fixed
+res <- matrix(0, nrow = 10, ncol = 10)
+for (n2 in seq(20,200,20)) {
+  for (N1 in seq(200,2000,200)) {
+    result <- replicate(10, simu(n1 = 40, n2 = n2, N1 = N1, N2 = 1e3, n1j = 1, n2k = 1, size = 1000))
+    res[n2/20, N1/200] <- mean(result)/1000
+  }
+}
+
+# Convert matrix to long format
+df <- melt(res)
+colnames(df) <- c('n2', 'N1', 'prob')
+df$n2 <- df$n2*20
+df$N1 <- df$N1*200
+interp_out <- with(df, akima::interp(
+  x = n2, y = N1, z = prob,
+  nx = 300, ny = 300    
+))
+
+smooth_df_3 <- data.frame(
+  n2   = rep(interp_out$x, times = length(interp_out$y)),
+  N1   = rep(interp_out$y, each  = length(interp_out$x)),
+  prob = as.vector(interp_out$z)
+)
+
+## n2 and N1 fixed
+res <- matrix(0, nrow = 10, ncol = 10)
+for (n1 in seq(20,200,20)) {
+  for (N2 in seq(200,2000,200)) {
+    result <- replicate(10, simu(n1 = n1, n2 = 60, N1 = 1e3, N2 = N2, n1j = 1, n2k = 1, size = 1000))
+    res[n1/20, N2/200] <- mean(result)/1000
+  }
+}
+
+# Convert matrix to long format
+df <- melt(res)
+colnames(df) <- c('n1', 'N2', 'prob')
+df$n1 <- df$n1*20
+df$N2 <- df$N2*200
+interp_out <- with(df, akima::interp(
+  x = n1, y = N2, z = prob,
+  nx = 300, ny = 300    
+))
+
+smooth_df_4 <- data.frame(
+  n1   = rep(interp_out$x, times = length(interp_out$y)),
+  N2   = rep(interp_out$y, each  = length(interp_out$x)),
+  prob = as.vector(interp_out$z)
+)
+library(patchwork)
+
+all_probs <- c(smooth_df_1$prob, smooth_df_2$prob, smooth_df_3$prob, smooth_df_4$prob)
+mid_val <- median(all_probs, na.rm = TRUE)
+lim_range <- range(all_probs, na.rm = TRUE)
+
+p1 <- ggplot(smooth_df_1, aes(N1, N2, fill = prob)) +
+  geom_raster(interpolate = TRUE) +
+  scale_fill_gradient2(
+    low = "white", mid = "lightblue", high = "blue",
+    midpoint = mid_val,
+    limits = lim_range,
+    name = "Prob"
+  ) +
+  theme_minimal() +
+  labs(x = "N1", y = "N2", title = '(A)')
+
+p2 <- ggplot(smooth_df_2, aes(n1, n2, fill = prob)) +
+  geom_raster(interpolate = TRUE) +
+  scale_fill_gradient2(
+    low = "white", mid = "lightblue", high = "blue",
+    midpoint = mid_val,
+    limits = lim_range,
+    name = "Prob"
+  ) +
+  theme_minimal() +
+  labs(x = "n1", y = "n2", title = '(B)')
+
+p3 <- ggplot(smooth_df_3, aes(n2, N1, fill = prob)) +
+  geom_raster(interpolate = TRUE) +
+  scale_fill_gradient2(
+    low = "white", mid = "lightblue", high = "blue",
+    midpoint = mid_val,
+    limits = lim_range,
+    name = "Prob"
+  )  +
+  theme_minimal() +
+  labs(x = "n2", y = "N1", title = '(C)')
+
+p4 <- ggplot(smooth_df_4, aes(n1, N2, fill = prob)) +
+  geom_raster(interpolate = TRUE) +
+  scale_fill_gradient2(
+    low = "white", mid = "lightblue", high = "blue",
+    midpoint = mid_val,
+    limits = lim_range,
+    name = "Prob"
+  ) +
+  theme_minimal() +
+  labs(x = "n1", y = "N2", title = '(D)')
+
+(p1 + p2) / (p3 + p4) + plot_layout(guides = "collect") & theme(legend.position = "bottom")

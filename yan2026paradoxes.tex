@@ -481,39 +481,120 @@ as holds for standard plug-in estimators such as maximum likelihood estimators, 
 
 We briefly illustrate the interpretability and operational estimation of paradox probabilities under several representative configurations.
 
-\subsection{Sensitivity Analysis for Theorem \ref{theorem:samedistgeneral}}
+\subsection{Sensitivity Analysis for Theorem~\ref{theorem:samedistgeneral}}
 
-Under the setting of Theorem~\ref{theorem:samedistgeneral}, we will specify $X_1 \overset{d}{=} X_2 \overset{d}{=} X$, $Y_1 \overset{d}{=} Y_2 \overset{d}{=} Y$, where $X \sim \text{Pareto}(\alpha)$ and $Y \sim \mathcal{N}(0,1)$. Without loss of generality, we set $j = n_1 - 1$ and  $k = n_2 - 1$, corresponding to the selection of the second-best performer in the aptitude-achievement paradox probability, as defined in Definition~\ref{def:paradox}.
+We conduct a sensitivity analysis to examine how the aptitude--achievement paradox probability varies with the sample sizes $(n_1,n_2)$ and population sizes $(N_1,N_2)$ under the setting of Theorem~\ref{theorem:samedistgeneral}. Throughout this analysis, we assume that the two groups have the same marginal aptitude distribution and the same marginal achievement distribution. Specifically, we take
+$
+X_1 \overset{d}{=} X_2 \overset{d}{=} X$, and
+$Y_1 \overset{d}{=} Y_2 \overset{d}{=} Y,
+$
+where
+$
+X \sim \mathrm{Pareto}(\alpha),$ and
+$Y \sim \mathcal{N}(0,1).
+$
+In the simulations, the Pareto tail parameter is set to $\alpha=1.16$. We focus on the comparison of the second-largest observed achievers in the two samples, so that the selected observed achievements are
+\[
+Y_{1,(n_1-1)}
+\quad\text{and}\quad
+Y_{2,(n_2-1)}.
+\]
+Equivalently, the comparison is between the second-best observed performers from the two groups.
 
-In each simulation, we randomly sample $n_1$ and $n_2$ observations from the distribution of $Y$, and compute their latent aptitudes using Equation~\eqref{eq:truepar}. Based on these values, we directly calculate paradox probabilities according to Definition~\ref{def:paradox}. We repeat this simulation 10000 times and report the average.
+For each configuration of $(n_1,n_2,N_1,N_2)$, we generate independent samples of sizes $n_1$ and $n_2$ from the achievement distribution $Y$. The corresponding latent aptitudes are then obtained using the order-statistic transformation described in Equation~\eqref{eq:truepar}. For each Monte Carlo replicate, we record whether the aptitude--achievement paradox occurs; that is, whether the second-largest observed achievement in group 2 exceeds that in group 1, while the corresponding latent aptitude in group 1 exceeds that in group 2:
+\[
+Y_{1,(n_1-1)} < Y_{2,(n_2-1)}
+\quad\text{and}\quad
+X_{1,(N_1-1)} > X_{2,(N_2-1)}.
+\]
+Each probability is estimated by averaging over $10{,}000$ Monte Carlo repetitions.
 
 \begin{figure}[t!]
     \centering
     \includegraphics[width=\textwidth]{fourplot.png}
-    \caption{Sensitivity Analysis for Paradox Probability}
+    \caption{Sensitivity analysis for the aptitude--achievement paradox probability under the setting of Theorem~\ref{theorem:samedistgeneral}. Panel (A) fixes $n_1=40$ and $n_2=60$ and varies $N_1$ and $N_2$. Panel (B) fixes $N_1=N_2=10^3$ and varies $n_1$ and $n_2$. Panel (C) fixes $n_1=40$ and $N_2=10^3$ and varies $n_2$ and $N_1$. Panel (D) fixes $n_2=60$ and $N_1=10^3$ and varies $n_1$ and $N_2$.}
     \label{Fig:sensitivity}
 \end{figure}
 
-Figure~\ref{Fig:sensitivity} presents the results of the sensitivity analysis for the aptitude-achievement paradox probability described in Theorem~\ref{theorem:samedistgeneral}. In Figure~\ref{Fig:sensitivity} (A), we fix $n_1 = 40$ and $n_2 = 60$, and vary $N_1$ and $N_2$ from 200 to 2000.  In Figure~\ref{Fig:sensitivity} (B), we fix $N_1 = 10^3$ and $N_2 = 10^3$, and vary $n_1$ and $n_2$ from 20 to 200. In Figure~\ref{Fig:sensitivity} (C), we fix $n_1 = 40$ and $N_2 = 10^3$, and vary $n_2$ from 20 to 200 and $N_1$ from 200 to 2000. In Figure~\ref{Fig:sensitivity} (D), we fix $N_1 = 10^3$ and $n_2 = 60$, and vary $N_2$ from 200 to 2000 and $n_1$ from 20 to 200.
+Figure~\ref{Fig:sensitivity} presents the resulting sensitivity surfaces. In Panel (A), we fix the sample sizes at $n_1=40$ and $n_2=60$, and vary both population sizes $N_1$ and $N_2$ from $200$ to $2000$. The paradox probability is largest when $N_1$ is large and $N_2$ is small. This pattern is consistent with Theorem~\ref{theorem:samedistgeneral}: increasing $N_1$ relative to $N_2$ raises the upper-order latent aptitude associated with group 1, making the event
+\[
+X_{1,(N_1-1)} > X_{2,(N_2-1)}
+\]
+more likely. Conversely, when $N_2$ is large relative to $N_1$, the latent aptitude of the second group becomes more competitive, and the paradox probability decreases.
 
-As shown in Figure~\ref{Fig:sensitivity} (A), a small $N_2$ and large $N_1$ increase the paradox probability by making $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right) \to 1$. Similarly, in Figure~\ref{Fig:sensitivity} (B), a small $n_1$ combined with a large $n_2$ leads to a higher aptitude-achievement paradox probability since it drives $\Prob\left(Y_{1,(j)} < Y_{2,(k)}\right) \to 1$.
+Panel (B) studies the effect of the observed sample sizes by fixing $N_1=N_2=10^3$ and varying $n_1$ and $n_2$ from $20$ to $200$. The paradox probability is largest when $n_1$ is small and $n_2$ is large. This is because a larger observed sample from group 2 increases the second-largest observed achievement in that group, while a smaller observed sample from group 1 decreases the corresponding observed order statistic. As a result, the event
+\[
+Y_{1,(n_1-1)} < Y_{2,(n_2-1)}
+\]
+becomes more likely, which increases the overall paradox probability.
 
+Panels (C) and (D) examine mixed effects involving one sample size and one population size. In Panel (C), we fix $n_1=40$ and $N_2=10^3$, while varying $n_2$ and $N_1$. The paradox probability increases when both $n_2$ and $N_1$ are large. These two parameters affect different components of the paradox event: increasing $n_2$ makes it more likely that group 2 has a higher observed achievement, whereas increasing $N_1$ makes it more likely that group 1 has a higher corresponding latent aptitude. Thus, the paradox probability is amplified when both effects act in the same direction.
+
+Similarly, Panel (D) fixes $n_2=60$ and $N_1=10^3$, while varying $n_1$ and $N_2$. The paradox probability is largest when both $n_1$ and $N_2$ are small. A smaller $n_1$ lowers the second-largest observed achievement from group 1, making it easier for group 2 to outperform group 1 in the observed achievement comparison. At the same time, a smaller $N_2$ lowers the corresponding latent aptitude benchmark for group 2, making it easier for group 1 to dominate in the latent aptitude comparison. Therefore, the paradox event is most likely when these two effects reinforce each other.
+
+Overall, Figure~\ref{Fig:sensitivity} illustrates that the aptitude--achievement paradox probability is driven by two competing order-statistic effects. The sample sizes $(n_1,n_2)$ primarily determine the probability of the observed achievement reversal,
+\[
+Y_{1,(n_1-1)} < Y_{2,(n_2-1)},
+\]
+whereas the population sizes $(N_1,N_2)$ primarily determine the probability of the latent aptitude reversal,
+\[
+X_{1,(N_1-1)} > X_{2,(N_2-1)}.
+\]
+The paradox probability is therefore largest when the sample-size configuration favors group 2 in observed achievement while the population-size configuration favors group 1 in latent aptitude. This confirms the qualitative behavior predicted by Theorem~\ref{theorem:samedistgeneral}.
 
 \subsection{Ratio of $N_2$ and $N_1$}
 
-Here we investigate the effect of the ratio between $N_2$ and $N_1$ on aptitude-achievement paradox probabilities under the specifications of Corollary~\ref{corollary:samedisttop}. Let $c=\frac{N_2}{N_1}$, and vary $c$ from 0.1 to 1 in increments of 0.1. In each simulation, we fix $n_1 = 60$ and $n_2 = 40$, and vary $N_1$ from 100 to 2000. We repeat this simulation 10000 times and report the average paradox probability. 
+We next examine how the relative population sizes of the two groups affect the aptitude--achievement paradox probability under the setting of Corollary~\ref{corollary:samedisttop}. Let
+$
+c=\frac{N_2}{N_1}.
+$
+We vary $c$ from $0.1$ to $1.0$ in increments of $0.1$. For each value of $c$, we fix the observed sample sizes at $n_1=60$ and $n_2=40$, vary $N_1$ from $100$ to $2000$, and set $N_2=cN_1$.
+
+We consider the first through fourth largest achievers in the two samples. In particular, for each panel of Figure~\ref{Fig:ratioeffect}, we set
+$
+j=k \in \{0,1,2,3\},
+$
+where \(j=k=0\) corresponds to comparing the largest achievers,
+\(j=k=1\) corresponds to comparing the second-largest achievers,
+\(j=k=2\) corresponds to comparing the third-largest achievers, and
+\(j=k=3\) corresponds to comparing the fourth-largest achievers. Thus, the selected observed achievements are
+\[
+Y_{1,(n_1-j)}
+\quad\text{and}\quad
+Y_{2,(n_2-k)},
+\]
+and the corresponding population-level aptitudes are
+\[
+X_{1,(N_1-j)}
+\quad\text{and}\quad
+X_{2,(N_2-k)}.
+\]
+
+For each configuration, the paradox probability is estimated by Monte Carlo simulation. Specifically, we repeat the simulation $10{,}000$ times and report the resulting empirical probability of the event
+\[
+Y_{1,(n_1-j)} < Y_{2,(n_2-k)}
+\quad\text{and}\quad
+X_{1,(N_1-j)} > X_{2,(N_2-k)}.
+\]
 
 \begin{figure}[t!]
     \centering
-    \includegraphics[width=\textwidth]{cplot.png}
-    \caption{Effect of the ratio between $N_2$ and $N_1$ on aptitude-achievement paradox probabilities under the specifications of Corollary~\ref{corollary:samedisttop}.}
+    \includegraphics[width=\textwidth]{paradox_probability_1st_to_4th_achievers.png}
+    \caption{Effect of the population-size ratio $c=N_2/N_1$ on aptitude--achievement paradox probabilities under the specifications of Corollary~\ref{corollary:samedisttop}. The observed sample sizes are fixed at $n_1=60$ and $n_2=40$, while $N_1$ varies from $100$ to $2000$ and $N_2=cN_1$. The four panels correspond to $j=k=0,1,2,3$, respectively, that is, comparisons of the first through fourth largest achievers.}
     \label{Fig:ratioeffect}
 \end{figure}
 
-Figure~\ref{Fig:ratioeffect} presents the results. As shown in the figure, the paradox probability decreases as $c $ increases, which is reasonable since $\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}\right)$ decreases as $N_2 $ increases. Importantly, Figure~\ref{Fig:ratioeffect} also demonstrates that the paradox probability remains constant when the ratio between $N_2$ and $N_1$ is fixed. This implies that it is unnecessary to focus on the exact values of $N_1$ and $N_2$ when computing the paradox probability; rather, the ratio $N_2/N_1$ alone determines its value.
+Figure~\ref{Fig:ratioeffect} summarizes the effect of the population-size ratio on the paradox probability. Across all four achiever ranks, the paradox probability decreases as $c$ increases. This pattern is intuitive: when $N_2$ becomes larger relative to $N_1$, the corresponding upper order statistic from the second population becomes more competitive, making the event
+\[
+X_{1,(N_1-j)} > X_{2,(N_2-k)}
+\]
+less likely.
 
-
-
+A second feature of Figure~\ref{Fig:ratioeffect} is that, for a fixed value of $c$, the estimated paradox probability is nearly unchanged as $N_1$ varies. Thus, within this simulation setting, the absolute magnitudes of $N_1$ and $N_2$ have little effect once their ratio is held fixed. The dominant quantity governing the paradox probability is therefore the relative population size
+$
+\frac{N_2}{N_1},
+$
+rather than the individual values of $N_1$ and $N_2$. This observation is consistent with the structure of Corollary~\ref{corollary:samedisttop}, where the comparison between the two populations is driven primarily by their relative population scales.
 \subsection{Batting Averages in Major League Baseball}
 
 We illustrate Theorem~\ref{theorem:normalgeneral} and the plug-in guarantees of Theorem~\ref{theorem:plugin} using Major League Baseball (MLB), a setting in which latent batting aptitude is indirectly observed through season-level batting averages and where both population structure and measurement environments vary substantially across eras. Figure~\ref{Fig:means-sd-full-time} displays smoothed estimates of the mean and standard deviation of batting averages for full-time players from 1871--2023.
