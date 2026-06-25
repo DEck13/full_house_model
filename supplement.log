@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  1 JUN 2026 20:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  25 JUN 2026 01:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -337,7 +337,7 @@ Package caption Info: New subtype `subtable' on input line 238.
 (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/xr-hyper.sty
 Package: xr-hyper 2026-01-29 v7.01p eXternal References (DPC)
 )
-Package xr Info: IMPORTING LABELS FROM yan2026paradoxes.aux on input line 41.
+Package xr Info: IMPORTING LABELS FROM yan2026paradoxes.aux on input line 42.
 
 (yan2026paradoxes.tex)
 (yan2026paradoxes.aux)
@@ -466,7 +466,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip67
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 49.
+Package hyperref Info: Option `colorlinks' set `true' on input line 50.
  (/usr/local/texlive/2026/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
 )
@@ -762,24 +762,24 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 (./supplement.aux)
 \openout1 = `supplement.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -840,18 +840,18 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 90.
+Package hyperref Info: Link coloring ON on input line 91.
 (./supplement.out) (./supplement.out)
 \@outlinefile=\write4
 \openout4 = `supplement.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 92.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 93.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 92.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 93.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -871,38 +871,124 @@ al/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] [2] [3] [
 4] [5]
 
 Package natbib Warning: Citation `askitis2021logarithmic' on page 6 undefined o
-n input line 223.
+n input line 222.
 
 [6]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 270.
+(amsmath)                 on input line 269.
 
 [7] [8]
 
 Package natbib Warning: Citation `embrechts2013modelling' on page 9 undefined o
-n input line 384.
+n input line 383.
 
 [9]
 
 Package natbib Warning: Citation `embrechts2013modelling' on page 10 undefined 
-on input line 392.
+on input line 391.
 
 [10] [11] [12]
 
 Package natbib Warning: Citation `R-mvtnorm' on page 13 undefined on input line
- 507.
+ 563.
+
+[13] [14]
+<sensitivity_normal_rank_1.png, id=196, 722.7pt x 578.16pt>
+File: sensitivity_normal_rank_1.png Graphic file (type png)
+<use sensitivity_normal_rank_1.png>
+Package pdftex.def Info: sensitivity_normal_rank_1.png  used on input line 610.
+
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_normal_rank_2.png, id=197, 722.7pt x 578.16pt>
+File: sensitivity_normal_rank_2.png Graphic file (type png)
+<use sensitivity_normal_rank_2.png>
+Package pdftex.def Info: sensitivity_normal_rank_2.png  used on input line 615.
+
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_normal_rank_3.png, id=198, 722.7pt x 578.16pt>
+File: sensitivity_normal_rank_3.png Graphic file (type png)
+<use sensitivity_normal_rank_3.png>
+Package pdftex.def Info: sensitivity_normal_rank_3.png  used on input line 623.
+
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_normal_rank_4.png, id=199, 722.7pt x 578.16pt>
+File: sensitivity_normal_rank_4.png Graphic file (type png)
+<use sensitivity_normal_rank_4.png>
+Package pdftex.def Info: sensitivity_normal_rank_4.png  used on input line 628.
+
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+ [15]
+<sensitivity_gamma_rank_1.png, id=206, 722.7pt x 578.16pt>
+File: sensitivity_gamma_rank_1.png Graphic file (type png)
+<use sensitivity_gamma_rank_1.png>
+Package pdftex.def Info: sensitivity_gamma_rank_1.png  used on input line 641.
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_gamma_rank_2.png, id=207, 722.7pt x 578.16pt>
+File: sensitivity_gamma_rank_2.png Graphic file (type png)
+<use sensitivity_gamma_rank_2.png>
+Package pdftex.def Info: sensitivity_gamma_rank_2.png  used on input line 646.
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_gamma_rank_3.png, id=208, 722.7pt x 578.16pt>
+File: sensitivity_gamma_rank_3.png Graphic file (type png)
+<use sensitivity_gamma_rank_3.png>
+Package pdftex.def Info: sensitivity_gamma_rank_3.png  used on input line 654.
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+<sensitivity_gamma_rank_4.png, id=209, 722.7pt x 578.16pt>
+File: sensitivity_gamma_rank_4.png Graphic file (type png)
+<use sensitivity_gamma_rank_4.png>
+Package pdftex.def Info: sensitivity_gamma_rank_4.png  used on input line 659.
+(pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
+ [16 <./sensitivity_normal_rank_1.png> <./sensitivity_normal_rank_2.png> <./sen
+sitivity_normal_rank_3.png> <./sensitivity_normal_rank_4.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 667.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 667.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 667.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 667.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 667.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 667.
+
+[17 <./sensitivity_gamma_rank_1.png> <./sensitivity_gamma_rank_2.png> <./sensit
+ivity_gamma_rank_3.png> <./sensitivity_gamma_rank_4.png>]
+<paradox_probability_1st_to_4th_achievers_gamma.png, id=225, 722.7pt x 578.16pt
+>
+File: paradox_probability_1st_to_4th_achievers_gamma.png Graphic file (type png
+)
+<use paradox_probability_1st_to_4th_achievers_gamma.png>
+Package pdftex.def Info: paradox_probability_1st_to_4th_achievers_gamma.png  us
+ed on input line 673.
+(pdftex.def)             Requested size: 469.75502pt x 375.80836pt.
 
 No file supplement.bbl.
 
 Package natbib Warning: There were undefined citations.
 
-[13] (./supplement.aux)
+[18 <./paradox_probability_1st_to_4th_achievers_gamma.png>] (./supplement.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package rerunfilecheck Warning: File `supplement.out' has changed.
@@ -910,42 +996,45 @@ Package rerunfilecheck Warning: File `supplement.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `supplement.out':
-(rerunfilecheck)             Before: 9CF6CB5ECA40ABB635B2DBAB64CE9477;1603
-(rerunfilecheck)             After:  E7FF572E85491EE3BF951DA78992A44A;1603.
+(rerunfilecheck)             Before: 41B478473CF43412F515B2161A700BE7;2261
+(rerunfilecheck)             After:  B2D1CDD79EC33B75BC3486A595AE58DE;2261.
  ) 
 Here is how much of TeX's memory you used:
- 24931 strings out of 467525
- 455073 string characters out of 5418983
- 873857 words of memory out of 5000000
- 53398 multiletter control sequences out of 15000+600000
- 645454 words of font info for 89 fonts, out of 8000000 for 9000
+ 25043 strings out of 467525
+ 458316 string characters out of 5418983
+ 874584 words of memory out of 5000000
+ 53497 multiletter control sequences out of 15000+600000
+ 649004 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,20n,94p,584b,585s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,20n,94p,841b,610s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
 /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
 sr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><
-/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
-usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
-local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
-/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
-xlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
-live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texli
-ve/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
-/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/tex
-live/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texli
-ve/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive
-/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2
-026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/202
-6/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2026/
-texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on supplement.pdf (13 pages, 286840 bytes).
+/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/te
+xlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
+ve/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/
+2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
+26/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texliv
+e/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/
+2026/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/20
+26/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2026
+/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2026/t
+exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2026/tex
+mf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2026/texmf
+-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on supplement.pdf (18 pages, 4781429 bytes).
 PDF statistics:
- 270 PDF objects out of 1000 (max. 8388607)
- 210 compressed objects within 3 object streams
- 26 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 343 PDF objects out of 1000 (max. 8388607)
+ 260 compressed objects within 3 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

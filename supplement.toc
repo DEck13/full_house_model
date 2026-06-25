@@ -7,5 +7,7 @@
 \contentsline {subsection}{\numberline {1.5}Proof of Proposition~\ref {prop:weakstodom}}{6}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Proof of Theorem~\ref {theorem:normalgeneral}}{7}{subsection.1.6}%
 \contentsline {subsection}{\numberline {1.7}Proof of Theorem \ref {theorem:plugin}}{9}{subsection.1.7}%
-\contentsline {section}{\numberline {2}Simulations}{12}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{12}{subsection.2.1}%
+\contentsline {section}{\numberline {2}Simulations}{13}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{13}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Sensitivity Analysis for Theorem~\ref {theorem:samedistgeneral}}{14}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Ratio of $N_2$ and $N_1$ Under a Skewed Gamma Achievement Distribution}{17}{subsection.2.3}%
