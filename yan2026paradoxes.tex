@@ -124,13 +124,16 @@ The key feature of Full House Modeling is the explicit connection between the el
   X_{i, (r_{i,j})} &= F_{X_{i, (r_{i,j})}}^{-1} \circ F_{Y_{i,(j)}} \left(Y_{i,(j)} \right),
 \end{split}
 \end{equation}
-where $S_{i,j} = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarize Full House Modeling in the following definition.
+where $S_{i,j} = 1$, and both $F_{Y_i}$ and $F_X$ are continuous and invertible. We summarize Full House Modeling in the following definition and Table \ref{tab:notation} summarizes the notations used in this definition.
 
 \begin{defn} [Full House Model]
 \label{def:fhm}
-Consider populations indexed by $i$ with sizes $N_i$ and system sizes $n_i$, where $N_i \geq n_i$. Let latent variables $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$, and define the selection indicators $S_{i,j} := 1_i(X_{i,j}, \mathbf{X}_{i,-j})$, where $S_{i,j}=1$ indicates inclusion in the observed system. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, denote observed outcomes for the selected individuals. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, corresponding to the individuals for which $S_{i,j}=1$. Then the Full House Model generates $Y_{i,(j)}$ values according to \eqref{eq:truepar}, where $F_{Y_i}$ and $F_X$ are continuous and invertible. Table \ref{tab:notation} summarizes the notations used in the Full House Model. 
+Consider populations indexed by $i$ with sizes $N_i$ and system sizes $n_i$, where $N_i \geq n_i$. Let latent variables $X_{i,j} \overset{iid}{\sim} F_X$, $j = 1,\ldots,N_i$, and define the selection indicators $S_{i,j} := 1_i(X_{i,j}, \mathbf{X}_{i,-j})$, where $S_{i,j}=1$ indicates inclusion in the observed system. Let $Y_{i,j} \overset{iid}{\sim} F_{Y_i}$, $j = 1,\ldots,n_i$, denote observed outcomes for the selected individuals. Form pairs $(Y_{i,(j)}, X_{i,(r_{i,j})})$, $j = 1,\ldots,n_i$, corresponding to the individuals for which $S_{i,j}=1$. Then the Full House Model generates $Y_{i,(j)}$ values according to \eqref{eq:truepar}, where $F_{Y_i}$ and $F_X$ are continuous and invertible.
+\end{defn}
 
-\begin{table}[H]
+
+
+\begin{table}
 \centering
 \begin{tabular}{ll}
 \hline
@@ -147,9 +150,6 @@ $r_{i,j}$ & Latent population rank corresponding to observed rank $j$ \\
 \caption{Notation for the Full House Model.}
 \label{tab:notation}
 \end{table}
-
-
-\end{defn}
 
 
 
@@ -522,13 +522,7 @@ We illustrate the theoretical results and evaluate the numerical behavior of the
 
 \subsection{Sensitivity analysis for Theorem~\ref{theorem:samedistgeneral}}
 
-We examine how the aptitude--achievement paradox probability varies with the observed sample sizes $(n_1,n_2)$ and population sizes $(N_1,N_2)$ under the setting of Theorem~\ref{theorem:samedistgeneral}. We impose equal marginal distributions across groups: $X_1\overset{d}{=}X_2\overset{d}{=}X$ and $Y_1\overset{d}{=}Y_2\overset{d}{=}Y$, with $X\sim\mathrm{Pareto}(\alpha)$ ($\alpha=1.16$) and $Y\sim\mathcal N(0,1)$. For a fixed $k\in\{0,1,2,3\}$, we compare the $(k+1)$th largest observed achievements, $Y_{1,(n_1-k)}$ and $Y_{2,(n_2-k)}$, and their corresponding latent aptitudes obtained via the order-statistic probability transform in \eqref{eq:truepar}. The paradox event is
-\[
-Y_{1,(n_1-k)}<Y_{2,(n_2-k)}
-\quad\text{and}\quad
-X_{1,(N_1-k)} > X_{2,(N_2-k)}.
-\]
-Each probability is estimated from $10^4$ Monte Carlo replicates.
+We examine how the aptitude--achievement paradox probability varies with the observed sample sizes $(n_1,n_2)$ and population sizes $(N_1,N_2)$ under the setting of Theorem~\ref{theorem:samedistgeneral}. We impose equal marginal distributions across groups: $X_1\overset{d}{=}X_2\overset{d}{=}X$ and $Y_1\overset{d}{=}Y_2\overset{d}{=}Y$, with $X\sim\mathrm{Pareto}(\alpha)$ ($\alpha=1.16$) and $Y\sim\mathcal N(0,1)$. For a fixed $k\in\{0,1,2,3\}$, we compare the $(k+1)$th largest observed achievements, $Y_{1,(n_1-k)}$ and $Y_{2,(n_2-k)}$, and their corresponding latent aptitudes obtained via the order-statistic probability transform in \eqref{eq:truepar}. The paradox event is $Y_{1,(n_1-k)}<Y_{2,(n_2-k)}$ and $X_{1,(N_1-k)} > X_{2,(N_2-k)}$. Each probability is estimated from $10^4$ Monte Carlo replicates.
 
 For concreteness, Figure~\ref{Fig:sensitivity_k1_normal} reports the sensitivity analysis for the representative choice $k=1$ (second-largest achiever) under $Y\sim\mathcal N(0,1)$. The results exhibit a clear separation between the two components of the paradox: $(n_1,n_2)$ primarily control the observed-achievement reversal, whereas $(N_1,N_2)$ primarily control the latent-aptitude reversal. Consequently, the paradox probability is maximized in regimes where $n_2$ is large relative to $n_1$ (increasing $Y_{2,(n_2-1)}$ relative to $Y_{1,(n_1-1)}$) while $N_1$ is large relative to $N_2$ (increasing $X_{1,(N_1-1)}$ relative to $X_{2,(N_2-1)}$). Although the probability is available analytically under Theorem~\ref{theorem:samedistgeneral}, Monte Carlo estimates provide a transparent visualization of how the two components of the paradox vary over the design space.
 
@@ -543,19 +537,10 @@ Additional sensitivity analyses varying $k\in\{0,2,3\}$ and replacing $Y\sim\mat
 
 \subsection{Ratio of $N_2$ and $N_1$}\label{sec:ratioeffect}
 
-We study how the relative population size affects the paradox probability under Corollary~\ref{corollary:samedisttop}. Let $c=N_2/N_1$. We fix $(n_1,n_2)=(60,40)$, vary $N_1\in\{100,200,\ldots,2000\}$, and set $N_2=cN_1$ with $c\in\{0.1,0.2,\ldots,1.0\}$. For $k\in\{0,1,2,3\}$, we compare the $(k+1)$th largest achievers,
-\[
-Y_{1,(n_1-k)} \quad \text{and} \quad Y_{2,(n_2-k)},
-\]
-and the corresponding population-level aptitudes ,
-\[
-X_{1,(N_1-k)} \quad \text{and} \quad X_{2,(N_2-k)},
-\]
-via the order-statistic probability transform in \eqref{eq:truepar}.
-For each configuration we estimate
-\[
+We study how the relative population size affects the paradox probability under Corollary~\ref{corollary:samedisttop}. Let $c=N_2/N_1$. We fix $(n_1,n_2)=(60,40)$, vary $N_1\in\{100,200,\ldots,2000\}$, and set $N_2=cN_1$ with $c\in\{0.1,0.2,\ldots,1.0\}$. For $k\in\{0,1,2,3\}$, we compare the $(k+1)$th largest achievers, $Y_{1,(n_1-k)}$ and $\quad Y_{2,(n_2-k)}$, and the corresponding population-level aptitudes, $X_{1,(N_1-k)}$ and $X_{2,(N_2-k)}$, via the order-statistic probability transform in \eqref{eq:truepar}. For each configuration we estimate
+$$
 \mathbb{P}\!\left\{\,Y_{1,(n_1-k)}<Y_{2,(n_2-k)}\ \text{and}\ X_{1,(N_1-k)}>X_{2,(N_2-k)}\,\right\}
-\]
+$$
 using $10^4$ Monte Carlo repetitions.
 
 Figure~\ref{Fig:ratioeffect} reports the results for $k=0,1,2,3$ under $Y\sim\mathcal N(0,1)$. For $k=0$, this invariance follows directly from Corollary~\ref{corollary:samedisttop}. The additional panels show that the same ratio-dominance persists numerically for the second- through fourth-largest achievers. Across ranks, the paradox probability decreases monotonically with respect to $c$ since the increasing $N_2$ relative to $N_1$ raises the upper-order aptitude benchmark for group~2 and it reduces the chance that $X_{1,(N_1-k)}>X_{2,(N_2-k)}$. Conditional on $c$, the curves are nearly flat in $N_1$, indicating that in this regime the ratio $c$ is the dominant driver, rather than the absolute magnitudes of $(N_1,N_2)$. Additional results for a right-skewed Gamma achievement distribution, $Y \sim \mathrm{Gamma}(\alpha = 2, \beta = 1)$, are provided in Supplementary Materials and show the same qualitative patterns. 
@@ -581,15 +566,17 @@ We illustrate Theorem~\ref{theorem:normalgeneral} and the plug-in guarantees of 
 
 We treat the 2023 season as system~1 and each season from 1871--2022 as system~2. Seasonal batting averages for full-time players are modeled as Gaussian with means and standard deviations estimated via plug-in; the consistency guarantees of Theorem~\ref{theorem:plugin} therefore apply. Figure~\ref{Fig:means-sd-full-time} shows that the 2023 offensive environment exhibited both relatively low mean batting average and reduced variability compared with many historical eras. Under our specifications, we additionally have $\hat{\sigma}_1 \leq \hat{\sigma}_2$, $\hat{\mu}_1 \leq \hat{\mu}_2$, and $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, implying that the remainder term \eqref{eq:remainder} in Theorem~\ref{theorem:normalgeneral} is negligible. Talent-pool estimates $N_i$ are taken from \citet{yan2025comparing}, which includes sensitivity analyses demonstrating robustness to reasonable perturbations of these estimates.
 
+
 \begin{figure}[t!]
 \begin{center}
 	\includegraphics[scale=0.75]{paradox-prob-results.png}
 \end{center}
-\caption{Comparison of estimated paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows plug-in paradox probability estimates from Theorem~\ref{theorem:normalgeneral}; the dashed black line shows a smoothed empirical exceedance rate for Luis Arraez's 2023 batting average.}
+\caption{Comparison of estimated paradox probabilities and empirical exceedance rates relative to the 2023 season, based on data from 1871--2022. The blue line shows plug-in paradox probability estimates from Theorem~\ref{theorem:normalgeneral}.The dashed black line shows a smoothed empirical exceedance rate, where a season is counted as an exceedance if its league-leading batting average exceeded Luis Arraez's 2023 batting average.}
 \label{Fig:paradox-prob-results}
 \end{figure}
 
-Figure~\ref{Fig:paradox-prob-results} shows that estimated paradox probabilities reproduce the broad temporal decline in empirical exceedance patterns across eras, indicating that the proposed framework captures structural differences in competitive depth and measurement environment rather than merely reproducing descriptive trends. In particular, the framework explains why Luis Arraez's 2023 batting average may appear modest under raw historical comparison while nevertheless corresponding to unusually high latent aptitude after accounting for population depth and contextual variation. Under Full House Modeling, Arraez's 2023 season ranks 68th all-time among full-time batters after adjustment \citep{yan2025comparing, fullhouse2025}, compared with a raw observed rank of 341. This gap illustrates how cross-context comparisons based solely on observed outcomes can induce substantial latent-observed ranking reversals, precisely the phenomenon quantified by the paradox probability.
+
+For comparison, we compute an empirical exceedance indicator for each historical season, taking the value one if that season's league-leading batting average exceeded Luis Arraez's 2023 batting average and zero otherwise; the dashed curve in Figure~\ref{Fig:paradox-prob-results} is a smoothed version of these season-level exceedance indicators. Figure~\ref{Fig:paradox-prob-results} shows that the estimated paradox probabilities reproduce the broad temporal decline in these empirical exceedance patterns across eras, indicating that the proposed framework captures structural differences in competitive depth and measurement environment rather than merely reproducing descriptive trends. In particular, the framework provides a probabilistic explanation for why Luis Arraez's 2023 batting average may appear modest under raw historical comparison while nevertheless corresponding to unusually high latent aptitude after accounting for population depth and contextual variation. Under Full House Modeling, Arraez's 2023 season ranks 68th all-time among full-time batters after adjustment \citep{yan2025comparing, fullhouse2025}, compared with a raw observed rank of 341. This gap illustrates how cross-context comparisons based solely on observed outcomes can induce substantial latent-observed ranking reversals, precisely the phenomenon quantified by the paradox probability.
 
 
 \section{Discussion}
@@ -611,28 +598,28 @@ Beyond baseball, the aptitude-achievement paradox has potential implications for
 
 We are grateful to G\"ok\c{c}e Dayan\i kl\i, Karl Oskar Ekvall, Eren C K\i z\i lda\u{g}, Jingbo Liu, Susu Zhang and many others for helpful comments, great discussions, and inspiration. We acknowledge the use of ChatGPT and Claude to aid with proofreading and writing clarity. 
 
-Since \(\widetilde F_W(w)/F_W(w)\overset{P}{\to}1\), we have
-\[
-\widetilde F_W(w)-F_W(w)
-=
-F_W(w)\left\{\frac{\widetilde F_W(w)}{F_W(w)}-1\right\}.
-\]
-Moreover, \(n_2F_W(w)=O(1)\) in the regimes considered above. Hence
-\[
-n_2\{\widetilde F_W(w)-F_W(w)\}
-=
-n_2F_W(w)
-\left\{\frac{\widetilde F_W(w)}{F_W(w)}-1\right\}
-=o_P(1).
-\]
-For the remainder terms, \(|R|\le 2^{-n_2}\), and on the event \(E^c=\{\hat\sigma_1\le \hat\sigma_2,\hat\mu_1\le \hat\mu_2\}\), which has probability tending to one, \(|\widetilde R|\le 2^{-n_2}\). Therefore \(\widetilde R-R=o_P(1)\). Combining these two bounds gives
-\[
-\widetilde P-P=o_P(1).
-\]
+%Since \(\widetilde F_W(w)/F_W(w)\overset{P}{\to}1\), we have
+%\[
+%\widetilde F_W(w)-F_W(w)
+%=
+%F_W(w)\left\{\frac{\widetilde F_W(w)}{F_W(w)}-1\right\}.
+%\]
+%Moreover, \(n_2F_W(w)=O(1)\) in the regimes considered above. Hence
+%\[
+%n_2\{\widetilde F_W(w)-F_W(w)\}
+%=
+%n_2F_W(w)
+%\left\{\frac{\widetilde F_W(w)}{F_W(w)}-1\right\}
+%=o_P(1).
+%\]
+%For the remainder terms, \(|R|\le 2^{-n_2}\), and on the event \(E^c=\{\hat\sigma_1\le \hat\sigma_2,\hat\mu_1\le \hat\mu_2\}\), which has probability tending to one, \(|\widetilde R|\le 2^{-n_2}\). Therefore \(\widetilde R-R=o_P(1)\). Combining these two bounds gives
+%\[
+%\widetilde P-P=o_P(1).
+%\]
 
 \section*{Supplementary Materials}
 
-The Supplementary Materials contain proofs of mathematical results, together with auxiliary Monte Carlo simulations provided for sensitivity analysis of Theorem~\ref{theorem:samedistgeneral} and Theorem~\ref{theorem:normalgeneral}.
+The Supplementary Materials contain proofs of mathematical results, together with auxiliary Monte Carlo simulations provided for sensitivity analysis of Theorem~\ref{theorem:samedistgeneral}, Corollary~\ref{corollary:samedisttop}, and Theorem~\ref{theorem:normalgeneral}.
 
 
 \bibliography{FHM.bib}
