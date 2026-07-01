@@ -566,7 +566,7 @@ simu <- function(n1, n2, N1, N2, n1j, n2k, size, mc.cores = 7) {
 # ============================================================
 # rank = 1 means largest achiever
 # rank = 2 means 2nd largest achiever
-# rank = 6 means 6th largest achiever
+# rank = 4 means 4th largest achiever
 
 run_one_rank <- function(rank,
                          n1 = 60,
@@ -644,7 +644,7 @@ N1_grid <- seq(100, 2000, 100)
 c_grid <- seq(0.1, 1.0, by = 0.1)
 
 all_results <- bind_rows(
-  lapply(1:6, function(r) {
+  lapply(1:4, function(r) {
     cat("Running simulation for rank =", r, "\n")
     
     run_one_rank(
@@ -699,6 +699,16 @@ ggsave(
   dpi = 300
 )
 
+a <- run_one_rank(
+  rank = 1,
+  n1 = 60,
+  n2 = 40,
+  N1_grid = N1_grid,
+  c_grid = c_grid,
+  size = 1000,
+  nrep = 10,
+  mc.cores = 7
+)
 
 
 set.seed(13)

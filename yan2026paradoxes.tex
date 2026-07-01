@@ -543,12 +543,20 @@ $$
 $$
 using $10^4$ Monte Carlo repetitions.
 
-Figure~\ref{Fig:ratioeffect} reports the results for $k=0,1,2,3$ under $Y\sim\mathcal N(0,1)$. For $k=0$, this invariance follows directly from Corollary~\ref{corollary:samedisttop}. The additional panels show that the same ratio-dominance persists numerically for the second- through fourth-largest achievers. Across ranks, the paradox probability decreases monotonically with respect to $c$ since the increasing $N_2$ relative to $N_1$ raises the upper-order aptitude benchmark for group~2 and it reduces the chance that $X_{1,(N_1-k)}>X_{2,(N_2-k)}$. Conditional on $c$, the curves are nearly flat in $N_1$, indicating that in this regime the ratio $c$ is the dominant driver, rather than the absolute magnitudes of $(N_1,N_2)$. Additional results for a right-skewed Gamma achievement distribution, $Y \sim \mathrm{Gamma}(\alpha = 2, \beta = 1)$, are provided in Supplementary Materials and show the same qualitative patterns. 
+Figure~\ref{Fig:ratioeffect} reports the results for $k=0,1,2,3$ under $Y\sim\mathcal N(0,1)$. For $k=0$, this invariance follows directly from Corollary~\ref{corollary:samedisttop}. The additional panels show that the same ratio-dominance persists numerically for the second- through fourth-largest achievers. For \(k=0\), Corollary~\ref{corollary:samedisttop} implies that the paradox probability is positive only when
+$
+\frac{n_1}{N_1}\leq \frac{n_2}{N_2}.
+$
+In the present experiment, \(n_1=60\), \(n_2=40\), and \(N_2=cN_1\), so this condition becomes
+$
+c\leq \frac{n_2}{n_1}=\frac{2}{3}.
+$
+Consequently, for \(c>2/3\), the paradox probability is theoretically zero in the largest-achiever case. This explains why the curves corresponding to larger values of \(c\), such as \(c=0.7,0.8,0.9,1.0\), are not visually distinguishable in the plot and they collapse to the horizontal axis. The same qualitative behavior persists empirically for the second- through fourth-largest achievers. Across ranks, the paradox probability decreases monotonically with respect to $c$ since the increasing $N_2$ relative to $N_1$ raises the upper-order aptitude benchmark for group~2 and it reduces the chance that $X_{1,(N_1-k)}>X_{2,(N_2-k)}$. Conditional on $c$, the curves are nearly flat in $N_1$, indicating that in this regime the ratio $c$ is the dominant driver, rather than the absolute magnitudes of $(N_1,N_2)$. Additional results for a right-skewed Gamma achievement distribution, $Y \sim \mathrm{Gamma}(\alpha = 2, \beta = 1)$, are provided in Supplementary Materials and show the same qualitative patterns. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{paradox_probability_1st_to_4th_achievers.png}
-    \caption{Effect of the population-size ratio $c=N_2/N_1$ on the paradox probability under Corollary~\ref{corollary:samedisttop} with $Y\sim\mathcal N(0,1)$. We fix $(n_1,n_2)=(60,40)$, vary $N_1\in\{100,\ldots,2000\}$, and set $N_2=cN_1$ with $c\in\{0.1,\ldots,1.0\}$. Panels correspond to $k=0,1,2,3$ (largest through fourth-largest achiever).}
+    \caption{Effect of the population-size ratio $c=N_2/N_1$ on the paradox probability under Corollary~\ref{corollary:samedisttop} with $Y\sim\mathcal N(0,1)$. We fix $(n_1,n_2)=(60,40)$, vary $N_1\in\{100,\ldots,2000\}$, and set $N_2=cN_1$ with $c\in\{0.1,\ldots,1.0\}$. Panels correspond to $k=0,1,2,3$ (largest through fourth-largest achiever). Curves for larger values of \(c\) may overlap at horizontal axis. In particular, for \(k=0\), Corollary~\ref{corollary:samedisttop} gives a positive paradox probability only when \(c=N_2/N_1\leq n_2/n_1=2/3\); hence the curves for \(c>2/3\) collapse to the horizontal axis.}
     \label{Fig:ratioeffect}
 \end{figure}
 
