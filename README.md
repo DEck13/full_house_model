@@ -32,9 +32,7 @@ It includes three main components:
 
    This part studies the aptitude-achievement paradox probability under identical achievement distributions. It generates achievement values $Y_1$ and $Y_2$, maps them to latent aptitude values $X_1$ and $X_2$ using the Full House order-statistic transformation, and estimates
 
-   $
-   P(Y_1 < Y_2,\ X_1 > X_2).
-   $
+   $$P(Y_1 < Y_2,\ X_1 > X_2).$$
 
    The simulations consider both Normal achievement distributions,
 
