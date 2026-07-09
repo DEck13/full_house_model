@@ -32,21 +32,21 @@ It includes three main components:
 
    This part studies the aptitude-achievement paradox probability under identical achievement distributions. It generates achievement values $Y_1$ and $Y_2$, maps them to latent aptitude values $X_1$ and $X_2$ using the Full House order-statistic transformation, and estimates
 
-   \[
+   $$
    P(Y_1 < Y_2,\ X_1 > X_2).
-   \]
+   $$
 
    The simulations consider both Normal achievement distributions,
 
-   \[
+   $$
    Y \sim \mathcal{N}(0,1),
-   \]
+   $$
 
    and Gamma achievement distributions,
 
-   \[
+   $$
    Y \sim \mathrm{Gamma}(2,1),
-   \]
+   $$
 
    to check robustness to skewness.
 
@@ -65,9 +65,9 @@ It includes three main components:
 
    This part verifies the Gaussian representation in Theorem 4.4. It compares Monte Carlo estimates of the paradox probability with the theoretical probability computed using the multivariate normal representation:
 
-   \[
+   $$
    n_2 F_W(w) - \frac{N_2}{N_1+N_2}.
-   \]
+   $$
 
    The multivariate normal probabilities are computed using the `mvtnorm` package.
 
@@ -234,37 +234,37 @@ with local relative paths:
 
 The ratio analysis fixes
 
-\[
+$$
 n_1 = 60, \qquad n_2 = 40,
-\]
+$$
 
 varies
 
-\[
+$$
 N_1 \in \{100,200,\ldots,2000\},
-\]
+$$
 
 and sets
 
-\[
+$$
 N_2 = cN_1,
 \qquad
 c \in \{0.1,0.2,\ldots,1.0\}.
-\]
+$$
 
 The analysis is performed for the first through fourth largest achievers.
 
 For the largest achiever case, Corollary 3.4.1 implies that the paradox probability is positive only when
 
-\[
+$$
 \frac{n_1}{N_1} \leq \frac{n_2}{N_2}.
-\]
+$$
 
 Under the above design, this condition becomes
 
-\[
+$$
 c \leq \frac{n_2}{n_1} = \frac{2}{3}.
-\]
+$$
 
 Therefore, curves for $c > 2/3$ collapse to zero and may overlap with the horizontal axis in the plots.
 
@@ -279,9 +279,9 @@ The sensitivity analysis uses the following four designs:
 
 The latent aptitude distribution is taken to be Pareto with parameter
 
-\[
+$$
 \alpha = 1.16.
-\]
+$$
 
 The achievement distribution is either Normal or Gamma.
 
@@ -291,17 +291,17 @@ The Theorem 4.4 simulation compares two quantities:
 
 1. A Monte Carlo estimate of
 
-   \[
+   $$
    P(Y_1 < Y_2,\ X_1 > X_2),
-   \]
+   $$
 
    based on simulated achievement and latent aptitude values.
 
 2. The theoretical Gaussian approximation
 
-   \[
+   $$
    n_2 F_W(w) - \frac{N_2}{N_1+N_2},
-   \]
+   $$
 
    computed using `mvtnorm::pmvnorm`.
 
@@ -320,13 +320,13 @@ sigma2_vec <- c(2, 3)
 
 Only configurations satisfying
 
-\[
+$$
 \frac{n_1}{N_1} \leq \frac{n_2}{N_2},
 \qquad
 \sigma_1 \leq \sigma_2,
 \qquad
 \mu_1 \leq \mu_2
-\]
+$$
 
 are retained.
 
@@ -347,14 +347,14 @@ To increase precision, increase `size` or `nrep`.
 
 The main output of each simulation is the estimated paradox probability:
 
-\[
+$$
 \widehat P
 =
 \frac{1}{M}
 \sum_{m=1}^M
 \mathbf{1}
 \{Y_{1,m}<Y_{2,m},\ X_{1,m}>X_{2,m}\},
-\]
+$$
 
 where $M$ is the number of Monte Carlo repetitions.
 
