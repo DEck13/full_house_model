@@ -30,7 +30,7 @@ It includes three main components:
 
 1. **Simulation for Theorem 3.4**
 
-   This part studies the aptitude-achievement paradox probability under identical achievement distributions. It generates achievement values $Y_1$ and $Y_2$, maps them to latent aptitude values \(X_1\) and \(X_2\) using the Full House order-statistic transformation, and estimates
+   This part studies the aptitude-achievement paradox probability under identical achievement distributions. It generates achievement values $Y_1$ and $Y_2$, maps them to latent aptitude values $X_1$ and $X_2$ using the Full House order-statistic transformation, and estimates
 
    \[
    P(Y_1 < Y_2,\ X_1 > X_2).
@@ -54,10 +54,10 @@ It includes three main components:
 
    This part creates the four-panel sensitivity surfaces used in the manuscript and supplement. The four panels correspond to:
 
-   - **Panel (A):** fixed \((n_1,n_2)\), varying \((N_1,N_2)\);
-   - **Panel (B):** fixed \((N_1,N_2)\), varying \((n_1,n_2)\);
-   - **Panel (C):** fixed \((n_1,N_2)\), varying \((n_2,N_1)\);
-   - **Panel (D):** fixed \((n_2,N_1)\), varying \((n_1,N_2)\).
+   - **Panel (A):** fixed $(n_1,n_2)$, varying $(N_1,N_2)$;
+   - **Panel (B):** fixed $(N_1,N_2)$, varying $(n_1,n_2)$;
+   - **Panel (C):** fixed $(n_1,N_2)$, varying $(n_2,N_1)$;
+   - **Panel (D):** fixed $(n_2,N_1)$, varying $(n_1,N_2)$.
 
    The code runs the analysis for the first through fourth largest achievers.
 
@@ -82,10 +82,10 @@ The file performs the following steps:
 1. Loads adjusted batter data from the `fullhouse` package and additional historical baseball data.
 2. Constructs season-level full-time batter samples.
 3. Computes season-specific estimates of:
-   - \(\mu_t\): mean batting average or adjusted batting average;
-   - \(\sigma_t\): standard deviation;
-   - \(n_t\): number of full-time batters;
-   - \(N_t\): estimated eligible talent-pool size.
+   - $\mu_t$: mean batting average or adjusted batting average;
+   - $\sigma_t$: standard deviation;
+   - $n_t$: number of full-time batters;
+   - $N_t$: estimated eligible talent-pool size.
 4. Computes paradox probability estimates using the Gaussian representation from Theorem 4.4.
 5. Produces plots comparing estimated paradox probabilities with empirical exceedance patterns for Luis Arraez's 2023 batting average.
 
@@ -230,7 +230,7 @@ with local relative paths:
 
 ## Main simulation settings
 
-### Ratio analysis for \(N_2/N_1\)
+### Ratio analysis for $N_2/N_1$
 
 The ratio analysis fixes
 
@@ -266,16 +266,16 @@ Under the above design, this condition becomes
 c \leq \frac{n_2}{n_1} = \frac{2}{3}.
 \]
 
-Therefore, curves for \(c > 2/3\) collapse to zero and may overlap with the horizontal axis in the plots.
+Therefore, curves for $c > 2/3$ collapse to zero and may overlap with the horizontal axis in the plots.
 
 ### Sensitivity analysis for Theorem 3.4
 
 The sensitivity analysis uses the following four designs:
 
-1. Fixed \(n_1=40\), \(n_2=60\), varying \(N_1,N_2\).
-2. Fixed \(N_1=N_2=1000\), varying \(n_1,n_2\).
-3. Fixed \(n_1=40\), \(N_2=1000\), varying \(n_2,N_1\).
-4. Fixed \(n_2=60\), \(N_1=1000\), varying \(n_1,N_2\).
+1. Fixed $n_1=40$, $n_2=60$, varying $N_1,N_2$.
+2. Fixed $N_1=N_2=1000$, varying $n_1,n_2$.
+3. Fixed $n_1=40$, $N_2=1000$, varying $n_2,N_1$.
+4. Fixed $n_2=60$, $N_1=1000$, varying $n_1,N_2$.
 
 The latent aptitude distribution is taken to be Pareto with parameter
 
@@ -356,7 +356,7 @@ The main output of each simulation is the estimated paradox probability:
 \{Y_{1,m}<Y_{2,m},\ X_{1,m}>X_{2,m}\},
 \]
 
-where \(M\) is the number of Monte Carlo repetitions.
+where $M$ is the number of Monte Carlo repetitions.
 
 A larger value indicates a higher probability that the individual from system 1 has larger latent aptitude but lower observed achievement than the corresponding individual from system 2.
 
