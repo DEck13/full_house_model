@@ -1,0 +1,690 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{float} % for "H" placement specifier
+\usepackage[authoryear]{natbib}
+\usepackage{indentfirst}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+
+% ==== Cross-document referencing (MUST be before hyperref) ====
+\usepackage{xr-hyper}
+
+% Tell LaTeX which external document to read labels from
+% Make sure eck2023draft.aux is in the SAME folder
+\myexternaldocument{yan2026paradoxes}
+% ==== Hyperref comes AFTER xr-hyper ====
+\usepackage{hyperref}
+\hypersetup{
+  linkcolor  = blue,
+  citecolor  = blue,
+  urlcolor   = blue,
+  colorlinks = true,
+}
+
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\newcommand{\fatterdot}{\raisebox{0.15ex}{\tikz\filldraw[black,x=1.5pt,y=1.5pt] (0,0) circle (1);}}
+\newcommand{\xn}{x^{\frac{1}{n}}}
+\newcommand{\xnone}{x^{\frac{1}{n+1}}}
+
+\newcommand{\R}{\mathbb{R}}
+\DeclareUnicodeCharacter{FB01}{fi}
+\DeclareUnicodeCharacter{FF0C}{,}
+\DeclareMathOperator*{\Prob}{P}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\setlength\extrarowheight{1pt}
+
+\newcommand\red[1]{{\color{red}#1}}
+
+\bibliographystyle{plainnat}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{defn}[theorem]{Definition}
+\allowdisplaybreaks
+
+\usepackage{setspace}
+\doublespacing
+
+% Option B (comment A above and uncomment B below): biblatex
+%\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+%\addbibresource{supp.bib}
+
+% ---------- Title block ----------
+\title{Supplementary Materials for ``The Aptitude-Achievement Paradox: A Theory of Rank Reversals under Selective Observation''}
+\date{}
+
+% Optional footnote-style affiliations
+\newcommand{\affil}[2]{\par\noindent\textsuperscript{#1}\,\textit{#2}}
+
+\begin{document}
+\maketitle
+
+This supplementary materials include proofs of technical results and additional numerical examples supporting conclusions from  Section 3 and Section 4 the main manuscript. 
+
+\tableofcontents
+
+
+\section{Proofs}
+
+
+\subsection{Proof of Theorem 2.2}
+\begin{proof}
+Fix a population $i$ and suppress the index $i$. First, since $F_X$ is continuous, we can express well-defined order statistics as $X_{(1)} < \cdots < X_{(N)}$. By rank-based selection, the observed system consists of indices $j$ such that $r_j \in \mathcal{R}$, yielding observed pairs $(Y_{(j)}, X_{(r_j)})$, for $j = 1,\dots,n$. By assumption, for each observed rank $j$ there exists a strictly increasing measurable function $\psi_j$ such that
+$$
+  Y_{(j)} = \psi_j(X_{(r_j)}) \quad \text{a.s.}
+$$
+We now identify the distribution function $F_{Y_{(j)}}$ for fixed $j$. Since $\psi_j$ is strictly increasing, it admits a measurable inverse on its range. For any $y \in \mathbb{R}$,
+$$
+\Prob(Y_{(j)} \le y) 
+	= \Prob(\psi_j(X_{(r_j)}) \le y)
+    = \Prob(X_{(r_j)} \le \psi_j^{-1}(y)).
+$$
+Hence, $F_{Y_{(j)}}(y) = F_{X_{(r_j)}}(\psi_j^{-1}(y))$, which implies that
+$$
+  F_{Y_{(j)}}(\psi_j(x)) = F_{X_{(r_j)}}(x)
+	\quad \text{for } F_{X_{(r_j)}}\text{-a.e. } x.
+$$
+
+We now show that $Y_{(j)}$ is recovered from the Full House Modeling construction. Since $F_X$ is continuous, the distribution of the order statistic $X_{(r_j)}$ is also continuous and strictly increasing on the interior of its support, hence admits a well-defined generalized inverse. Likewise, $F_{Y_{(j)}}$ is continuous and strictly increasing. Thus both admit well-defined inverses. Let $u = F_{X_{(r_j)}}(x)$. Then $F_{Y_{(j)}}(\psi_j(x)) = u$, so that 
+$$
+\psi_j(x)
+	= F_{Y_{(j)}}^{-1}(u)
+	= F_{Y_{(j)}}^{-1}\!\big(F_{X_{(r_j)}}(x)\big)
+$$
+for $F_{X_{(r_j)}}$-almost every $x$. Therefore,
+$$
+Y_{(j)} = F_{Y_{(j)}}^{-1} \circ F_{X_{(r_j)}}(X_{(r_j)})
+	\quad \text{a.s.}	
+$$
+We now verify the uniqueness of the above. Let $U = F_{X_{(r_j)}}(X_{(r_j)}) \sim \mathrm{Unif}(0,1)$ by the probability integral transform, and define
+$$
+  g(u) := \psi_j\!\big(F_{X_{(r_j)}}^{-1}(u)\big).
+$$
+Then $g$ is strictly increasing and $g(U) \sim F_{Y_{(j)}}$. By the fact that if $U\sim\mathrm{Unif}(0,1)$ and $g$ is increasing, then the distribution of $g(U)$ uniquely determines $g$ almost everywhere, implying $g(u)=F^{-1}_{Y_{(j)}}(u)$ a.e. It follows that 
+$$
+\psi_j(x) = F_{Y_{(j)}}^{-1}\!\big(F_{X_{(r_j)}}(x)\big)
+	\quad \text{for } F_{X_{(r_j)}}\text{-a.e. } x.
+$$
+Thus, the strictly increasing coupling is unique up to null sets. The representation holds for each observed rank $j$, and uniqueness implies that the joint distribution of $(X,Y)$ coincides with that induced by the Full House Model.
+\end{proof}
+
+
+
+
+
+
+%%%% Proof of Lemma 3.2
+\subsection{Proof of Lemma~\ref{lemma:rep}}
+
+\begin{proof}
+Define $f_{1,j}(\cdot) = F_{Y_{1, (j)}}^{-1} \circ F_{X_{1,(r_{1,j})}} (\cdot)$ and 
+$f_{2,k}(\cdot) = F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Then we have 
+\begin{align*}
+  &\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) \\
+  &\qquad= \Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, f_{1,j}(X_{1,(r_{1,j})}) < f_{2,k}(X_{2,(r_{2,k})})\right) \\
+  &\qquad= \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+\end{align*}
+where $h_{j,k}(\cdot) = (f_{1,j}^{-1} \circ f_{2,k})(\cdot)$. %Existence of $f_i$ follows directly from the existence of $F_Y^{-1}(y)$, and existence of $h_{i,j}$ follows directly from the existence of $f_i$ and the existence of $F_X^{-1}(x)$.
+A similar technique can be applied to the second equation to obtain the result.
+\end{proof}
+
+
+%%%% Proof of Theorem 3.4
+\subsection{Proof of Theorem~\ref{theorem:samedistgeneral}} 
+
+\begin{proof}
+By Lemma~\ref{lemma:rep},
+$$
+	\Prob\left(X_{1,(r_{1,j})} > X_{2,(r_{2,k})}, Y_{1,(j)} < Y_{2,(k)}\right) = \Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right),
+$$
+where $h_{j,k}(\cdot) = F_{X_{1,(r_{1,j})}}^{-1} \circ F_{Y_{1, (j)}} \circ F_{Y_{2, (k)}}^{-1} \circ F_{X_{2,(r_{2,k})}} (\cdot)$. Under the assumption $F_{Y_1}=F_{Y_2}=F_Y$, the distributions of the order statistics admit Beta representations, which allow us to express the mapping $h_{j,k}$ in terms of regularized incomplete beta functions.
+\begin{align*}
+	&\Prob\left( X_{2,(r_{2,k})} < X_{1,(r_{1,j})}  < h_{j,k}\left(X_{2,(r_{2,k})}\right)\right) \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} f_{X_{1,(r_{1,j})}}(y)\ dy\right\} \\ 
+	&\qquad \times  f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{\int_{x}^{F_X^{-1} \circ I_{r_{1,j}, N_1-r_{1,j}+1}^{-1} \circ I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{r_{2,k}, N_2-r_{2,k}+1} \circ F_X(x)} d \ I_{ r_{1,j}, N_1- r_{1,j}+1}(F_X(y))\right\} \\
+	&\qquad \times f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \\ 
+	&\qquad \times f_{X_{2,(r_{2,k})}}(x) \ dx \\
+	&= \int_{-\infty}^{+\infty}\left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1} \circ F_X(x) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ F_X(x)\right\}^+ \\  
+	&\qquad d \ I_{ r_{2,k}, N_2- r_{2,k}+1}(F_X(x)) \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+	 \ dt.
+\end{align*}
+This representation holds without additional assumptions. The positive-part operator appears because the integrand may change sign. Under condition~\eqref{eq:technical-condition}, the integrand is nonnegative, hence
+\begin{align*}
+	&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&= \int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}\ dt.
+\end{align*}
+Thus,
+\begin{align*}	
+&\int_0^1 \left\{I_{j, n_1-j+1} \circ I_{k, n_2-k+1}^{-1}(t) - I_{ r_{1,j}, N_1- r_{1,j}+1} \circ I_{ r_{2,k}, N_2- r_{2,k}+1}^{-1}(t)\right\}^+\ dt \\
+	&\qquad= \int_0^1 I_{j, n_1 - j + 1}(x)\, dI_{k, n_2 - k + 1}(x)
+- \int_0^1 I_{r_{1,j}, N_1 - r_{1,j} + 1}(x)\, dI_{r_{2,k}, N_2 - r_{2,k} + 1}(x)\\
+&\qquad= \int_0^1 I_{j, n_1 - j + 1}(x)\,
+\frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \, dx \\
+&\qquad\qquad- \int_0^1 I_{r_{1,j}, N_1-r_{1,j}+1}(x)\,
+\frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \, dx\\
+&\qquad = \int_0^1 \sum_{p=j}^{n_1}\binom{n_1}{p}
+x^p(1-x)^{n_1-p}
+\frac{x^{k-1}(1-x)^{n_2-k}}{B(k, n_2-k+1)} \, dx \\
+&\qquad\qquad - \int_0^1 \sum_{p=r_{1,j}}^{N_1}\binom{N_1}{p}
+x^p(1-x)^{N_1-p}
+\frac{x^{r_{2,k}-1}(1-x)^{N_2-r_{2,k}}}{B(r_{2,k}, N_2-r_{2,k}+1)} \, dx\\ 
+&\qquad = \sum_{p=j}^{n_1}\binom{n_1}{p}
+\frac{B(k+p, n_2+n_1-p-k+1)}{B(k, n_2-k+1)} \\
+&\qquad\qquad - \sum_{p=r_{1,j}}^{N_1}\binom{N_1}{p}
+\frac{B(r_{2,k}+p, N_2+N_1-p-r_{2,k}+1)}{B(r_{2,k}, N_2-r_{2,k}+1)}.
+\end{align*}
+\end{proof}
+
+
+
+%%%% Proof of Proposition 3.5
+\subsection{Proof of Proposition~\ref{prop:condition}}
+
+\begin{proof}
+Specification of the selection rule $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \geq X_{i,(N_i - n_i + 1)}$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $t \in (0,1)$, that
+$$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
+$$
+The left hand side of the above equation increases whenever $n_1$ or $N_1$ are increased. This follows from the monotonicity of the inverse incomplete beta function in its parameters \citep{askitis2021logarithmic}, together with the fact that stochastic dominance is preserved under monotone transformations. Therefore,
+$
+  I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t
+$
+whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
+\begin{align*}
+&I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t, \\ 
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t),   \\
+&\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq 0.
+\end{align*}
+Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
+\end{proof}
+
+
+
+%%%% Proof of Proposition 4.2
+\subsection{Proof of Proposition~\ref{prop:weakstodom}}
+
+\begin{proof}
+First, in combination with the Definition \ref{def:stodom} and the assumption $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, we have 
+$$
+  F_{Y_1}(x)^{\frac{n_1}{N_1}} \geq F_{Y_2}(x)^{\frac{n_2}{N_2}} 
+ \implies  
+ x \geq F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right).
+$$ 
+By applying the Equation \ref{eq:pararep2} from the Lemma \ref{lemma:rep} we have 
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right) \\
+	&\qquad = \int_{-\infty}^{+\infty} \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x) \\
+	&\qquad = \int_{-\infty}^{+\infty} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x)\\
+	&\qquad = \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt. 
+\end{align*}
+Based on the Definition \ref{def:stodom}, we have
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \geq \int_0^1 F_{Y_2}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad = \frac{n_2}{n_1+n_2} - \frac{N_2}{N_1+N_2},
+\end{align*}
+and
+\begin{align*}
+	&\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) 
+	= \int_0^1 F_{Y_1}\left( F_{Y_2}^{-1}(t^{\frac{1}{n_2}}) \right)^{n_1} - t^{\frac{N_1}{N_2}} dt \\
+	&\qquad \leq \int_0^1 \left(t^{1/n_2} + \varepsilon\right)^{n_1} - t^{\frac{N_1}{N_2}} dt\\
+	&\qquad = n_2\sum_{i=0}^{n_1} \frac{{n_1 \choose i}\varepsilon^i}{n_1+n_2-i}- \frac{N_2}{N_1 + N_2}.
+\end{align*}
+\end{proof}
+
+
+
+%%%% Proof of Theorem 4.3
+\subsection{Proof of Theorem~\ref{theorem:normalgeneral}}
+
+\begin{proof}
+Equation \ref{eq:pararep2} from Lemma \ref{lemma:rep} yields
+\begin{align*}
+	g_{n_1, n_2}(x) = F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right) = \Phi^{-1}\left(\Phi\left(\frac{x-\mu_2}{\sigma_2}\right)^\frac{n_2N_1}{N_2n_1}\right)\sigma_1 +\mu_1.
+\end{align*}
+Let $A$ and $R$ be as defined, respectively, in \eqref{eq:A} and \eqref{eq:remainder}. We have,
+\begin{align*}
+  &\Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = \Prob\left( g_{n_1,n_2}\left(Y_{2,(n_2)}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \Prob\left( F_{Y_1}^{-1}\left(F_{Y_2}(Y_{2,(n_2)})^{\frac{n_2N_1}{N_2n_1}}\right) < Y_{1,(n_1)}  < Y_{2,(n_2)}\right)\\
+	&\qquad= \int_A \int_{F_{Y_1}^{-1}\left(F_{Y_2}(x)^{\frac{n_2N_1}{N_2n_1}}\right)}^{x} d F_{Y_1, (n_1)}(y) d F_{Y_2, (n_2)}(x)\\	
+	&\qquad= \int_{A}\left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty} \left[F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) - \int_{A^c} \left[F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) \\
+	&\qquad= \int_{-\infty}^{\infty}\left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}\right]d F_{Y_2, (n_2)}(x) + R.
+\end{align*}
+We continue with the left-hand side of the last equality,	
+\begin{align*}
+&\int_{-\infty}^{\infty} \left[ F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}} \right] d F_{Y_2,(n_2)}(x) 
+= \int_0^1 \left[ F_{Y_1}\!\left( F_{Y_2}^{-1}(t^{1/n_2}) \right)^{n_1} - t^{N_1/N_2} \right] dt\\[6pt]
+&\qquad= \int_{0}^{1} \left( \Phi\!\left(\frac{\Phi^{-1}(t^{1/n_2})\sigma_2 + \mu_2 - \mu_1}{\sigma_1}\right) \right)^{n_1} \, dt \;-\; \frac{N_2}{N_1 + N_2} \\[6pt]
+&\qquad= \int_{-\infty}^{+\infty} 
+\Phi\!\left(\frac{\sigma_2 x + \mu_2 - \mu_1}{\sigma_1}\right)^{n_1} 
+\left( n_2 \Phi(x)^{n_2-1} \phi(x) \right)\, dx \;-\; \frac{N_2}{N_1 + N_2} \\[8pt]
+&\qquad= n_2 \int_{-\infty}^{+\infty}
+\Prob\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\;\middle|\; X=x \right)
+\phi(x)\, dx \\ 
+&\qquad\qquad\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2 \,
+\Prob\!\left(
+\begin{array}{l}
+Z_{1,1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{1,n_1} - \frac{\sigma_2}{\sigma_1}X \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{2,1}-X \le 0,\, \dots,\, Z_{2,n_2-1}-X \le 0
+\end{array}
+\right)
+\;-\; \frac{N_2}{N_1 + N_2} \\[10pt]
+&\qquad= n_2\, F_{\mathbf{W}}\!\left( \mathbf{w}\right) \;-\; \frac{N_2}{N_1 + N_2},
+\end{align*}
+where the first $n_1$ elements of $\mathbf{w}$ is $\frac{\mu_2 - \mu_1}{\sigma_1}$ and the last $n_2-1$ elements are 0. The distribution function $F_{\mathbf{W}}$ corresponds to random variable $\mathbf{W} \sim \mathcal{N}_{(n_1 + n_2 - 1)}(\boldsymbol{0}, \boldsymbol{\Sigma})$ where $\boldsymbol{\Sigma}$ is as defined in \eqref{eq:Sigma} and \eqref{eq:Sigmastructure}.
+
+The bound on the remainder \eqref{eq:remainder-bound} follows from the argument in Section~\ref{subsec:normal}.
+\end{proof}
+
+
+
+
+
+%%%% Proof of Theorem 4.4
+\subsection{Proof of Theorem \ref{theorem:plugin}}
+\begin{proof}
+From \eqref{eq:paradoxnormal} we have
+$$
+  \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = n_2F_{\mathbf{W}}(\mathbf{w}) - \frac{N_2}{N_1 + N_2} + R,
+$$
+and we estimate the above with 
+$$
+  \widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) = n_2\widehat F_{\mathbf{W}}(\mathbf{w}) - \frac{N_2}{N_1 + N_2} + \widehat R,
+$$
+where $\widehat F_{\mathbf{W}}(\mathbf{w})$ and $\widehat R$ are obtained by replacing $\mu_i,\sigma_i$ with estimators $\hat\mu_i,\hat\sigma_i$, $i=1,2$.
+
+By Theorem~\ref{theorem:normalgeneral}, $|R| \leq \left(\frac{1}{2}\right)^{n_2}$ under the conditions $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$. These conditions are satisfied in our setting.
+%where 
+%$$
+%  R = -\int_{A^c} F_{Y_1}(x)^{n_1} - F_{Y_2}(x)^{\frac{n_2N_1}{N_2}}d F_{Y_2, (n_2)}(x),
+%$$
+%and 
+%$$
+%A = \left\{ x \in \mathbb{R} : \Phi\!\left(\frac{x-\mu_2}
+%		{\sigma_2}\right)^{\frac{n_2}{N_2}} \le
+%	\Phi\!\left(\frac{x-\mu_1}{\sigma_1}\right)^{\frac{n_1}{N_1}}
+%	\right\}.
+%$$
+%From Theorem~\ref{theorem:normalgeneral}, we can bound $R$ as
+%$$
+%  |R| \leq \left(\frac{1}{2}\right)^{n_2},
+%$$
+ %when $\frac{n_1}{N_1} \leq \frac{n_2}{N_2}$, $\sigma_1 \leq \sigma_2$, and $\mu_1 \leq \mu_2$.
+Let $E = \{\hat\sigma_1 > \hat\sigma_2\} \cup \{\hat\mu_1 > \hat\mu_2\}$. Then $|\widehat R| \leq \left(\frac{1}{2}\right)^{n_2}$ on $E^c$. Our convergence of probability conditions guarantee that $\Prob(E^c)\to 1$ as $n_1,n_2 \to\infty$.
+
+
+Now we show convergence of $\widehat F_{\mathbf W}(\mathbf w)$. From the last equality in the proof of Theorem~\ref{theorem:normalgeneral} we can write
+\begin{align*}
+	F_{\mathbf W}(\mathbf w) &= \Prob\!\left(
+\begin{array}{l}
+Z_{1} + \frac{\sigma_2}{\sigma_1}Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_1},\, \dots,\,
+Z_{n_1} + \frac{\sigma_2}{\sigma_1}Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_1},\\[3pt]
+Z_{n_1+1}+ Z_0 \le 0,\, \dots,\, Z_{n_1+n_2-1}+Z_0 \le 0
+\end{array}
+\right) \\
+&= \Prob\!\left(
+\begin{array}{l}
+Z_{1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1}Z_0,\, \dots,\,
+Z_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1}Z_0,\\[3pt]
+Z_{n_1+1}\le - Z_0 ,\, \dots,\, Z_{n_1+n_2-1} \le -Z_0
+\end{array}
+\right) \\
+\end{align*}
+where $Z_i \overset{iid}{\sim} N(0,1)$, $i=0,\ldots,n_1+n_2+1$. Define $M_{n_1} = \max\{Z_1, Z_2, \dots, Z_{n_1}\}$, $M_{n_2-1} = \max\{Z_{n_1+1}, Z_{n_1+2}, \dots, Z_{n_1+n_2-1}\}$, then we can write
+$$ 
+F_{\mathbf W}(\mathbf w) = \Prob\left(M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0,\;\; M_{n_2-1} \le -Z_0\right).	
+$$
+From \cite{embrechts2013modelling}, we have $M_{n_1} = \sqrt{2 \ln n_1} + O_P(1)$. Thus, after rearranging, the inequality $M_{n_1} \le \frac{\mu_2 - \mu_1}{\sigma_1}$ is approximately equivalent (up to $O_P(1)$ fluctuations) to
+$
+\sqrt{2 \ln n_1} \leq \frac{\mu_2 - \mu_1}{\sigma_1} - \frac{\sigma_2}{\sigma_1} Z_0.
+$
+Rearranging yields
+$$
+Z_0 \leq \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}.
+$$
+Similarly, from \cite{embrechts2013modelling}, $M_{n_2-1} = \sqrt{2 \ln (n_2-1)} + O_P(1)$. Thus, after rearranging, the inequality $M_{n_2-1} \le -Z_0$ is approximately equivalent to
+$
+Z_0 \leq -\sqrt{2 \ln (n_2-1)}.
+$
+Then, as $n_1, n_2 \to \infty$, we have
+$$
+F_{\mathbf W}(\mathbf w) = \Prob\left(Z_0 \le \frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}, \; \; Z_0 \le -\sqrt{2 \ln (n_2-1)}\right).	
+$$
+
+%A few things can happen:
+%\begin{enumerate}
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$
+%	\item $\frac{\mu_2 - \mu_1}{\sigma_2} - \frac{\sigma_1}{\sigma_2}\sqrt{2 \ln n_1}\ge -\sqrt{2 \ln (n_2-1)}$ and $\frac{\hat{\mu}_2 - \hat{\mu}_1}{\hat{\sigma}_2} - \frac{\hat{\sigma}_1}{\hat{\sigma}_2}\sqrt{2 \ln n_1}\le -\sqrt{2 \ln (n_2-1)}$
+%\end{enumerate}
+
+
+Define
+\[
+C := \frac{\mu_2-\mu_1}{\sigma_2}
+-
+\frac{\sigma_1}{\sigma_2}\sqrt{2\log n_1},
+\qquad
+B := -\sqrt{2\log(n_2-1)},
+\]
+and similarly
+\[
+\widehat C =
+\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+-
+\frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\log n_1}.
+\]
+Two asymptotic regimes arise depending on whether \(C < B\) or \(C > B\).
+Under the consistency conditions
+\[
+\frac{\hat\sigma_1}{\hat\sigma_2}
+-
+\frac{\sigma_1}{\sigma_2}
+=
+o_P\left(\frac{1}{\log n_1}\right),
+\qquad
+\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+-
+\frac{\mu_2-\mu_1}{\sigma_2}
+=
+o_P\left(\frac{1}{\sqrt{\log n_1}}\right),
+\]
+and the regime-separation condition
+\[
+\sqrt{\log n_1}\,|C-B|\to\infty,
+\]
+the plug-in estimator selects the same regime with probability tending to one.
+
+Indeed,
+\[
+\widehat C-C
+=
+\left\{
+\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}
+-
+\frac{\mu_2-\mu_1}{\sigma_2}
+\right\}
+-
+\sqrt{2\log n_1}
+\left\{
+\frac{\hat\sigma_1}{\hat\sigma_2}
+-
+\frac{\sigma_1}{\sigma_2}
+\right\}
+=
+o_P\left(\frac{1}{\sqrt{\log n_1}}\right).
+\]
+Therefore, if \(C<B\), then
+\[
+P(\widehat C>B)
+=
+P(\widehat C-C>B-C)\to 0,
+\]
+because \(B-C\gg 1/\sqrt{\log n_1}\). Similarly, if \(C>B\), then
+\[
+P(\widehat C<B)
+=
+P(C-\widehat C>C-B)\to 0.
+\]
+Hence the plug-in estimator selects the same regime as the population quantity with probability tending to one.
+
+First, consider the asymptotic regime $C \leq B$ where
+$$
+F_{\mathbf W}(\mathbf w) = \Prob(Z_0 \le C)\bigl(1+o(1)\bigr)
+  = \Phi(C)\bigl(1+o(1)\bigr).
+$$
+Since $C \to -\infty$, Mills' ratio $\Phi(-x)\sim \phi(x)/x$ gives
+$$
+\Phi(C) \;\sim\; \frac{1}{\sqrt{2\pi}\,|C|}\,
+\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\mu_2-\mu_1}{\sigma_2} - \tfrac{\sigma_1}{\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right).
+$$
+Let $\widehat F_{\mathbf W}(\mathbf w)$ be obtained by replacing $\mu_i,\sigma_i$ with consistent estimators $\hat\mu_i,\hat\sigma_i$, and define
+$$
+\widehat C := \frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \frac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}.
+$$
+%Repeating the argument leading to \eqref{eq:phiC-mills} with $\widehat C$ in place of $C$,
+Replacing $C$ with $\widehat C$ yields
+$$
+\widehat F_{\mathbf W}(\mathbf w) \;\sim\; \frac{1}{\sqrt{2\pi}\,|\widehat C|}\,
+\exp\!\left(-\tfrac{1}{2}\!\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2} - \tfrac{\hat\sigma_1}{\hat\sigma_2}\sqrt{2\ln n_1}\right)^{\!2}\right),
+$$
+and therefore
+$$
+\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} 
+\;\sim\; \frac{|C|}{|\widehat C|}\,
+\exp\!\left(-\tfrac{1}{2}\bigl(\widehat C^{\,2} - C^{2}\bigr)\right).
+$$
+Writing out the squares,
+\begin{align*}
+\widehat C^{\,2} - C^{2}
+&= \underbrace{\left[\left(\tfrac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\right)^2
+-
+\left(\tfrac{\mu_2-\mu_1}{\sigma_2}\right)^2\right]}_{o_P(1)} \\[4pt]
+&\quad + (2\ln n_1)\!\left[\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right] 
+- 2\sqrt{2\ln n_1}\!\left[\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right].
+\end{align*}
+The first bracket is $o_P(1)$ under any consistent estimator. The remaining two terms grow with $n_1$ at rates $\ln n_1$ and $\sqrt{\ln n_1}$, so they govern the asymptotic behavior of $\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} $.
+
+
+Provided $\hat\sigma_1/\hat\sigma_2\xrightarrow{P}\sigma_1/\sigma_2$, the prefactor $|C|/|\widehat C|$ tends to $1$ in probability. Combined with the exponent expansion, 
+$$
+  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} \xrightarrow{P}1
+$$ 
+whenever the assumed conditions,
+\begin{align*}
+(2\ln n_1)\,\left|\frac{\hat\sigma_1^{\,2}}{\hat\sigma_2^{\,2}} - \frac{\sigma_1^{\,2}}{\sigma_2^{\,2}}\right| 
+&\;\xrightarrow{\;P\;}\; 0, \\[4pt]
+\sqrt{2\ln n_1}\,\left|\frac{\hat\mu_2-\hat\mu_1}{\hat\sigma_2}\cdot\frac{\hat\sigma_1}{\hat\sigma_2} - \frac{\mu_2-\mu_1}{\sigma_2}\cdot\frac{\sigma_1}{\sigma_2}\right| 
+&\;\xrightarrow{\;P\;}\; 0, 
+\end{align*}
+are satisfied. 
+
+Now consider the regime $B\le C$. In this case we have $F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o(1))$. Since $B=-\sqrt{2\log(n_2-1)}$, Mills' ratio yields
+$$
+F_{\mathbf W}(\mathbf w) \sim 
+	\frac{1}{\sqrt{4\pi\log(n_2-1)}}\cdot\frac1{n_2-1}.
+$$
+Under consistency of the plug-in estimators, $\widehat C-C \xrightarrow{P}0$, so whenever the inequality $B<C$ holds asymptotically with nonvanishing separation, the plug-in estimator selects the same regime with probability tending to one. Consequently, $\widehat F_{\mathbf W}(\mathbf w) = \Phi(B)(1+o_P(1))$, and hence
+$$
+  \frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)}
+	\xrightarrow{P}1.
+$$
+Thus, 
+\begin{align*}
+  &\widehat \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right)- \Prob\left(X_{1,(N_1)} > X_{2,(N_2)}, Y_{1,(n_1)} < Y_{2,(n_2)}\right) \\
+  &\qquad= n_2\widehat F_{\mathbf W}(\mathbf w) - \frac{N_2}{N_1 + N_2} + \widehat R - \left(n_2 F_{\mathbf W}(\mathbf w) - \frac{N_2}{N_1 + N_2} + R\right) \\
+  &\qquad = n_2\left(\widehat F_{\mathbf W}(\mathbf w) - F_{\mathbf W}(\mathbf w)\right) + \left(\widehat R - R\right)
+  \xrightarrow{P}0,	
+\end{align*}
+noting that $n_2\left(\widehat F_{\mathbf W}(\mathbf w) - F_{\mathbf W}(\mathbf w)\right) = n_2F_{\mathbf W}(\mathbf w)\left(\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} - 1\right) = o_P(1)$.
+\end{proof}
+
+\section{Simulations}
+
+
+\subsection{Simulation Results for Theorem \ref{theorem:normalgeneral}}
+\label{simu_theorem}
+We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Paradox probabilities computed from Theorem \ref{theorem:normalgeneral} are compared with Monte Carlo estimates across a range of configurations. Each of these configurations will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
+
+The simulations will proceed as follows: Distributions for $Y_1$ and $Y_2$ are specified along with sample sizes $n_i$, $N_i$, $i = 1,2$. We will specify a Monte Carlo sample size of 2000. For iteration $m$ of the Monte Carlo sample procedure $Y_{1,j}$, $j=1,\ldots,n_1$ and $Y_{2,k}$, $k=1,\ldots,n_2$ are generated. Then $X_{i,(N_i)}$, $i =1,2$ is calculated using \eqref{eq:truepar} where $X\sim\text{Pareto}(\alpha=1.16)$. Then 
+$
+  1(X_{(N_1)} > X_{(N_2)}, Y_{(n_1)} < Y_{(n_2)})
+$
+is recorded. 
+
+The theoretical results are computed from the Theorem~\ref{theorem:normalgeneral} using mvtnorm package \citep{R-mvtnorm} in R.
+
+The results are tabulated in Table~\ref{Tab:simulationnormal}. These results show strong agreement between our theory and numerical simulation. They also reveal that paradox probabilities are non-trivial across these configurations. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{rrrrrrrr|r|r}
+\hline
+$n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
+\hline
+10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.4000 & 0.4000099 \\
+10 & 20 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3970 & 0.3970305 \\
+10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3 & 0.5715 & 0.5714174 \\
+10 & 20 & 400 & 600 & 0 & 1 & 1.5 & 2 & 0.3645 & 0.3647783 \\
+10 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999245 \\
+20 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999803 \\
+10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3 & 0.4000 & 0.3995149 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.5 & 2 & 0.2970 & 0.2962431 \\
+20 & 40 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3750 & 0.3740938 \\
+10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.3990 & 0.4000059 \\
+\hline
+\end{tabular}
+\caption{Simulation Results for Normal Example. }
+\label{Tab:simulationnormal}
+\end{table}
+
+\subsection{Sensitivity Analysis for Theorem~\ref{theorem:samedistgeneral}}
+
+We extend the sensitivity analysis in the main text by varying the achiever rank $k\in\{0,1,2,3\}$, where $k=0$ corresponds to the largest achiever and $k=3$ to the fourth-largest achiever. For each $k$, we consider the paradox event
+\[
+Y_{1,(n_1-k)}<Y_{2,(n_2-k)}
+\quad\text{and}\quad
+X_{1,(N_1-k)} > X_{2,(N_2-k)},
+\]
+under the same marginal-distribution setting as Theorem~\ref{theorem:samedistgeneral}: $X\sim\mathrm{Pareto}(1.16)$ and $Y_1\overset{d}{=}Y_2\overset{d}{=}Y$. As in the main text, latent aptitudes are obtained through the order-statistic probability transformation \eqref{eq:truepar}. Each surface point is estimated using $10^4$ Monte Carlo replicates.
+
+In addition to the Normal achievement distribution $Y\sim\mathcal N(0,1)$, we also consider a right-skewed achievement distribution $Y\sim\mathrm{Gamma}(\alpha = 2,\beta = 1)$ to assess robustness to skewness. The four sensitivity panels (A)--(D) match those in the main text: (A) varies $(N_1,N_2)$ with $(n_1,n_2)$ fixed; (B) varies $(n_1,n_2)$ with $(N_1,N_2)$ fixed; (C) varies $(n_2,N_1)$ with $(n_1,N_2)$ fixed; (D) varies $(n_1,N_2)$ with $(n_2,N_1)$ fixed.
+
+Figures~\ref{Fig:sensitivity_normal_allk}--\ref{Fig:sensitivity_gamma_allk} report the full set of surfaces for $k=0,1,2,3$ under $Y\sim\mathcal N(0,1)$ and $Y\sim\mathrm{Gamma}(\alpha = 2,\beta = 1)$, respectively. Across all $k$ and both achievement distributions, the qualitative dependence on $(n_1,n_2,N_1,N_2)$ remains stable: increasing $n_2$ relative to $n_1$ increases the probability of the observed-achievement reversal, while increasing $N_1$ relative to $N_2$ increases the probability of the latent-aptitude reversal. As a result, the paradox probability is consistently largest when these two effects reinforce each other (large $n_2/n_1$ and large $N_1/N_2$), and smallest when they oppose each other.
+
+Varying $k$ primarily changes the overall magnitude of the paradox probability, but it does not alter the location of high-probability regimes in the $(n_1,n_2,N_1,N_2)$ design. Replacing $Y\sim\mathcal N(0,1)$ by the skewed Gamma distribution, $Y\sim\mathrm{Gamma}(\alpha = 2,\beta = 1)$, leads to similar surfaces in shape, indicating that the qualitative mechanisms are not driven by symmetry of the achievement distribution.
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_normal_rank_1.png}
+  \caption{$k=0$ (largest achiever)}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_normal_rank_2.png}
+  \caption{$k=1$ (second-largest)}
+\end{subfigure}
+
+\vspace{0.5em}
+
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_normal_rank_3.png}
+  \caption{$k=2$ (third-largest)}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_normal_rank_4.png}
+  \caption{$k=3$ (fourth-largest)}
+\end{subfigure}
+
+\caption{Sensitivity surfaces under $Y\sim\mathcal N(0,1)$ for $k=0,1,2,3$ (largest through fourth-largest achiever). Each subfigure contains Panels (A)--(D) as in Figure~\ref{Fig:sensitivity_k1_normal}. The darker color indicates larger paradox probability. }
+\label{Fig:sensitivity_normal_allk}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_gamma_rank_1.png}
+  \caption{$k=0$ (largest achiever)}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_gamma_rank_2.png}
+  \caption{$k=1$ (second-largest)}
+\end{subfigure}
+
+\vspace{0.5em}
+
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_gamma_rank_3.png}
+  \caption{$k=2$ (third-largest)}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sensitivity_gamma_rank_4.png}
+  \caption{$k=3$ (fourth-largest)}
+\end{subfigure}
+
+\caption{Sensitivity surfaces under $Y\sim\mathrm{Gamma}(2,1)$ for $k=0,1,2,3$ (largest through fourth-largest achiever). Each subfigure contains Panels (A)--(D) as in Figure~\ref{Fig:sensitivity_k1_normal}. The darker color indicates larger paradox probability.}
+\label{Fig:sensitivity_gamma_allk}
+\end{figure}
+
+\subsection{Ratio of $N_2$ and $N_1$ Under a Skewed Gamma Achievement Distribution}\label{app:ratio_gamma}
+
+We repeat the analysis of Section~\ref{sec:ratioeffect} (same $(n_1,n_2)$, $N_1$ grid, and $c$ grid) but replace the Normal achievement distribution by $Y\sim \mathrm{Gamma}(\alpha = 2,\beta = 1)$, which is right-skewed. The paradox probabilities are estimated using $10{,}000$ Monte Carlo repetitions for each configuration, and we report results for $k=0,1,2,3$ (largest through fourth-largest achiever). Figure~\ref{Fig:ratioeffect_gamma} shows that the dependence on $c$ is qualitatively the same as in the Normal case: the paradox probability decreases as $c$ increases, and conditional on $c$ it exhibits little sensitivity to $N_1$ over the range considered. Thus, the ratio effect described in the main text is robust to moderate skewness in the achievement distribution.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{paradox_probability_1st_to_4th_achievers_gamma.png}
+    \caption{Gamma analogue of Figure~\ref{Fig:ratioeffect} with $Y\sim \mathrm{Gamma}(\alpha = 2,\beta = 1)$. The qualitative dependence on $c=N_2/N_1$ is unchanged.}
+    \label{Fig:ratioeffect_gamma}
+\end{figure}
+
+
+\bibliography{FHM.bib}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+

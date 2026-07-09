@@ -1,13 +1,14 @@
 
-library(fullhouse)
+library(fullhouse) ## v1.1; Commit 6ff03d1
 library(tidyverse)
 library(parallel)
 library(Pareto)
 library(mvtnorm)
 ncores = detectCores() - 1
 
+## data set from v1.1 of software package
 data("batters_adjusted")
-load("~/research/full_house_model/baseball_simu.RData")
+load("baseball_simu.RData")
 
 foo = batters_adjusted %>%
   filter(AB >= 320) %>% 
@@ -16,14 +17,10 @@ foo = batters_adjusted %>%
   arrange(desc(maxBA)) %>% 
   as.data.frame()
 
+## compute exceedance
 bar = foo %>% 
   mutate(resp = ifelse(maxBA <= 0.3704348, 1,0)) %>% 
   filter(year < 2023)
-
-#m1 = glm(resp ~ poly(year,1), data = bar, family = "binomial")
-#summary(m1)
-#baz = cbind(bar, preds = predict(m1, type = "response"))
-#baz
 
 ggplot(bar) + 
   aes(x = year, y = resp) + 
@@ -34,9 +31,8 @@ ggplot(bar) +
   geom_point() +
   theme_minimal()
 
-bat_raw = read_csv("~/website/era-adjustment-website/src/data/raw_batter.csv")
-#View(bat_dat %>% filter(name == "Jeff McNeil"))
-#View(bat_raw %>% filter(name == "Jeff McNeil"))
+## unadjusted batting statistics
+bat_raw = read_csv("~/raw_batter.csv")
 
 #bat_raw = bat_dat
 foo_raw = bat_raw %>%
@@ -74,7 +70,7 @@ ggplot(bar_raw) +
 
 
 
-
+## compute paradox probabilities
 years = 1871:2023
 batters = bat_dat
 cutoff = do.call(rbind, mclapply(years, mc.cores = ncores, FUN = function(xx){
