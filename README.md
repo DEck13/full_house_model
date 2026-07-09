@@ -321,12 +321,7 @@ To increase precision, increase `size` or `nrep`.
 
 The main output of each simulation is the estimated paradox probability:
 
-$$\widehat P
-=
-\frac{1}{M}
-\sum_{m=1}^M
-\mathbf{1}
-\{Y_{1,m}<Y_{2,m},\ X_{1,m}>X_{2,m}\},$$
+$$\widehat P = \frac{1}{M} \sum_{m=1}^M \mathbf{1} \{Y_{1,m}<Y_{2,m},\ X_{1,m}>X_{2,m}\},$$
 
 where $M$ is the number of Monte Carlo repetitions.
 
