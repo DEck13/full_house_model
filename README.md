@@ -317,16 +317,6 @@ To reduce runtime, decrease `size`, `nrep`, or the number of grid points.
 
 To increase precision, increase `size` or `nrep`.
 
-## Output interpretation
-
-The main output of each simulation is the estimated paradox probability:
-
-$$\widehat P = \frac{1}{M} \sum_{m=1}^M \mathbf{1} \{Y_{1,m}<Y_{2,m},\ X_{1,m}>X_{2,m}\},$$
-
-where $M$ is the number of Monte Carlo repetitions.
-
-A larger value indicates a higher probability that the individual from system 1 has larger latent aptitude but lower observed achievement than the corresponding individual from system 2.
-
 ## Contact
 
 For questions about the code or data, please contact the Shen Yan: shenyan3@illinois.edu. 
