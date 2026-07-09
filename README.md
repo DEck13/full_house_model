@@ -319,4 +319,4 @@ To increase precision, increase `size` or `nrep`.
 
 ## Contact
 
-For questions about the code or data, please contact the Daniel J. Eck: dje13@illinois.edu. 
+For questions about the code or data, please contact Daniel J. Eck: dje13@illinois.edu. 
