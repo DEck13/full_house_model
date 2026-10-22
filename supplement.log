@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  25 JUN 2026 01:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  11 SEP 2026 00:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -873,115 +873,114 @@ al/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] [2] [3] [
 Package natbib Warning: Citation `askitis2021logarithmic' on page 6 undefined o
 n input line 222.
 
-[6]
+[6] [7] [8]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 269.
+(amsmath)                 on input line 383.
 
-[7] [8]
+[9] [10] [11]
 
-Package natbib Warning: Citation `embrechts2013modelling' on page 9 undefined o
-n input line 383.
+Package natbib Warning: Citation `embrechts2013modelling' on page 12 undefined 
+on input line 497.
 
-[9]
 
-Package natbib Warning: Citation `embrechts2013modelling' on page 10 undefined 
-on input line 391.
+Package natbib Warning: Citation `embrechts2013modelling' on page 12 undefined 
+on input line 505.
 
-[10] [11] [12]
+[12] [13] [14] [15]
 
-Package natbib Warning: Citation `R-mvtnorm' on page 13 undefined on input line
- 563.
+Package natbib Warning: Citation `R-mvtnorm' on page 16 undefined on input line
+ 676.
 
-[13] [14]
-<sensitivity_normal_rank_1.png, id=196, 722.7pt x 578.16pt>
+[16] [17]
+<sensitivity_normal_rank_1.png, id=214, 722.7pt x 578.16pt>
 File: sensitivity_normal_rank_1.png Graphic file (type png)
 <use sensitivity_normal_rank_1.png>
-Package pdftex.def Info: sensitivity_normal_rank_1.png  used on input line 610.
+Package pdftex.def Info: sensitivity_normal_rank_1.png  used on input line 723.
 
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_normal_rank_2.png, id=197, 722.7pt x 578.16pt>
+<sensitivity_normal_rank_2.png, id=215, 722.7pt x 578.16pt>
 File: sensitivity_normal_rank_2.png Graphic file (type png)
 <use sensitivity_normal_rank_2.png>
-Package pdftex.def Info: sensitivity_normal_rank_2.png  used on input line 615.
+Package pdftex.def Info: sensitivity_normal_rank_2.png  used on input line 728.
 
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_normal_rank_3.png, id=198, 722.7pt x 578.16pt>
+<sensitivity_normal_rank_3.png, id=216, 722.7pt x 578.16pt>
 File: sensitivity_normal_rank_3.png Graphic file (type png)
 <use sensitivity_normal_rank_3.png>
-Package pdftex.def Info: sensitivity_normal_rank_3.png  used on input line 623.
+Package pdftex.def Info: sensitivity_normal_rank_3.png  used on input line 736.
 
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_normal_rank_4.png, id=199, 722.7pt x 578.16pt>
+<sensitivity_normal_rank_4.png, id=217, 722.7pt x 578.16pt>
 File: sensitivity_normal_rank_4.png Graphic file (type png)
 <use sensitivity_normal_rank_4.png>
-Package pdftex.def Info: sensitivity_normal_rank_4.png  used on input line 628.
+Package pdftex.def Info: sensitivity_normal_rank_4.png  used on input line 741.
 
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
- [15]
-<sensitivity_gamma_rank_1.png, id=206, 722.7pt x 578.16pt>
+ [18]
+<sensitivity_gamma_rank_1.png, id=224, 722.7pt x 578.16pt>
 File: sensitivity_gamma_rank_1.png Graphic file (type png)
 <use sensitivity_gamma_rank_1.png>
-Package pdftex.def Info: sensitivity_gamma_rank_1.png  used on input line 641.
+Package pdftex.def Info: sensitivity_gamma_rank_1.png  used on input line 754.
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_gamma_rank_2.png, id=207, 722.7pt x 578.16pt>
+<sensitivity_gamma_rank_2.png, id=225, 722.7pt x 578.16pt>
 File: sensitivity_gamma_rank_2.png Graphic file (type png)
 <use sensitivity_gamma_rank_2.png>
-Package pdftex.def Info: sensitivity_gamma_rank_2.png  used on input line 646.
+Package pdftex.def Info: sensitivity_gamma_rank_2.png  used on input line 759.
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_gamma_rank_3.png, id=208, 722.7pt x 578.16pt>
+<sensitivity_gamma_rank_3.png, id=226, 722.7pt x 578.16pt>
 File: sensitivity_gamma_rank_3.png Graphic file (type png)
 <use sensitivity_gamma_rank_3.png>
-Package pdftex.def Info: sensitivity_gamma_rank_3.png  used on input line 654.
+Package pdftex.def Info: sensitivity_gamma_rank_3.png  used on input line 767.
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
-<sensitivity_gamma_rank_4.png, id=209, 722.7pt x 578.16pt>
+<sensitivity_gamma_rank_4.png, id=227, 722.7pt x 578.16pt>
 File: sensitivity_gamma_rank_4.png Graphic file (type png)
 <use sensitivity_gamma_rank_4.png>
-Package pdftex.def Info: sensitivity_gamma_rank_4.png  used on input line 659.
+Package pdftex.def Info: sensitivity_gamma_rank_4.png  used on input line 772.
 (pdftex.def)             Requested size: 230.18253pt x 184.1416pt.
- [16 <./sensitivity_normal_rank_1.png> <./sensitivity_normal_rank_2.png> <./sen
+ [19 <./sensitivity_normal_rank_1.png> <./sensitivity_normal_rank_2.png> <./sen
 sitivity_normal_rank_3.png> <./sensitivity_normal_rank_4.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 667.
+(hyperref)                removing `math shift' on input line 780.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 667.
+(hyperref)                removing `subscript' on input line 780.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 667.
+(hyperref)                removing `math shift' on input line 780.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 667.
+(hyperref)                removing `math shift' on input line 780.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 667.
+(hyperref)                removing `subscript' on input line 780.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 667.
+(hyperref)                removing `math shift' on input line 780.
 
-[17 <./sensitivity_gamma_rank_1.png> <./sensitivity_gamma_rank_2.png> <./sensit
+[20 <./sensitivity_gamma_rank_1.png> <./sensitivity_gamma_rank_2.png> <./sensit
 ivity_gamma_rank_3.png> <./sensitivity_gamma_rank_4.png>]
-<paradox_probability_1st_to_4th_achievers_gamma.png, id=225, 722.7pt x 578.16pt
+<paradox_probability_1st_to_4th_achievers_gamma.png, id=244, 722.7pt x 578.16pt
 >
 File: paradox_probability_1st_to_4th_achievers_gamma.png Graphic file (type png
 )
 <use paradox_probability_1st_to_4th_achievers_gamma.png>
 Package pdftex.def Info: paradox_probability_1st_to_4th_achievers_gamma.png  us
-ed on input line 673.
+ed on input line 786.
 (pdftex.def)             Requested size: 469.75502pt x 375.80836pt.
 
 No file supplement.bbl.
 
 Package natbib Warning: There were undefined citations.
 
-[18 <./paradox_probability_1st_to_4th_achievers_gamma.png>] (./supplement.aux)
+[21 <./paradox_probability_1st_to_4th_achievers_gamma.png>] (./supplement.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -996,14 +995,14 @@ Package rerunfilecheck Warning: File `supplement.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `supplement.out':
-(rerunfilecheck)             Before: 41B478473CF43412F515B2161A700BE7;2261
-(rerunfilecheck)             After:  B2D1CDD79EC33B75BC3486A595AE58DE;2261.
+(rerunfilecheck)             Before: B2D1CDD79EC33B75BC3486A595AE58DE;2261
+(rerunfilecheck)             After:  B17792D3405A73C64E83A4D3B93CF577;2605.
  ) 
 Here is how much of TeX's memory you used:
- 25043 strings out of 467525
- 458316 string characters out of 5418983
- 874584 words of memory out of 5000000
- 53497 multiletter control sequences out of 15000+600000
+ 25050 strings out of 467525
+ 458422 string characters out of 5418983
+ 877226 words of memory out of 5000000
+ 53499 multiletter control sequences out of 15000+600000
  649004 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,20n,94p,841b,610s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1031,10 +1030,10 @@ e/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2026/tex
 mf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2026/texmf
 -dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on supplement.pdf (18 pages, 4781429 bytes).
+Output written on supplement.pdf (21 pages, 4790181 bytes).
 PDF statistics:
- 343 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
- 36 named destinations out of 1000 (max. 500000)
+ 365 PDF objects out of 1000 (max. 8388607)
+ 279 compressed objects within 3 object streams
+ 41 named destinations out of 1000 (max. 500000)
  154 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: yan2026paradoxes.aux
+The style file: plainnat.bst
+Database file #1: FHM.bib
+You've used 30 entries,
+            2773 wiz_defined-function locations,
+            778 strings with 9262 characters,
+and the built_in function-call counts, 12926 in all, are:
+= -- 1141
+> -- 683
+< -- 26
++ -- 233
+- -- 203
+* -- 985
+:= -- 1999
+add.period$ -- 96
+call.type$ -- 30
+change.case$ -- 145
+chr.to.int$ -- 30
+cite$ -- 60
+duplicate$ -- 645
+empty$ -- 1109
+format.name$ -- 255
+if$ -- 2716
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 41
+newline$ -- 162
+num.names$ -- 122
+pop$ -- 327
+preamble$ -- 1
+purify$ -- 127
+quote$ -- 0
+skip$ -- 483
+stack$ -- 0
+substring$ -- 438
+swap$ -- 66
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 270
+warning$ -- 0
+while$ -- 126
+width$ -- 0
+write$ -- 399

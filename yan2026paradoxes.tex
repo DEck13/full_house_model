@@ -35,8 +35,10 @@
 \newcommand{\xnone}{x^{\frac{1}{n+1}}}
 
 \newcommand{\R}{\mathbb{R}}
-\DeclareUnicodeCharacter{FB01}{fi}
-\DeclareUnicodeCharacter{FF0C}{,}
+\ifdefined\DeclareUnicodeCharacter
+  \DeclareUnicodeCharacter{FB01}{fi}
+  \DeclareUnicodeCharacter{FF0C}{,}
+\fi
 \DeclareMathOperator*{\Prob}{P}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -68,9 +70,8 @@
 {\centering
 1. Department of Statistics, University of Illinois Urbana-Champaign \\}
 
-\newpage
 \begin{abstract}
-We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and study its probability as a rank-reversal functional under selective observation. To study this quantity, we employ Full House Modeling, a rank-preserving selective-observation framework that maps observed achievements onto a latent rank scale by embedding observed systems within larger source populations and whose rank-preserving coupling admits a characterization result under natural invariance assumptions. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes.  An application to Major League Baseball illustrates how population depth and measurement environments can substantially alter cross-era comparisons. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a formal framework for quantifying structural reversals in cross-contextual comparisons.
+We study a paradox in which an individual with greater latent aptitude exhibits lower observed achievement than an individual with lesser aptitude when comparisons are made across contexts. We formalize this phenomenon as the aptitude-achievement paradox and study its probability as a rank-reversal functional under selective observation. To study this quantity, we employ Full House Modeling, a rank-preserving selective-observation framework that maps observed achievements onto a latent rank scale by embedding observed systems within larger source populations and whose rank-preserving coupling admits a characterization result under natural invariance assumptions. We derive closed-form paradox probabilities when achievement distributions are identical across contexts and obtain explicit expressions and bounds when they differ, including tractable results under normality with reliable plug-in estimation. Our results show that paradox risk depends primarily on population and sampling ratios rather than absolute sizes. Under imperfect rank preservation, we derive a closed-form bounds of the paradox probability under a common copula, and the found the paradox probability is insensitive to the small rank agreement between the observed order statistic and its latent talent. An application to Major League Baseball illustrates how population depth and measurement environments can substantially alter cross-era comparisons. By elevating aptitude-achievement reversals from anecdotal concern to an estimable quantity, this work provides a formal framework for quantifying structural reversals in cross-contextual comparisons.
 \end{abstract}
 
 
@@ -97,6 +98,7 @@ We develop the theory of FHM primarily under rank-based selection, especially to
     \item We develop the probabilistic foundations of Full House Modeling, including a characterization result showing that the induced latent-observed coupling is the unique rank-preserving monotone transformation consistent with the model assumptions.
     \item Under identical observed achievement distributions across contexts, we derive explicit and distribution-free paradox probabilities and characterize their dependence on population and sampling structure.
 	\item Under heterogeneous achievement distributions, we derive general bounds and obtain explicit Gaussian representations with exponentially controlled remainder terms and consistent plug-in estimation procedures.
+	\item Under imperfect rank preservation, we derive a copula representation, obtain closed-form bounds of the paradox probability under a common copula, and found the paradox probability is insensitive to the small rank agreement between the observed order statistic and its latent talent.. 
     \item We show theoretically and numerically that paradox probabilities depend primarily on ratios of eligible population sizes and sampling fractions rather than their absolute magnitudes.
 \end{itemize}
 
@@ -331,6 +333,30 @@ Consider the Full House Model in Definition~\ref{def:fhm} with two populations, 
 
 The conditions in Proposition~\ref{prop:condition} suggest that the technical condition is driven by the relative comparison of sampling and population ratios. In particular, the requirement $\frac{n_1}{n_2} \le 1$ and $\frac{N_2}{N_1} \le 1$ indicates that sampling distortion dominates population distortion in a coordinatewise sense. %We conjecture that this condition can be relaxed to the single inequality $\frac{n_1}{n_2}\cdot\frac{N_2}{N_1} \le 1$. Establishing this generalization would provide a sharper characterization of when the technical condition \eqref{eq:technical-condition} holds. A proof of this result remains an open problem.
 
+\begin{lemma}\label{lemma:beta-quantile-density-comparison}
+Let $N>n>j>0$. For $s>j$ and $u\in(0,1)$, define
+\[
+ q_s(u)=I_{s-j,j+1}^{-1}(u),
+ \qquad
+ h_s(u)=\frac{q_s(u)^{s-j}(1-q_s(u))^j}{sB(s-j,j+1)}.
+\]
+Then $h_n(u)<h_N(u)$ for every $u\in(0,1)$.
+\end{lemma}
+
+\begin{prop}\label{prop:condition2}
+Consider a Full House Model in Definition~\ref{def:fhm} with two
+populations and $F_{Y_i}=F_Y$ for $i=1,2$, where the system inclusion
+function is $1_i(X_{i,j}\geq X_{i,(N_i-n_i+1)})$.
+In the notation of Theorem~\ref{theorem:samedistgeneral}, assume
+$0\leq j<n_1$, $k=j$, and
+\[
+ \frac{n_1}{N_1}\leq\frac{n_2}{N_2},
+ \qquad N_2-N_1>n_2-n_1\geq0.
+\]
+Then technical condition~\eqref{eq:technical-condition} holds, and
+the conclusion of Theorem~\ref{theorem:samedistgeneral} follows.
+\end{prop}
+
 
 \section{Paradox Under Different Distributions}
 \label{sec:diffdist}
@@ -515,7 +541,285 @@ $
 $
 holds for standard plug-in estimators such as maximum likelihood estimators, provided that $n_2 = O(n_1)$.
 
+\section{Imperfect Rank Preservation}
+\label{sec:imperfect-rank-preservation}
 
+The rank-preservation assumption supplies the link between an observed order
+statistic and its latent population counterpart.  It is stronger than an
+assumption about the two marginal distributions: after both order statistics
+are transformed to uniform probability coordinates, rank preservation sets the
+two coordinates equal almost surely.  This restriction is useful because it
+identifies the paradox probability, but it is unlikely to hold exactly when
+achievement is affected by measurement error, temporary shocks, or other
+features not shared with aptitude.  We therefore study how the paradox
+probability changes when the latent and observed rank coordinates are allowed
+to be imperfectly associated.
+
+Kendall's rank correlation \citep{kendall1938new} provides a scale-free
+measure of this association. Let \((U_i,V_i)\) and \((U_i',V_i')\) be
+independent copies from system \(i\). Kendall's rank correlation is
+\[
+\tau_i
+=
+\Pr\{(U_i-U_i')(V_i-V_i')>0\}
+-
+\Pr\{(U_i-U_i')(V_i-V_i')<0\}.
+\]
+Consequently, the probability that a randomly chosen pair is ordered
+differently by the observed and latent coordinates is
+\[
+\Pr\{(U_i-U_i')(V_i-V_i')<0\}=\frac{1-\tau_i}{2}.
+\]
+Thus, \(\tau_i=1\) recovers rank preservation, whereas \(\tau_i=0\) means
+that concordance and discordance are equally likely. 
+
+\subsection{A general copula representation}
+
+Let \(Y_{i,(j)}\) be the observed order statistic under comparison, and let
+\(X_{i,(r_{i,j})}\) be its latent population counterpart.  Under the top-selection
+interpretation, \(r_{i,j}=N_i-n_i+j\).  Define their continuous distribution
+functions
+\[
+H_i(y)=I_{j,n_i-j+1}\{F_{Y_i}(y)\},
+\qquad
+K_i(x)=I_{r_{i,j},N_i-r_{i,j}+1}\{F_{X_i}(x)\},
+\]
+and the uniform coordinates
+\[
+U_i=H_i\{Y_{i,(j)}\},
+\qquad
+V_i=K_i\{X_{i,(r_{i,j})}\}.
+\]
+Let \(C_i\) denote the copula of \((U_i,V_i)\), and assume that the two
+systems are independent.  Introduce the comparison boundaries
+\[
+g(u)=H_1\{H_2^{-1}(u)\},
+\qquad
+\ell(v)=K_1\{K_2^{-1}(v)\}.
+\]
+
+\begin{prop}[Copula representation of the paradox probability]
+\label{prop:general-copula-paradox}
+Under the preceding conditions, the paradox probability is
+\[
+\theta(C_1,C_2)
+=
+\int_{[0,1]^2}
+\left[g(u)-C_1\{g(u),\ell(v)\}\right]\,dC_2(u,v).
+\]
+If \(C_2\) has density \(c_2\), this becomes
+\[
+\theta(C_1,C_2)
+=
+\int_0^1\int_0^1
+\left[g(u)-C_1\{g(u),\ell(v)\}\right]
+c_2(u,v)\,du\,dv.
+\]
+\end{prop}
+
+\begin{proof}
+Conditional on \((U_2,V_2)=(u,v)\), the achievement comparison is equivalent
+to \(U_1<g(u)\), and the aptitude comparison is equivalent to
+\(V_1>\ell(v)\).  Hence,
+\[
+\begin{aligned}
+\Pr\{U_1<g(u),V_1>\ell(v)\}
+&=\Pr\{U_1<g(u)\}
+  -\Pr\{U_1<g(u),V_1\leq\ell(v)\}\\
+&=g(u)-C_1\{g(u),\ell(v)\}.
+\end{aligned}
+\]
+Integrating this conditional probability with respect to the copula measure of
+\((U_2,V_2)\) gives the result.
+\end{proof}
+
+For a continuous copula, Kendall's coefficient satisfies
+\[
+\tau(C)=4\int_{[0,1]^2}C(u,v)\,dC(u,v)-1.
+\]
+Proposition~\ref{prop:general-copula-paradox} depends on the full copulas
+\((C_1,C_2)\), whereas \((\tau_1,\tau_2)\) supplies only two scalar
+restrictions.  Therefore, without an additional copula restriction, the
+general object determined by Kendall's coefficients is the identified set
+\[
+\Theta(\tau_1,\tau_2)
+=
+\left\{
+\theta(C_1,C_2):\tau(C_1)=\tau_1,\ \tau(C_2)=\tau_2
+\right\},
+\]
+rather than a single probability.
+\subsection{Bounds under a common copula}
+
+The identified set becomes more informative if the two systems share a
+copula. Define
+\[
+\Theta_{\mathrm{same}}(\tau)
+=
+\{\theta(C,C):\tau(C)=\tau\}.
+\]
+The following result gives a closed-form outer region for this set.
+
+\begin{prop}[Closed-form bounds under a common copula]
+\label{prop:common-copula-bounds}
+Suppose the two systems have common continuous achievement and aptitude
+margins, the largest achievers are compared, and \(C_1=C_2=C\), where
+\(\tau(C)=\tau\). Put
+\[
+a=\frac{N_1}{N_2},\qquad b=\frac{n_1}{n_2},\qquad
+p_U=\frac{1}{1+b},\qquad p_V=\frac{a}{1+a},\qquad
+d_\tau=\frac{1-\tau}{4}.
+\]
+For \(x_+=\max(x,0)\), define
+\[
+\begin{array}{ll}
+e_U=(p_U-1/2)_+, & c_U=(1/2-p_U)_+,\\
+e_V=(p_V-1/2)_+, & c_V=(1/2-p_V)_+.
+\end{array}
+\]
+Then every element of \(\Theta_{\mathrm{same}}(\tau)\) satisfies
+\[
+L_\tau(a,b)\leq \theta(C,C)\leq U_\tau(a,b),
+\]
+where
+\[
+\begin{aligned}
+L_\tau(a,b)
+&=\max\{0,\ p_U+p_V-1,\ d_\tau-c_U-c_V\},\\
+U_\tau(a,b)
+&=\min\{p_U,\ p_V,\ d_\tau+e_U+e_V\}.
+\end{aligned}
+\]
+Consequently,
+\[
+\Theta_{\mathrm{same}}(\tau)
+\subseteq [L_\tau(a,b),U_\tau(a,b)].
+\]
+The Fr\'echet bounds are sharp when \(a=b=1\), in which case
+\[
+\theta(C,C)=\frac{1-\tau}{4}.
+\]
+They also collapse when \(\tau=1\) and \(b\leq1\leq a\), giving
+\[
+\theta(C,C)=p_U+p_V-1
+=\frac{n_2}{n_1+n_2}-\frac{N_2}{N_1+N_2}.
+\]
+\end{prop}
+
+The interval in Proposition~\ref{prop:common-copula-bounds} is a computable,
+distribution-free outer region. Away from the two collapse cases it need not
+equal the sharp identified set because its proof uses union and Fr\'echet
+bounds. It nevertheless quantifies what follows from Kendall's coefficient
+without selecting a parametric copula family.
+
+%For the numerical design below, \((a,b)=(5/3,2/3)\). Thus, for
+%\(0\leq\tau\leq1\), Proposition~\ref{prop:common-copula-bounds} becomes
+%\[
+%\max\left\{0.225,\frac{1-\tau}{4}\right\}
+%\leq \theta(C,C)\leq
+%0.225+\frac{1-\tau}{4}.
+%\]
+
+\subsection{Gaussian-copula specialization}
+
+To obtain a one-parameter sensitivity analysis, we now restrict each
+\(C_i\) to the Gaussian copula
+\[
+C_{\rho_i}^{G}(u,v)
+=
+\Phi_{\rho_i}\{\Phi^{-1}(u),\Phi^{-1}(v)\},
+\]
+where \(\Phi_{\rho_i}\) is the bivariate standard normal distribution
+function with correlation \(\rho_i\).  Its Kendall coefficient is
+\[
+\tau_i=\frac{2}{\pi}\arcsin(\rho_i).
+\]
+
+With common continuous achievement and aptitude marginals,
+Proposition~\ref{prop:general-copula-paradox} gives the largest-achiever formula
+\[
+\theta_G(\tau_1,\tau_2)
+=
+\int_0^1\int_0^1
+\left[
+u^{n_1/n_2}
+-C_{\rho_1}^{G}
+\left\{u^{n_1/n_2},v^{N_1/N_2}\right\}
+\right]
+c_{\rho_2}^{G}(u,v)\,du\,dv,
+\]
+where \(\rho_i=\sin(\pi\tau_i/2)\).  This integral determines the
+theoretical curve used below.
+
+Two endpoints are available in closed form.  When \(\tau_1=\tau_2=1\), the
+copulas are comonotone and
+\[
+\theta_G(1,1)
+=
+\left[
+\frac{n_2}{n_1+n_2}-\frac{N_2}{N_1+N_2}
+\right]_+.
+\]
+When \(\tau_1=\tau_2=0\), the Gaussian copulas are independence copulas, so
+\[
+\theta_G(0,0)
+=
+\frac{n_2}{n_1+n_2}\frac{N_1}{N_1+N_2}.
+\]
+The second expression follows from independence, not from Kendall's coefficient
+being zero by itself.
+
+\subsection{Numerical validation}
+
+We use \((n_1,n_2,N_1,N_2)=(40,60,1000,600)\) and impose
+\(\tau_1=\tau_2=\tau\), with
+\[
+\tau\in\{1,.95,.90,.75,.50,0\}.
+\]
+For each intermediate value, we generate two independent system pairs from
+\[
+A_i=\Phi^{-1}(U_i),
+\qquad
+B_i=\rho A_i+\sqrt{1-\rho^2}Z_i,
+\qquad
+V_i=\Phi(B_i),
+\]
+where \(U_i\) is uniform, \(Z_i\) is independently standard normal, and
+\(\rho=\sin(\pi\tau/2)\).  We then record
+\[
+\mathbf 1\left\{
+V_1^{1/N_1}>V_2^{1/N_2},\quad
+U_1^{1/n_1}<U_2^{1/n_2}
+\right\}.
+\]
+The Monte Carlo calculation uses two million draws.  The theoretical integral
+is evaluated independently using 60-point bivariate Gauss--Hermite quadrature.
+The endpoints \(\tau=0\) and \(1\) use the preceding closed forms.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{rrrrr}
+\hline
+\(\tau\) & Lower bound & Gaussian theory & Gaussian simulation & Upper bound \\
+\hline
+1.00 & 0.225000 & 0.225000 & 0.225000 & 0.225000 \\
+0.95 & 0.225000 & 0.225000 & 0.225398 & 0.237500 \\
+0.90 & 0.225000 & 0.225040 & 0.224956 & 0.250000 \\
+0.75 & 0.225000 & 0.231194 & 0.231172 & 0.287500 \\
+0.50 & 0.225000 & 0.268174 & 0.267906 & 0.350000 \\
+0.00 & 0.250000 & 0.375000 & 0.375000 & 0.475000 \\
+\hline
+\end{tabular}
+\caption{Closed-form common-copula bounds and Gaussian-copula paradox
+probabilities under equal Kendall coefficients. The simulation column is based
+on two million Monte Carlo draws; the endpoint values use their closed forms.}
+\label{tab:gaussian-copula-validation}
+\end{table}
+
+Table \ref{tab:gaussian-copula-validation} therefore validates the Gaussian-copula calculation, and the theoretical probabilities satisfy the common-copula
+bounds. At $\tau=0.90$, for example, Kendall's coefficient restricts the paradox probability to $[0.225,0.250]$; the Gaussian theory and simulation give $0.225040$ and $0.224956$, respectively.
 
 \section{Empirical Illustrations}
 
@@ -599,7 +903,7 @@ In this way, baseball served as an ideal proving ground for the Full House frame
 
 We derive closed-form expressions for paradox probabilities under Full House data generating models in two regimes: (i) when observed achievements are iid, and (ii) when context-specific summaries are independent normals with distinct means and variances. The probability rises with population-size asymmetry (large $N_1$, small $N_2$) and sampling asymmetry (small $n_1$, large $n_2$). Moreover, for a fixed population-size ratio $N_2/N_1$, the paradox probability is unchanged by proportional rescaling of the $(N_1,N_2)$ in the regimes studied. We also develop bounds for more general settings and show that, when observed achievement is normal, plug-in estimators yield reliable paradox-probability estimates. A notable feature of the framework is that, in several settings, paradox probabilities depend only on order-statistic structure and sampling geometry, rendering both latent aptitude and achievement distributions structural nuisance components.
 
-The present analysis focuses on rank-preserving structural couplings and highly selective observation regimes, particularly top-$n$ selection mechanisms. Extending the framework to settings involving stochastic measurement error, imperfect ranking preservation, probabilistic selection, or heterogeneous latent aptitude distributions remains an important direction for future work. These extensions would trade the distribution-free cancellations obtained here for greater modeling flexibility. Likewise, while the present paper studies pairwise paradox probabilities, broader ranking-level functionals may also be of interest.
+The copula analysis in Section~\ref{sec:imperfect-rank-preservation} relaxes exact rank preservation while retaining uniform latent and observed rank coordinates. It shows that Kendall's coefficient alone determines an identified set rather than a unique paradox probability. Under a common copula, we derive closed-form outer bounds that are sharp in two important cases. The Gaussian specialization provides a computable sensitivity path within those bounds. Extensions to probabilistic selection, heterogeneous latent aptitude distributions, and uncertainty in the population sizes remain important. Likewise, while the present paper studies pairwise paradox probabilities, broader ranking-level functionals may also be of interest.
 
 Beyond baseball, the aptitude-achievement paradox has potential implications for educational evaluation, admissions, and other cross-context comparisons. When individuals are compared across institutions or environments of differing selectivity, observed performance metrics may systematically misrepresent underlying aptitude because of differences in population depth, selection mechanisms, and measurement conditions. Unlike standard latent ability or ranking models, which estimate scores or adjusted ranks within an observed comparison set, the proposed framework treats the probability of cross-context reversal itself as the inferential target. Under the framework of Full House Model, this probability admits distribution-free formulas and computable Gaussian representations, revealing how population depth, sampling fractions, and measurement environments jointly determine reversal risk. By formalizing aptitude-achievement reversals as an estimable probabilistic quantity, this framework developed here provides a way to quantify such latent-observed ranking reversals under explicit assumptions on selection and measurement processes. More broadly, the results show how population structure, selective observation, and measurement environment can jointly shape cross-context comparisons based solely on observed outcomes.
 
@@ -632,7 +936,6 @@ The Supplementary Materials contain proofs of mathematical results, together wit
 
 
 \bibliography{FHM.bib}
-\bibliographystyle{plainnat}
 
 
 

@@ -4,10 +4,12 @@
 \contentsline {subsection}{\numberline {1.2}Proof of Lemma~\ref {lemma:rep}}{3}{subsection.1.2}%
 \contentsline {subsection}{\numberline {1.3}Proof of Theorem~\ref {theorem:samedistgeneral}}{4}{subsection.1.3}%
 \contentsline {subsection}{\numberline {1.4}Proof of Proposition~\ref {prop:condition}}{5}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Proof of Proposition~\ref {prop:weakstodom}}{6}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Proof of Theorem~\ref {theorem:normalgeneral}}{7}{subsection.1.6}%
-\contentsline {subsection}{\numberline {1.7}Proof of Theorem \ref {theorem:plugin}}{9}{subsection.1.7}%
-\contentsline {section}{\numberline {2}Simulations}{13}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{13}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Sensitivity Analysis for Theorem~\ref {theorem:samedistgeneral}}{14}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Ratio of $N_2$ and $N_1$ Under a Skewed Gamma Achievement Distribution}{17}{subsection.2.3}%
+\contentsline {subsection}{\numberline {1.5}Proof of Lemma~\ref {lemma:beta-quantile-density-comparison}}{6}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Proof of Proposition~\ref {prop:condition2}}{7}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Proof of Proposition~\ref {prop:weakstodom}}{9}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}Proof of Theorem~\ref {theorem:normalgeneral}}{10}{subsection.1.8}%
+\contentsline {subsection}{\numberline {1.9}Proof of Theorem \ref {theorem:plugin}}{11}{subsection.1.9}%
+\contentsline {section}{\numberline {2}Simulations}{16}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Simulation Results for Theorem \ref {theorem:normalgeneral}}{16}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Sensitivity Analysis for Theorem~\ref {theorem:samedistgeneral}}{17}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Ratio of $N_2$ and $N_1$ Under a Skewed Gamma Achievement Distribution}{20}{subsection.2.3}%

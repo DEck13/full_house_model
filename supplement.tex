@@ -215,7 +215,7 @@ x^p(1-x)^{N_1-p}
 \subsection{Proof of Proposition~\ref{prop:condition}}
 
 \begin{proof}
-Specification of the selection rule $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \geq X_{i,(N_i - n_i + 1)}$ implies that $r_{i,j} = N_i + 1 - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $t \in (0,1)$, that
+Specification of the selection rule $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \geq X_{i,(N_i - n_i + 1)}$ implies that $r_{i,j} = N_i - j$. When either $n_1 = N_1$ and $n_2 = N_2$ or $n_1 = n_2$ and $N_1 = N_2$ we have, for all $t \in (0,1)$, that
 $$
   I_{N_2-j,j+1} \circ I_{N_1-j,j+1}^{-1} \circ I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (t) \geq t.
 $$
@@ -230,6 +230,120 @@ whenever $\frac{n_1}{n_2}\leq 1$ and $\frac{N_2}{N_1} \leq 1$. Observe that
 &\quad\implies I_{n_1-j,j+1} \circ I_{n_2-j,j+1}^{-1} (x) - I_{N_1-j,j+1} \circ I_{N_2-j,j+1}^{-1}(t) \geq 0.
 \end{align*}
 Technical condition \eqref{eq:technical-condition} holds and the conclusion of Theorem~\ref{theorem:samedistgeneral} applies.
+\end{proof}
+
+%%%% Proof of Proposition 3.5
+\subsection{Proof of Lemma~\ref{lemma:beta-quantile-density-comparison}}
+
+\begin{proof}
+The inverse-function derivative gives
+\[
+ q_s'(u)
+ =\frac{B(s-j,j+1)}{q_s(u)^{s-j-1}(1-q_s(u))^j}
+ =\frac{q_s(u)}{s h_s(u)}.
+\]
+Consequently,
+\[
+ h_s'(u)=1-\frac{j}{s(1-q_s(u))},
+ \qquad
+ h_s''(u)=-\frac{j q_s(u)}{s^2(1-q_s(u))^2h_s(u)}.
+\]
+Since $s-j>0$ and $j>0$, $h_s$ extends continuously to $[0,1]$
+with $h_s(0)=h_s(1)=0$.
+
+Put $m=h_n-h_N$. If $m$ were nonnegative at any point of $(0,1)$,
+then it would attain a nonnegative maximum at some $u_0\in(0,1)$.
+At this point,
+\[
+ m(u_0)\geq0,\qquad m'(u_0)=0,\qquad m''(u_0)\leq0.
+\]
+The equality $m'(u_0)=0$ implies
+\[
+ n(1-q_n(u_0))=N(1-q_N(u_0))=:c>0,
+\]
+and hence
+\[
+ q_N(u_0)-q_n(u_0)=c\left(\frac1n-\frac1N\right)>0.
+\]
+Because $h_n(u_0)\geq h_N(u_0)>0$, it follows that
+\begin{align*}
+ m''(u_0)
+ &=\frac{j}{c^2}\left(
+   \frac{q_N(u_0)}{h_N(u_0)}-
+   \frac{q_n(u_0)}{h_n(u_0)}\right)\\
+ &\geq\frac{j}{c^2}\,
+   \frac{q_N(u_0)-q_n(u_0)}{h_n(u_0)}>0,
+\end{align*}
+a contradiction. Thus $m(u)<0$ for all $u\in(0,1)$.
+\end{proof}
+
+\subsection{Proof of Proposition~\ref{prop:condition2}}
+\begin{proof}
+Specification of the selection rule $S_{i,j} = 1 \;\Longleftrightarrow\; X_{i,j} \geq X_{i,(N_i - n_i + 1)}$ implies that $r_{i,j} = N_i - j$. Using the reduction of technical condition~\eqref{eq:technical-condition}
+for this model, it suffices to show that
+\[
+ f(x):=I_{n_1-j,j+1}\bigl(I_{n_2-j,j+1}^{-1}(x)\bigr)
+       -I_{N_1-j,j+1}\bigl(I_{N_2-j,j+1}^{-1}(x)\bigr)
+ \geq0\qquad(0<x<1).
+\]
+If $j=0$, then $I_{a,1}(t)=t^a$ and
+\[
+ f(x)=x^{n_1/n_2}-x^{N_1/N_2}\geq0,
+\]
+because the ratio assumption gives $n_1/n_2\leq N_1/N_2$.
+Henceforth assume $j>0$. In this case, the inequality is strict.
+
+Let $d=n_2-n_1$ and $D=N_2-N_1$. The ratio assumption is equivalent to
+\[
+ \frac{d}{n_2}\geq\frac{D}{N_2}.
+\]
+Because $D>d\geq0$, this implies $d>0$ and $N_2>n_2$.
+It also implies
+$N_1\geq n_1N_2/n_2>n_1>j$, so all beta parameters are positive.
+
+For $s\in\{n_2,N_2\}$, use the notation
+\[
+ q_s(x)=I_{s-j,j+1}^{-1}(x),
+ \qquad
+ h_s(x)=\frac{q_s(x)^{s-j}(1-q_s(x))^j}{sB(s-j,j+1)}.
+\]
+Define the positive constants
+\[
+ A=\frac{B(n_2-j,j+1)}{B(n_1-j,j+1)},
+ \qquad
+ C=\frac{B(N_2-j,j+1)}{B(N_1-j,j+1)}.
+\]
+Differentiating the two compositions yields
+\[
+ f'(x)=Aq_{n_2}(x)^{-d}-Cq_{N_2}(x)^{-D}
+      =q_{n_2}(x)^{-d}\bigl(A-Cr(x)\bigr),
+\]
+where
+\[
+ r(x)=\frac{q_{n_2}(x)^d}{q_{N_2}(x)^D}.
+\]
+By Lemma~\ref{lemma:beta-quantile-density-comparison},
+$h_{n_2}(x)<h_{N_2}(x)$. Therefore
+\begin{align*}
+ \frac{r'(x)}{r(x)}
+ &=\frac{d}{n_2h_{n_2}(x)}-\frac{D}{N_2h_{N_2}(x)}\\
+ &\geq\frac{d}{n_2}
+    \left(\frac1{h_{n_2}(x)}-\frac1{h_{N_2}(x)}\right)>0.
+\end{align*}
+Thus $r$ is strictly increasing, and $A-Cr(x)$ is strictly decreasing.
+
+The function $f$ extends continuously to $[0,1]$ with
+$f(0)=f(1)=0$. By Rolle's theorem, there exists $x_*\in(0,1)$
+such that $f'(x_*)=0$, equivalently $r(x_*)=A/C$.
+Strict monotonicity of $r$ makes this point unique and gives
+\[
+ f'(x)>0\quad(0<x<x_*),
+ \qquad
+ f'(x)<0\quad(x_*<x<1).
+\]
+Together with $f(0)=f(1)=0$, these inequalities show that
+$f(x)>0$ for every $x\in(0,1)$, which establishes the required
+beta-function inequality.
 \end{proof}
 
 
@@ -546,9 +660,60 @@ Thus,
 noting that $n_2\left(\widehat F_{\mathbf W}(\mathbf w) - F_{\mathbf W}(\mathbf w)\right) = n_2F_{\mathbf W}(\mathbf w)\left(\frac{\widehat F_{\mathbf W}(\mathbf w)}{F_{\mathbf W}(\mathbf w)} - 1\right) = o_P(1)$.
 \end{proof}
 
+%%%% Proof of Proposition 3.5
+\subsection{Proof of Proposition~\ref{prop:common-copula-bounds}}
+
+\begin{proof}
+Let \((U_1,V_1)\) and \((U_2,V_2)\) be independent draws from \(C\), and
+write
+\[
+A_b=\{U_1<U_2^b\},\qquad
+B_a=\{V_1>V_2^a\},\qquad
+D=A_1\cap B_1.
+\]
+The paradox event is \(E=A_b\cap B_a\). Because the two pairs are iid and
+their margins are continuous, the two orientations of a discordant pair have
+equal probability. Hence
+\[
+\Pr(D)=\frac12\Pr\{(U_1-U_2)(V_1-V_2)<0\}
+=\frac{1-\tau}{4}=d_\tau.
+\]
+Uniformity of the margins also gives
+\[
+\Pr(A_b)=\int_0^1u^bdu=p_U,
+\qquad
+\Pr(B_a)=\int_0^1(1-v^a)dv=p_V.
+\]
+
+If \(b\leq1\), then \(A_1\subseteq A_b\) and
+\(\Pr(A_b\setminus A_1)=e_U\); if \(b\geq1\), then
+\(A_b\subseteq A_1\) and \(\Pr(A_1\setminus A_b)=c_U\). Similarly,
+if \(a\geq1\), then \(B_1\subseteq B_a\) with added probability \(e_V\),
+whereas if \(a\leq1\), then \(B_a\subseteq B_1\) with removed probability
+\(c_V\). Therefore,
+\[
+D\setminus E
+\subseteq (A_1\setminus A_b)\cup(B_1\setminus B_a),
+\qquad
+E\setminus D
+\subseteq (A_b\setminus A_1)\cup(B_a\setminus B_1),
+\]
+which implies
+\[
+d_\tau-c_U-c_V\leq\Pr(E)\leq d_\tau+e_U+e_V.
+\]
+The Fr\'echet bounds for \(E=A_b\cap B_a\) give
+\[
+\max(0,p_U+p_V-1)\leq\Pr(E)\leq\min(p_U,p_V).
+\]
+Intersecting the two intervals proves the stated bounds. If \(a=b=1\), all
+four adjustment terms vanish and \(E=D\), so both bounds equal \(d_\tau\).
+If \(\tau=1\) and \(b\leq1\leq a\), then \(c_U=c_V=0\) and
+\(e_U+e_V=p_U+p_V-1\), so the bounds again coincide.
+\end{proof}
+
+
 \section{Simulations}
-
-
 \subsection{Simulation Results for Theorem \ref{theorem:normalgeneral}}
 \label{simu_theorem}
 We now show the simulation results of our Normal Distribution example under different configurations of $(\mu_1,\mu_2,\sigma_1,\sigma_2, n_1,n_2,N_1,N_2)$. We verify Theorem~\ref{theorem:normalgeneral} in the numerical simulation. Paradox probabilities computed from Theorem \ref{theorem:normalgeneral} are compared with Monte Carlo estimates across a range of configurations. Each of these configurations will involve comparisons of the observed statistics and latent aptitudes of the highest achievers, the pair $(Y_{i,(n_i)}, X_{i,(N_i)})$ across two populations.
@@ -565,23 +730,29 @@ The results are tabulated in Table~\ref{Tab:simulationnormal}. These results sho
 
 \begin{table}[H]
 \centering
-\begin{tabular}{rrrrrrrr|r|r}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{rrrrrrrrrr}
 \hline
-$n_1$ & $n_2$ & $N_1$ & $N_2$ & $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$ & Simulation Prob & Theoretical Prob \\
+$n_1$ & $n_2$ & $N_1$ & $N_2$
+& $\mu_1$ & $\mu_2$ & $\sigma_1$ & $\sigma_2$
+& Simulation & Theory \\
 \hline
-10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.4000 & 0.4000099 \\
-10 & 20 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3970 & 0.3970305 \\
-10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3 & 0.5715 & 0.5714174 \\
-10 & 20 & 400 & 600 & 0 & 1 & 1.5 & 2 & 0.3645 & 0.3647783 \\
-10 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999245 \\
-20 & 40 & 400 & 600 & 0 & 1 & 1.0 & 3 & 0.3995 & 0.3999803 \\
-10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3 & 0.4000 & 0.3995149 \\
-20 & 40 & 400 & 600 & 0 & 0 & 1.5 & 2 & 0.2970 & 0.2962431 \\
-20 & 40 & 400 & 600 & 0 & 0 & 1.0 & 3 & 0.3750 & 0.3740938 \\
-10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3 & 0.3990 & 0.4000059 \\
+10 & 40 & 400 & 600 & -1 & 1 & 1.0 & 3.0 & 0.399932 & 0.400000 \\
+10 & 20 & 400 & 600 &  0 & 0 & 1.0 & 3.0 & 0.396838 & 0.397066 \\
+10 & 40 & 400 & 300 & -1 & 1 & 1.0 & 3.0 & 0.571408 & 0.571429 \\
+10 & 20 & 400 & 600 &  0 & 1 & 1.5 & 2.0 & 0.364756 & 0.364746 \\
+10 & 40 & 400 & 600 &  0 & 1 & 1.0 & 3.0 & 0.400195 & 0.399998 \\
+20 & 40 & 400 & 600 &  0 & 1 & 1.0 & 3.0 & 0.400089 & 0.399996 \\
+10 & 40 & 400 & 600 & -1 & 0 & 1.5 & 3.0 & 0.399687 & 0.399554 \\
+20 & 40 & 400 & 600 &  0 & 0 & 1.5 & 2.0 & 0.296258 & 0.296294 \\
+20 & 40 & 400 & 600 &  0 & 0 & 1.0 & 3.0 & 0.399977 & 0.399845 \\
+10 & 20 & 400 & 600 & -1 & 1 & 1.0 & 3.0 & 0.400088 & 0.399991 \\
 \hline
 \end{tabular}
-\caption{Simulation Results for Normal Example. }
+\caption{Simulation results for the normal maximum example. Each Monte
+Carlo estimate uses $10^7$ independent draws. The theoretical probability
+is evaluated by one-dimensional numerical integration.}
 \label{Tab:simulationnormal}
 \end{table}
 

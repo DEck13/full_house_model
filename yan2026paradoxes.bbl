@@ -1,0 +1,182 @@
+\begin{thebibliography}{30}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bartholomew et~al.(2011)Bartholomew, Knott, and
+  Moustaki]{bartholomew2011latent}
+David~J Bartholomew, Martin Knott, and Irini Moustaki.
+\newblock \emph{Latent variable models and factor analysis: A unified
+  approach}.
+\newblock John Wiley \& Sons, 2011.
+
+\bibitem[Baumer and Matthews(2014)]{baumer2014statistician}
+Benjamin~S Baumer and Gregory~J Matthews.
+\newblock A statistician reads the sports page: there is no avoiding {WAR}.
+\newblock \emph{Chance}, 27\penalty0 (3):\penalty0 41--44, 2014.
+
+\bibitem[Baumer et~al.(2015)Baumer, Jensen, and Matthews]{BB15}
+Benjamin~S Baumer, Shane~T Jensen, and Gregory~J Matthews.
+\newblock openwar: An open source system for evaluating overall player
+  performance in major league baseball.
+\newblock \emph{Journal of Quantitative Analysis in Sports}, 11\penalty0
+  (2):\penalty0 69--84, 2015.
+
+\bibitem[Berry et~al.(1999)Berry, Reese, and Larkey]{BRL99}
+Scott~M Berry, C~Shane Reese, and Patrick~D Larkey.
+\newblock Bridging different eras in sports.
+\newblock \emph{Journal of the American Statistical Association}, 94\penalty0
+  (447):\penalty0 661--676, 1999.
+
+\bibitem[Bond and Fox(2013)]{bond2013applying}
+Trevor~G Bond and Christine~M Fox.
+\newblock \emph{Applying the Rasch model: Fundamental measurement in the human
+  sciences}.
+\newblock Psychology Press, 2013.
+
+\bibitem[Bradley(1976)]{bradley1976science}
+Ralph~A. Bradley.
+\newblock Science, statistics, and paired comparisons.
+\newblock \emph{Biometrics}, 32\penalty0 (2):\penalty0 213--239, 1976.
+\newblock \doi{10.2307/2529494}.
+
+\bibitem[Bradley(1984)]{bradley1984paired}
+Ralph~A. Bradley.
+\newblock Paired comparisons: Some basic procedures and examples.
+\newblock In P.~R. Krishnaiah and P.~K. Sen, editors, \emph{Handbook of
+  Statistics}, volume~4, pages 299--326. Elsevier, Amsterdam, 1984.
+
+\bibitem[Bradley and Terry(1952)]{bradley1952rank}
+Ralph~A. Bradley and Milton~E. Terry.
+\newblock The rank analysis of incomplete block designs: I. the method of
+  paired comparisons.
+\newblock \emph{Biometrika}, 39:\penalty0 324--345, 1952.
+\newblock \doi{10.1093/biomet/39.3-4.324}.
+
+\bibitem[Chu and Ghahramani(2005)]{chu2005gaussian}
+Wei Chu and Zoubin Ghahramani.
+\newblock Preference learning with gaussian processes.
+\newblock In \emph{Proceedings of the 22nd International Conference on Machine
+  Learning}, pages 137--144. ACM, 2005.
+\newblock \doi{10.1145/1102351.1102369}.
+
+\bibitem[David(1988)]{david1988paired}
+Herbert~A. David.
+\newblock \emph{The Method of Paired Comparisons}.
+\newblock Chapman and Hall, London, 2 edition, 1988.
+
+\bibitem[Eck et~al.(2025)Eck, Kim, Yan, Bhatla, and Wang]{fullhouse2025}
+Daniel Eck, Jun~Hee Kim, Shen Yan, Muskan Bhatla, and Zheer Wang.
+\newblock \emph{fullhouse: Package for Estimating Talent and Era-Adjusted
+  Performance Metrics}, 2025.
+\newblock URL \url{https://github.com/DEck13/fullhouse}.
+\newblock R package version 1.1.
+
+\bibitem[Efron and Morris(1975)]{efron1975data}
+Bradley Efron and Carl Morris.
+\newblock Data analysis using stein's estimator and its generalizations.
+\newblock \emph{Journal of the American Statistical Association}, 70\penalty0
+  (350):\penalty0 311--319, 1975.
+
+\bibitem[Elo(1978)]{elo1978rating}
+Arpad~E. Elo.
+\newblock \emph{The Rating of Chessplayers, Past and Present}.
+\newblock Arco Publishing, 1978.
+
+\bibitem[Embrechts et~al.(2013)Embrechts, Kl{\"u}ppelberg, and
+  Mikosch]{embrechts2013modelling}
+Paul Embrechts, Claudia Kl{\"u}ppelberg, and Thomas Mikosch.
+\newblock \emph{Modelling extremal events: for insurance and finance},
+  volume~33.
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem[Embretson and Reise(2000)]{embretson2000item}
+Susan~E Embretson and Steven~P Reise.
+\newblock \emph{Item response theory for psychologists}.
+\newblock Psychology Press, 2000.
+
+\bibitem[Graepel et~al.(2007)Graepel, Minka, and Herbrich]{graepel2007bayesian}
+Thore Graepel, Tom Minka, and R~TrueSkill Herbrich.
+\newblock A bayesian skill rating system.
+\newblock \emph{Advances in Neural Information Processing Systems}, 19\penalty0
+  (569-576):\penalty0 7, 2007.
+
+\bibitem[Hagenaars and McCutcheon(2002)]{hagenaars2002applied}
+Jacques~A Hagenaars and Allan~L McCutcheon.
+\newblock \emph{Applied latent class analysis}.
+\newblock Cambridge University Press, 2002.
+
+\bibitem[Holland and Wainer(2012)]{holland2012differential}
+Paul~W Holland and Howard Wainer.
+\newblock \emph{Differential item functioning}.
+\newblock Routledge, 2012.
+
+\bibitem[Houlsby et~al.(2012)Houlsby, Huszar, Ghahramani, and
+  Hern{\'a}ndez-lobato]{houlsby2012collaborative}
+Neil Houlsby, Ferenc Huszar, Zoubin Ghahramani, and Jose Hern{\'a}ndez-lobato.
+\newblock Collaborative gaussian processes for preference learning.
+\newblock \emph{Advances in neural information processing systems}, 25, 2012.
+
+\bibitem[Kendall(1938)]{kendall1938new}
+Maurice~G Kendall.
+\newblock A new measure of rank correlation.
+\newblock \emph{Biometrika}, 30\penalty0 (1-2):\penalty0 81--93, 1938.
+
+\bibitem[McDonald(1999)]{mcdonald1999test}
+Roderick~P McDonald.
+\newblock \emph{Test theory: A unified treatment}.
+\newblock psychology press, 1999.
+
+\bibitem[Nickell and Layard(1999)]{nickell1999labor}
+Stephen Nickell and Richard Layard.
+\newblock Labor market institutions and economic performance.
+\newblock \emph{Handbook of labor economics}, 3:\penalty0 3029--3084, 1999.
+
+\bibitem[Quirk and Saposnik(1962)]{quirk1962admissibility}
+James~P Quirk and Rubin Saposnik.
+\newblock Admissibility and measurable utility functions.
+\newblock \emph{The Review of Economic Studies}, 29\penalty0 (2):\penalty0
+  140--146, 1962.
+
+\bibitem[Raudenbush and Bryk(1986)]{raudenbush1986hierarchical}
+Stephen Raudenbush and Anthony~S Bryk.
+\newblock A hierarchical model for studying school effects.
+\newblock \emph{Sociology of education}, pages 1--17, 1986.
+
+\bibitem[Schell(2013)]{SM13}
+Michael~J Schell.
+\newblock \emph{Baseball's all-time best hitters}.
+\newblock Princeton University Press, 2013.
+
+\bibitem[Schell(2016)]{SM16}
+Michael~J Schell.
+\newblock \emph{Baseball's all-time best sluggers}.
+\newblock Princeton University Press, 2016.
+
+\bibitem[Somers(1962)]{somers1962new}
+Robert~H Somers.
+\newblock A new asymmetric measure of association for ordinal variables.
+\newblock \emph{American sociological review}, pages 799--811, 1962.
+
+\bibitem[Winston et~al.(2022)Winston, Nestler, and
+  Pelechrinis]{winston2022mathletics}
+Wayne~L Winston, Scott Nestler, and Konstantinos Pelechrinis.
+\newblock \emph{Mathletics: How Gamblers, Managers, and Fans use Mathematics in
+  Sports}.
+\newblock Princeton University Press, 2022.
+
+\bibitem[Yan et~al.(2025)Yan, Burgos, Kinson, and Eck]{yan2025comparing}
+Shen Yan, Adrian Burgos, Jr, Christopher Kinson, and Daniel~J Eck.
+\newblock Comparing baseball players across eras via novel full house modeling.
+\newblock \emph{The Annals of Applied Statistics}, 19\penalty0 (2):\penalty0
+  1778--1799, 2025.
+
+\bibitem[Yu et~al.(2016)Yu, Ronen, Hu, Lu, and Hidalgo]{yu2016pantheon}
+Amy~Zhao Yu, Shahar Ronen, Kevin Hu, Tiffany Lu, and C{\'e}sar~A Hidalgo.
+\newblock Pantheon 1.0, a manually verified dataset of globally famous
+  biographies.
+\newblock \emph{Scientific data}, 3\penalty0 (1):\penalty0 1--16, 2016.
+
+\end{thebibliography}
